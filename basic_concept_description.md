@@ -1,6 +1,6 @@
 # Backend App
 
-~~backand_app~~
+[  ](http://dfdfddfdfd)
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
 
@@ -64,6 +64,8 @@ type	string	Entity의 타입이며 꼭 정의되어야 합니다. (e.g. "user")
 created	long	Entity의 생성 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)
 modified	long	Entity의 최종 수정 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)
 name	string	Entity의 고유한 이름.
+
+
 
 
 
