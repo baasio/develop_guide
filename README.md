@@ -96,7 +96,7 @@ Facebook으로 가입을 하기 위해서는 먼저 Facebook의 Access token이 
 
 - <b>[Sample Project 바로 다운로드하기](https://github.com/baasio/baas.io-sample-android/archive/master.zip)</b>
 
-```java
+```
 BaasioUser.signUpViaFacebookInBackground(mContext, fb_access_token, new BaasioSignInCallback() {
     @Override
     public void onException(BaasioException e) {
