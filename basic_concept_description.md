@@ -1,5 +1,7 @@
 # Backend App
 
+~~backand_app~~
+
 baas.io에서 생성한 Backend Application을 지칭합니다.
 
 가입하면 기본 Backend App인 "sandbox"가 생성이 되어 있으며, 필요에 따라 여러개의 Backend App을 생성할 수 있습니다. "sandbox" Backend App은 보안이 처리되어 있지 않은 Backend App으로 개발 용도로 기본 생성됩니다.
@@ -16,7 +18,52 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 
 > 따라서, 배포할 때는 새로운 Backend App을 생성하고 Role과 Permission을 설정하여 보안에 문제가 없도록 유의하시기 바랍니다.
 
+# Entity
 
+baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭됩니다.
+
+각 Entity들은 Key(이름)와 Value(값)의 쌍으로 구성된 Property(속성)들을 가지고 있습니다. Entity는 Type(타입)이라는 속성을 필수로 가지고 있으며, 같은 Type의 Entity들의 집합을 Collection(컬렉션)이라고 합니다.
+
+![](https://stage.baas.io/images/develop/common/collection-entity.png)
+
+아래는 간단한 Entity의 샘플 입니다.
+
+```
+{
+    "uuid": "40bbbd26-1c46-11e2-b6ff-020026de0053",
+    "type": "user",
+    "created": 1350909883387,
+    "modified": 1350909883387,
+    "activated": true,
+    "username": "xguru",
+    "email": "xguru@baas.io",
+    "name": "권정혁"
+}
+```
+
+## Property
+
+하나의 Entity는 여러 속성을 가질 수 있습니다. 이 속성들을 Porperty라고 합니다. 예를 들어, "철수"라는 사람은, '이름', '나이', '주소', '외모' 등의 Property가 있습니다. 이 Property가 많으면 많을 수록 좀 더 명확하게 Entity의 특징을 구분할 수 있습니다.
+
+Property는 baas.io에서 이미 정의하여 사용하고 있는 Predefined Property(기본 속성)들과 사용자가 정의하여 사용할 수 있는 Custom Property(사용자 정의 속성)들로 구분됩니다.
+
+## Predefined vs. Custom Property
+
+Entity가 가질 수 있는 Custom Property의 갯수는 이론적으로 제한이 없습니다.
+
+다만, Custom Property의 Key의 이름을 정할 때, Predefined Property의 Key와 동일하게 사용하지 않도록 주의해야 합니다.
+
+Custom Property의 Value는 JSON에서 Value가 될 수 있는 String, Number, Object, Array, Boolean, null로 설정할 수 있습니다. JSON은 다양한 데이터 형태를 저장하는데 넓게 쓰이고 있어, 사용에 제약은 거의 없습니다.
+
+Predefined Property는 아래와 같은 종류가 있습니다.
+
+Property	|   Type	|Description
+--------------------------------------------------------
+uuid	uuid	Entity의 고유한 ID이며 baas.io로부터 부여됩니다.
+type	string	Entity의 타입이며 꼭 정의되어야 합니다. (e.g. "user")
+created	long	Entity의 생성 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)
+modified	long	Entity의 최종 수정 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)
+name	string	Entity의 고유한 이름.
 
 
 
