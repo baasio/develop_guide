@@ -1,5 +1,5 @@
 
-<!--bs-docs-section-start-->
+[]({'element':'<div class=\"bs-docs-section\">'})
 # Backend App []({'id':'backend-app'})
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
@@ -102,9 +102,6 @@ Predefined Type의 종류는 아래와 같습니다.
 `Note` (예약)된 컬렉션
 
 현재는 제공되고 있지 않지만, 앞으로 제공될 기능을 위해 미리 정의된 컬렉션입니다.
-
-<!--bs-docs-section-end-->
-
 
 
 
