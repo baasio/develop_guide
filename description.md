@@ -1,5 +1,5 @@
 
-[]({'element':'<div class=\"bs-docs-section\">'})
+[]({'element':'<div class="bs-docs-section">'})
 # Backend App []({'id':'backend-app'})
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
