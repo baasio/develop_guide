@@ -1,3 +1,5 @@
+
+<!--bs-docs-section-start-->
 # Backend App []({'id':'backend-app'})
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
@@ -16,6 +18,8 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 
 > 따라서, 배포할 때는 새로운 Backend App을 생성하고 Role과 Permission을 설정하여 보안에 문제가 없도록 유의하시기 바랍니다.
 
+<!--bs-docs-section-end-->
+<!--bs-docs-section-start-->
 # Entity []({'id':'entity'})
 
 baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭됩니다.
@@ -98,7 +102,7 @@ Predefined Type의 종류는 아래와 같습니다.
 
 현재는 제공되고 있지 않지만, 앞으로 제공될 기능을 위해 미리 정의된 컬렉션입니다.
 
-
+<!--bs-docs-section-end-->
 
 
 
