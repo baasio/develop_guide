@@ -1,4 +1,4 @@
-* [backend App](#backend_app)
+* [backend App](#backend-app)
 * [Entity](#entity)
   * [Property](#entity-property)
   * [Predefined vs. Custom Property](#entity-predefined-property)
