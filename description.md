@@ -53,9 +53,9 @@ Entity가 가질 수 있는 Custom Property의 갯수는 이론적으로 제한�
 
 Custom Property의 Value는 JSON에서 Value가 될 수 있는 String, Number, Object, Array, Boolean, null로 설정할 수 있습니다. JSON은 다양한 데이터 형태를 저장하는데 넓게 쓰이고 있어, 사용에 제약은 거의 없습니다.
 
-|a|a|a|
-|-|-|-|
-|b|b|b|
+| a | a | a |
+|--|--|--|
+| b | b | b |
 
 Predefined Property는 아래와 같은 종류가 있습니다.
 
