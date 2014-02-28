@@ -1,5 +1,3 @@
-
-[]({'element':'<div class=\"bs-docs-section\">'})
 # Backend App []({'id':'backend-app'})
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
@@ -18,9 +16,6 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 
 > 따라서, 배포할 때는 새로운 Backend App을 생성하고 Role과 Permission을 설정하여 보안에 문제가 없도록 유의하시기 바랍니다.
 
-<!--bs-docs-section-end-->
-
-<!--bs-docs-section-start-->
 # Entity []({'id':'entity'})
 
 baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭됩니다.
