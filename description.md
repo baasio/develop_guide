@@ -428,6 +428,7 @@ Predefined Collection의 종류는 아래와 같습니다
 |location|	/locations|	(예약)위치정보|
 |script|	/scripts|	(예약)스크립트|
 |service|	/services|	(예약)서비스|
+[]({'class':'table-bordered'})
 
 
 `note` (예약)된 컬렉션
@@ -490,7 +491,7 @@ baas.io는 OAuth 2.0의 표준을 따르며 데이터를 요청하는 작업에�
 |------|-----|
 |Application	|해당 Application의 모든 권한을 가지는 인증입니다.|
 |Application User	|Application을 사용하는 회원이 가지는 인증입니다. (Role 설정에 따른 접근 제한을 가지게 됩니다.)|
-
+[]({'class':'table-bordered'})
 
 Application 인증 타입은 기본적으로 Application 내에서 거의 제약이 없는 슈퍼유저와 같은 권한을 가지고 있기 때문에 서버 기반의 Application을 위한 방법 입니다. OAuth 를 사용해서 로그인할 때, Application의 client ID 와 client secret을 인증 정보로 사용합니다.
 
@@ -552,6 +553,7 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 |Guest|	인증받지 않은 회원|	가입, 푸시를 위한 단말 등록/해제 권한만 가지고 있습니다.|
 |Default|	인증받은 회원	자신의 회원| 정보 접근 및 푸시를 위한 단말 등록/해제 권한만 가지고 있습니다.|
 |Administrator|	Administrator로 지정된 회원 또는 그룹|	아무런 권한이 없으며, 필요한 권한만 지정하여 사용합니다.|
+[]({'class':'table-bordered'})
 
 모든 Role은 새로운 Permission을 생성하거나, 수정 또는 삭제가 가능합니다. 즉, 로그인을 하지 않은 회원의 접근 범위와 로그인한 회원의 접근 범위를 각각 다르게 제한하여, 서비스를 만들 수 있습니다.
 
@@ -600,6 +602,7 @@ Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성
 |특정 Collection의 Entity를 조회할 수 있는 Permission|	/{collection}/*|		|O|  |  |
 |특정 Collection의 Entity를 수정/삭제할 수 있는 Permission|	/{collection}/*|   |  |O|O|
 |특정 Collection과 연결되어 Relationship을 가진 Entity를 조회/수정/삭제할 수 있는 Permission|	/{collection}/**|   |O|	O|	O|
+[]({'class':'table-bordered'})
 
 `Warning` 푸시 서비스와 Role
 
