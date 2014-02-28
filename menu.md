@@ -3,3 +3,4 @@
   * [Property](#entity-property)
   * [Predefined vs. Custom Property](#entity-predefined-property)
   * [Predefined vs. Custom Type](#entity-type)
+* [Query](#query)
