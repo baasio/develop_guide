@@ -45,6 +45,11 @@ baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭
 
 Property는 baas.io에서 이미 정의하여 사용하고 있는 Predefined Property(기본 속성)들과 사용자가 정의하여 사용할 수 있는 Custom Property(사용자 정의 속성)들로 구분됩니다.
 
+
+
+
+
+
 ## Predefined vs. Custom Property []({'id':'entity-predefined-property'})
 
 Entity가 가질 수 있는 Custom Property의 갯수는 이론적으로 제한이 없습니다.
@@ -55,7 +60,8 @@ Custom Property의 Value는 JSON에서 Value가 될 수 있는 String, Number, O
 
 Predefined Property는 아래와 같은 종류가 있습니다.
 
-|Property|Type|Description|
+
+| Property | Type | Description |
 |----------|----------|-------------|
 |uuid|uuid|Entity의 고유한 ID이며 baas.io로부터 부여됩니다.|
 |type|string|Entity의 타입이며 꼭 정의되어야 합니다. (e.g. "user")|
@@ -66,6 +72,19 @@ Predefined Property는 아래와 같은 종류가 있습니다.
 `Warning` "name" Property
 
 "users" Collection을 제외한 모든 Collection은 "name" Property를 추가로 가질 수 있으며, 고유한 값을 가지고 있어야합니다. 이 Property의 값은 변경할 수 없으니 바뀔수 있는 용도로 사용하지 않도록 주의 바랍니다. "users" Collection은 "username" Property가 같은 용도로 사용되고 있습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Predefined vs. Custom Type []({'id':'entity-type'})
 
@@ -96,6 +115,18 @@ Predefined Type의 종류는 아래와 같습니다.
 `Note` (예약)된 컬렉션
 
 현재는 제공되고 있지 않지만, 앞으로 제공될 기능을 위해 미리 정의된 컬렉션입니다.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
