@@ -374,6 +374,7 @@ PUT ~/staffes?filter=name%3D'홍길동' {"birthday":"1998-10-31"}
 확인된 Query 오류에 대해서는 현재 개발 검증 중에 있으며 개선되는대로 반영후 관련 사항에 대해서 공유할 예정입니다.
 
 **\#Query 오류 케이스**
+
 | 쿼리문 | 동작여부 | 설명 |
 |-------|---------|-------|
 | select * where gender = 'male' and name = 'bill' | OK | 2가지 조건의 and Query |
