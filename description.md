@@ -68,6 +68,7 @@ Predefined Property는 아래와 같은 종류가 있습니다.
 |created|long|Entity의 생성 시간이며 baas.io로부터 생성됩니다.(UNIX timestamp - milisec 포함)|
 |modified|long|Entity의 최종 수정 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)|
 |name|string|Entity의 고유한 이름.|
+[]({'class':'table-bordered'})
 
 `Warning` "name" Property
 
