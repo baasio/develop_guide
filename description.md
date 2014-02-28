@@ -113,6 +113,7 @@ Predefined Type의 종류는 아래와 같습니다.
 |script|/scripts|	(예약)스크립트|
 |service|/services|	(예약)서비스|
 
+[]({'class':'table-bordered'})
 
 `Note` (예약)된 컬렉션
 
