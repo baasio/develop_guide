@@ -58,8 +58,8 @@ Predefined Property는 아래와 같은 종류가 있습니다.
 |Property|Type|Description|
 |----------|----------|-------------|
 |uuid|uuid|Entity의 고유한 ID이며 baas.io로부터 부여됩니다.|
-|type|	string	|Entity의 타입이며 꼭 정의되어야 합니다. (e.g. "user")|
-|created|long|Entity의 생성 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)|
+|type|string|Entity의 타입이며 꼭 정의되어야 합니다. (e.g. "user")|
+|created|long|Entity의 생성 시간이며 baas.io로부터 생성됩니다.(UNIX timestamp - milisec 포함)|
 |modified|long|Entity의 최종 수정 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)|
 |name|string|Entity의 고유한 이름.|
 
@@ -77,8 +77,7 @@ Type도 Property와 비슷하게 baas.io에서 이미 정의하여 사용하고 
 
 Predefined Type의 종류는 아래와 같습니다.
 
-
-|Predefined Type|	Predefined Collection 이름 및 위치|	용도|
+|Predefined Type|Predefined Collection 이름 및 위치|	용도|
 |------------|-------------------|-------------|
 |user|/users|	회원정보|
 |group|/groups|	회원그룹|
