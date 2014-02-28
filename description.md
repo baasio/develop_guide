@@ -1,4 +1,5 @@
-# Backend App []({'id':'backend-app'})
+# Backend App
+[]({'id':'backend-app'})
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
 
@@ -16,7 +17,8 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 
 > 따라서, 배포할 때는 새로운 Backend App을 생성하고 Role과 Permission을 설정하여 보안에 문제가 없도록 유의하시기 바랍니다.
 
-# Entity []({'id':'entity'})
+# Entity
+[]({'id':'entity'})
 
 baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭됩니다.
 
@@ -39,7 +41,8 @@ baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭
 }
 ```
 
-## Property []({'id':'entity-property'})
+## Property
+[]({'id':'entity-property'})
 
 하나의 Entity는 여러 속성을 가질 수 있습니다. 이 속성들을 Porperty라고 합니다. 예를 들어, "철수"라는 사람은, '이름', '나이', '주소', '외모' 등의 Property가 있습니다. 이 Property가 많으면 많을 수록 좀 더 명확하게 Entity의 특징을 구분할 수 있습니다.
 
@@ -50,7 +53,8 @@ Property는 baas.io에서 이미 정의하여 사용하고 있는 Predefined Pro
 
 
 
-## Predefined vs. Custom Property []({'id':'entity-predefined-property'})
+## Predefined vs. Custom Property
+[]({'id':'entity-predefined-property'})
 
 Entity가 가질 수 있는 Custom Property의 갯수는 이론적으로 제한이 없습니다.
 
@@ -88,7 +92,8 @@ name|string|Entity의 고유한 이름.
 
 
 
-## Predefined vs. Custom Type []({'id':'entity-type'})
+## Predefined vs. Custom Type
+[]({'id':'entity-type'})
 
 앞서 말한 바와 같이, Entity는 Type이라는 필수 Property를 가지고 있어야합니다.
 
@@ -134,6 +139,7 @@ service|/services|	(예약)서비스
 
 
 # Query
+[]({'id':'query'})
 
 ## 데이터 질의(Query) 하기
 
