@@ -1,5 +1,5 @@
-# Android Intro
-[]({'id':'android-intro'})
+# iOS Intro
+[]({'id':'ios-intro'})
 
 baas.io API는 baas.io가 제공하는 Entity,Collection과 다른 데이타에 접근하기 위한 REST 기반의 구조를 제공하고 있습니다. 각 자원들은 URL 경로로 표현되며, 작성하신 앱은 이 URL에 기반하여 다양한 관리 작업들을 요청할수 있게 됩니다.
 
