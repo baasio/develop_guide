@@ -199,7 +199,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 즉, user A가 user B를 following 할 경우, user A의 following을 조회하면 user B가 나오지만, user B의 following 목록에는 user A가 나오지 않습니다. user B는 followers를 조회해야 user A가 나오는 것입니다.
 
 ## Custom Relationship
-[]({'id':'relationship-custom','id':'Custom Relationship'})
+[]({'id':'relationship-custom','data-menu':'Custom Relationship'})
 
 직접 관계를 정의하여, Custom Relationship을 만들 수도 있습니다.
 
