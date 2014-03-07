@@ -311,7 +311,7 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 다만, 배포할때는 보안에 문제가 없도록, 새로 Backend App을 생성하고, Role과 Permission을 설정하여 "sandbox"로 배포하지 않도록 해야 합니다.
 
 ## Permission
-[]({'id':'security-role','data-menu':'Permission'})
+[]({'id':'security-permission','data-menu':'Permission'})
 
 Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성되어 있습니다.
 
