@@ -1,5 +1,5 @@
 # Backend App
-[]({'id':'backend-app'})
+[]({'id':'backend-app','data-menu':'Backend App'})
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
 
@@ -18,7 +18,7 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 따라서, 배포할 때는 새로운 Backend App을 생성하고 Role과 Permission을 설정하여 보안에 문제가 없도록 유의하시기 바랍니다.
 
 # Entity
-[]({'id':'entity'})
+[]({'id':'entity','data-menu':'Entity'})
 
 baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭됩니다.
 
@@ -42,7 +42,7 @@ baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭
 ```
 
 ## Property
-[]({'id':'entity-property'})
+[]({'id':'entity-property','data-menu':'Property'})
 
 하나의 Entity는 여러 속성을 가질 수 있습니다. 이 속성들을 Porperty라고 합니다. 예를 들어, "철수"라는 사람은, '이름', '나이', '주소', '외모' 등의 Property가 있습니다. 이 Property가 많으면 많을 수록 좀 더 명확하게 Entity의 특징을 구분할 수 있습니다.
 
@@ -54,7 +54,7 @@ Property는 baas.io에서 이미 정의하여 사용하고 있는 Predefined Pro
 
 
 ## Predefined vs. Custom Property
-[]({'id':'entity-predefined-property'})
+[]({'id':'entity-predefined-property','data-menu':'Predefined vs. Custom Property'})
 
 Entity가 가질 수 있는 Custom Property의 갯수는 이론적으로 제한이 없습니다.
 
@@ -93,7 +93,7 @@ name|string|Entity의 고유한 이름.
 
 
 ## Predefined vs. Custom Type
-[]({'id':'entity-type'})
+[]({'id':'entity-type','data-menu':'Predefined vs. Custom Type'})
 
 앞서 말한 바와 같이, Entity는 Type이라는 필수 Property를 가지고 있어야합니다.
 
@@ -142,7 +142,7 @@ service|/services|	(예약)서비스
 
 
 # Collection
-[]({'id':'collection'})
+[]({'id':'collection','data-menu':'Collection'})
 
 Collection은 같은 Type의 Entity들을 모아놓은 것을 지칭합니다.
 
@@ -153,7 +153,7 @@ Collection의 이름은 Entity Type의 복수형으로 정해집니다. 예를�
 ![](https://stage.baas.io/images/develop/common/collection-entity.png)
 
 ## Predefined vs. Custom Collection
-[]({'id':'collection-predefined'})
+[]({'id':'collection-predefined','data-menu':'Predefined vs. Custom Collection'})
 
 Collection은, Entity Type의 복수형이 Collection의 이름이므로, baas.io에서 이미 정의하여 사용하고 있는 Predefined Collection(기본 컬렉션)과 사용자가 정의하여 사용할 수 있는 Custom Collection(사용자 정의 컬렉션)으로 구분됩니다. Custom Collection을 정의할 때는 Predefined Collection과 동일하게 정의하지 않도록 주의해야 합니다.
 
@@ -183,12 +183,12 @@ Predefined Collection의 종류는 아래와 같습니다
 
 
 # Relationship
-[]({'id':'relation'})
+[]({'id':'relation','data-menu':'Relationship'})
 
 Entity와 Entity사이에 관계를 만들 수 있습니다. 이 Relationship 기능을 이용하여, Twitter의 Following/Follower 기능이나 Facebook의 Like 기능을 구현할 수 있습니다.
 
 ## Following/Followers
-[]({'id':'relationship-following'})
+[]({'id':'relationship-following','data-menu':'Following/Followers'})
 
 baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 제공합니다. 이 "following"관계를 형성하면, 반대 방향으로 "followers"라는 가상 관계가 함께 생성이 됩니다.
 
@@ -199,7 +199,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 즉, user A가 user B를 following 할 경우, user A의 following을 조회하면 user B가 나오지만, user B의 following 목록에는 user A가 나오지 않습니다. user B는 followers를 조회해야 user A가 나오는 것입니다.
 
 ## Custom Relationship
-[]({'id':'relationship-custom'})
+[]({'id':'relationship-custom','id':'Custom Relationship'})
 
 직접 관계를 정의하여, Custom Relationship을 만들 수도 있습니다.
 
@@ -215,14 +215,14 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 
 # Authentication
-[]({'id':'authentication'})
+[]({'id':'authentication','data-menu':'Authentication'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. OAuth 는 사용자가 모바일 앱 등을 사용해서 웹서비스를 사용할 때, 패스워드를 안전하게 관리하면서 서비스를 사용할 수 있도록 해주는 인증기술 입니다. 원하는 권한만을 제한해서 부여할 수 있는 기능을 가진 제한된 권한의 열쇠라고 생각하시면 편리합니다. 종종 트렁크를 열 수 없는 발렛파킹 전용 열쇠에 비유되기도 합니다. Application에 비밀번호를 저장하는 대신에 OAuth 는 디바이스의 앱에 할당된, 인증토큰 이라는 것을 통해서 인증 할 수 있도록 해줍니다.
 
 반드시 라이브러리를 사용해서 구현해야 하는 OAuth 1.0과 달리 OAuth 2.0은 간단하면서도 안전한 인증을 제공합니다. OAuth 2.0은 Google 이나 Facebook등에서 사용하고 있으며 자세한 내용은 oauth.net 을 참고하시기 바랍니다.
 
 ## Access Token
-[]({'id':'authentication-accesstoken'})
+[]({'id':'authentication-accesstoken','data-menu':'Access Token'})
 
 baas.io는 OAuth 2.0의 표준을 따르며 데이터를 요청하는 작업에서 Access Token(인증토큰)을 요구합니다. 이 Access Token을 이용하여 baas.io는 접근 권한을 확인하여 요청을 처리합니다.
 
@@ -254,7 +254,7 @@ Client ID와 Client Secret을 이용하여 얻게되는 Application 권한은 �
 특히 유의하실 점은, Client ID, Client Secret을 단말에 설치되는 앱의 소스코드에 넣어서 전체권한을 갖도록 하지마시기 바랍니다.
 
 ## Policy
-[]({'id':'authentication-policy'})
+[]({'id':'authentication-policy','data-menu':'Policy'})
 
 Access Token은 유효시간이 있으며, 기본 설정은 24시간으로 설정되어 있습니다. 유효시간이 지난 Access Token을 사용하여 baas.io에 요청하면, HTTP 401을 수신하게 됩니다.
 
@@ -272,7 +272,7 @@ Twitter나 Facebook과 같은 앱들도 OAuth정책에 따라 유효시간이 �
 
 
 # Security
-[]({'id':'security'})
+[]({'id':'security','data-menu':'Security'})
 
 baas.io는 Role(역할)과 Permission(권한)을 통하여 강력한 보안 시스템을 제공하고 있습니다.
 
@@ -283,7 +283,7 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 ![](https://stage.baas.io/images/develop/common/databrowser-role.png)
 
 ## Role
-[]({'id':'security-role'})
+[]({'id':'security-role','data-menu':'Role'})
 
 백엔드앱을 생성하면, 세 가지의 기본 Role을 가지고 있습니다. 각각의 Role은 Permission을 가지고 있으며, Permission을 어떻게 설정하느냐에 따라 접근할 수 있는 범위가 제한됩니다.
 
@@ -311,6 +311,7 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 다만, 배포할때는 보안에 문제가 없도록, 새로 Backend App을 생성하고, Role과 Permission을 설정하여 "sandbox"로 배포하지 않도록 해야 합니다.
 
 ## Permission
+[]({'id':'security-role','data-menu':'Permission'})
 
 Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성되어 있습니다.
 
