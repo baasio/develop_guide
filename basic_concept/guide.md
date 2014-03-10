@@ -7,7 +7,7 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 
 각각의 Backend App은 독립적으로 관리되어, 서로 공유할 수 없습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/backend-app.png) -->
+![](https://stage.baas.io/images/develop/common/backend-app.png)
 
 `caution` "sandbox" Backend App
 
