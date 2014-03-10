@@ -24,7 +24,7 @@ baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭
 
 각 Entity들은 Key(이름)와 Value(값)의 쌍으로 구성된 Property(속성)들을 가지고 있습니다. Entity는 Type(타입)이라는 속성을 필수로 가지고 있으며, 같은 Type의 Entity들의 집합을 Collection(컬렉션)이라고 합니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/collection-entity.png) -->
+![](https://stage.baas.io/images/develop/common/collection-entity.png)
 
 아래는 간단한 Entity의 샘플 입니다.
 
@@ -150,7 +150,7 @@ Collection의 이름은 Entity Type의 복수형으로 정해집니다. 예를�
 
 만들려는 이름의 Collection이 없더라도 Entity를 생성하면, 생성하려는 Entity Type의 복수형으로 Collection이 생성됩니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/collection-entity.png) -->
+![](https://stage.baas.io/images/develop/common/collection-entity.png)
 
 ## Predefined vs. Custom Collection
 []({'id':'collection-predefined','data-menu':'Predefined vs. Custom Collection'})
@@ -194,7 +194,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 아래 그림을 살펴보겠습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/following-follower.png) -->
+![](https://stage.baas.io/images/develop/common/following-follower.png)
 
 즉, user A가 user B를 following 할 경우, user A의 following을 조회하면 user B가 나오지만, user B의 following 목록에는 user A가 나오지 않습니다. user B는 followers를 조회해야 user A가 나오는 것입니다.
 
