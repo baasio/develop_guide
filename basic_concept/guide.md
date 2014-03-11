@@ -209,7 +209,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 즉, 아래의 그림과 같이 Relationship이 만들어집니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/custom-relationship.png) -->
+![](https://stage.baas.io/images/develop/common/custom-relationship.png)
 
 
 
@@ -280,7 +280,7 @@ baas.io는 Role(역할)과 Permission(권한)을 통하여 강력한 보안 시�
 
 Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터브라우저 > Role을 통하여 수정할 수 있습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role.png) -->
+![](https://stage.baas.io/images/develop/common/databrowser-role.png)
 
 ## Role
 []({'id':'security-role','data-menu':'Role'})
@@ -289,7 +289,7 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 
 데이터브라우저의 Role에는 아래와 같이 세 가지 Role을 보여주고 있습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role-list.png) -->
+![](https://stage.baas.io/images/develop/common/databrowser-role-list.png)
 
 각 Role은 아래와 같은 용도로 사용됩니다.
 
@@ -323,7 +323,7 @@ Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성
 
 즉, "*"이 오는 경우는 바로 하위 위치까지 허용하는 Path이며, "**"이 오는 경우는 하위의 모든 하위 위치까지 허용하는 Path입니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role-permission.png) -->
+![](https://stage.baas.io/images/develop/common/databrowser-role-permission.png)
 
 예를 들어, 위 사진은 Guest Role의 기본 Permission이며, 세 개의 Permission이 설정되어 있는 것을 보실 수 있습니다. 이 Permission들은 Backend App을 생성하면 Guest Role에 기본으로 설정되는 Permission입니다.
 
