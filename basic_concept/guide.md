@@ -7,7 +7,7 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 
 각각의 Backend App은 독립적으로 관리되어, 서로 공유할 수 없습니다.
 
-![](https://stage.baas.io/images/develop/common/backend-app.png)
+<!-- ![](https://stage.baas.io/images/develop/common/backend-app.png) -->
 
 `caution` "sandbox" Backend App
 
@@ -24,7 +24,7 @@ baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭
 
 각 Entity들은 Key(이름)와 Value(값)의 쌍으로 구성된 Property(속성)들을 가지고 있습니다. Entity는 Type(타입)이라는 속성을 필수로 가지고 있으며, 같은 Type의 Entity들의 집합을 Collection(컬렉션)이라고 합니다.
 
-![](https://stage.baas.io/images/develop/common/collection-entity.png)
+<!-- ![](https://stage.baas.io/images/develop/common/collection-entity.png) -->
 
 아래는 간단한 Entity의 샘플 입니다.
 
@@ -150,7 +150,7 @@ Collection의 이름은 Entity Type의 복수형으로 정해집니다. 예를�
 
 만들려는 이름의 Collection이 없더라도 Entity를 생성하면, 생성하려는 Entity Type의 복수형으로 Collection이 생성됩니다.
 
-![](https://stage.baas.io/images/develop/common/collection-entity.png)
+<!-- ![](https://stage.baas.io/images/develop/common/collection-entity.png) -->
 
 ## Predefined vs. Custom Collection
 []({'id':'collection-predefined','data-menu':'Predefined vs. Custom Collection'})
@@ -194,7 +194,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 아래 그림을 살펴보겠습니다.
 
-![](https://stage.baas.io/images/develop/common/following-follower.png)
+<!-- ![](https://stage.baas.io/images/develop/common/following-follower.png) -->
 
 즉, user A가 user B를 following 할 경우, user A의 following을 조회하면 user B가 나오지만, user B의 following 목록에는 user A가 나오지 않습니다. user B는 followers를 조회해야 user A가 나오는 것입니다.
 
@@ -209,7 +209,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 즉, 아래의 그림과 같이 Relationship이 만들어집니다.
 
-![](https://stage.baas.io/images/develop/common/custom-relationship.png)
+<!-- ![](https://stage.baas.io/images/develop/common/custom-relationship.png) -->
 
 
 
@@ -280,7 +280,7 @@ baas.io는 Role(역할)과 Permission(권한)을 통하여 강력한 보안 시�
 
 Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터브라우저 > Role을 통하여 수정할 수 있습니다.
 
-![](https://stage.baas.io/images/develop/common/databrowser-role.png)
+<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role.png) -->
 
 ## Role
 []({'id':'security-role','data-menu':'Role'})
@@ -289,7 +289,7 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 
 데이터브라우저의 Role에는 아래와 같이 세 가지 Role을 보여주고 있습니다.
 
-![](https://stage.baas.io/images/develop/common/databrowser-role-list.png)
+<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role-list.png) -->
 
 각 Role은 아래와 같은 용도로 사용됩니다.
 
@@ -323,7 +323,7 @@ Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성
 
 즉, "*"이 오는 경우는 바로 하위 위치까지 허용하는 Path이며, "**"이 오는 경우는 하위의 모든 하위 위치까지 허용하는 Path입니다.
 
-![](https://stage.baas.io/images/develop/common/databrowser-role-permission.png)
+<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role-permission.png) -->
 
 예를 들어, 위 사진은 Guest Role의 기본 Permission이며, 세 개의 Permission이 설정되어 있는 것을 보실 수 있습니다. 이 Permission들은 Backend App을 생성하면 Guest Role에 기본으로 설정되는 Permission입니다.
 
