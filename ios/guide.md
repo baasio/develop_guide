@@ -1,5 +1,5 @@
 # iOS Intro
-[]({'id':'iOs Intro'})
+[]({'id’:’intro'})
 iOS 인트로
 
 
@@ -7,12 +7,12 @@ iOS 인트로
 
 
 # Users
-[]({'id’:’Users'})
+[]({'id’:’users'})
 User 기능은 **users Collection**을 통해 지원되며, 사용자의 회원가입, 로그인 및 정보의 관리 기능을 제공합니다. 
 
 
 ##Sign Up
-[]({'id’:’Sign Up'})
+[]({'id’:’sign-up'})
 회원을 가입하는 방법은 username(email)을 통한 가입과 Facebook을 통한 가입을 지원합니다.
 
 ###동기식 코드
@@ -89,7 +89,7 @@ user.username = @"cetauri";       // 다음 코드도 같다. [user setObject:@"
 
 
 ## Sign Up with Facebook
-[]({'id':'users-signup-via-facebook'})
+[]({'id’:’Signup-via-Facebook'})
 Facebook을 이용한 회원가입 방법입니다. 기본 셋팅과 테스트는 [Facebook SDK 이용가이드](http://blog.baas.io/archives/921)에서 확인하실 수 있습니다.
 ###동기식 코드
 
