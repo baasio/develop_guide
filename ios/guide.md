@@ -1,5 +1,5 @@
 # iOS Intro
-[]({'id':'ios-intro'})
+[]({'id':'iOs Intro'})
 iOS 인트로
 
 
@@ -7,46 +7,48 @@ iOS 인트로
 
 
 # Users
-[]({'id':'users'})
+[]({'id’:’Users'})
 User 기능은 **users Collection**을 통해 지원되며, 사용자의 회원가입, 로그인 및 정보의 관리 기능을 제공합니다. 
 
 
 ##Sign Up
-[]({'id':'users-signup'})
+[]({'id’:’Sign Up'})
 회원을 가입하는 방법은 username(email)을 통한 가입과 Facebook을 통한 가입을 지원합니다.
-###동기식 코드
 
-    NSError *e = nil;
-    BaasioUser *user = [BaasioUser user];
-    user.username = @"cetauri";       // 다음 코드도 같다. [user setObject:@"user name" forKey:@"username"];
-    [user setObject:@"password" forKey:@"password"];
-    [user setObject:@"cetauri@gmail.com" forKey:@"email"];
-    [user setObject:@"권오상" forKey:@"name"];
-    [user setObject:@"kwon, ohsang" forKey:@"eng_name"];	 //추가된 정보
-    [user setObject:@"M" forKey:@"sex"];	 				//추가된 정보
-    [user signUp:&e];
-    
-    if(e){
-        NSLog(@"fail : %@", e.localizedDescription);
-    }
+###동기식 코드
+```objc
+NSError *e = nil;
+BaasioUser *user = [BaasioUser user];
+user.username = @"cetauri";       // 다음 코드도 같다. [user setObject:@"user name" forKey:@"username"];
+[user setObject:@"password" forKey:@"password"];
+[user setObject:@"cetauri@gmail.com" forKey:@"email"];
+[user setObject:@"권오상" forKey:@"name"];
+[user setObject:@"kwon, ohsang" forKey:@"eng_name"];	 //추가된 정보
+[user setObject:@"M" forKey:@"sex"];	 				//추가된 정보
+[user signUp:&e];
+
+if(e){
+    NSLog(@"fail : %@", e.localizedDescription);
+}
+```
 
 ###비동기식 코드
+```objc
+BaasioUser *user = [BaasioUser user];
+user.username = @"cetauri";       // 다음 코드도 같다. [user setObject:@"user name" forKey:@"username"];
+[user setObject:@"password" forKey:@"password"];
+[user setObject:@"cetauri@gmail.com" forKey:@"email"];
+[user setObject:@"권오상" forKey:@"name"];
+[user setObject:@"kwon, ohsang" forKey:@"eng_name"];	 //추가된 정보
+[user setObject:@"M" forKey:@"sex"];	 				//추가된 정보
 
-    BaasioUser *user = [BaasioUser user];
-    user.username = @"cetauri";       // 다음 코드도 같다. [user setObject:@"user name" forKey:@"username"];
-    [user setObject:@"password" forKey:@"password"];
-    [user setObject:@"cetauri@gmail.com" forKey:@"email"];
-    [user setObject:@"권오상" forKey:@"name"];
-    [user setObject:@"kwon, ohsang" forKey:@"eng_name"];	 //추가된 정보
-    [user setObject:@"M" forKey:@"sex"];	 				//추가된 정보
-    
-    [user signUpInBackground:^(void) {
-                    NSLog(@"success");
-                }
-                failureBlock:^(NSError *error){
-                    NSLog(@"fail : %@", error.localizedDescription);
-                }];
-
+[user signUpInBackground:^(void) {
+                NSLog(@"success");
+            }
+            failureBlock:^(NSError *error){
+                NSLog(@"fail : %@", error.localizedDescription);
+            }];
+```
 
 
 또한 회원 가입은 static method를 이용하여 간단히 생성 가능하지만, 입력 필드는 "id, 암호, 이름, 메일"로 제한됩니다.
