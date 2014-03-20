@@ -1,2350 +1,1642 @@
-# Android Intro
-[]({'id':'android-intro'})
+# Intro
+[]({'id':'intro'})
 
-baas.io API는 baas.io가 제공하는 Entity,Collection과 다른 데이타에 접근하기 위한 REST 기반의 구조를 제공하고 있습니다. 각 자원들은 URL 경로로 표현되며, 작성하신 앱은 이 URL에 기반하여 다양한 관리 작업들을 요청할수 있게 됩니다.
+## Specification
+[]({'id':'specification'})
 
-앱 내에서는 GET/POST/PUT/DELETE 와 같은 HTTP 메소드를 사용하여 각 URL로 되어있는 API를 호출하게 됩니다.
+baas.io는 Android App을 개발하기 위한 SDK를 제공합니다. SDK는 <strong>Static Library형태의 jar파일과 Open Source로 제공</strong>되며, Download 페이지를 통해 다운받으실 수 있습니다.
 
-아래 테이블은 baas.io API를 이용하여 접근 가능한 앱 관련 Entity들을 표시합니다. 각 Entity명을 클릭하면 상세정보와 메소드를 볼수 있습니다.
+baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 
-|Entity|Collection|설명|
-|:-----|:--------|:--|
-|Application|/applications|Application Entity|
-|User|/users|사용자 Entity|
-|Group|/groups|그룹 Entity|
-|Role|/roles|역할 Entity|
-|File|/files|파일 Entity|
-|Device|/devices|디바이스 Entity - 지원예정|
-|Events and counters|/events|이벤트 와 카운터 Entity - 지원예정|
-|일반용도|Collection|/|사용자 Entity|
+- OS 버전: Android 2.2 이상
+- Tool: Intelli J, Eclipse
 
-baas.io 의 데이터 구조는 계층형 입니다. 모든 Entity의 타입에 대해서, 그 타입의 모든 Entity를 가지고 있는 Collection이 있습니다. Collection들은 앱에 속해 있고, 앱은 각 사용자에 속해 있습니다.
+또한, 아래와 같은 외부 Library를 사용하고 있습니다.
 
-Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름지어 집니다. 예를 들어, user Entity 타입은 users Collection에 저장됩니다.
+- [Google Cloud Messaging Service](http://developer.android.com/google/gcm/index.html)
+    - gcm.jar
+- [Spring for android](http://www.springsource.org/spring-android)
+    - spring-android-core-1.0.1.RELEASE.jar
+    - spring-android-rest-template-1.0.1.RELEASE.jar
+- [Jackson Java JSON-processor](http://jackson.codehaus.org/)
+    - jackson-core-asl-1.9.1.jar
+    - jackson-mapper-asl-1.9.1.jar
+- [slf4j](http://www.slf4j.org/)
+    - slf4j-android-1.6.1-RC1.jar
 
-일반 용도 Collection은 자신만의 Collection을 만드는 것 부터 시작합니다. 특정한 Entity 를 위한 Collection이 아니며 필요한 Entity 를 정의하고 그 Entity 를 저장할 Collection을 자유롭게 생성할 수 있습니다.
+## Class Structure
+[]({'id':'class-structure'})
 
-## Endpoints
-[]({'id':'intro-endpoint'})
+baas.io Android SDK는 baas.io에서 제공하는 서비스에 따라 아래와 같은 클래스를 제공합니다.
 
-- [Application](#intro-endpoints-application)
-- [Authorization](#intro-endpoints-authorization)
-- [User](#intro-endpoints-user)
-- [Group](#intro-endpoints-group)
-- [Role](#intro-endpoints-role)
-- [Push](#intro-endpoints-push)
-- [File](#intro-endpoints-file)
-- [Help](#intro-endpoints-help)
-- [Collection](#intro-endpoints-collection)
+- Users(회원관리): BaasioUser
+- Data(데이터관리): BaasioEntity
+- Query(조회): BaasioQuery
+- Group(그룹관리): BaasioGroup
+- File(파일관리): BaasioFile
+- Push(푸시메시지): BaasioPush
+- Help Center(고객센터): BaasioHelp
 
-##### Application|intro-endpoints-application
+## Method Rule
+[]({'id':'method-rule'})
 
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|PUT|{baasio-id}/{app-id}|application/json|Application 정보 수정|
+Android는 Main UI Thread에서 네트워크 통신을 하지 않도록 하고 있습니다.
+따라서, baas.io는 모든 클래스의 메소드에 대해 <strong>동기/비동기 방식</strong>을 지원하며, 쌍으로 제공하고 있습니다.
 
-##### Authorization|intro-endpoints-authorization
+메소드의 이름은 방식에 따라, 동기식의 경우, 동사(Verb)로 명명하고 있으며, 비동기식은 동사(Verb)+InBackground 명명하고 있습니다.
+아래의 예는 save(저장)이라는 동사에 따른 동기/비동기식 함수의 예를 보여주고 있습니다.
 
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|<del>GET</del>|<del>{baasio-id}/{app-id}/token</del>|<del>application/json<del>|<del>Application,Application 사용자 인증하기</del> (Deprecated)|
-|POST|{baasio-id}/{app-id}/token|application/json|Application,Application 사용자 인증하기|
+차이점은, 동기식은 메소드의 리턴(Return)값으로 결과를 전달되고 있으며, 비동기식은 메소드로 전달된 Callback을 통해 결과가 전달되고 있음을 알 수 있습니다.
 
-##### User|intro-endpoints-user
+```java
+//동기식
+BaasioEntity entity = new BaasioEntity("friend");
+BaasioEntity savedEntity = entity.save();  
+```
 
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|POST|users|application/json|사용자 등록하기|
-|GET|users|application/json|사용자 조회하기|
-|GET|users?{query}|application/json|사용자를 쿼리로 조회하기|
-|GET|users/{uuid or username or email_address}|application/json|사용자 UUID, username, email 으로 조회하기|
-|PUT|users/{uuid or username or email_address}|application/json|사용자의 정보를 수정하기|
-|DELETE|users/{uuid or username or email_address}|application/json|사용자의 정보를 삭제하기|
-|POST|users/{uuid or username or email_address}/password|application/json|사용자의 비밀번호를 변경하기|
-|POST|users/resetpw|application/json|사용자의 비밀번호를 재설정하기|
-|POST|users/token|application/json|사용자의 인증 토큰 발급하기|
-|POST|users/revoketokens|application/json|사용자 발급한 인증 토큰을 만료 시키기|
-|POST|users/revoketoken|application/json|사용자가 발급한 인증 토큰 모두 만료 시키기|
-|GET|users/{uuid or username or email_address}/activate|application/json|사용자를 활성화 하기(X)|
-|GET|users/{uuid or username or email_address}/reactivate|application/json|사용자를 다시 활성화 하기(X)|
-|GET|users/{uuid or username or email_address}/feed|application/json|사용자의 피드(Feed) 조회하기|
-|GET|users/{uuid or username or email_address}/groups|application/json|사용자가 속한 그룹조회하기|
-|POST|groups/{uuid or groupname}/users/{uuid or username}|application/json|그룹에 사용자를 추가하기|
-|GET|users/{uuid or username or email_address}/roles|application/json|사용자의 롤 조회하기|
-|POST|roles/{uuid}/users/{uuid or username or email_address}|application/json|사용자의 롤 추가하기|
-|POST|users/{uuid or username or email_address}/{collection_name}/{collection_uuid}|application/json|사용자와 특정 Entity 관계(Connection) 설정하기|
-|DELETE|users/{uuid or username or email_address}/{collection_name}/{collection_uuid}|application/json|사용자와 특정 Entity 관계(Connection) 해제하기|
+```java
+//비동기식
+BaasioEntity entity = new BaasioEntity("friend");
+entity.saveInBackground(
+    new BaasioCallback<BaasioEntity> {  //결과를 받을 Callback
+            @Override
+            public void onResponse(BaasioEntity response) {
+                // 성공
+                BaasioEntity savedEntity = response;
+            }
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
 
-##### Group|intro-endpoints-group
+## Exception Handling
+[]({'id':'exception-handling'})
 
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|POST|groups|application/json|그룹 만들기|
-|GET|groups|application/json|그룹 조회하기|
-|GET|groups|application/json|그룹을 쿼리로 조회하기|
-|GET|groups/{uuid or groupname}|application/json|그룹명 혹은 UUID로 조회하기|
-|PUT|groups/{uuid or groupname}|application/json|그룹 정보 수정하기|
-|DELETE|groups/{uuid or groupname}|application/json|그룹 삭제하기|
-|POST|groups/{uuid or groupname}/users/{uuid or username}|application/json|그룹에 사용자를 추가하기|
-|GET|groups/{uuid or groupname}/users|application/json|그룹에 등록된 사용자을 조회하기|
-|GET|groups/{uuid or groupname}/users/{uuid or username}|application/json|그룹에 등록된 사용자를 UUID 혹은 이름으로 조회하기|
-|DELETE|groups/{uuid or groupname}/users/{uuid or username}|application/json|그룹에서 사용자를 제외하기|
-|GET|groups/{uuid or groupname}/feed|application/json|그룹 피드(feed) 조회하기|
+baas.io에서 제공되는 함수를 통해 요청을 할 때, 문제가 있어 성공되지 못한 경우, <strong>에러 코드와 관련 오류 내용을 전달</strong>합니다.
+baas.io Android SDK에서는 전달된 <strong>에러 코드, 오류 내용을 BaasioException을 통하여 앱에 전달</strong>합니다.
 
-##### Role|intro-endpoints-role
+```java
+//동기식
+BaasioEntity entity = new BaasioEntity("friend");
+try {
+    BaasioEntity savedEntity = entity.save();
+} catch (BaasioException e){
+    // 실패
+    Log.e("Error", e.toString());	// 전체 내용
 
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|POST|roles|application/json|롤 만들기|
-|GET|roles|application/json|롤 조회하기|
-|GET|roles/{uuid or rolename}|application/json|롤이름 혹은 UUID로 조회하기|
-|DELETE|roles/{uuid or rolename}|application/json|롤 삭제하기|
-|POST|roles/{uuid or rolename}/permissions|application/json|롤에 권한 추가하기|
-|POST|roles/{uuid or rolename}/permissions|application/json|롤에 권한 삭제하기|
-|POST|roles/{uuid}/users/{uuid or username or email_address}|application/json|롤에 사용자 추가하기|
-|GET|roles/{role_id}/users|application/json|롤에 추가된 사용자 조회하기|
-|DELETE|roles/{role_id}/users/{uuid or username or email_address}|application/json|롤에 사용자 삭제하기|
-
-##### Push|intro-endpoints-push
-
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|POST|pushes|application/json|Push 전송하기|
-|GET|pushes|application/json|Push 전송목록 조회하기(X)|
-|GET|pushes/{uuid}|application/json|Push 전송결과 UUID로 조회하기(X)|
-|POST|pushes/devices|application/json|Device 등록하기|
-|GET|pushes/devices|application/json|Device 정보 조회하기(X)|
-|GET|pushes/devices/{uuid}|application/json|Device 정보 읽기|
-|PUT|pushes/devices/{uuid}|application/json|Device 변경하기|
-|DELETE|pushes/devices/{uuid}|application/json|Device 삭제하기|
-
-##### File|intro-endpoints-file
-
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|POST|files|multipart/form-data|파일 엔티티 생성 및 업로드|
-|POST|files|application/json|파일 엔티티 생성|
-|POST|https://blob.v1.api.baas.io/../files/{entityID}|application/octet-stream|파일 업로드|
-|POST|files/{entityID}/data|application/octet-stream|파일 업로드(DATA 커맨드 이용)|
-|POST|{collectionName}/{entityID}/files/{entityID}|N/A|다른 컬렉션의 엔티티와 파일 엔티티 관계 맺기|
-|GET|files|N/A|파일 엔티티 조회(전체)|
-|GET|files?filter={filter clause}|N/A|필터를 이용한 파일 엔티티 조회|
-|GET|files?ql={query clause}|N/A|질의를 이용한 파일 엔티티 조회|
-|GET|files/{entityID}|N/A|파일 엔티티 조회(단일)|
-|GET|https://blob.v1.api.baas.io/../files/{entityID}|N/A|파일 다운로드|
-|GET|files/{entityID}/data|N/A|파일 다운로드(DATA 커맨드 이용)|
-|GET|{collectionName}/{entityID}/files|N/A|다른 컬렉션의 엔티티와 관계된 파일 엔티티 조회|
-|PUT|files/{entityID}|application/json|파일 엔티티 수정|
-|PUT|files?filter={filter clause}|application/json|필터를 이용한 일괄 파일 엔티티 수정|
-|PUT|files?ql={query clause}|application/json|질의를 이용한 일괄 파일 엔티티 수정|
-|PUT|https://blob.v1.api.baas.io/../files/{entityID}|application/octet-stream|파일 교체|
-|PUT|files/{entityID}/data|application/octet-stream|파일 교체(DATA 커맨드 이용)|
-|DELETE|files/{entityID}|N/A|파일 삭제(단일)|
-|DELETE|files?filter={filter clause}|N/A|필터를 이용한 파일 삭제|
-|DELETE|files?ql={query clause}|N/A|질의를 이용한 파일 삭제|
-|DELETE|{collectionName}/{entityID}/files/{entityID}|N/A|다른 컬렉션의 엔티티와 파일 엔티티 관계 끊기|
-
-##### Help|intro-endpoints-help
-
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|GET|help/|application/json|고객센터 코드 조회
-|POST|help/questions|application/json|문의하기
-|GET|help/questions/my_list|application/json|내 문의 내역
-|POST|help/helps|application/json|도움말 등록
-|GET|help/helps/{uuid}|application/json|도움말 조회
-|PUT|help/helps/{uuid}|application/json|도움말 수정
-|DELETE|help/helps/{uuid}|application/json|도움말 삭제
-|GET|help/helps?keyword={keyword}&page={page}|application/json|도움말 검색
-
-##### Collection|intro-endpoints-collection
-
-|메소드|uri|Content Type|설명|
-|:---|:---|:---|:---|
-|POST|{collection}|application/json|Collection/Entity 생성하기|
-|GET|{collection}|application/json|Entity 목록 조회하기|
-|GET|{collection}?{query}|application/json|쿼리를 사용하여 Entity 목록 조회하기|
-|GET|{collection}/{uuid or name}|application/json|Entity 정보 조회하기|
-|PUT|{collection}/{uuid or name}|application/json|Entity 정보 수정하기|
-|PUT|{collection}?{query}|application/json|쿼리를 사용하여 Entity 정보 수정하기|
-|GET|{collection}/{first_entity_id}/{relationship}|application/json|Entity의 Relation Entity 목록을 조회하기|
-|POST|{collection}/{first_entity_id}/{relationship}/{second_entity_id}|application/json|Entity의 Relation 을 생성하고 다른 Entity를 등록하기|
-|DELETE|{collection}/{first_entity_id}/{relationship}/{second_entity_id}|application/json|Entity의 Relation에서 Entity를 삭제하기|
-
-## Error Handling
-[]({'id':'intro-error-handling'})
-
-baas.io 의 REST API 들은 일반적인 HTTP 요청과 마찬가지로 모든 요청은 status code를 가지며, 예외 상황에 대해서 좀 더 구체적인 정보를 제공하기 위해 error code 역시 제공합니다.
-
-- [HTTP Status Codes](#intro-error-handling-statuscode)
-- [Error Codes](#intro-error-handling-errorcode)
-
-##### HTTP Status Codes|intro-error-handling-statuscode
-
-HTTP/1.1 Status Code 표준에는 수 많은 코드가 존재하지만, baas.io 에서는 좀 더 단순화 하여 아래의 5개의 코드를 를 주로 사용합니다.
-
-|Status Code|의미|
-|:----------|:---|
-|200|(OK)|성공|
-|400|(Bad Request)|잘못된 요청, 요청 형식을 다시 확인하세요.|
-|401|(Unauthorized)|인증이나 권한이 필요한 접근입니다.|
-|404|(Not Found)|해당 리소스가 존재하지 않습니다.|
-|500|(Internal Server Error)|서버 에러|
-
-baas.io REST API 사용하는 대부분의 경우, 위의 status code 만으로도 성공/실패 여부를 확인할 수 있으며, 사용중이신 클라이언트에서 성공과 실패 callback 을 활용하실 수 있습니다.
-Error Codes
-
-HTTP Status code 가 4xx 대 이거나 500 인 경우 에러 상황에 대한 설명과 에러 코드를 포함한 다음과 같은 JSON 데이터가 전송됩니다. 개발과정에서 좀 더 자세한 에러 메시지를 확인하기 위해서 사용하실 수 있습니다.
-
-###### Response payload (Error)
-
-```json
-{
-    timestamp: 1358932094378,
-    duration: 0,
-    error_description: "Subject does not have permission",
-    error_uuid: "325a3a47-7fbe-43c2-8ef0-bd617b61a63d",
-    error_code: 202
+    // String statusCode = e.getStatusCode();	// Http Status Code
+    // long errorCode = e.getErrorCode();		// 에러 코드
+    //String errorDescription = e.getErrorDescription();	// 오류 내용
 }
 ```
 
-|필드 이름|내용|
-|:------|:---|
-|error_description|에러에 대한 설명|
-|error_uuid|고유 에러에 대한 event UUID로 각각의 에러 상황을 식별하기 위한 값|
-|error_code|각 에러별 baas.io 고유 코드|
-
-대부분의 에러는 error_description 속성을 통해 자세한 설명을 얻을 수 있으며, error_uuid 를 통해 baas.io 개발팀의 도움을 받으실 수 도 있습니다.
-
-각 상세 에러코드의 의미는 다음과 같습니다.
-
-##### 상세 Error code|intro-error-handling-errorcode
-
-|이름|status code|error code|	의미|
-|:---|:---------|:---------|:---|
-|BAD_REQUEST_ERROR|400|100|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
-|RESOURCE_NOT_FOUND_ERROR|404|101|요청받은 리소스가 서버에 존재하지 않습니다.|
-|MISSING_REQUIRED_PROPERTY_ERROR|400|102|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
-|INVALID_PRECONDITION_ERROR|400|103|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
-|NOT_IMPLEMENTED_ERROR|501|190|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
-|AUTH_ERROR|401|200|인증 또는 권한과 관련된 문제가 발생했습니다.|
-|INVALID_USERNAME_OR_PASSWORD_ERROR|401|201|잘못된 id이거나 password 입니다.|
-|UNAUTHORIZED_ERROR|401|202|접근 권한이 없습니다.|
-|BAD_TOKEN_ERROR|401|210|인증 토큰에 문제가 있습니다.|
-|EXPIRED_TOKEN_ERROR|401|211|만료된 인증 토큰입니다.|
-|PUSH_APPLICATION_NOT_ACTIVATED_ERROR|400|600|Push 기능이 활성화 되어 있지 않습니다.|
-|PUSH_ERROR|400|620|Push 관련 에러가 발생했습니다.|
-|RESOURCE_ALREADY_EXIST_ERROR|400|911|이미 존재하는 리소스입니다.|
-|PRESERVED_RESOURCE_ERROR|400|912|예약된 리소스 이름입니다.|
-|DUPLICATED_UNIQUE_PROPERTY_ERROR|400|913|유일해야하는 속성을 중복해서 가질 수 없습니다.|
-|QUERY_PARSE_ERROR|400|915|잘못된 쿼리입니다.|
-|UNKNOWN_ERROR|500|-100|알수 없는 에러입니다.|
-
-
-
-# Application
-[]({'id':'application'})
-
-Application Entity는 baas.io 포털의 백엔드 앱 생성 기능을 통해서 생성되는 Entity입니다. Application Entity는 아래와 같은 주소를 통해서 접근이 가능합니다.
-
-```
-https://api.baas.io/{baasio-id}/{app-id}
+```java
+//비동기식
+BaasioEntity entity = new BaasioEntity("friend");
+entity.saveInBackground(
+    new BaasioCallback<BaasioEntity> {  //결과를 받을 Callback
+            @Override
+            public void onResponse(BaasioEntity response) {
+                // 성공
+                BaasioEntity savedEntity = response;
+            }
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+                Log.e("Error", e.toString());
+                //String statusCode = e.getStatusCode();	// Http Status Code
+    			//long errorCode = e.getErrorCode();		// 에러 코드
+    			//String errorDescription = e.getErrorDescription();	// 오류 내용
+            }
+        });
 ```
 
-대부분의 앱에선 이 Entity에 직접 접근할 필요는 없습니다. 관리목적으로 서버사이드 웹앱을 만들거나, 또한 모바일 개발자가 자신의 앱을 관리하기 위한 관리자앱을 만들 때 사용할수 있습니다.
+에러 코드는 다음과 같습니다.
 
-#### Application을 위한 시스템 기본 속성(Property)
-
-시스템에서 미리 설정된 기본 속성들은 아래와 같습니다. 이 속성외에 추가적으로 Application을 위한 특정 데이터 속성을 마음대로 추가하실수도 있습니다.
-
-|속성|타입|설명|
-|:--|:--|:--|
-|uuid|UUID|Application의 유일한 Entity ID|
-|type|string|"application"|
-|created|long|Entity 생성 일자 (UNIX timestamp)|
-|modified|long|Entity 최종 수정일자 (UNIX timestamp)|
-|name|string|Application 이름/ID (필수)|
-|title|string|Application의 제목|
-|description|string|Application의 설명|
-|activated|boolean|Application이 활성 상태인가?|
-|disabled|boolean|Application이 관리목적으로 비활성화 된 상태인가.|
-|allowOpenRegistration|boolean|Application에 아무 사용자나 등록이 가능한가|
-|registrationRequiresEmailConfirmation|boolean|사용자 등록시 이메일 확인 필요 여부|
-|registrationRequiresAdminApproval|boolean|사용자 등록시 관리자 승인 필요 여부|
-|accesstokenttl|long|Application 억세스 토큰의 TTL값|
-
-#### Application의 기본 Collection
-
-|Collection|Entity Type|설명|
-|:--------:|:--------:|:--:|
-|users|user|앱내 사용자 Collection|
-|groups|group|앱내 그룹 Collection|
-|devices|device|서비스내 등록된 기기들에 대한 Collection|
-
-
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 id이거나 password 입니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|212|401|차단된 사용자입니다.|
+|213|401|탈퇴된 사용자입니다.|
+|600|400|Push 기능이 활성화 되어 있지 않습니다.|
+|620|400|Push 관련 에러가 발생했습니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|915|400|잘못된 쿼리입니다.|
+|-100|500|알수 없는 에러입니다.|
 
 # Users
 []({'id':'users'})
 
-사용자의 정보(아이디, 이메일, 이름, 주소 등 )를 앱에서 관리하길 원한다면, 아래의 API 를 사용하면 쉽게 적용할 수 있습니다.
+baas.io는 가입/로그인/로그아웃/탈퇴 등의 <strong>회원관리 기능을 제공</strong>하고 있습니다. 또한 <strong>Facebook을 통한 가입/로그인 기능</strong>도 제공이 되고 있으며, 이런 기능들은 모두 BaasioUser 클래스를 이용하여 구현하실 수 있습니다. 
+
+## BaasioUser 클래스
+
+BaasioUser클래스는 "users" Collection으로 관리되며, <strong>"users" Collection으로 "user" entity를 생성/삭제하여 회원을 가입/탈퇴</strong> 할 수 있습니다. 회원을 가입하는 방법은 username으로 가입하는 방법과 Facebook 계정으로 가입하는 방법을 지원합니다.
+
+>info|Note|Facebook 가입|Facebook 계정을 통해 회원 가입하면 Facebook에 저장된 프로필 정보들이 함께 저장됩니다.
+
+## Sign Up
+[]({'id':'sign-up'})
+
+회원을 가입하기 위해서는, <strong>username과 비밀번호</strong>가 꼭 필요합니다. 이 외에, 이메일 주소, 이름을 추가로 넣을 수 있습니다.
+username은 영문과 숫자, 특수기호를 사용할 수 있으며, 유일한 값이어야 합니다.
+또한, 비밀번호 변경 또는 초기화를 위해서 가급적 이메일 주소를 받는 것이 좋습니다.
+
+```java
+BaasioUser.signUpInBackground(
+    username                // ID(username)
+    , name                  // 이름
+    , email                 // 이메일
+    , password              // 비밀번호
+    , new BaasioSignUpCallback() {
+
+            @Override
+            public void onException(BaasioException e) {
+                if (e.getErrorCode() == 913) {
+                    // 이미 가입된 사용자
+                    return;
+                }
+
+                // 기타 오류
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if (response != null) {
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 username이거나 password 입니다.|
+|202|401|접근 권한(Permission)이 없습니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+
+
+## Sign Up with Facebook
+[]({'id':'signup-via-facebook'})
+Facebook 계정을 통해 회원 가입을 할 수 있습니다. 이 기능을 이용하기 위해서는 먼저 <strong>Facebook Api Key를 발급받으셔야 하며, Facebook Api Key와 Facebook SDK를 이용하여 인증 과정을 통해 Facebook Access Token을 발급</strong> 받아야 합니다.
+
+관련 내용은 [Facebook 가이드](/develop/android/guide/users.html#users-facebook)에 자세하게 설명되어 있습니다.
+
+Facebook Access Token을 발급 받은 후에는 아래와 같이 가입을 진행할 수 있습니다.
+
+```java
+BaasioUser.signUpViaFacebookInBackground(
+    context			// Context
+    , fb_access_token	// Facebook access token
+    , new BaasioSignInCallback() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if(response != null) {
+                    // 성공
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 username이거나 password 입니다.|
+|202|401|접근 권한(Permission)이 없습니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+
+## Sign In
+[]({'id':'sign-in'})
+회원가입이 되어 있으면 로그인을 하여 인증을 받을 수 있습니다. 로그인이 성공하면, 결과로 회원의 인증 토큰(Access Token)이 단말에 저장되어 SDK를 통해 관리되며, 이 인증 토큰(Access Token)은 로그인된 회원의 [역할(Role)](/develop/android/concept/security.html#security-role) 및 [권한(Permission)](/develop/android/concept/security.html#security-permission)을 체크하는 용도로 사용됩니다.
+
+또한, <strong>로그인이 성공되면 현재 로그인한 회원의 정보가 단말에 저장되며, SDK에서 로그인 상태에 따라 관리됩니다.</strong>
+
+아래와 같이 로그인을 진행할 수 있습니다.
+
+```java
+BaasioUser.signInInBackground(
+    context			// Context
+    , username		// Username
+    , password		// Password
+    , new BaasioSignInCallback() {
+
+            @Override
+            public void onException(BaasioException e) {
+                if (e.getStatusCode() != null) {
+                    if (e.getErrorCode() == 201) {
+                        // username(ID) 또는 비밀번호 오류
+                        return;
+                    }
+                }
+
+                //기타 오류
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if (response != null) {
+                    // 로그인 성공
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+>info|Note|현재 로그인한 회원의 정보는 어떻게 확인하나요?|Baas.io().getSignedInUser()를 호출하면 BaasioUser 객체로 Return됩니다.
+
+<!>
+>warning|Warning|Access Token의 유효기간|
+<li>Access Token은 1일 간 유효합니다.</li>
+<li><strong>Access Token을 앱이 실행될때 마다 발급받아 처리하는 것은 좋은 방법이 아닙니다.</strong></li>
+<li>Twitter나 Facebook과 같은 앱들도 OAuth정책에 따라 유효시간이 존재하며, 이 유효시간이 지나면 회원으로부터 Username과 Password를 입력받아 직접 로그인하도록 처리하는 것이 좋습니다.</li>
+<li>사용자의 Username, Password를 저장하여 자동으로 로그인하는 방법은 Username, Password가 유출될 수 있으므로 권장하지 않습니다.</li>
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 username이거나 password 입니다.|
+|202|401|접근 권한(Permission)이 없습니다.|
+|212|401|차단된 사용자입니다.|
+|213|401|탈퇴된 사용자입니다.|
+|911|400|이미 존재하는 리소스입니다.|
+
+## Sign In with Facebook
+[]({'id':'signin-via-facebook'})
+
+Facebook 계정을 통해 가입된 회원을 로그인합니다. 마찬가지로 Facebook Api Key가 필요하며, Facebook Api Key와 Facebook SDK를 이용하여 인증 과정을 통해 Facebook Access Token을 발급 받아 로그인을 진행합니다.
+
+관련 내용은 [Facebook 가이드](/develop/android/guide/users.html#users-facebook)에 자세하게 설명되어 있습니다.
+
+Facebook Access Token을 발급 받은 후에는 아래와 같이 로그인을 진행할 수 있습니다.
+
+```java
+BaasioUser.signInViaFacebookInBackground(
+    context
+    , fb_access_token   //Facebook access token
+    , new BaasioSignInCallback() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if(response != null) {
+                    // 성공
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 username이거나 password 입니다.|
+|202|401|접근 권한(Permission)이 없습니다.|
+|212|401|차단된 사용자입니다.|
+|213|401|탈퇴된 사용자입니다.|
+|911|400|이미 존재하는 리소스입니다.|
+
+## Update User
+[]({'id':'update'})
+가입되어 있는 회원의 정보를 추가하거나 수정합니다. 정보는 <strong>Entity의 Property</strong>로 저장하며, 즉, Key와 Value의 쌍으로 저장할 수 있습니다.
+
+아래는 성별 정보와 주소를 추가로 등록하는 예제입니다.
+
+```java
+BaasioUser user = Baas.io().getSignedInUser();
+user.setProperty("gender","female");
+user.setProperty("address","서울시");
+user.updateInBackground(
+    new BaasioCallback&lt;BaasioUser&gt;() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if (response != null) {
+                    // 성공
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+
+이미 저장된 정보를 수정하기 위해서는 똑같은 이름의 Key에 수정할 내용을 Value로 설정하여 아래와 같이 요청합니다.
+
+```java
+BaasioUser user = Baas.io().getSignedInUser();
+user.setProperty("gender","male");
+user.updateInBackground(
+    new BaasioCallback&lt;BaasioUser&gt;() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if (response != null) {
+                    // 성공
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|212|401|차단된 사용자입니다.|
+|213|401|탈퇴된 사용자입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+
+## Change Password
+[]({'id':'changepassword'})
+현재 로그인되어 있는 User의 비밀번호를 변경합니다. 기존 비밀번호와 새로운 비밀번호를 이용하여 비밀번호를 변경합니다.
+
+```java
+BaasioUser.changePasswordInBackground(
+    oldPassword, newPassword
+    new BaasioCallback&lt;Boolean&gt;() {
+
+        @Override
+        public void onException(BaasioException e) {
+            // 실패
+        }
+
+        @Override
+        public void onResponse(Boolean response) {
+            if (response == true) {
+                //성공
+            }
+        }
+    });
+```
+
+#### 관련 에러코드
+
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 id이거나 password 입니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|212|401|차단된 사용자입니다.|
+|213|401|탈퇴된 사용자입니다.|
+|-100|500|알수 없는 에러입니다.|
+
+## Reset Password
+[]({'id':'resetpassword'})
+이메일을 이용하여 특정 User의 비밀번호를 초기화 합니다. <strong>초기화를 위해서는 User의 가입 정보에 이메일 정보가 꼭 설정되어 있어야 합니다.</strong>
+
+초기화는 두 가지 방법으로 제공하고 있습니다.
+첫 번째는 초기화 URL 주소를 얻어와 웹브라우저에서 해당 URL을 열어 이메일을 발송하여 초기화하는 방법이며, 두 번쨰는 API를 호출하여 이메일을 발송하여 초기화하는 방법입니다.   
+
+#### URL을 얻어 브라우저를 통한 초기화
+
+회원 가입시에 입력된 이메일 주소 또는 User의 uuid, username을 파라미터로 전달하여 비밀번호를 초기화하기 위한 URL을 만들어 줍니다.
+
+이렇게 얻어낸 URL을, 아래의 예제와 같이 웹브라우저로 열어 초기화를 진행합니다.
+웹브라우저에는 초기화를 위한 이메일을 발송할 것인지 물어보는 화면이 나타납니다.
+   
+```java
+Uri uri = BaasioUser.getResetPasswordUrl(email);
+
+Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+startActivity(intent);
+```
+
+#### API를 호출하여 초기화
+
+API를 호출하여 초기화를 위한 이메일이 발송되도록 요청합니다. 회원 가입시에 입력된 이메일 주소 또는 User의 uuid 나 username을 파라미터로 전달합니다. 
+
+```java
+BaasioUser.resetPasswordInBackground(email, new BaasioCallback&lt;Boolean&gt;() {
+
+    @Override
+    public void onResponse(Boolean response) {
+        if(response) {
+            // 성공
+        }
+    }
+
+    @Override
+    public void onException(BaasioException e) {
+        // 실패
+    }
+});
+```
+
+#### 관련 에러코드
+
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 id이거나 password 입니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|212|401|차단된 사용자입니다.|
+|213|401|탈퇴된 사용자입니다.|
+|-100|500|알수 없는 에러입니다.|
 
-## 사용자 등록하기
-[]({'id':'postUsers'})
+## Unsubscribe User
+[]({'id':'unsubscribe'})
+가입되어 있는 회원을 탈퇴 시킵니다. 이 함수를 호출하면 "users" Collection으로부터 해당 회원의 "user" Entity를 삭제합니다.
 
-##### Request URI
+[역할(Role)](/develop/android/concept/security.html#security-role)과 [권한(Permission)](/develop/android/concept/security.html#security-permission)의 설정상태와 앱의 구현방법에 따라 현재 로그인된 회원이 아닌 다른 회원을 탈퇴시킬 수도 있습니다.
 
-```
-`POST` /{baasio-id}/{app-id}/users
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:----|
-|baasio-id|회원 ID|
-|app-id|앱 ID| 
-
-##### Request Body
-
-User Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [User Entity](#userEntity)에서 살펴보시기 바랍니다. 사용자를 등록하기 위해서는 최소한의 정보가 필요하며 반드시 포함되어야 할 정보는 username 입니다. User 를 등록할 때 password 를 등록하지 않으면 user token 을 발급 받을 수 없습니다. 주의하실 점은 처음에 password 가 설정되지 않으면 다시는 password 를 설정할 수 없습니다.
-
-
-```json
-{
-	"username":"bob",
-	"email":"bob@company.com",
-	"password":"pass1234"
-}
-```
-
-##### Request URI
-
-```
-`POST` https://api.baas.io/my-baasio-id/my-app-id/users
-
-```
-
-##### Request Body
-
-```json
-{
-	"username":"bob",
-	"email":"bob@company.com"
-}
-```
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "post",
-	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
-	"params": {},
-	"path": "/users",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/users",
-	"entities": [
-		{
-			"uuid": "37a71adc-136c-11e2-8ed5-4061867ca222",
-			"type": "user",
-			"created": 1349936628563,
-			"modified": 1349936628563,
-			"activated": true,
-			"email": "bob@company.com",
-			"metadata": {
-				"path": "/users/37a71adc-136c-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/activities",
-					"devices": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/devices",
-					"feed": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/feed",
-					"groups": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/groups",
-					"roles": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/roles",
-					"following": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/followers"
-				}
-			},
-			"picture": "https://www.gravatar.com/avatar/217195a2032ff3c42cf8711bd6334b0f",
-			"username": "bob"
-		}
-	],
-	"timestamp": 1349936628483,
-	"duration": 180,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
-
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",\"email\":\"bob@company.com\"}' "https://api.baas.io/my-baasio-id/my-app-id/users"
-```
-
-## 사용자 조회하기
-[]({'id':'getUsers'})
-
-##### Request URI
-
-```
-`GET` /{baasio-id}/{app-id}/users
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "get",
-	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
-	"params": {},
-	"path": "/users",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/users",
-	"entities": [
-		{
-			"uuid": "37a71adc-136c-11e2-8ed5-4061867ca222",
-			"type": "user",
-			"created": 1349936628563,
-			"modified": 1349938801498,
-			"activated": false,
-			"email": "bob@company.com",
-			"metadata": {
-				"path": "/users/37a71adc-136c-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/activities",
-					"devices": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/devices",
-					"feed": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/feed",
-					"groups": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/groups",
-					"roles": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/roles",
-					"following": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/followers"
-				}
-			},
-			"picture": "https://www.gravatar.com/avatar/217195a2032ff3c42cf8711bd6334b0f",
-			"username": "bob"
-		},
-		{
-			"uuid": "3169497e-136e-11e2-8ed5-4061867ca222",
-			"type": "user",
-			"created": 1349937477085,
-			"modified": 1349937477085,
-			"activated": true,
-			"email": "jay@company.com",
-			"metadata": {
-				"path": "/users/3169497e-136e-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/3169497e-136e-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/3169497e-136e-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/3169497e-136e-11e2-8ed5-4061867ca222/activities",
-					"devices": "/users/3169497e-136e-11e2-8ed5-4061867ca222/devices",
-					"feed": "/users/3169497e-136e-11e2-8ed5-4061867ca222/feed",
-					"groups": "/users/3169497e-136e-11e2-8ed5-4061867ca222/groups",
-					"roles": "/users/3169497e-136e-11e2-8ed5-4061867ca222/roles",
-					"following": "/users/3169497e-136e-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/3169497e-136e-11e2-8ed5-4061867ca222/followers"
-				}
-			},
-			"picture": "https://www.gravatar.com/avatar/a3acce29c6ec4882fa6fb0983498817d",
-			"username": "jay"
-		}
-	],
-	"timestamp": 1349939158343,
-	"duration": 73,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users"
-```
-
-## 사용자를 쿼리로 조회하기
-[]({'id':'getUsersByQuery'})
-
-[사용자 조회하기](users.html#getUsers) API 에서 확인한 것처럼 등록된 사용자를 조회할 수 있습니다. 특정한 사용자를 조회하고 싶을 때, 데이터 질의 방법을 사용하여 사용자를 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
-
-##### Request URI
-
-```
-`GET` /{baasio-id}/{app-id}/users?{query}
-```
-
-##### URL Parameters
-
-|파라미터|설명|
-|:----------:|:------------
-|baasio-id	| 회원 ID|
-|app-id|앱 ID|
-
-##### Query Parmeters
-
-|파라미터|자료형|기본값|필수|설명|
-|:-------:|:-------|:------:|:--------:|:----------|
-|ql|문자열 (String)|none|no|질의어|
-|filter|문자열 (String)|none|no|연산 조건에 따른 필터|
-|cursor|문자열 (String)||no|페이징을 위한 질의 결과셋의 엔코딩된 값|
-|limit|정수형 (Integer)|10|no|조회 결과의 데이터 개수 제한|
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-
-```json
-{
-	"action": "get",
-	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
-	"params" : {
-		"ql" : [ "select * where flag='1'" ]
-	},
-	"path": "/users",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/users",
-	"entities": [
-		{
-			"uuid": "37a71adc-136c-11e2-8ed5-4061867ca222",
-			"type": "user",
-			"created": 1349936628563,
-			"modified": 1349938801498,
-			"activated": false,
-			"email": "bob@company.com",
-			"metadata": {
-				"path": "/users/37a71adc-136c-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/activities",
-					"devices": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/devices",
-					"feed": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/feed",
-					"groups": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/groups",
-					"roles": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/roles",
-					"following": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/followers"
-				}
-			},
-			"picture": "https://www.gravatar.com/avatar/217195a2032ff3c42cf8711bd6334b0f",
-			"username": "bob",
-			"flag":"1"
-		},
-		{
-			"uuid": "3169497e-136e-11e2-8ed5-4061867ca222",
-			"type": "user",
-			"created": 1349937477085,
-			"modified": 1349937477085,
-			"activated": true,
-			"email": "jay@company.com",
-			"metadata": {
-				"path": "/users/3169497e-136e-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/3169497e-136e-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/3169497e-136e-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/3169497e-136e-11e2-8ed5-4061867ca222/activities",
-					"devices": "/users/3169497e-136e-11e2-8ed5-4061867ca222/devices",
-					"feed": "/users/3169497e-136e-11e2-8ed5-4061867ca222/feed",
-					"groups": "/users/3169497e-136e-11e2-8ed5-4061867ca222/groups",
-					"roles": "/users/3169497e-136e-11e2-8ed5-4061867ca222/roles",
-					"following": "/users/3169497e-136e-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/3169497e-136e-11e2-8ed5-4061867ca222/followers"
-				}
-			},
-			"picture": "https://www.gravatar.com/avatar/a3acce29c6ec4882fa6fb0983498817d",
-			"username": "jay",
-			"flag":"1"
-		}
-	],
-	"timestamp": 1349939158343,
-	"duration": 73,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users?ql=select * where flag='1'"
-```
-	
- 
-
-## 사용자 UUID, username, email 으로 조회하기
-[]({'id':'getUser'})
-
-##### Request URI
-
-```
-`GET` /{baasio-id}/{app-id}/users/{uuid or username or email_address}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 혹은 email|
-
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json
-{
-	"action": "get",
-	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
-	"params": {},
-	"path": "/users",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/users",
-	"entities": [
-		{
-			"uuid": "37a71adc-136c-11e2-8ed5-4061867ca222",
-			"type": "user",
-			"created": 1349936628563,
-			"modified": 1349938801498,
-			"activated": false,
-			"email": "bob@company.com",
-			"metadata": {
-				"path": "/users/37a71adc-136c-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/activities",
-					"devices": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/devices",
-					"feed": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/feed",
-					"groups": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/groups",
-					"roles": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/roles",
-					"following": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/followers"
-				}
-			},
-			"picture": "https://www.gravatar.com/avatar/217195a2032ff3c42cf8711bd6334b0f",
-			"username": "bob"
-		}
-	],
-	"timestamp": 1349939158343,
-	"duration": 73,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
-```
-
- 
-
-## 사용자의 정보를 수정하기
-[]({'id':'putUser'})
-
-##### Request URI
-
-```
-`PUT` /{baasio-id}/{app-id}/users/{uuid or username or email_address}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 혹은 email|
-
-##### Request Body
-
-User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [User Entity](#userEntity)에서 살펴보시면 됩니다. 예시는 사용자를 활성화, 비활성화 정보를 담당하는 프로퍼티(Property)를 변경해보겠습니다.
-
-```json
-{
-	"activated":false
-}
-```
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json
-{
-	"action": "put",
-	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
-	"params": {},
-	"path": "/users",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/users",
-	"entities": [
-		{
-			"uuid": "37a71adc-136c-11e2-8ed5-4061867ca222",
-			"type": "user",
-			"created": 1349936628563,
-			"modified": 1349938801498,
-			"activated": false,
-			"email": "bob@company.com",
-			"metadata": {
-				"path": "/users/37a71adc-136c-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/activities",
-					"devices": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/devices",
-					"feed": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/feed",
-					"groups": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/groups",
-					"roles": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/roles",
-					"following": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/37a71adc-136c-11e2-8ed5-4061867ca222/followers"
-				}
-			},
-			"picture": "https://www.gravatar.com/avatar/217195a2032ff3c42cf8711bd6334b0f",
-			"username": "bob"
-		}
-	],
-	"timestamp": 1349938801443,
-	"duration": 69,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-
-```
-curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }' "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
-```
-
- 
-
-## 사용자의 정보를 삭제하기
-[]({'id':'deleteUser'})
-
-##### Request URI
-
-```
-`DELETE` /{baasio-id}/{app-id}/users/{user_uuid or username}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
-
-##### Response
-
-- 성공
-	
-	- Code: 200 
-	- Contents:
-
-```json   
-{
-	"action": "delete",
-	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
-	"params": {},
-	"path": "/users",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/users",
-	"entities": [
-		{
-			"uuid": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
-			"type": "application",
-			"name": "my-org/my-app",
-			"created": 1349935893928,
-			"modified": 1349935893928,
-			"metadata": {
-				"path": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222",
-				"sets": {
-					"rolenames": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/rolenames",
-					"permissions": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/activities",
-					"assets": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/assets",
-					"devices": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/devices",
-					"events": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/events",
-					"files": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/files",
-					"folders": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/folders",
-					"groups": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/groups",
-					"users": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/users",
-					"following": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/following",
-					"followers": "/users/81c5c8b8-136a-11e2-8ed5-4061867ca222/followers"
-				}
-			}
-		}
-	],
-	"timestamp": 1349939292961,
-	"duration": 167,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
-```
-
- 
-
-## 사용자의 비밀번호를 변경하기
-[]({'id':'putPassword'})
-
-[사용자 등록](#postUsers) 시 등록한 사용자의 비밀번호를 변경하려면 해당 API를 이용하면 됩니다. 해당 API는 기존 비밀번호를 알고 있는 경우를 전제로 합니다. 만약, 사용자의 기존 비밀번호를 모른다면 [사용자의 비밀번호를 재설정하기](#resetpassword) 방법으로 비밀번호를 설정하셔야 합니다.
-
-##### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/users/{user_id}/password
-```
-	
-```json
-{
-	"oldpassword":"old",
-	"newpassword":"new"
-}
-```
-	
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
-|oldpassword|변경 전 비밀번호|
-|newpassword|변경 할 비밀번호|
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "set user password",
-	"timestamp": 1357625390782,
-	"duration": 44
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my-baasio-id/my-app-id/users/{user_id}/password"
-```
-
-
- 
-
-## 사용자의 비밀번호를 재설정하기
-[]({'id':'resetPassword'})
-
-[사용자 등록](#postUsers) 시에 *이메일 정보를 받지 않은 사용자는 비밀번호를 재설정할 수 없습니다.* 따라서, [사용자 수정 하기](#putUser) 방법으로 이메일 정보를 수정 이용하면 됩니다.
-
-##### 사용자 비밀번호 재설정 단계
-1. 사용자의 비밀번호 초기화 API 호출
-2. 패스워드를 리셋을 하기 위한 초기화 웹페이지 주소가 함께 포함된 메일 발송
-3. 사용자가 baas.io 사이트로부터 메일을 수신 후 웹페이지 클릭
-4. 사용자가 초기화할 비밀번호를 입력 한 후 제출 버튼을 누름
-
-##### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/users/{uuid or username or email_address}/resetpw
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```html
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Reset Password</title>
-		<link rel="stylesheet" type="text/css" href="../../../css/styles.css" />
-	</head>
-	<body>
-		<p>Email with instructions for password reset sent to bob@company.com</p>
-	</body>
-</html>
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: application/x-www-form-urlencoded" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_id}/resetpw"
-```
-
-## 사용자의 인증 토큰 발급하기
-[]({'id':'token'})
-
-baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 인증 토큰을 발급받을 수 있습니다. 더 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
-
-##### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/token
-```
-	
-```json
-{
-	"grant_type":"password",
-	"username":"{uuid or username or email_address}",
-	"password":"{password}"
-}
-```
-	
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
-|password|사용자의 비밀번호|
- 
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"access_token": "5wuGd-lcEeCUBwBQVsAACA:F8zeMOlcEeCUBwBQVsAACA:YXU6AAABMq0hdy4Lh0ewmmnOWOR-DaepCrpWx9oPmw",
-	"expires_in": 86400,
-	"user": {
-		"uuid": "e70b8677-e95c-11e0-9407-005056c00008",
-		"type": "user",
-		"username": "bob",
-		"email": "bob@company.com",
-		"activated": true,
-		"created": 1317164604367013,
-		"modified": 1317164604367013
-	}
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-	
-```
-curl -X POST -i -d '{\"grant_type\":\"password\",\"username\":\"bob@company.com\",\"password\":\"password\"}' "https://api.baas.io/my-baasio-id/my-app-id/token"
-```
-
-
- 
-	
-## 사용자 발급한 인증 토큰을 만료 시키기
-[]({'id':'revokekoken'})
-
-baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에 발급받은 개별 인증 토큰을 만료시킬 수 있습니다. 인증 토큰 만료는 로그아웃 처리라고 생각하시면 편할듯 합니다. 만약 사용자가 발급받은 모든 인증 토큰을 만료하려면 [사용자가 발급한 인증 토큰 모두 만료 시키기](#revoketokens) API 를 사용하세요. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
-
-##### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/users/{uuid or username or email_address}/revoketoken
-```
-	
-```json
-{
-	"token":"{token}"
-}
-```
-	
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
-|token|만료시킬 token|
- 
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json
-{
-	"action": "revoked user token",
-	"timestamp": 1357625390782,
-	"duration": 44
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-	
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"token\":\"{token}\"}' "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/revoketoken"
-```
-
-## 사용자가 발급한 인증 토큰 모두 만료 시키기
-[]({'id':'revoketokens'})
-
-baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 발급 받은 인증 토큰을 모두 만료시킬 수 있습니다. 만약 1개의 인증 토큰을 만료하려면 [사용자 발급한 토큰을 만료 시키기](#revoketoken) API 를 사용하면 됩니다. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
-
-##### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/users/{uuid or username or email_address}/revoketokens
-```
- 
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "revoked user tokens",
-	"timestamp": 1357625390782,
-	"duration": 44
-}
-```
-
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-	
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/revoketokens"
-```
-
-## 사용자가 속한 그룹조회하기
-[]({'id':'getGroups'})
-
-##### Request URI
-
-```
-`GET` /users/{uuid or username or email_address}/groups
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json
-{
-  "action": "get",
-  "application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
-  "params": {},
-  "path": "/users/eda4b8c1-1ce5-11e2-9b13-4061867ca222/groups",
-  "uri": "https://api.baas.io/my-baasio-id/test//users/eda4b8c1-1ce5-11e2-9b13-4061867ca222/groups",
-  "entities": [
-	{
-	  "uuid": "f51a6aab-1cdf-11e2-9b13-4061867ca222",
-	  "type": "user",
-	  "name": "bob",
-	  "created": 1350975898997,
-	  "modified": 1350975898997,
-	  "activated": true,
-	  "email": "bob@mail.com",
-	  "metadata": {
-		"path": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222",
-		"sets": {
-		  "rolenames": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/rolenames",
-		  "permissions": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/permissions"
-		},
-		"collections": {
-		  "activities": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/activities",
-		  "devices": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/devices",
-		  "feed": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/feed",
-		  "groups": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/groups",
-		  "roles": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/roles",
-		  "following": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/following",
-		  "followers": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/followers"
-		}
-	  },
-	  "picture": "https://www.gravatar.com/avatar/b150400a18767d0c9b0c24672bc3204f",
-	  "username": "realbeast"
-	}
-  ],
-  "timestamp": 1350978519878,
-  "duration": 79,
-  "organization": "my-baasio-id",
-  "applicationName": "test"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/groups"
-```
-
-
-## 그룹에 사용자를 추가하기
-[]({'id':'postGroups'})
-
-해당기능은 Group API [그룹에 사용자를 추가하기](groups.html#postGroupUser) 에서 확인하세요.
-
-
-## 사용자의 롤 조회하기
-[]({'id':'getRoles'})
-
-##### Request URI
+```java
+BaasioUser user = Baas.io().getSignedInUser();
+user.unsubscribeInBackground(
+    new BaasioCallback&lt;BaasioUser&gt;() {
 
-```
-`GET` /{baasio-id}/{app-id}/users/{uuid or username or email_address}/roles
-```
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
 
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "get",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/users/70f39f36-1825-379d-8385-7a7fbe9ec741/roles",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/users/70f39f36-1825-379d-8385-7a7fbe9ec741/roles",
-	"entities": [
-		{
-			"uuid": "70f39f36-1825-379d-8385-7a7fbe9ec74a",
-			"type": "role",
-			"name": "admin",
-			"created": 1349940834371,
-			"modified": 1349940834371,
-			"inactivity": 0,
-			"metadata": {
-				"path": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a",
-				"sets": {
-					"permissions": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/permissions"
-				},
-				"collections": {
-					"groups": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/groups",
-					"users": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/users"
-				}
-			},
-			"roleName": "admin",
-			"title": "Administrator"
-		}
-	],
-	"timestamp": 1350005054235,
-	"duration": 163,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-	
-##### Example
- 
+            @Override
+            public void onResponse(BaasioUser response) {
+                if (response != null) {
+                    //성공 - 로그인되어 있는 사용자와 같은 사용자일 경우, 내부에서 로그아웃 처리됨.(v0.8.1 부터 지원)
+                }
+            }
+        });
 ```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/roles"
-```
-	
-## 사용자의 롤 추가하기
-[]({'id':'postRoleUser'})
-
-롤과 사용자와의 관계를 설정할 수 있습니다. 특정 사용자에서 롤을 등록하는 경우는 Role API [롤에 사용자 추가하기](roles.html#) 에서 확인하세요.
-
 
-## 사용자와 특정 Entity 관계(Connection) 설정하기
-[]({'id':'postConnection'})
-
-Collections 들은 서로간의 관계(Connection)를 만들 수 있습니다. 예를들어, 사용자 로그인 기반의 음악앱을 만든다고 하였을 때, Collection(collection)은 users, musics 2개의 Collection을 생각할 수 있겠죠.
-
-Users는 기본 Collection이기 때문에 생성할 필요는 없으며, musics는 새로운 Collection이기 때문에 Collection 생성 API로 새로운 Collection을 생성(참고. [Collection 가이드 페이지](collection.html))하고, 새로운 음악 정보를 만들 것입니다.
-
-##### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/musics
-```
+>warning|Warning|회원 탈퇴|
+<li>현재 로그인한 회원이 임의의 다른 회원을 탈퇴시킬 수 없도록, [역할(Role)](/develop/android/concept/security.html#security-role)과 [권한(Permission)](/develop/android/concept/security.html#security-permission) 설정을 올바르게 해야 합니다.</li>
+<li>관련 가이드는 Basic Concepts의 [Security(보안)](/develop/common/concept/security.html)를 참고바랍니다.</li>
 
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
 
-##### Request Body
+## Facebook
+[]({'id':'facebook'})
 
-```json
-{
-	"artist":"psy",
-	"name":"Gangnam Style"
-}
-```
-	
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "post",
-	"application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
-	"params": {},
-	"path": "/musics",
-	"uri": "https://api.baas.io/my-baasio-id/test/musics",
-	"entities": [
-		{
-			"uuid": "2e521eb4-1cdd-11e2-9b13-4061867ca222",
-			"type": "music",
-			"name": "Gangnam Style",
-			"created": 1350974706502,
-			"modified": 1350974706502,
-			"artist": "psy",
-			"metadata": {
-				"path": "/musics/2e521eb4-1cdd-11e2-9b13-4061867ca222"
-			}
-		}
-	],
-	"timestamp": 1350974706496,
-	"duration": 38,
-	"organization": "my-baasio-id",
-	"applicationName": "test"
-}
-```
+baas.io는 <strong>Facebook으로 로그인/가입하는 기능을 제공</strong>하고 있습니다. 이 기능을 이용하기 위해서는 Facebook의 Access Token이 필요합니다.
 
+이 가이드를 통해 Facebook SDK for Android v3.0을 이용하여 Facebook의 Access token을 얻는 방법을 가이드합니다. 더 자세한 내용은 [Facebook SDK for Android 페이지](https://developers.facebook.com/docs/android/)를 참고바랍니다.
 
-그럼, 음악 앱에서 사용자가 음악을 구매하는 기능을 만들고 싶다고 생각해보죠. 사용자가 곡을 구매하였을 때 musics, users 간의 관계(Connection) 를 설정해야지 내가 구매한 음악정보만 불러 올 수 있겠죠?
+관련 샘플은 baas.io-sample-project v0.8.1버전 이후부터 제공되고 있으니 참고 바랍니다.
 
-따라서, 두 Collection(Collections) 간에 관계를 만들어줘야 합니다. 이럴 때 아래의 API를 활용하면 됩니다. 음악에서는 users, musics 두 Collection 간의 관계를 설정하려면 다음과 같이 요청하면 됩니다.
+##### Step1. Facebook 가입|facebook-step1
 
+Facebook 계정이 필요합니다. 계정이 없다면 가입해주세요.
 
-```
-`POST` /{baasio-id}/{app-id}/users/{user_uuid}/musics/{music_uuid}
-```
+##### Step2. Facebook SDK for Android 다운로드|facebook-step2
 
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection_name|Users와 관계를 맺을 Collection 이름|
-|collection_uuid|Users와 관계를 맺을 Collection 에 저장된 Entity UUID|
- 
-	
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json
-{
-	"action": "post",
-	"application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
-	"params": {},
-	"path": "/users/0b455770-1cdd-11e2-9b13-4061867ca222/musics",
-	"uri": "https://api.baas.io/my-baasio-id/test/users/0b455770-1cdd-11e2-9b13-4061867ca222/musics",
-	"entities": [
-		{
-			"uuid": "2e521eb4-1cdd-11e2-9b13-4061867ca222",
-			"type": "music",
-			"name": "Gangnam Style",
-			"created": 1350974706502,
-			"modified": 1350974706502,
-			"artist": "psy",
-			"metadata": {
-				"path": "/users/0b455770-1cdd-11e2-9b13-4061867ca222/musics/2e521eb4-1cdd-11e2-9b13-4061867ca222"
-			}
-		}
-	],
-	"timestamp": 1350975377070,
-	"duration": 43,
-	"organization": "my-baasio-id",
-	"applicationName": "test"
-}
-```
+Facebook SDK for Android에서 SDK를 다운로드하여 적당한 위치에 압축을 풀어줍니다.
 
-- 에러
+##### Step3. Key Hash 생성|facebook-step3
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+Debug용 Key의 Hash를 얻기 위해, 아래와 같은 명령어를 prompt에서 실행시킵니다. Windows에서 개발하시는 분들은 [openssl](http://slproweb.com/products/Win32OpenSSL.html) 설치가 필요합니다.
 
-##### Example
+- OSX
 
 ```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: application/x-www-form-urlencoded" "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/{collection_name}/{collection_uuid}"
+keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
 ```
-
-## 사용자와 특정 Entity 관계(Connection) 해제하기
-[]({'id':'deleteConnection'})
 
-Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니다. 또한, 관계를 맺은 Collection 한쪽의 Entity가 삭제 되었을 시에 자동으로 이 관계(Connection)는 해제됩니다.
+- Windows
 
-##### Request URI
-	
 ```
-'DELETE' /{baasio-id}/{app-id}/users/{uuid or username or email_address}/{collection_name}/{collection_uuid}
+keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.keystore | openssl sha1 -binary | openssl base64
 ```
- 
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection_name|Users와 관계를 맺을 Collection 이름|
-|collection_uuid|Users와 관계를 맺을 Collection 에 저장된 Entity UUID|
- 
-	
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json  
-{
-	"action": "delete",
-	"application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
-	"params": {},
-	"path": "/users/0b455770-1cdd-11e2-9b13-4061867ca222/musics",
-	"uri": "https://api.baas.io/my-baasio-id/test/users/0b455770-1cdd-11e2-9b13-4061867ca222/musics",
-	"entities": [
-		{
-			"uuid": "2e521eb4-1cdd-11e2-9b13-4061867ca222",
-			"type": "music",
-			"name": "Gangnam Style",
-			"created": 1350974706502,
-			"modified": 1350974706502,
-			"artist": "psy",
-			"metadata": 
-				"path": "/users/0b455770-1cdd-11e2-9b13-4061867ca222/musics/2e521eb4-1cdd-11e2-9b13-4061867ca222"
-			}
-		}
-	],
-
-	"timestamp": 1350975377070,
-	"duration": 43,
-	"organization": "my-baasio-id",
-	"applicationName": "test"
-}
-```
-	
-- 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: application/x-www-form-urlencoded" "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/{collection_name}/{collection_uuid}"
-```
+실행시키면 비밀번호를 묻는데, 'android'라고 입력하면 30글자로 된 Hash 값이 결과로 나옵니다.
+<strong>이 Key Hash 값은 앱 생성을 위해 사용되니 잘 적어놓습니다.</strong>
 
+![facebook key hash](/images/develop/android/users-facebook-keyhash.png)
 
-## User Entity
-[]({'id':'userEntity'})
+>warning|Warning|개발용과 배포용|개발시에는 Debug용 Key의 Hash만 얻어내면 되지만, 배포할때는 배포용 Key의 Hash도 필요합니다. 등록한 Key와 앱에 설정된 인증키(keystore)가 다르면 Facebook에서 오류가 나옵니다.
 
-##### User 기본 속성(Property)
+##### Step4. Facebook 개발자 설정|facebook-step4
 
-|속성|형식|설명|
-|:----------:|:----------:|:-----------|
-|uuid|UUID|User 유일한 Entity ID|
-|type|string|"user"|
-|created|long|Entity 생성 일자 (UNIX timestamp)|
-|modified|long|Entity 최종 수정일자 (UNIX timestamp)|
-|username|string|회원 이름/ID (필수)|
-|email|string|이메일|
-|name|string|이름|
-|activated|boolean|사용자 승인여부 ( 현재는 바로 승인처리 됨 )|
-|disabled|boolean|관리적으로 해당 사용자를 비활성화 시키는 경우 사용|
-|firstname|string|사용자 first 이름|
-|middlename|string|사용자 middle 이름|
-|lastname|string|사용자 last 이름|
-|picture|string|사용자 사진 ( 이메일 입력시 gravatar.com 연동 후 사진을 자동으로 연결함 )|
+Facebook에 로그인을 하면 오른쪽 상단에 Dropdown 메뉴가 있습니다.(Profile 이름 옆에)
 
-##### User 기본 Set
+![facebook profile menu](/images/develop/android/users-facebook-profile-menu.png)
 
-|Set|형식|설명|
-|:-----------:|:-----------:|:----------|
-|connections|string|관계리스트|
-|rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](roles.html)|
-|permissions|string|퍼미션 리스트|
-|credentials|string|credentials 리스트|
+Settings 메뉴를 선택하고, 왼쪽 세션에 Developer Settings를 선택하면 Developer 등록창이 나타납니다. 등록을 마칩니다.
 
-##### User 기본 Collection
+![click developer settings](/images/develop/android/users-facebook-click-developer-settings.png)
 
-User Entity 에서는 기본으로 제공하는 Collection과의 관계 설정을 위해서 아래의 값들을 미리 가지고 있습니다.
-참고.[사용자와 특정 Entity(Collection) 관계(Connection) 설정하기](#postConnection)
+이제 [Step3](#facebook-step3)에서 얻어낸 Key Hash를 입력하면 개발자 등록이 완료됩니다.
 
-|Collection|형식|설명|
-|:----------:|:----------:|:------------|
-|groups|group|그룹과의 관계들|
-|devices|device|디바이스와 관계들|
-|activities|activity|활동과의 관계들|
-|feed|activity|개인적인 알림들|
-|roles|role|롤(Role) 리스트|
+![facebook developer settings](/images/develop/android/users-facebook-developer-settings.png)
 
+##### Step5. Facebook 앱 생성|facebook-step5
 
+App Dashboard 페이지로 이동하여, '새 앱 만들기(Create New App)'를 선택합니다.
 
+![click create new app](/images/develop/android/users-facebook-click-create-new-app.png)
 
+나타나는 '새 앱 만들기(Create New App)'창에 원하는 이름을 입력해줍니다.
 
+![facebook create new app](/images/develop/android/users-facebook-create-new-app.png)
 
+생성이 완료되면 아래와 같은 App ID가 나옵니다. <strong>이 App ID는 개발하시는 애플리케이션에서 사용될 것이므로 기억해 둡니다.</strong>
 
+![facebook app id](/images/develop/android/users-facebook-info-app-id.png)
 
+이제 '앱 수정(Edit App)'을 선택합니다.
 
-# Collection
-[]({'id':'collection'})
+![click edit app](/images/develop/android/users-facebook-click-edit-app.png)
 
-baas.io의 Data 서비스는 Collection과 Entity 그리고 Entity 간의 Relation으로 이루어진다. 
-Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될 수 있다.
-실제로 User 서비스의 Follower/Following/Devices/Group 등도 Relation에 해당한다.
-물론 User 서비스의 Follower/Following/Devices/Group은 baas.io가 미리 준비한 특별한 Relation이다.
+'네이티브 Android 앱(Native Android App)'세션을 엽니다. Key Hash란에 Step2에서 얻어낸 Key Hash를 입력하고 저장합니다.
 
+##### Step6. 새로운 Android 앱 프로젝트 생성 및 App ID 등록|facebook-step6
 
-## Collection/Entity 생성하기
-[]({'id':'postCollection'})
+Eclipse에서 File &gt; New &gt; Project를 선택하여 새로운 Android 프로젝트를 생성합니다.
 
-특정 Collection을 생성한다. Body 에 Entity 정보가 있다면 생성된 Collection 에 Entity를 등록한다.
+생성된 프로젝트에서 오른쪽을 클릭하여 "properties"를 선택하고, Android탭을 선택하여, Step 2에서 다운로드 받은 Facebook SDK를 선택해줍니다.
 
-##### Request URI
+![input key hash](/images/develop/android/users-facebook-input-key-hash.png)
 
-```
-`POST`  /{baasio-id}/{app-id}/{collection}
-```
+res/values 위치에 있는 string.xml 파일에 아래와 같이 app_id라는 string 값을 추가하고, Step 5에서 얻은 Facebook App ID를 넣어줍니다.
 
-  
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-
-##### Request Body
-
-```json
-{
-	"foo": "bar",
-	"a": {
-	  	"b": 1,
-	  	"c": 2
-	}
-}
-```
+```xml
+&lt;resources&gt;
     
+    ...
 
-##### Response
+    &lt;!-- Facebook app_id --&gt;
+    &lt;string name="app_id"&gt;497906953566757&lt;/string&gt;
 
-- 성공
-	- Code: 200 
-	- Contents:
+    ...
 
-```javascript
-{
-	"action": "post",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization",
-	"entities":  [
-	   {
-	    "uuid": "89434a5b-1278-11e2-8553-02e81ac5a17b",
-	    "type": "foo",
-	    "created": 1349831968280,
-	    "modified": 1349831968280,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/89434a5b-1278-11e2-8553-02e81ac5a17b"
-	    }
-	  }
-	],
-	"timestamp": 1349831968251,
-	"duration": 53,
-	"organization": "test-organization",
-	"applicationName": "test-app"
+&lt;/resources&gt;
+```
+
+AndroidManifest.xml파일을 열어 'permission'과 'meta-data'정보, Facebook의 로그인 화면인 LoginActivity를 등록해 줍니다.
+
+```xml
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    ... &gt;
+
+    ...
+
+    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+
+    ...
+
+    &lt;application
+        ... &gt;
+
+        ...
+
+        &lt;meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/&gt;
+        
+        &lt;activity
+            android:name="com.facebook.LoginActivity"&gt;
+        &lt;/activity&gt;
+
+        ...
+
+    &lt;/application&gt;
+
+&lt;/manifest&gt;                                 
+```
+
+##### Step7. Android 앱 정보 등록|facebook-step7
+
+다시 Facebook의 App Dashboard로 돌아가 생성한 Android 앱의 package name과 Facebook의 로그인을 시도할 Activity의 Class name을 등록합니다.
+
+![facebook register app info](/images/develop/android/users-facebook-register-app-info.png)
+
+##### Step8. Facebook 로그인 및 baas.io 로그인|facebook-step8
+
+Facebook SDK의 Session.openActiveSession를 호출하여 Facebook 로그인을 진행합니다.
+
+Facebook 로그인에 성공하면, Facebook Access Token을 얻을 수 있으며, 이를 이용하여 baas.io로 로그인을 할 수 있습니다.
+
+아래는 Facebook Access Token을 얻어와, baas.io로 로그인을 시도하는 예제입니다.
+
+```java
+public class MainActivity extends Activity {
+
+    ...
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // start Facebook Login
+        Session.openActiveSession(this, true, new Session.StatusCallback() {
+
+                // callback when session changes state
+                @Override
+                public void call(Session session, SessionState state, Exception exception) {
+                    if (session.isOpened()) {
+                        // Facebook 로그인 성공
+                        String accessToken = session.getAccessToken();
+
+                        BaasioUser.signInViaFacebookInBackground(mContext, accessToken,
+                            new BaasioSignInCallback() {
+
+                                @Override
+                                public void onException(BaasioException e) {
+                                    // baas.io 로그인 실패
+                                }
+
+                                @Override
+                                public void onResponse(BaasioUser response) {
+                                    // baas.io 로그인 성공
+                                }
+                            });
+                    }
+                }
+            });
+    }
+
+    ...
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
+
+    ...
 }
 ```
- 
-- 에러
-	
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
-##### Example
+# Data(Entity)
+[]({'id':'data'})
 
-```javascript
-$.ajax({
-	url: "/test-organization/test-apps/foo",
-	dataType: "json",
-	data : { 
-		{
-			"foo": "bar",
-			"a": {
-			    "b": 1,
-			    "c": 2
-			}
+baas.io는 <strong>데이터를 저장하고 조회, 삭제하는 기능을 제공</strong>합니다. 또한, Entity와 Entity를 Connect(연결)하여 <strong>Relationship(관계)</strong>를 만들 수 있습니다.
+
+Relationship(관계)에 대한 자세한 내용은 Basic Concepts의 Relationship을 참고하시기 바랍니다.
+
+## BaasioEntity 클래스
+
+BaasioUser 클래스가 "users" Collection의 "user" Entity를 관리하기위해 제공되는 것과 비교하면, BaasioEntity 클래스는 사용자가 정의한 Type의 Entity를 관리하기위해 제공됩니다.
+
+Entity와 Collection의 관계는 [Basic Concepts의 Entity 페이지](/develop/android/concept/entity.html#entity-title), [Basic Concepts의 Collection 페이지](/develop/android/concept/collection.html#collection-title)을 참고하시기 바랍니다.
+
+## Create Entity
+[]({'id':'create'})
+
+데이터를 저장하여 Entity를 생성합니다.
+
+동기식인 BaasioEntity.save() 메소드와 BaasioEntity.saveInBackground() 메소드를 제공합니다.
+
+Entity를 생성하기 위해서는, <strong>Type이 꼭 정의 되어야 하며, Type은 Collection의 이름을 결정</strong>하게됩니다. Type은 BaasioEntity의 setType() 메소드를 통해 설정할 수 있으며, 생성자를 통해서도 설정할 수 있습니다.
+
+데이터의 세부 정보는 setProperty() 메소드를 이용하여 Key, Value 쌍으로 설정할 수 있습니다. 이 때, Predefined Property와 중복되지 않도록 유의 바랍니다. 
+
+<strong>Predefined Property 중에 "name" Property는, 같은 Collection내에서 유일하게 식별될 수 있는 값</strong>으로 저장되어야 합니다. 특히, "name" Property는 최초 저장된 Value를 수정할 수 없으니 유의하시기 바랍니다. 즉, 해당 Entity를 삭제하고 새로운 "name" Property로 생성해야 합니다.
+
+관련 자세한 내용은 [Basic Concepts의 Entity 페이지](/develop/android/concept/entity.html#entity-title)를 참고하시기 바랍니다.
+
+<strong>Entity 생성이 성공되면, baas.io로 부터 유일한 uuid를 부여받게되고, 이 uuid는 모든 데이터를 통틀어 유일하게 식별하기 위한 용도로 사용됩니다.</strong> uuid는 BaasioEntity.getUuid() 메소드를 통해 알 수 있습니다.
+
+<strong>Property의 Value는, JSON의 Value가 될 수 있는, String, Number, Object, Array, Boolean, null로 설정</strong>할 수 있습니다.
+
+아래의 코드는, "friend" Type의 Entity에 String, Integer, Double 데이터를 저장하는 예를 보여주고 있습니다.
+
+```java
+BaasioEntity entity = new BaasioEntity("friend");       // "friend" Entity
+entity.setProperty("custom_key1", "custom_string_value");   // String
+entity.setProperty("custom_key2", 1);                       // Integer
+entity.setProperty("custom_key3", Double.valueOf(2));       // Double
+entity.saveInBackground(
+    new BaasioCallback<BaasioEntity>() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioEntity response) {
+                if (response != null) {
+                    // 성공
+                    String customKey1 = response.getProperty("custom_key1").getTextValue();
+                    int customKey2 = response.getProperty("custom_key2").getIntValue();
+                    double customKey3 = response.getProperty("custom_key3").getDoubleValue();
+                }
+            }
+        });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 id이거나 password 입니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|-100|500|알수 없는 에러입니다.|
+
+## Create Bulk Entities
+[]({'id':'create-bulk'})
+여러 개의 데이터를 <strong>한꺼번에 생성합니다.</strong>
+
+동기식인 BaasioEntity.save() 메소드, 비동기식인 BaasioEntity.saveInBackground() 메소드를 제공합니다.
+
+아래의 코드는, "bulks" Collection으로 "bulk" Type의 Entity들을 저장하는 예입니다.
+
+```java
+BaasioEntity entity1 = new BaasioEntity("bulk");
+entity1.setProperty("test","test1");
+
+BaasioEntity entity2 = new BaasioEntity("bulk");
+entity2.setProperty("test","test2");
+
+List<BaasioEntity> entities = new ArrayList<BaasioEntity>();
+entities.add(entity1);
+entities.add(entity2);
+
+BaasioEntity.saveInBackground("bulk", entities,
+    new BaasioCallback<List<BaasioEntity>>() {
+
+            @Override
+            public void onResponse(List<BaasioEntity> response) {
+                if(response != null && response.size() > 0) {
+                    // 성공
+                }
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|-100|500|알수 없는 에러입니다.|
+
+## Get Entity
+[]({'id':'get'})
+baas.io에 <strong>저장되어 있는 Entity를 얻어 옵니다.</strong> 어떤 Entity를 읽어올지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 읽어 옵니다.
+
+동기식은 BaasioEntity.get() 메소드, 비동기식은 BaasioEntity.getInBackground() 메소드를 제공합니다.
+
+참고로, 여러 Entity를 특정 조건으로 조회하는 방법은 [Query 가이드 페이지](/develop/android/guide/query.html#query-title)를 참고하시기 바랍니다.
+
+아래의 코드는, "friends" Collection으로부터, 특정 uuid를 가지고 있는 "friend" Type의 Entity를 읽어오는 예입니다.
+
+```java
+BaasioEntity entity = new BaasioEntity("friend");   // "friend" entity
+entity.setUuid(uuid);                               // Entity의 uuid
+entity.getInBackground(
+        new BaasioCallback<BaasioEntity>() {
+
+                @Override
+                public void onException(BaasioException e) {
+                    // 실패
+                }
+
+                @Override
+                public void onResponse(BaasioEntity response) {
+                    if (response != null) {
+                        // 성공
+                    }
+                }
+            });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|-100|500|알수 없는 에러입니다.|
+
+## Update Entity
+[]({'id':'update'})
+baas.io에 저장되어 있는 <strong>Entity를 수정합니다.</strong> 어떤 Entity를 수정할 지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 수정 합니다.
+
+동기식은 BaasioEntity.update() 메소드, 비동기식은 BaasioEntity.updateInBackground() 메소드를 제공합니다.
+
+```java
+BaasioEntity entity = new BaasioEntity("friend");   // "friend" entity
+entity.setUuid(uuid);                               // Entity의 uuid
+entity.setProperty("custom_key", "custom_value");
+entity.updateInBackground(
+        new BaasioCallback<BaasioEntity>() {
+
+                @Override
+                public void onException(BaasioException e) {
+                    // 실패
+                }
+
+                @Override
+                public void onResponse(BaasioEntity response) {
+                    if (response != null) {
+                        // 성공
+                        String customKey = response.getProperty("custom_key").getTextValue();
+                    }
+                }
+            });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|-100|500|알수 없는 에러입니다.|
+
+## Remove Entity
+[]({'id':'remove'})
+baas.io에 저장되어 있는 <strong>Entity를 삭제합니다.</strong> 어떤 Entity를 삭제할 지 식별할 수 있도록, “uuid” 또는 “name” Property를 설정하여 이에 해당하는 Entity를 삭제 합니다.
+
+동기식은 BaasioEntity.delete() 메소드, 비동기식은 BaasioEntity.deleteInBackground() 메소드를 제공합니다.
+
+```java
+BaasioEntity entity = new BaasioEntity("friend");   // "friend" entity
+entity.setUuid(uuid);                               // Entity의 uuid
+entity.deleteInBackground(
+    new BaasioCallback<BaasioEntity>() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioEntity response) {
+                if (response != null) {
+                    // 성공
+                }
+            }
+        });
+```
+
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|-100|500|알수 없는 에러입니다.|
+
+## Connection between Entities(Relationship)
+[]({'id':'connect'})
+<strong>Entity와 Entity 사이에 Relationship(관계)을 만들 수 있습니다.</strong> 이렇게 만들어진 관계를 이용하여, Twitter의 following/follower 또는 Facebook의 like를 구현할 수 있습니다.
+
+Relationship은 BaasioConnectableEntity를 상속받은 객체라면 서로 연결을 할 수 있습니다. 예를 들어, BaasioConnectableEntity를 상속받은 BaasioUser, BaasioEntity, BaasioFile, BaasioGroup 등은 서로 Relationship으로 연결할 수 있습니다. 연결할 때, 서로의 클래스가 같지 않아도 연결할 수 있습니다.
+
+Relationship과 관련된 자세한 설명은 [Basic Concepts의 Relationship 가이드 페이지](/develop/android/concept/relation.html#relation-title)를 참고하시기 바랍니다.
+
+### Connect
+<strong>Entity와 Entity를 Relationship으로 연결</strong>합니다.
+
+동기식은 BaasioEntity.connect() 메소드, 비동기식은 BaasioEntity.connectInBackground() 메소드를 제공합니다.
+
+연결을 위해서는 각각의 Entity를 식별하기 위한 "uuid" 또는 "name" Property가 설정되어 있어야 합니다.
+
+아래의 코드는 "dog" Type을 가진 Entity와 "cat" Type을 가진 Entity를 "love"라는 관계를 만들어 준것으로, happy라는 강아지가 kitty라는 고양이를 love하고 있다는 의미로 Relationship을 만들어 준 것입니다.
+
+```java
+BaasioEntity dog = new BaasioEntity("dog");
+dog.setName("happy");
+
+BaasioEntity cat = new BaasioEntity("cat");
+cat.setName("kitty");
+
+doc.connectInBackground(
+    "love"
+    , cat
+    , BaasioEntity.class // cat의 클래스
+    , new BaasioCallback<BaasioEntity>() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioEntity response) {
+                if (!ObjectUtils.isEmpty(response)) {
+                    // 성공
+                }
+            }
+        });
+```
+
+<strong>Relationship으로 연결에 성공하면 결과로 연결된 대상을 전달합니다.</strong> 위의 예제에서는 cat이 전달됩니다.
+
+#### 관련 에러코드
+
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|-100|500|알수 없는 에러입니다.|
+
+### Disconnect
+<strong>Entity와 Entity의 Relationship을 해제</strong>합니다.
+
+연결을 해제하기 위해서는 각각의 Entity를 식별하기 위한 "uuid" 또는 "name" Property가 설정되어 있어야 합니다.
+
+동기식은 BaasioEntity.disconnect() 메소드, 비동기식은 BaasioEntity.disconnectInBackground() 메소드를 제공합니다.
+
+아래의 코드는 "dog" Type을 가진 Entity와 "cat" Type을 가진 Entity를 "love"라는 관계를 해제한 것으로, happy라는 강아지가 kitty라는 고양이를 더 이상 love하고 있지 않다는 의미로 Relationship을 해제한 것입니다.
+
+```java
+BaasioEntity dog = new BaasioEntity("dog");
+dog.setName("happy");
+
+BaasioEntity cat = new BaasioEntity("cat");
+cat.setName("kitty");
+
+dog.disconnectInBackground(
+    "love"
+    , cat
+    , BaasioEntity.class	// cat의 클래스
+    , new BaasioCallback<BaasioEntity>() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioEntity response) {
+                if (!ObjectUtils.isEmpty(response)) {
+                    // 성공
+                }
+            }
+        });
+```
+
+<strong>Relationship 해제에 성공하면 결과로 연결이 해제된 대상을 전달합니다.</strong> 위의 예제에서는 cat이 전달됩니다.
+
+#### 관련 에러코드
+
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|-100|500|알수 없는 에러입니다.|
+
+
+
+
+# Query
+[]({'id':'query'})
+baas.io에 저장된 데이터를 <strong>특정 조건으로 조회하는 기능을 제공</strong>합니다. <strong>SQL 구문과 비슷한 형태</strong>로 조회할 수 있습니다.
+
+## BaasioQuery 클래스
+[]({'id':'class'})
+baas.io는 BaasioQuery클래스를 이용하여 아래의 세 가지 조회 방법을 제공합니다.
+
+- "users" Collection의 "user" Entity, "groups" Collection의 "group" Entity, "files" Collection의 "file" Entity와 같이, 어떤 Collection의 Entity를 조회 (Custom Collection 포함)
+- 어떤 Group에 속한 "user" Entity를 조회
+- 어떤 Entity와 연결(connect)되어 Relationship을 가지고 있는 Entity를 조회
+
+또한, 복잡하거나 다양한 검색을 지원하기 위해 <strong>직접 질의문(Raw Query String)을 입력</strong>하여 요청할 수 있습니다.
+
+조회는 <strong>queryInBackground() 메소드를 이용하여 특정 갯수만큼만 조회</strong>해 올 수 있으며, 그 다음 <strong>데이터를 조회하기 위해서는 nextInBackground() 메소드, 이전 데이터를 조회하기 위해서는 prevInBackground() 메소드를 이용</strong>합니다.
+
+조회를 위한 메소드들은 동기화 방식도 물론 제공하고 있으며, 각각의 메소드는 <strong>query(), next(), prev()</strong>입니다.
+
+<strong>최초 조회할 때는 query() 또는 queryInBackground()로 먼저 요청해야하는 것에 유의</strong>바랍니다.
+
+#### Query Entities from Collection|query-collection
+Collection으로부터 데이터를 조회할때는 <strong>setType() 메소드를 이용하여 조회할 Entity의 Type을 설정</strong>합니다.
+
+아래의 예는 "friends" Collection으로부터 "friend" Entity를 조회해 오는 예입니다.
+
+setType() 메소드를 설정하여 Entity의 Type으로 "friend"를 지정해주고 있으며, setOrderBy()를 이용하여 수정시간을 기준으로 내림차순 정렬하도록 합니다. 또한 setLimit()를 설정하여 10개씩 받도록 합니다.
+
+```java
+BaasioQuery mQuery = new BaasioQuery();
+mQuery.setType("friend");						// 조회할 Entity type
+mQuery.setOrderBy(
+	BaasioBaseEntity.PROPERTY_MODIFIED			// 정렬 기준
+	, ORDER_BY.DESCENDING);					// 정렬 순서
+mQuery.setLimit(10);							// 한번에 받을 갯수 설정
+mQuery.queryInBackground(                   // 조회 요청
+    new BaasioQueryCallback() { 
+
+            @Override
+            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+                mQuery = query;	// 결과로 들어온 Query 객체로 교체
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+이렇게 queryInBackground()를 이용하여 최초 데이터를 요청한 이후에는, nextInBackground(), prevInBackground()를 이용하여 다음 또는 이전 데이터를 조회해 올 수 있습니다.
+
+결과가 전달되는 BaasioQueryCallback.onResponse()에 BaasioQuery 인스턴스가 들어오며, 그 인스턴스를 이용하여 nextInBackground(), prevInBackground()를 호출하여 다음 또는 이전 데이터를 조회하는 것에 유의 바랍니다.
+
+아래는 다음 데이터를 조회하는 요청입니다.
+
+```java
+mQuery.nextInBackground(    // 조회 요청
+    new BaasioQueryCallback() {
+
+            @Override
+            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+                // 성공
+                mQuery = query;						// 결과로 들어온 Query 객체로 교체
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+아래는 이전 데이터를 조회하는 요청입니다.
+
+```java
+mQuery.prevInBackground(    // 조회 요청
+    new BaasioQueryCallback() {
+
+            @Override
+            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+                // 성공
+                mQuery = query;					// 결과로 들어온 Query 객체로 교체
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+### setLimit()
+[]({'id':'setlimit'})
+한 번에 조회해 올 수 있는 데이터의 갯수는 <strong>기본 10개</strong>이며, 이 갯수는 <strong>setLimit()를 호출하여 원하는 값으로 설정</strong>할 수 있습니다.
+
+>warning|Warning|한꺼번에 받을 수 없나요?|
+<li>데이터를 한꺼번에 받게되면 응답시간이 느려지게 됩니다. 느린 응답시간은 서비스의 질을 떨어뜨리는 요소가 될 것입니다. 더구나, 응답시간이 느려지면, 중간에 네트워크의 이상으로 실패할 가능성이 많아집니다.</li>
+<li>적당한 양의 데이터를 요청하여 좋은 UX를 제공하는 것을 권장합니다.</li>
+
+### setOrderBy()
+[]({'id':'setOrderBy'})
+<strong>조회할 데이터의 순서를 설정</strong>합니다. 특정 Property에 대해, <strong>오름차순(ORDER_BY.ASCENDING) 또는 내림차순(ORDER_BY.DESCENDING)의 순서로 데이터를 조회</strong>할 수 있습니다.
+
+### setWheres()
+[]({'id':'setWheres'})
+<strong>조회할 조건을 설정</strong>합니다. Entity의 Property 값이 어떤 조건에 부합하는 Entity만 조회할 수 있습니다.
+
+아래의 예는 회원 중에 나이가 20살 이상인 회원을 "users" Collection에서 조회하는 예입니다.
+
+```java
+BaasioQuery query = new BaasioQuery();
+query.setType(BaasioUser.ENTITY_TYPE);						// 조회할 Entity type
+query.setWheres("age &gt;= 20");
+query.setLimit(10);							// 한번에 받을 갯수 설정
+query.queryInBackground(    // 조회 요청
+    new BaasioQueryCallback() { 
+
+            @Override
+            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+                //성공
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+>warning|Warning|숫자형, 문자형|
+Property의 값이 숫자(Number)형이 아닌 문자열(String) 형으로 저장되어 있으면, 실제 값이 숫자라고 해도 문자열로 인식하여 원하는 결과를 얻을 수 없습니다.
+
+
+아래는 조건에 사용되는 데이터의 타입을 어떻게 표현하는지 보여주는 예입니다.
+
+|데이터 타입|예제|
+|:------:|:-:|
+|문자열 (String)|'데이터', 유니코드 문자열 '\uFFFF'|
+|정수형 (Integer)|365 , -1360
+|실수형 (Float)|3.14156 , -3.14159 , 10e10, 10E-10|
+
+
+아래는 조건에 사용되는 연산자의 종류 입니다.
+
+|연산자 종류|연산자 설명|예제|
+|:------:|:------:|:-:|
+|비교 연산자|보다 작다|'&lt;' 또는 'lt'|
+||보다 작거나 같다|'&lt;=' 또는 'lte'|
+||같다|'=' 또는 'eq'|
+||보다 크거나 같다|'&gt;=' 또는 'gte'|
+||보다 크다|'&gt;' 또는 'gt'|
+|검색 연산자|문자열 전문 검색 (String full text search)|property contains '[검색할 문자열]'|
+|||property contains '[검색할 문자열]*'|
+||시작 문자열 비교|name = 'foo*'|
+||위치검색|location.coordinates within .5 of 37.56621 , 126.9779|
+|논리 연산자|결과의 교집합|and|
+||결과의 합집합|or|
+||결과의 차집합|not|
+
+연산자 중에 <strong>"contains" 연산자는 문자열에 어떤 문자가 포함되어 있는지 검색하는 용도</strong>로 사용됩니다. 
+
+예를 들어, 어떤 Entity에 "contents" Property가 "서울 강남구 청담동"이라는 값을 가지고 있을때, 해당 Entity를 검색하기 위한 조건에 따른 결과는 아래와 같습니다.
+
+|예시|동작여부|
+|:-:|:-:|
+|contents contains '강남'|검색결과 없음|
+|contents contains '강남구'|검색됨|
+|contents contains '강남&#x0204e;'|검색됨|
+|contents contains '강남구&#x0204e;'|검색됨|
+|contents contains '&#x0204e;남&#x0204e;'|잘못된 사용법으로 검색결과 없음 (*를 앞에는 붙일 수 없음)|
+
+### setProjectionIn()
+[]({'id':'setProjectionIn'})
+<strong>조회할 Entity중에 필요한 Property만 요청</strong>합니다.
+
+아래의 예는 "friend" Collection으로부터 "friend" Entity를 조회하는데, "age" Property와 "gender" Property만 조회하는 예입니다.
+
+```java
+BaasioQuery query = new BaasioQuery();
+query.setType("friend");
+query.setProjectionIn("age, gender");
+query.setLimit(10);                            // 한번에 받을 갯수 설정
+query.queryInBackground(    // 조회 요청
+    new BaasioQueryCallback() { 
+
+            @Override
+            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+                if (list != null) {
+        				if (list.size() &gt; 0) {
+        					for (Object object : list) {
+        						List&lt;Object&gt; item = (List)object;
+        						for (int i = 0; i &lt; item.size(); i++) {
+        							int age = (Integer)item.get(0);		// age
+        							String gender = (String)item.get(1);	// gender
+        					}
+        				}
+        			}
+        		}
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+## Query User Entities from Group
+[]({'id':'group'})
+<strong>특정 Group에 속해있는 User를 조회</strong>합니다.
+
+BaasioGroup 인스턴스를 생성하고, setPath() 메소드를 이용하여 조회할 Group의 Path를 설정한 후, BaasioQuery의 setGroup() 메소드를 이용하여 앞서 생성한 BaasioGroup 인스턴스를 설정합니다.
+
+<strong>다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.</strong>
+
+아래의 예는 family라는 그룹에 속한 "user" Entity를 "username" Property의 오름차순으로 10개 조회하는 예입니다.
+
+```java
+BaasioGroup group = new BaasioGroup();
+group.setPath("family");
+
+BaasioQuery query = new BaasioQuery();
+query.setGroup(group);                  // 검색하려는 그룹
+query.setOrderBy(
+    BaasioUser.PROPERTY_USERNAME        // 정렬 기준
+    , ORDER_BY.ASCENDING);              // 정렬 방법
+query.setLimit(10);                     // 한번에 받을 갯수 설정
+query.queryInBackground(
+    new BaasioQueryCallback() {
+            @Override
+            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+                // 성공
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+## Query Entities with Relationship
+[]({'id':'relationship'})
+<strong>어떤 Entity와 Entity가 서로 Relationship으로 연결되어 있을 때, 연결된 Entity들을 조회할 수 있습니다.</strong>
+
+<strong>다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.</strong>
+
+조회할 Entity는 Entity를 유일하게 식별할 수 있는 Property인 "uuid" Property 또는 "name" Property가 설정되어 있어야 합니다. 
+
+>warning|Warning|유일하게 식별할 수 있는 Property|
+<li>기본적으로 유일하게 식별할 수 있는 Property는 "uuid"와 "name" Property입니다.</li>
+<li>몇 가지 예외가 있습니다.</li>
+<ul>
+<li>"user" Entity는 "name" Property가 아닌, BaasioUser.getUsername() 메소드로 얻을 수 있는, "username" Property가 유일하게 식별할 수 있는 Property입니다.</li>
+<li>"group" Entity는 BaasioGroup.getPath() 메소드로 얻을 수 있는 "path" Property가 유일하게 식별할 수 있는 Property입니다.</li>
+</ul>
+
+아래 예는 happy라는 강아지(dog)와 "love"라는 Relationship으로 연결되어 있는 Entity들을 조회하는 예입니다.
+
+```java
+BaasioEntity dog = new BaasioEntity("dog");
+dog.setName("happy");
+
+BaasioQuery query = new BaasioQuery();
+query.setRelation(
+        dog			// happy라는 강아지
+        , "love"); 	// 관계 이름
+
+query.queryInBackground(
+    new BaasioQueryCallback() {
+
+            @Override
+            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+                // 성공
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+## Query with Raw Query String
+[]({'id':'rawstring'})
+앞서 살펴본 기본적인 조회 방법외에 <strong>직접 질의문을 만들어 복잡한 조회를 할 수 있습니다.</strong> <strong>setRawString() 메소드를 이용하여 Raw Query String을 설정하며, URL Encoding하여 설정</strong>하여야 합니다.
+
+다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다.
+
+<strong>다만, setWheres(), setOrderBy(), setLimit(), setProjectionIn()은 Raw Query String이 포함하고 있으므로 무시됩니다.</strong>
+
+Raw Query String은 SQL구문과 비슷한 문법으로 구성되어 있습니다.
+
+SQL구문과 다른 점은, "ql"이라는 URL Parameter에 Query String을 설정하며, SQL구문에서 조회할 Table을 넣는 from 절의 표시 방법이 다르다는 점입니다.
+
+몇 가지 예를 들어 보겠습니다.
+
+|SQL 구문|baas.io의 Raw Query String|설명|
+|:-:|:-:|:-:|
+|select * from friends where age &gt;= 20 order by modified desc|friends?ql=select * where age &gt;= 20 order by modified desc|friends에서 age가 20이상인 데이터를 modified의 내림차순으로 조회|
+|select * from users where area = '서울' and age &gt;=20|users?ql=select * where area = '서울' and age &gt;= 20|users에서 area가 서울이며, age가 20이상인 데이터 조회|
+|select * from users where name = '김&#x0204e;' and gender 'M'|users?ql=select * where name = '김&#x0204e;' and gender = 'M'|users에서 이름이 '김'으로 시작하며 gender 가 'M'인 데이터 조회|
+|select * from users order by created asc|users?ql=select * order by created asc| users에서 created의 오름차순으로 조희(가입한 순서)|
+|select * from cities where nation = 'Korea' limit 12|cities?ql=select * where nation = 'Korea'&limit=12|cities에서 nation이 'Korea'인 데이터를 12개 조회|
+|select * from cities where name like '강남%'|cities?ql=select * where name contains '강남&#x0204e;'|cities에서 name이 '강남'으로 시작되는 데이터 조회|
+|select name, age, gender from users order by age desc|users?ql=select name, age, gender order by age desc|users에서 age의 내림차순으로, 데이터의 name, age, gender만 조회|
+
+조건문을 설정하는 방법은 <strong>setWheres()에서 설명한 내용과 동일</strong>합니다. 즉, setWheres()에서 설정된 값과 Raw Query String의 "where"절에 들어가는 방법이 같습니다.
+
+아래의 예는 "friends" Collection에서 나이(age)가 20이상인 Entity를 수정된 시간(modified)의 내림차순으로 조회하는 예입니다.
+
+```java
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+String queryString;
+try {
+	queryString = URLEncoder.encode("friends?ql=select * where age &gt;= 20 order by modified desc", "UTF-8");
+} catch (UnsupportedEncodingException e) {
+	e.printStackTrace();
+}
+
+BaasioQuery mQuery = new BaasioQuery();
+mQuery.setRawString(queryString);
+mQuery.queryInBackground(
+		new BaasioQueryCallback() {
+		
+		@Override
+		public void onResponse(List entities, List list, BaasioQuery query, long timestamp) {
+			// 성공
 		}
-	},
-	type : "POST",
-	success : function(r) {
-	  console.log(r);
-	}
-});
-```
-
-## Entity 목록 조회하기
-[]({'id':'getColection'})
-
-모든 Entity를 제한 갯수까지 리턴한다.
-
-##### Request URI
-
-```       
-`GET`  /{baasio-id}/{app-id}/{collection}
-```
-
-
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "get",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization",
-	"entities":  [
-	   {
-	    "uuid": "89434a5b-1278-11e2-8553-02e81ac5a17b",
-	    "type": "foo",
-	    "created": 1349831968280,
-	    "modified": 1349831968280,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/89434a5b-1278-11e2-8553-02e81ac5a17b"
-	    }
-	  }
-	],
-	"timestamp": 1349834133229,
-	"duration": 59,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 	
- 
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](../rest/errors.html)를 살펴보세요.
-	  
-##### Example
-
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo",
-	dataType: "json",
-	data : 
-	},
-	type : "GET",
-	success : function(r) {
-	  console.log(r);
-	}
-});
-```	
-
-## Query를 사용하여 Collection의 Entity 목록 조회하기
-[]({'id':'getCollections'})
-
-Query의 조건에 맞는 Entity 목록을 리턴한다.
-
-##### Request URI
-       
-```
-`GET`  /{baasio-id}/{app-id}/{collection}?{query}
-```
-
-
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "get",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization",
-	"entities":  [
-	   {
-	    "uuid": "89434a5b-1278-11e2-8553-02e81ac5a17b",
-	    "type": "foo",
-	    "created": 1349831968280,
-	    "modified": 1349831968280,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/89434a5b-1278-11e2-8553-02e81ac5a17b"
-	    }
-	  }
-	],
-	"timestamp": 1349834133229,
-	"duration": 59,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 	
- 
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](../rest/errors.html)를 살펴보세요.
-	  
-##### Example
-
-```javascript
-	$.ajax({
-		url: "/test-organization/test-app/foo",
-		dataType: "json",
-		data : 
-		},
-		type : "GET",
-		success : function(r) {
-		  console.log(r);
+		
+		@Override
+		public void onException(BaasioException e) {
+			// 실패
 		}
-	});          
-```
-
-## Entity 정보 조회하기
-[]({'id':'getEntity'})
-
-UUID나 name 속성으로 찾은 Entity를 리턴한다.
-
-##### Request URI
-
-```
-`GET`  /{baasio-id}/{app-id}/{collection}/{entity_id}
-```
-
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-|entity_id|조회할 Entity uuid|
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "get",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization",
-	"entities":  [
-	   {
-	    "uuid": "89434a5b-1278-11e2-8553-02e81ac5a17b",
-	    "type": "foo",
-	    "created": 1349831968280,
-	    "modified": 1349831968280,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/89434a5b-1278-11e2-8553-02e81ac5a17b"
-	    }
-	  }
-	],
-	"timestamp": 1349834312776,
-	"duration": 36,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 	 
-- 에러
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
-
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo/89434a5b-1278-11e2-8553-02e81ac5a17b",
-	dataType: "json",
-	data : 
-	},
-	type : "GET",
-	success : function(r) {
-	  console.log(r);
-	}
-});
-```
-
-## Entity 정보 수정하기
-[]({'id':'putEntity'})
-
-Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다.
-
-##### Request URI
-       
-```
-`PUT`  /{baasio-id}/{app-id}/{collection}/{entity_id}
-```
-
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-|entity_id|조회할 Entity uuid|
-
-
-##### Request Body
-
-```json
-{
-	"alpha": "bravo"
-}
+    });
 ```
 
 
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "put",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization",
-	"entities":  [
-	   {
-	    "uuid": "89434a5b-1278-11e2-8553-02e81ac5a17b",
-	    "type": "foo",
-	    "created": 1349831968280,
-	    "modified": 1349834674960,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "alpha": "bravo",
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/89434a5b-1278-11e2-8553-02e81ac5a17b"
-	    }
-	  }
-	],
-	"timestamp": 1349834674944,
-	"duration": 87,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 
- 
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
-  
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo/89434a5b-1278-11e2-8553-02e81ac5a17b",
-	dataType: "json",
-	data : {
-		  "alpha": "bravo"
-		},
-	type : "PUT",
-	success : function(r) {
-	  console.log(r);
-	}
-});
-```
-
-----
-
-## Query를 사용하여 Entity 정보 수정하기
-[]({'id':'putEntities'})
-
-Query의 조건에 맞는 Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다.
-
-##### Request URI
-
-```
-`PUT`  /{baasio-id}/{app-id}/{collection}?{query}
-```
-
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-|entity_id|수정할 Entity uuid|
 
 
-##### Request Body
+# Group
+[]({'id':'group'})
 
-```json
-{
-	"alpha": "bravo"
-}
+baas.io는 <strong>회원 그룹관리 기능을 제공</strong>하고 있습니다.
+
+BaasioGroup 클래스를 이용하여 그룹을 생성/수정/삭제할 수 있으며, 생성된 그룹에 회원을 추가하거나 제거할 수 있습니다.
+
+어떤 그룹에 속한 User를 조회하기 위해서는 BaasioQuery를 이용합니다. 관련 내용은 [Query > Query User Entities from Group 가이드](/develop/android/guide/query.html#query-group)를 참고바랍니다.
+
+#### BaasioGroup
+BaasioGroup클래스는  <strong>"groups" Collection으로 관리</strong>되며, "groups" Collection에 "group" Entity를 생성/삭제하여 그룹을 생성하거나 삭제합니다.
+
+#### Create Group|group-create
+그룹을 생성할 때는, 그룹을 유일하게 식별할 수 있는, "path" Property를 꼭 설정해줘야 합니다. 이 Predefined Property는 setPath() 메소드로 설정할 수 있습니다.
+
+이 외에 "title"이라는 Predefined Property가 있으며, 그룹의 표시명으로 사용됩니다. 이 Property는 setTitle() 메소드로 설정할 수 있습니다.
+
+동기식은 save(), 비동기식은 saveInBackground() 메소드를 제공합니다.
+
+아래의 예는, 표시명(title)은 "가족", "path" Property는 "family"인 그룹을 생성하는 예입니다.
+
+```java
+BaasioGroup group = new BaasioGroup();
+group.setTitle("가족");         // 그룹 표시내용
+group.setPath("family");                // 그룹 Unique한 Path 이름
+group.saveInBackground(
+    new BaasioCallback<BaasioGroup>() {
+
+        @Override
+        public void onException(BaasioException e) {
+            // 실패
+        }
+
+        @Override
+        public void onResponse(BaasioGroup response) {
+            if (response != null) {
+                // 성공
+                String path = response.getPath(); // Group path
+            }
+        }
+    });
 ```
 
 
-##### Response
+## Get Group
+[]({'id':'get'})
+<strong>그룹 Entity의 정보를 얻어옵니다.</strong>
 
-- 성공
-	- Code: 200 
-	- Contents:
+동기식은 get(), 비동기식은 getInBackground() 메소드를 제공합니다.
 
-```json
-{
-	"action": "put",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization",
-	"entities":  [
-	   {
-	    "uuid": "89434a5b-1278-11e2-8553-02e81ac5a17b",
-	    "type": "foo",
-	    "created": 1349831968280,
-	    "modified": 1349834674960,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "alpha": "bravo",
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/89434a5b-1278-11e2-8553-02e81ac5a17b"
-	    }
-	  }
-	],
-	"timestamp": 1349834674944,
-	"duration": 87,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 
- 
-- 에러
+아래는 "path" Property가 "family"인 그룹의 정보를 가져오는 예입니다.
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+```java
+BaasioGroup group = new BaasioGroup();
+group.setPath("family");                // 그룹 Unique한 Path 이름
+group.getInBackground(
+    new BaasioCallback<BaasioGroup>() {
 
-##### Example
+        @Override
+        public void onException(BaasioException e) {
+            // 실패
+        }
 
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo/89434a5b-1278-11e2-8553-02e81ac5a17b",
-	dataType: "json",
-	data : {
-		  "alpha": "bravo"
-		},
-	type : "PUT",
-	success : function(r) {
-	  console.log(r);
-	}
-});
+        @Override
+        public void onResponse(BaasioGroup response) {
+            if (response != null) {
+                // 성공
+                String path = response.getPath(); // Group path
+            }
+        }
+    });
 ```
 
-## Entity 삭제하기
-[]({'id':'deleteEntity'})
 
-UUID나 name 속성으로 찾은 Entity를 삭제한다. 삭제된 Entity의 내용을 리턴한다.
+## Update Group
+[]({'id':'update'})
+<strong>그룹 Entity의 정보를 수정합니다.</strong>
 
-##### Request URI
+동기식은 update(), 비동기식은 updateInBackground() 메소드를 제공합니다.
 
-```
-`DELETE`  /{baasio-id}/{app-id}/{collection}/{entity_id}
-```
+아래는 "path" Property가 "family"인 그룹의 정보를 수정하는 예입니다. 즉, "family" 그룹에 "description"이 "가족 또는 친척 그룹"이라는 정보를 추가합니다.
 
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-|entity_id|삭제할 Entity uuid|
-    
+```java
+BaasioGroup entity = new BaasioGroup();
+entity.setPath("family");                   // Group의 uuid
+entity.setProperty("description", "가족 또는 친척 그룹");
+entity.updateInBackground(
+    new BaasioCallback<BaasioGroup>() {
 
-##### Response
+        @Override
+        public void onException(BaasioException e) {
+            // 실패
+        }
 
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "delete",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization",
-	"entities":  [
-	   {
-	    "uuid": "89434a5b-1278-11e2-8553-02e81ac5a17b",
-	    "type": "foo",
-	    "created": 1349831968280,
-	    "modified": 1349834674960,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "alpha": "bravo",
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/89434a5b-1278-11e2-8553-02e81ac5a17b"
-	    }
-	  }
-	],
-	"timestamp": 1349834807566,
-	"duration": 345,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
-
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo/89434a5b-1278-11e2-8553-02e81ac5a17b",
-	dataType: "json",
-	data : 
-	},
-	type : "DELETE",
-	success : function(r) {
-	  console.log(r);
-	}
-});
-```         
-
-
-----------
-
-#### Entity의 Relation Entity 목록을 조회하기
-[]({'id':'getConnection'})
-
-Query 기준에 맞는 Entity들을 리턴하거나 Query나 필터가 없다면 모든 Entity를 제한 갯수까지 리턴한다.
-
-##### Request URI
-
-```
-`GET`  /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}
+        @Override
+        public void onResponse(BaasioGroup response) {
+            if (response != null) {
+                // 성공
+                String path = response.getPath(); // Group path
+            }
+        }
+    });
 ```
 
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-|first_entity_id|조회할 Entity uuid|
-|relationship|조회할 relation 이름|
 
-##### Response
+## Remove Group
+[]({'id':'remove'})
+<strong>그룹 Entity를 삭제합니다.</strong>
 
-- 성공
-	- Code: 200 
-	- Contents:
+동기식은 delete(), 비동기식은 deleteInBackground() 메소드를 제공합니다.
 
-```json
-{
-	"action": "get",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes",
-	"entities":  [
-	   {
-	    "uuid": "679105b3-127f-11e2-9e66-02e81adcf3d0",
-	    "type": "foo",
-	    "created": 1349834918224,
-	    "modified": 1349834918224,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "foo": "bar",
-	    "metadata":  {
-	      "connecting":  {
-	        "likes": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes/679105b3-127f-11e2-9e66-02e81adcf3d0/connecting/likes"
-	      },
-	      "connection": "likes",
-	      "path": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes/679105b3-127f-11e2-9e66-02e81adcf3d0"
-	    }
-	  }
-	],
-	"timestamp": 1349835516073,
-	"duration": 31,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 
-- 에러
+아래는 "path" Property가 "family"인 그룹을 삭제하는 예입니다.
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
- 
+```java
+BaasioGroup entity = new BaasioGroup();
+entity.setPath("family");                   // Group의 uuid
+entity.deleteInBackground(
+    new BaasioCallback<BaasioGroup>() {
 
-##### Example
+        @Override
+        public void onException(BaasioException e) {
+            // 실패
+        }
 
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes",
-	dataType: "json"
-	},
-	type : "GET",
-	success : function(r) {
-	console.log(r);
-	}
-});
+        @Override
+        public void onResponse(BaasioGroup response) {
+            if (response != null) {
+                // 성공
+            }
+        }
+    });
 ```
 
-## Entity의 Relation을 생성하고 다른 Entity와 관계를 생성하기
-[]({'id':'postConnection'})
-Collection의 특정 Entity에 Connection을 생성하고 다른 Entity를 커넥션에 등록한다.
 
-##### Request URI
-  
-```    
-`POST`  /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_id}
+## Add User To Group
+[]({'id':'add-user'})
+<strong>그룹에 User를 추가합니다.</strong>
+
+동기식은 add(), 비동기식은 addInBackground() 메소드를 제공합니다.
+
+아래는 "username"이 "john.doe@foo.com"인 User를 "family" 그룹에 추가하는 예입니다.
+
+```java
+BaasioUser user = new BaasioUser();
+user.setUsername("john.doe@foo.com");         // 추가하려는 User의 username 
+
+BaasioGroup entity = new BaasioGroup();
+entity.setPath("family");                   // Group의 path
+entity.addInBackground(
+    user
+    , new BaasioCallback<BaasioUser>() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if (response != null) {
+                    // 성공
+                    String username = response.getUsername(); // ID(Username)
+                }
+            }
+        });
 ```
 
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-|first_entity_id|조회할 Entity uuid|
-|relationship|조회할 relation 이름|
-|second_entity_id|relation 관계에 있는 entity 의 uuid|
 
-##### Response
+## Remove User From Group
+[]({'id':'remove-user'})
+<strong>그룹에 추가되어 있는 User를 제외합니다.</strong>
 
-- 성공
-	- Code: 200 
-	- Contents:
+동기식은 remove(), 비동기식은 removeInBackground() 메소드를 제공합니다.
 
-```json
-{
-	"action": "post",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes",
-	"entities":  [
-	   {
-	    "uuid": "679105b3-127f-11e2-9e66-02e81adcf3d0",
-	    "type": "foo",
-	    "created": 1349834918224,
-	    "modified": 1349834918224,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "foo": "bar",
-	    "metadata":  {
-	      "path": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes/679105b3-127f-11e2-9e66-02e81adcf3d0"
-	    }
-	  }
-	],
-	"timestamp": 1349835212472,
-	"duration": 79,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
+아래는 "username"이 "john.doe@foo.com"인 User를 "family" 그룹으로 부터 제외하는 예입니다.
+
+```java
+BaasioUser user = new BaasioUser();
+user.setUsername("john.doe@foo.com");         // 제외하려는 User의 username 
+
+BaasioGroup entity = new BaasioGroup();
+entity.setPath("family");                   // Group의 path
+entity.removeInBackground(
+    user
+    , new BaasioCallback<BaasioUser>() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if (response != null) {
+                    // 성공
+                    String username = response.getUsername(); // ID(Username)
+                }
+            }
+        });
 ```
-
- 
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
-
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes/679105b3-127f-11e2-9e66-02e81adcf3d0",
-	dataType: "json"
-	},
-	type : "POST",
-	success : function(r) {
-	  console.log(r);
-	}
-});
-```
-
->info|Notes|"name" Property로 관계 생성하기|
-/{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_type}/{second_entity_id}
-Relation을 생성한다. Relation을 생성할 때 두번째 Entity의 타입을 지정하면 UUID가 아니라 이름으로 커넥션을 생성할 수 있다.
-
-## Entity의 Relation에서 Entity를 삭제하기
-[]({'id':'deleteRelation'})
-
-Collection의 특정 Entity의 relation 에서 다른 Entity 와의 Relation 을 해제한다. 
-
-##### Request URI
-       
-```
-`DELETE`  /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_id}
-```
-
-##### URI Parameters
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|collection|Collection name|
-|first_entity_id|Entity uuid|
-|relationship|relation 이름|
-|second_entity_id|relation 관계에 있는 entity 의 uuid|
-    
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "delete",
-	"application": "1bac9dcb-c3e5-11e1-8176-12313d1c4491",
-	"params":  {},
-	"path": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes",
-	"uri": "https://api.baas.io/test-organization/test-app/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes",
-	"entities":  [
-	   {
-	    "uuid": "679105b3-127f-11e2-9e66-02e81adcf3d0",
-	    "type": "foo",
-	    "created": 1349834918224,
-	    "modified": 1349834918224,
-	    "a":  {
-	      "b": 1,
-	      "c": 2
-	    },
-	    "foo": "bar",
-	    "metadata":  {
-	      "connecting":  {
-	        "likes": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes/679105b3-127f-11e2-9e66-02e81adcf3d0/connecting/likes"
-	      },
-	      "path": "/test-organization/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes/679105b3-127f-11e2-9e66-02e81adcf3d0"
-	    }
-	  }
-	],
-	"timestamp": 1349835718321,
-	"duration": 68,
-	"organization": "test-organization",
-	"applicationName": "test-app"
-}
-```
- 
- 
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
-
-```javascript
-$.ajax({
-	url: "/test-organization/test-app/foo/4cc8ca7e-127f-11e2-8553-02e81ac5a17b/likes/679105b3-127f-11e2-9e66-02e81adcf3d0",
-	dataType: "json"
-	},
-	type : "DELETE",
-	success : function(r) {
-	  console.log(r);
-	}
-});
-```
-
->info|Notes|"name" Property로 관계 해제하기|
-/{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_type}/{second_entity_name}을 사용한다면 second_entity 의 uuid 가 아니라 name 으로 relation 을 해제할 수 있다.
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2353,2737 +1645,483 @@ $.ajax({
 # File
 []({'id':'file'})
 
-## 파일 엔티티 생성&업로드
-[]({'id':'file-create'})
+baas.io는 <strong>파일을 저장하고 조회, 삭제, 수정하는 기능을 제공</strong>합니다. 
 
-- [파일 엔티티 생성 및 업로드](#createFileEntityAndUploadBLOB)
-- [파일 엔티티 생성](#createFileEntity)
-- [파일 업로드](#uploadBLOB)
-- [파일 업로드(DATA 커맨드 이용)](#uploadBLOBwithDataCMD)
 
-##### 파일 엔티티 생성 및 업로드|createFileEntityAndUploadBLOB
+## BaasioFile 클래스
 
-POST 메소드를 사용하여 새로운 파일 엔티티와 그와 연결된 BLOB(Binary Large Object) 를 업로드 할 수 있습니다. 이때 엔티티 정보(예: 메타 정보=이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 같이 등록 할 수도 있습니다.
+BaasioFile 클래스는 <strong>"files" Collection으로 관리됩니다.</strong> "files" Collection에 "file" Entity는 다른 Entity들과 마찬가지로, Predefined Property를 가지고 있으며, 필요한 다른 Property를 추가로 저장할 수 있습니다. 
 
-###### Request URI
 
+## Create File With Content
+[]({'id':'create-with-content'})
+
+<strong>Property로 구성된 파일 정보와 실제 파일을 함께 저장하여 "file" Entity를 생성합니다.</strong>
+
+비동기식인 fileUploadInBackground() 메소드만 제공되며, 비동기식 메소드는 제공되지 않습니다.
+또한, Callback의 onProgress() 함수로 파일이 전송되는 진행상황을 전달합니다.
+
+아래는 "/mnt/sdcard/test.txt" 파일과 함께 다른 Property들을 업로드하여 "file" Entity를 생성하는 예입니다. 특이한 점은, "test.txt" 파일을 "test2.txt"라는 이름으로 업로드하는 점입니다.
+
+```java
+String srcFilePath = "/mnt/sdcard/test.txt";
+String filename = "test2.txt";
+
+BaasioFile uploadFile = new BaasioFile();
+uploadFile.setProperty("memo", "안녕하세요. baas.io입니다.");   // 파일 추가 정보1
+uploadFile.setProperty("integer", 1);                       // 파일 추가 정보2
+uploadFile.setProperty("long", Long.valueOf("1"));          // 파일 추가 정보3
+
+BaasioUploadAsyncTask uploadFileAsyncTask = uploadFile.fileUploadInBackground(
+    srcFilePath             // 업로드하려는 파일 경로
+    , filename              // 설정하려는 파일 이름
+    , new BaasioUploadCallback() {
+
+            @Override
+            public void onResponse(BaasioFile response) {
+                // 성공
+                String memo = response.getProperty("memo").getTextValue();
+                int intValue = response.getProperty("integer").getIntValue();
+                long longValue = response.getProperty("long").getLongValue();
+            }
+
+            @Override
+            public void onProgress(long total, long current) {
+                // 진행 상황
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
 ```
-`POST` /{baasio-id}/{app-id}/files
+
+<strong>만약 filename을 전달하지 않으면, 실제 업로드하는 파일의 이름으로 설정됩니다.</strong>
+
+#### 관련 에러코드
+
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|915|400|잘못된 쿼리입니다.|
+|-100|500|알수 없는 에러입니다.|
+
+
+## Create File Without Content
+[]({'id':'create-without-content'})
+
+<strong>파일 없이 Property만으로 "file" Entity를 생성합니다.</strong> 여기서 주의하실 점은, <strong>실제 파일을 업로드하지 않더라도, filename을 setFilename()을 통해 설정해 주어야 합니다.</strong>
+
+물론, 나중에 필요할때 파일만 업로드할 수도 있습니다.
+
+동기식은 save(), 비동기식은 saveInBackground() 메소드를 제공합니다.
+
+아래는 "test.txt"라는 이름을 가지며, 기타 다른 Property들을 가진 "file" Entity를 생성하는 예입니다.
+
+```java
+BaasioFile uploadFile = new BaasioFile();
+uploadFile.setFilename("test.txt");     // 파일을 업로드하지 않더라도 Filename은 필수로 넣어줘야함(v0.8.1)
+uploadFile.setProperty("memo", "안녕하세요. baas.io입니다.");
+uploadFile.setProperty("integer", 1);
+uploadFile.setProperty("long", Long.valueOf("1"));
+
+uploadFile.saveInBackground(
+    new BaasioCallback<BaasioFile>() {
+            @Override
+            public void onResponse(BaasioFile response) {
+                if (response != null) {
+                    // 성공
+                    String memo = response.getProperty("memo").getTextValue();
+                    int intValue = response.getProperty("integer").getIntValue();
+                    long longValue = response.getProperty("long").getLongValue();
+                }
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
 ```
 
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
+#### 관련 에러코드
 
-###### Request Entity Type
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|915|400|잘못된 쿼리입니다.|
+|-100|500|알수 없는 에러입니다.|
 
+
+## Download File
+[]({'id':'download-content'})
+
+업로드되어 있는 <strong>파일을 다운로드</strong>합니다.
+
+비동기식인 fileDownloadInBackground() 메소드만 제공되며, 비동기식 메소드는 제공되지 않습니다.
+또한, Callback의 onProgress() 함수로 파일이 전송되는 진행상황을 전달합니다.
+
+아래는 uuid를 통해 파일을 다운로드하는 예입니다.
+
+>warning|Warning|다운로드 경로|다운로드 경로가 파일이름을 포함하고 있는 경우와 포함하지 않는 경우를 구분해서 사용해야 합니다. <strong>즉, 파일이름이 포함되어 있을 경우에는 uuid를 통해 다운로드가 가능하지만, 파일이름이 포함되어 있지 않을 경우에는, setFilename() 메소드를 통해 다운받을 파일의 이름을 설정해줘야 합니다.</strong>
+
+```java
+String localPath = "/mnt/sdcard/baasio/test.txt";
+
+BaasioFile downloadFile = new BaasioFile();
+downloadFile.setUuid(uuid);
+BaasioDownloadAsyncTask downloadFileAsyncTask = downloadFile.fileDownloadInBackground(
+    localPath       // 다운로드 경로
+    , new BaasioDownloadCallback() {
+
+            @Override
+            public void onResponse(String localFilePath) {
+                // 성공
+            }
+
+            @Override
+            public void onProgress(long total, long current) {
+                // 진행 상황
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
 ```
-multipart/form-data 
+
+아래는 <strong>다운로드 경로가 파일이름을 포함하지 않았을 때</strong>, setFilename() 메소드로 파일이름을 설정하여 다운로드 하는 예입니다.
+
+```java
+String localPath = "/mnt/sdcard/baasio/";
+
+BaasioFile downloadFile = new BaasioFile();
+downloadFile.setUuid(uuid);
+downloadFile.setFilename("test.txt");
+BaasioDownloadAsyncTask downloadFileAsyncTask = downloadFile.fileDownloadInBackground(
+    localPath       // 다운로드 경로
+    , new BaasioDownloadCallback() {
+
+            @Override
+            public void onResponse(String localFilePath) {
+                // 성공
+            }
+
+            @Override
+            public void onProgress(long total, long current) {
+                // 진행 상황
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
 ```
+
+#### 관련 에러코드
+
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|100|400|잘못된 요청입니다. 각 API 별 Request 형식을 참고해서 다시 요청하시기 바랍니다.|
+|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
+|190|501|추후 공개를 위해 예약된 기능들에 대해 접근했을때 발생합니다.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 id이거나 password 입니다.|
+|202|401|접근 권한이 없습니다.|
+|210|401|인증 토큰에 문제가 있습니다.|
+|211|401|만료된 인증 토큰입니다.|
+|600|400|Push 기능이 활성화 되어 있지 않습니다.|
+|620|400|Push 관련 에러가 발생했습니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|912|400|예약된 리소스 이름입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+|915|400|잘못된 쿼리입니다.|
+|-100|500|알수 없는 에러입니다.|
+
+
+## Get File
+[]({'id':'get'})
+
+<strong>파일을 다운로드하지 않고, Entity의 정보만 얻어옵니다.</strong>
+
+동기식은 get(), 비동기식은 getInBackground() 메소드를 제공합니다.
+
+아래는 uuid를 통해 "file" Entity를 얻어오는 예입니다.
+
+```java
+BaasioFile file = new BaasioFile();
+file.setUuid(uuid);           // 가져오려는 File entity의 uuid
+
+file.getInBackground(
+    new BaasioCallback() {
+            @Override
+            public void onResponse(BaasioEntity response) {
+                if (response != null) {
+                    // 성공
+                }
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+
+## Update File With Content
+[]({'id':'update-with-content'})
+
+이미 생성되어 있는 "file" Entity를 <strong>파일 정보와 실제 파일을 전송하여 수정</strong>합니다.
+
+비동기식인 fileUpdateInBackground() 메소드만 제공되며, 비동기식 메소드는 제공되지 않습니다.
+또한, Callback의 onProgress() 함수로 파일이 전송되는 진행상황을 전달합니다.
+
+아래는 uuid를 통해 해당 "file" Entity의 파일 내용과 정보를 수정하는 예입니다.
+즉, "/mnt/sdcard/test2.txt"파일로 파일 내용을 변경하면서, "memo" Property의 값도 변경합니다.
+
+파일을 생성할 때와 마찬가지로, 서버에 저장되는 파일이름은 "test3.txt"가 되는 점 유의 바랍니다.
+
+```java
+String srcFilePath = "/mnt/sdcard/test2.txt";
+String filename = "test3.txt";
+
+BaasioFile updateFile = new BaasioFile();
+updateFile.setUuid(uuid);                       // 수정하려는 File entity의 uuid
+updateFile.setProperty("memo","수정합니다.");      // 수정하려는 정보
+
+BaasioUploadAsyncTask uploadFileAsyncTask = updateFile.fileUpdateInBackground(
+    srcFilePath             // 수정하려는 파일 전체 경로
+    , filename              // 설정하려는 파일 이름
+    , new BaasioUploadCallback() {
+
+            @Override
+            public void onResponse(BaasioFile response) {
+                if (response != null) {
+                    // 성공
+                    String memo = response.getProperty("memo").getTextValue();
+                }
+            }
+
+            @Override
+            public void onProgress(long total, long current) {
+                // 진행 상황
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+
+## Update File Without Content
+[]({'id':'update-without-content'})
+
+파일 내용은 바꾸지 않고 <strong>파일 정보만 수정</strong>합니다.
+
+아래는 uuid를 통해 "memo" Property를 수정하는 예입니다.
+
+```java
+BaasioFile uploadFile = new BaasioFile();
+uploadFile.setUuid(uuid);                   // 수정하려는 File entity의 uuid
+uploadFile.setProperty("memo","수정합니다.");  // 수정하려는 정보
+
+uploadFile.updateInBackground(
+    new BaasioCallback<BaasioFile>() {
+            @Override
+            public void onResponse(BaasioFile response) {
+                if (response != null) {
+                    // 성공
+                    String memo = response.getProperty("memo").getTextValue();
+                }
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+        });
+```
+
+
+## Remove File
+[]({'id':'remove'})
+
+파일을 삭제합니다. <strong>파일 정보와 실제 파일이 함께 삭제</strong>됩니다.
+
+아래는 uuid를 통해 삭제하는 예입니다.
+
+```java
+BaasioFile deleteFile = new BaasioFile();
+deleteFile.setUuid(uuid);                       // 삭제하려는 File entity의 uuid
+deleteFile.deleteInBackground(
+        new BaasioCallback<BaasioFile>() {
+                @Override
+                public void onResponse(BaasioFile response) {
+                    if (response != null) {
+                        // 성공
+                    }
+                }
+
+                @Override
+                public void onException(BaasioException e) {
+                    // 실패
+                }
+            });
+```
+
+
+## Cancel Upload/Download
+[]({'id':'upload-download-cancel'})
+
+파일을 생성하거나 수정하기 위해 수행되는 <strong>업로드 작업 또는 파일을 다운로드하는 작업 중에 해당 작업을 취소</strong>할 수 있습니다.
+
+아래는 R.id.upload에 해당하는 메뉴를 눌러 파일을 업로드 하고, R.id.upload_canel에 해당하는 메뉴를 눌러 파일 업로드를 취소하는 예입니다.
+
+```java
+public class MainActivity extends Activity {
 	
->warning|Warning|Request Entity Type|다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
+	...
 
+	BaasioUploadAsyncTask uploadFileAsyncTask;
 
-###### Request Body Entity (Multipart/form-data)
+	...
 
-```
-... (Headers)
-Content-Type: multipart/form-data; boundary="----=_Part_27_1294272899.1358507963208"
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
-------=_Part_27_1294272899.1358507963208
-Content-Type: image/jpeg; name="file"
-Content-Disposition: form-data; name="file"; filename="test.jpg"
+            case R.id.upload: {
+            	String srcFilePath = "/mnt/sdcard/test.txt";
+				String filename = "test2.txt";
 
-------=_Part_27_1294272899.1358507963208
-Content-Type: application/json; name="entity"
-Content-Disposition: form-data; name="entity";
+				BaasioFile uploadFile = new BaasioFile();
+				uploadFile.setProperty("memo", "안녕하세요. baas.io입니다.");   // 파일 추가 정보1
+				uploadFile.setProperty("integer", 1);                       // 파일 추가 정보2
+				uploadFile.setProperty("long", Long.valueOf("1"));          // 파일 추가 정보3
 
-{
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
+				uploadFileAsyncTask = uploadFile.fileUploadInBackground(
+				    srcFilePath             // 업로드하려는 파일 경로
+				    , filename              // 설정하려는 파일 이름
+				    , new BaasioUploadCallback() {
+
+    				        @Override
+    				        public void onResponse(BaasioFile response) {
+    				            // 성공
+    				            String memo = response.getProperty("memo").getTextValue();
+    				            int intValue = response.getProperty("integer").getIntValue();
+    				            long longValue = response.getProperty("long").getLongValue();
+    				        }
+
+    				        @Override
+    				        public void onProgress(long total, long current) {
+    				            // 진행 상황
+    				        }
+
+    				        @Override
+    				        public void onException(BaasioException e) {
+    				            // 실패
+    				        }
+    				    });
+                break;
+            }
+
+            case R.id.upload_canel: {
+            	uploadFileAsyncTask.cancel(true); // 업로드 취소
+            	break;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    ...
 }
 ```
 
-| Part 명 | 설명 | Content Type	| 필수 여부 | 비고 |
-|:-------:|:----|:-------------|:---------:|:-----|
-| entity | Entity 정보 | application/json | X |
-| file | 파일 정보 와 Binary | <파일의 Content Type> | O (1개의 파일만 허용) | Content-Disposition 헤더가 있어야 하며 filename 가 포함되어 있어야 함 |
+<strong>다운로드를 취소하는 방법도 동일합니다.</strong> 
 
-####### File 파트
+아래는 R.id.download에 해당하는 메뉴를 눌러 파일을 업로드 하고, R.id.download_canel에 해당하는 메뉴를 눌러 파일 업로드를 취소하는 예입니다.
 
-- Part 헤더
-
-```
-Content-Type: image/jpeg; name="file"
-```
-
-| Property 명 | Domain Type	| 값 | 필수 	| 설명 |
-|:-----------:|:------------|:---|:----:|:------|
-| content-type | 문자열 (String)	| <파일의 content type> | O | 파일의 Content Type |
-| name | 문자열 (String)	| file | O | 파트명 |
-
-
-- Disposition 헤더
-
-```
-Content-Disposition: form-data; name="file"; filename="test.jpg"
-```
-
-| Property 명  | Domain Type	 | 기본값 | 필수 	| 설명 |
-|:------------:|:------------|:-----:|:----:|:----|
-| filename    	| 문자열 (String)	|		| O 	| 파일명
-| name		| 문자열 (String)	| file		| O	| 파트명
-
-
-####### Entity 파트 (application/json, optional)
-
-- Part 헤더
-
-```
-Content-Type: application/json; name="entity"
-```
-
-| Property 명  | Domain Type	 | 기본값 | 필수 	| 설명 |
-|:------------:|:------------|:-----:|:----:|:----|
-| content-type | 문자열 (String)	| application/json	| O	| 엔티티의 Content Type
-| name | 문자열 (String)	| entity		| O	| 파트명
-
-
-- Body 구성 (application/json)
-
-```json
-{
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-```
-
-| Property 명  | Domain Type	 | 기본값 | 필수 	| 설명 |
-|:------------:|:------------|:-----:|:----:|:----|
-| <원하는 Property명> | <원하는 자료형> |  | X	| 이용자가 정의한 Property |
-
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 102 | 필수 정보 누락 |
-| 400 | 103 | 파일 사이즈가 0 이거나 데이터가 없음, 제한 업로드 용량 초과 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
-
-
-
-###### Example
-
-- Request
-
-```
-POST https://api.baas.io/mybaasid/sandbox/files HTTP/1.1
-Accept-Encoding: gzip,deflate
-Accept: application/json
-Authorization: Bearer YWMt4_7W1WFgEeK36wIATRcAPwAAATxSiK0KLCuOik6J6NlNSQ8zgGNId9f_G6k
-Content-Type: multipart/form-data; boundary="----=_Part_27_1294272899.1358507963208"
-MIME-Version: 1.0
-Content-Length: 3277342
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-------=_Part_27_1294272899.1358507963208
-Content-Type: image/jpeg; name="file"
-Content-Transfer-Encoding: binary
-Content-Disposition: form-data; name="file"; filename="test.jpg"
-
-&lt;binary&gt;
-
-------=_Part_27_1294272899.1358507963208
-Content-Type: application/json; name="entity"
-Content-Disposition: form-data; name="entity";
-
-{
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-
-------=_Part_27_1294272899.1358507963208--
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "post",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : { },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "created" : 1358507967778,
-    "modified" : 1358507967778,
-    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-    "content-length" : 3276800,
-    "content-type" : "image/jpeg",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-    "filename" : "test.jpg",
-    "location" : "rome",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 3276800,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 파일 엔티티 생성|createFileEntity
-
-POST 메소드를 사용하여 새로운 파일 엔티티를 생성합니다. 파일의 BLOB 는 포함하지 않고 엔티티를 먼저 생성하는 것을 의미합니다. (파일에 대한 메타 정보(예: 메타 정보=파일명, 파일 종류, 이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 통해 먼저 엔티티를 생성)
-
-###### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/files
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-
-###### Request Entity Type
-
-```
-application/json
-```
-
-###### Request Body Entity (application/json)
-
-```json
-{
-	"filename":"test.jpg",
-	"content-type":"image/jpeg",
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-```
-
-| Property 명 | Domain Type	| 값 | 필수 	| 설명 |
-|:-----------:|:------------|:---|:----:|:------|
-| filename | 문자열 (String) | 없음 | O | 나중에 올릴 BLOB 의 파일명 |
-| content-type | 문자열 (String)	| 나중에 올릴 BLOB 의 Content-type (다운로드시 활용) |
-| <원하는 Property명> | <원하는 자료형>	| <없음> | X | 이용자가 정의한 Property |
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 102 | 필수 정보 누락 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-POST https://api.baas.io/mybaasid/sandbox/files HTTP/1.1
-Accept-Encoding: gzip,deflate
-Accept: application/json
-Authorization: Bearer YWMt4_7W1WFgEeK36wIATRcAPwAAATxSiK0KLCuOik6J6NlNSQ8zgGNId9f_G6k
-Content-Type: application/json	MIME-Version: 1.0
-Content-Length: 174
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-{
-	"filename":"test.jpg",
-	"content-type":"image/jpeg",
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "post",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : { },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "created" : 1358507967778,
-    "modified" : 1358507967778,
-    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-    "content-length" : 3276800,
-    "content-type" : "image/jpeg",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-    "filename" : "test.jpg",
-    "location" : "rome",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 3276800,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 파일 업로드|uploadBLOB
-
-[파일 엔티티 생성](#createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#createFileEntity) 또는 [파일 엔티티 수정](#updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
-
-###### Request URI
-
-```
-`POST` https://blob.baas.io/{baasio-id}/{app-id}/files/{entity-id}
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-###### Request Entity Type
-
-```
-application/octet-stream
-```
-
-###### Request Body Entity (application/octet-stream)
-
-```
-&lt;binary&gt;
-```
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음, 파일 사이즈가 0 이거나 데이터가 없음, 제한 업로드 용량 초과 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-POST https://blob.baas.io/mybaasid/sandbox/files/febe8ba9-639a-11e2-b7eb-02004d17003f HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Accept: application/json
-Authorization: Bearer YWMt4_7W1WFgEeK36wIATRcAPwAAATxSiK0KLCuOik6J6NlNSQ8zgGNId9f_G6k
-Content-Type: application/octet-stream	MIME-Version: 1.0
-Content-Length: 3276800
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-&lt;binary&gt;
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-```
-
-##### 파일 업로드(DATA 커맨드 이용)|uploadBLOBwithDataCMD
-
-[파일 엔티티 생성](#createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#createFileEntity) 또는 [파일 엔티티 수정](#updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
-
-###### Request URI
-
-```
-`POST` /{baasio-id}/{app-id}/files/{entity-id}/data
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-###### Request Entity Type
-
-```
-application/octet-stream
-```
-
-###### Request Body Entity (application/octet-stream)
-
-```
-&lt;binary&gt;
-```
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음, 파일 사이즈가 0 이거나 데이터가 없음, 제한 업로드 용량 초과 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-POST https://api.baas.io/mybaasid/sandbox/files/febe8ba9-639a-11e2-b7eb-02004d17003f/data HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Accept: application/json
-Authorization: Bearer YWMt4_7W1WFgEeK36wIATRcAPwAAATxSiK0KLCuOik6J6NlNSQ8zgGNId9f_G6k
-Content-Type: application/octet-stream	MIME-Version: 1.0
-Content-Length: 3276800
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-&lt;binary&gt;
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-```
-
-## 파일 엔티티 조회
-[]({'id':'file-get'})
-
-- [파일 엔티티 조회(전체)](#getEntireFileEntities)
-- [필터를 이용한 파일 엔티티 조회](#getFilteredFileEntities)
-- [질의를 이용한 파일 엔티티 조회](#getFileEntitiesWithQuery)
-- [파일 엔티티 조회(단일)](#getFileEntity)
-
-##### 파일 엔티티 조회|getEntireFileEntities
-
-올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 조회할 수 있습니다. 
-
-###### Request URI
-
-	`GET` /{baasio-id}/{app-id}/files
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-GET https://api.baas.io/mybaasid/sanbox/files HTTP/1.
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Mon, 21 Jan 2013 07:20:12 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Sun, 20-Jan-2013 07:20:13 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "get",
-  "application" : "f74df243-639a-11e2-b7eb-02004d17003f",
-  "params" : {
-  },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ 
-	  {
-	    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-	    "type" : "file",
-	    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-	    "created" : 1358507967778,
-	    "modified" : 1358507967778,
-	    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-	    "content-length" : 3276800,
-	    "content-type" : "image/jpeg",
-	    "country" : "italy",
-	    "dir" : "myPhoto",
-	    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-	    "filename" : "test.jpg",
-	    "location" : "rome",
-	    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-	    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-	    "path" : "/",
-	    "size" : 3276800,
-	    "title" : "my europe travel memories"
-	  },
-  	  
-  	  ....
-
-  ],
-  "timestamp" : 1358752813380,
-  "duration" : 19,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 필터를 이용한 파일 엔티티 조회|getFilteredFileEntities
-
-올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 조회할 수 있습니다. 필터를 통해 특정 조건에 맞는 파일들을 조회할 수도 있습니다. 
-
-
-###### Request URI
-
-```
-`GET` /{baasio-id}/{app-id}/files?filter=&lt;filter clause&gt;
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-GET https://api.baas.io/mybaasid/sanbox/files?filter=dir%3D%27myPhoto%27 HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Mon, 21 Jan 2013 07:20:12 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Sun, 20-Jan-2013 07:20:13 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "get",
-  "application" : "f74df243-639a-11e2-b7eb-02004d17003f",
-  "params" : {
-    "filter" : [ "dir='myPhoto'" ]
-  },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ 
-	  {
-	    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-	    "type" : "file",
-	    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-	    "created" : 1358507967778,
-	    "modified" : 1358507967778,
-	    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-	    "content-length" : 3276800,
-	    "content-type" : "image/jpeg",
-	    "country" : "italy",
-	    "dir" : "myPhoto",
-	    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-	    "filename" : "test.jpg",
-	    "location" : "rome",
-	    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-	    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-	    "path" : "/",
-	    "size" : 3276800,
-	    "title" : "my europe travel memories"
-	  },
-  	  
-  	  ....
-
-  ],
-  "timestamp" : 1358752813380,
-  "duration" : 19,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 질의를 이용한 파일 엔티티 조회|getFileEntitiesWithQuery
-
-올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 조회할 수 있습니다. 질의를 통해 조건을 부여하고 원하는 엔티티 속성 그리고 목록 정렬을 해볼 수도 있습니다. (원하는 목록 형태를 구성)
-
-
-###### Request URI
-
-```
-`GET` /{baasio-id}/{app-id}/files?ql=&lt;query clause&gt;
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-GET https://api.baas.io/mybaasid/sanbox/files?ql=select%20fileName%20where%20dir%3D%27myPhoto%27 HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Mon, 21 Jan 2013 07:20:12 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Sun, 20-Jan-2013 07:20:13 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "get",
-  "application" : "f74df243-639a-11e2-b7eb-02004d17003f",
-  "params" : {
-    "ql" : [ "select fileName where dir='myPhoto'" ]
-  },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "list" : [ [ "test.jpg" ], [ "test.png" ], [ "text.log" ] ],
-  "timestamp" : 1358752813380,
-  "duration" : 19,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 파일 엔티티 조회(단일)|getFileEntity
-
-올려진 파일에 대한 엔티티 정보를 조회할 수 있습니다. 
-
-###### Request URI
-
-```
-`GET` /{baasio-id}/{app-id}/files/{entity-id}
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-GET https://api.baas.io/mybaasid/sandbox/files/febe8ba9-639a-11e2-b7eb-02004d17003f HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Mon, 21 Jan 2013 07:20:12 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Sun, 20-Jan-2013 07:20:13 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "get",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : { },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "created" : 1358507967778,
-    "modified" : 1358507967778,
-    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-    "content-length" : 3276800,
-    "content-type" : "image/jpeg",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-    "filename" : "test.jpg",
-    "location" : "rome",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 3276800,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-## 파일 다운로드
-[]({'id':'file-download'})
-
-- [파일 다운로드](#downloadFile)
-- [파일 다운로드(DATA 커맨드 이용)](#downloadFilewithDataCMD)
-
-##### 파일 다운로드|downloadFile
-
-GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수 있습니다.
- 
-###### Request URI
-
-```
-`GET` https://blob.baas.io/{baasio-id}/{app-id}/files/{entity-id}
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| fileName | 파일명 (없을 경우 서버에 올려진 파일명으로 다운로드 하지만 별도로 파일명을 지정하고 싶을때) |
-
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 404 | N/A | 파일 BLOB 가 없음 |
-| 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
+```java
+public class MainActivity extends Activity {
 	
+	...
 
-###### Example
+	BaasioDownloadAsyncTask downloadFileAsyncTask;
 
-- Request
+	...
 
-```
-GET https://blob.baas.io/mybaasid/sandbox/files/febe8ba9-639a-11e2-b7eb-02004d17003f HTTP/1.1
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
+            case R.id.download: {
+            	String localPath = "/mnt/sdcard/baasio/test.txt";
 
-- Response
+				BaasioFile downloadFile = new BaasioFile();
+				downloadFile.setUuid(uuid);
+				downloadFileAsyncTask = downloadFile.fileDownloadInBackground(
+			        localPath       // 다운로드 경로
+			        , new BaasioDownloadCallback() {
 
-```
-HTTP/1.1 200 OK
-Date: Mon, 21 Jan 2013 07:20:12 GMT
-Server: grizzly/2.1.2
-Content-Type: image/png
-Content-Disposition: attachment; filename=test.png
-Last-Modified: Mon, 21 Jan 2013 07:20:12 GMT
-ETag: "\"d5d0d3cffeb5d1f9f656d8e99c0d0973\""
-Access-Control-Allow-Origin: *
-Content-Length: 851
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Sun, 20-Jan-2013 07:20:13 GMT
-Connection: close
+    			            @Override
+    			            public void onResponse(String localFilePath) {
+    			                // 성공
+    			            }
 
-&lt;binary&gt;
-```
+    			            @Override
+    			            public void onProgress(long total, long current) {
+    			                // 진행 상황
+    			            }
 
-##### 파일 다운로드(DATA 커맨드 이용)|downloadFilewithDataCMD
+    			            @Override
+    			            public void onException(BaasioException e) {
+    			                // 실패
+    			            }
+    			        });
+                break;
+            }
 
-GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수 있습니다.
- 
-###### Request URI
+            case R.id.download_canel: {
+            	downloadFileAsyncTask.cancel(true); // 다운로드 취소
+            	break;
+            }
+        }
 
-```
-`GET` /{baasio-id}/{app-id}/files/{entity-id}/data
-```
+        return super.onOptionsItemSelected(item);
+    }
 
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| fileName | 파일명 (없을 경우 서버에 올려진 파일명으로 다운로드 하지만 별도로 파일명을 지정하고 싶을때) |
-
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 404 | N/A | 파일 BLOB 가 없음 |
-| 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
-	
-
-###### Example
-
-- Request
-
-```
-GET https://api.baas.io/mybaasid/sandbox/files/febe8ba9-639a-11e2-b7eb-02004d17003f/data HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Mon, 21 Jan 2013 07:20:12 GMT
-Server: grizzly/2.1.2
-Content-Type: image/png
-Content-Disposition: attachment; filename=test.png
-Last-Modified: Mon, 21 Jan 2013 07:20:12 GMT
-ETag: "\"d5d0d3cffeb5d1f9f656d8e99c0d0973\""
-Access-Control-Allow-Origin: *
-Content-Length: 851
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Sun, 20-Jan-2013 07:20:13 GMT
-Connection: close
-
-&lt;binary&gt;
-```
-
-## 파일 엔티티 수정 및 교체
-[]({'id':'file-update'})
-
-- [파일 엔티티 수정 및 교체](#updateFileEntityAndReplaceBLOB)
-- [파일 엔티티 수정](#updateFileEntity)
-- [필터를 이용한 일괄 파일 엔티티 수정](#updateFilteredFileEntities)
-- [질의를 이용한 일괄 파일 엔티티 수정](#updateFileEntitiesWithQuery)
-
-##### 파일 엔티티 수정 및 교체|updateFileEntityAndReplaceBLOB
-
-PUT 메소드를 사용하여 이미 올려진 파일 엔티티와 그와 연결된 BLOB(Binary Large Object) 를 교체 할 수 있습니다. 이때 엔티티 정보(예: 메타 정보=이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 같이 수정하거나 추가 할 수도 있습니다.
-
-###### Request URI
-
-```
-`PUT` /{baasio-id}/{app-id}/files/{entity-id}
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-
-###### Request Entity Type
-
-```
-multipart/form-data 
-```
-
->warning|Warning|Request Entity Type|다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
-
-###### Request Body Entity (Multipart/form-data)
-
-```
-... (Headers)
-Content-Type: multipart/form-data; boundary="----=_Part_27_1294272899.1358507963208"
-
-------=_Part_27_1294272899.1358507963208
-Content-Type: image/jpeg; name="file"
-Content-Disposition: form-data; name="file"; filename="test.jpg"
-
-------=_Part_27_1294272899.1358507963208
-Content-Type: application/json; name="entity"
-Content-Disposition: form-data; name="entity";
-
-{
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
+    ...
 }
 ```
-
-| Part 명 | 설명 | Content Type	| 필수 여부 | 비고 |
-|:-------:|:----|:-------------|:---------:|:-----|
-| entity | Entity 정보 | application/json | X |
-| file | 파일 정보 와 Binary | <파일의 Content Type> | O (1개의 파일만 허용) | Content-Disposition 헤더가 있어야 하며 filename 가 포함되어 있어야 함 |
-
-
-
-####### File 파트
-
-- Part 헤더
-
-```
-Content-Type: image/jpeg; name="file"
-```
-
-| Property 명 | Domain Type	| 값 | 필수 	| 설명 |
-|:-----------:|:------------|:---|:----:|:------|
-| content-type | 문자열 (String)	| <파일의 content type> | O | 파일의 Content Type |
-| name | 문자열 (String)	| file | O | 파트명 |
-
-
-- Disposition 헤더
-
-```
-Content-Disposition: form-data; name="file"; filename="test.jpg"
-```
-
-| Property 명  | Domain Type	 | 기본값 | 필수 	| 설명 |
-|:------------:|:------------|:-----:|:----:|:----|
-| filename    	| 문자열 (String)	|		| O 	| 파일명
-| name		| 문자열 (String)	| file		| O	| 파트명
-
-
-####### Entity 파트 (application/json, optional)
-
-- Part 헤더
-
-```
-Content-Type: application/json; name="entity"
-```
-
-| Property 명  | Domain Type	 | 기본값 | 필수 	| 설명 |
-|:------------:|:------------|:-----:|:----:|:----|
-| content-type | 문자열 (String)	| application/json	| O	| 엔티티의 Content Type
-| name | 문자열 (String)	| entity		| O	| 파트명
-
-
-- Body 구성 (application/json)
-
-```
-{
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-```
-
-| Property 명  | Domain Type	 | 기본값 | 필수 	| 설명 |
-|:------------:|:------------|:-----:|:----:|:----|
-| <원하는 Property명> | <원하는 자료형> |  | X	| 이용자가 정의한 Property |
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------:|:-----:|
-| 200 | N/A | 성공 |
-| 400 | 102 | 필수 정보 누락 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음, 파일 사이즈가 0 이거나 데이터가 없음, 제한 업로드 용량 초과 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
-
-###### Example
-
-- Request
-
-```
-PUT https://api.baas.io/mybaasid/sandbox/files/febe8ba9-639a-11e2-b7eb-02004d17003f HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Accept: application/json
-Authorization: Bearer YWMt4_7W1WFgEeK36wIATRcAPwAAATxSiK0KLCuOik6J6NlNSQ8zgGNId9f_G6k
-Content-Type: multipart/form-data; boundary="----=_Part_27_1294272899.1358507963208"
-MIME-Version: 1.0
-Content-Length: 3277342
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-------=_Part_27_1294272899.1358507963208
-Content-Type: image/jpeg; name="file"
-Content-Transfer-Encoding: binary
-Content-Disposition: form-data; name="file"; filename="test2.jpg"
-
-&lt;binary&gt;
-
-------=_Part_27_1294272899.1358507963208
-Content-Type: application/json; name="entity"
-Content-Disposition: form-data; name="entity";
-
-{
-	"title":"my europe travel memories",
- 	"location":"venice",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-
-------=_Part_27_1294272899.1358507963208--
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "put",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : { },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test2.jpg",
-    "created" : 1358507967778,
-    "modified" : 1358507967778,
-    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-    "content-length" : 3276800,
-    "content-type" : "image/jpeg",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-    "filename" : "test2.jpg",
-    "location" : "venice",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test2.jpg",
-    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 3276800,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 파일 엔티티 수정|updateFileEntity
-
-PUT 메소드를 사용하여 이미 올려진 파일 엔티티를 수정합니다. 파일의 메타정보(예: 메타 정보=파일명, 파일 종류, 이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 수정하는 것을 의미합니다.
-
-###### Request URI
-
-```
-`PUT` /{baasio-id}/{app-id}/files/{entity-id}
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-
-###### Request Entity Type
-
-```
-application/json
-```
-
-###### Request Body Entity (application/json)
-
-```
-{
-	"filename":"test2.jpg",
-	"content-type":"image/jpeg",
-	"title":"my europe travel memories",
- 	"location":"venice",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-```
-
-| Property 명 | Domain Type	| 값 | 필수 	| 설명 |
-|:-----------:|:------------|:---|:----:|:------|
-| filename | 문자열 (String) | 없음 | O | 수정할 BLOB 의 파일명 |
-| content-type | 문자열 (String)	| BLOB 의 Content-type (다운로드시 활용) |
-| <원하는 Property명> | <원하는 자료형>	| <없음> | X | 이용자가 정의한 Property |
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 102 | 필수 정보 누락 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-PUT https://api.baas.io/mybaasid/sandbox/files/febe8ba9-639a-11e2-b7eb-02004d17003f HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Accept: application/json
-Authorization: Bearer YWMt4_7W1WFgEeK36wIATRcAPwAAATxSiK0KLCuOik6J6NlNSQ8zgGNId9f_G6k
-Content-Type: application/json	MIME-Version: 1.0
-Content-Length: 174
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-{
-	"filename":"test.jpg",
-	"content-type":"image/jpeg",
-	"title":"my europe travel memories",
- 	"location":"rome",
- 	"country":"italy",
- 	"dir":"myPhoto"
-}
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "put",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : { },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test2.jpg",
-    "created" : 1358507967778,
-    "modified" : 1358507967778,
-    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-    "content-length" : 3276800,
-    "content-type" : "image/jpeg",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-    "filename" : "test2.jpg",
-    "location" : "venice",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test2.jpg",
-    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 3276800,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 필터를 이용한 일괄 파일 엔티티 수정|updateFilteredFileEntities
-
-올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 수정할 수 있습니다. 필터 및 질의를 통해 특정 조건에 맞는 파일 엔티티를 찾아 수정 할 수도 있습니다. 주의해야 할 점은 한꺼번에 수정되기 때문에 **개별적으로 존재해야 하는 속성(예: 파일명, 파일 Content-type) 을 수정하지는 말아야 합니다.** (이경우 복구가 되지 않습니다.), 이 기능은 특정 속성과 그에 따른 값을 가진 파일들을 일괄 수정하는데 유용합니다.(예: A라는 태그를 가진 파일들을 B라고 전체 변경)
-
-
-###### Request URI
-
-```
-`PUT` /{baasio-id}/{app-id}/files?filter=&lt;filter clause&gt;
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| filter | filter 절 (자세한 내용은 <a href="../devguide/query.html#filterClause">여기서</a> 확인)  |
-
-
-###### Request Entity Type
-
-```
-application/json
-```
-
-###### Request Body Entity (application/json)
-
-```
-{
- 	"location":"venice"
-}
-```
-
-Property 명 	| Domain Type		| 기본값	| 필수 	| 설명
---------------------|-----------------------|---------------|-------|------------
-filename		| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 파일명
-content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Content-type (다운로드시 활용)
-<원하는 Property명> | <원하는 자료형>	| <없음>	| X	| 이용자가 정의한 Property
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 102 | 필수 정보 누락 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-###### Example
-
-- Request
-
-```
-PUT https://api.baas.io/mybaasid/sanbox/files?filter=dir%3D%27myPhoto%27 HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-{
- 	"location":"venice"
-}
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "put",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : {
-    "filter" : [ "dir='myPhoto'" ]
-  },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "created" : 1358507967778,
-    "modified" : 1358507967778,
-    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-    "content-length" : 3276800,
-    "content-type" : "image/jpeg",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-    "filename" : "test.jpg",
-    "location" : "venice",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 3276800,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 질의를 이용한 일괄 파일 엔티티 수정|updateFileEntitiesWithQuery
-
-올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 수정할 수 있습니다. 필터 및 질의를 통해 특정 조건에 맞는 파일 엔티티를 찾아 수정 할 수도 있습니다. 주의해야 할 점은 한꺼번에 수정되기 때문에 **개별적으로 존재해야 하는 속성(예: 파일명, 파일 Content-type) 을 수정하지는 말아야 합니다.** (이경우 복구가 되지 않습니다.), 이 기능은 특정 속성과 그에 따른 값을 가진 파일들을 일괄 수정하는데 유용합니다.(예: A라는 태그를 가진 파일들을 B라고 전체 변경)
-
-
-###### Request URI
-
-```
-`PUT` /{baasio-id}/{app-id}/files?ql=&lt;query clause&gt;
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
-
-
-###### Request Entity Type
-
-```
-application/json
-```
-
-###### Request Body Entity (application/json)
-
-```
-{
- 	"location":"venice"
-}
-```
-
-Property 명 	| Domain Type		| 기본값	| 필수 	| 설명
---------------------|-----------------------|---------------|-------|------------
-filename		| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 파일명
-content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Content-type (다운로드시 활용)
-<원하는 Property명> | <원하는 자료형>	| <없음>	| X	| 이용자가 정의한 Property
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 102 | 필수 정보 누락 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-###### Example
-
-- Request
-
-```
-PUT https://api.baas.io/mybaasid/sanbox/files?ql=select%20fileName%20where%20dir%3D%27myPhoto%27 HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-
-{
- 	"location":"venice"
-}
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "put",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : {
-    "ql" : [ "select fileName where dir='myPhoto'" ]
-  },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "list" : [ [ "test.jpg" ], [ "test.png" ], [ "text.log" ] ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-## 파일 삭제
-[]({'id':'file-delete'})
-
-- [파일 삭제(단일)](#deleteFileEntityAndBLOB)
-- [필터를 이용한 파일 삭제](#deleteFilteredFileEntitiesAndBLOB)
-- [질의를 이용한 파일 삭제](#deleteFileEntitiesWithQueryAndBLOB)
-
-##### 파일 삭제(단일)|deleteFileEntityAndBLOB
-
-Delete 메소드를 이용해서 파일 엔티티와 그와 함께 저장된 파일 BLOB(Binary Large Object) 를 같이 삭제할 수 있습니다.
-
-###### Request URI
-
-```
-`DELETE` /{baasio-id}/{app-id}/files/{entity-id}
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-| entity-id | 파일 엔티티의 UUID |
-
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-
-###### Example
-
-- Request
-
-```
-DELETE https://api.baas.io/mybaasid/sandbox/files/fee06b8c-639a-11e2-b7eb-02004d17003f HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Mon, 21 Jan 2013 07:20:12 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Sun, 20-Jan-2013 07:20:13 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "delete",
-  "application" : "f74df243-639a-11e2-b7eb-02004d17003f",
-  "params" : { },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "fee06b8c-639a-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "fee06b8c-639a-11e2-b7eb-02004d17003f_test.png",
-    "created" : 1358752812677,
-    "modified" : 1358752812958,
-    "checksum" : "84949a871e2875e8154528a33bc94b1d",
-    "content-length" : 4491,
-    "content-type" : "image/png",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"84949a871e2875e8154528a33bc94b1d\"",
-    "filename" : "text.png",
-    "location" : "rome",
-    "metadata" : {
-      "path" : "/files/fee06b8c-639a-11e2-b7eb-02004d17003f"
-    },
-    "name" : "fee06b8c-639a-11e2-b7eb-02004d17003f_test.png",
-    "owner" : "f74df243-639a-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 4491,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358752813801,
-  "duration" : 141,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 필터를 이용한 일괄 파일 삭제|deleteFilteredFileEntitiesAndBLOB
-
-올려진 하나 혹은 전체 파일을 삭제 할 수 있습니다.(관련 BLOB(Binary Large Object 포함) 주의 해야 할 점은 복구가 되지 않기 때문에 신중을 기해 삭제해야 한다는 점입니다. 
-
-###### Request URI
-
-```
-`DELETE` /{baasio-id}/{app-id}/files?filter=&lt;filter clause&gt;
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| filter | filter 절 (자세한 내용은 <a href="../devguide/query.html#filterClause">여기서</a> 확인)  |
-
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-###### Example
-
-- Request
-
-```
-DELETE https://api.baas.io/mybaasid/sanbox/files?filter=dir%3D%27myPhoto%27 HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "delete",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : {
-    "filter" : [ "dir='myPhoto'" ]
-  },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ {
-    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
-    "type" : "file",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "created" : 1358507967778,
-    "modified" : 1358507967778,
-    "checksum" : "33b54d2a5525ad8ccd80092ecfc1f4c2",
-    "content-length" : 3276800,
-    "content-type" : "image/jpeg",
-    "country" : "italy",
-    "dir" : "myPhoto",
-    "etag" : "\"33b54d2a5525ad8ccd80092ecfc1f4c2\"",
-    "filename" : "test.jpg",
-    "location" : "venice",
-    "name" : "ebf1c09a-6160-11e2-b7eb-02004d17003f_test.jpg",
-    "owner" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-    "path" : "/",
-    "size" : 3276800,
-    "title" : "my europe travel memories"
-  } ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-##### 질의를 이용한 일괄 파일 삭제|deleteFileEntitiesWithQueryAndBLOB
-
-올려진 하나 혹은 전체 파일을 삭제 할 수 있습니다.(관련 BLOB(Binary Large Object 포함) 주의 해야 할 점은 복구가 되지 않기 때문에 신중을 기해 삭제해야 한다는 점입니다. 
-
-###### Request URI
-
-```
-`DELETE` /{baasio-id}/{app-id}/files?ql=&lt;query clause&gt;
-```
-
-| Template 명 | 설명 |
-|:-----------:|:-----|
-| baasio-id | 회원 ID |
-| app-id | 앱 ID |
-
-| Query Parameter 명 | 설명 |
-|:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
-
-
-###### Request Entity Type
-
-<없음>
-
-
-###### Request Body Entity
-
-<없음>
-
-###### Response
-
-- Status Code
-
-| Code | error code	| 의미 |
-|:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 400 | 103 | 등록된 파일 엔티티가 존재하지 않음 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
-
-###### Example
-
-- Request
-
-```
-DELETE https://api.baas.io/mybaasid/sanbox/files?ql=select%20fileName%20where%20dir%3D%27myPhoto%27 HTTP/1.1
-
-Accept-Encoding: gzip,deflate
-Authorization: Bearer YWMt9x4vsWOaEeK36wIATRcAPwAAATxhILes5rP7LFcwayF6zUVMSSE1dba9uvk
-Host: api.baas.io
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
-```
-
-- Response
-
-```
-HTTP/1.1 200 OK
-Date: Fri, 18 Jan 2013 11:19:28 GMT
-Server: grizzly/2.1.2
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Thu, 17-Jan-2013 11:19:25 GMT
-Connection: close
-Transfer-Encoding: chunked
-
-{
-  "action" : "delete",
-  "application" : "e48b1147-6160-11e2-b7eb-02004d17003f",
-  "params" : {
-    "ql" : [ "select fileName where dir='myPhoto'" ]
-  },
-  "path" : "/files",
-  "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "list" : [ [ "test.jpg" ], [ "test.png" ], [ "text.log" ] ],
-  "timestamp" : 1358507967775,
-  "duration" : 394,
-  "applicationName" : "sandbox",
-  "baasio_id" : "mybaasid"
-}
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Group|그룹
-[]({'id':'group'})
-
-그룹의 경우는 [User](user.html)를 좀 더 잘 활용하기 위해서 사용합니다. 예를 들어, 이벤트(생일, 결혼 등) 같이 특정 사용자들의 모임을 만들고자 합니다. 사용자를 그룹화 할 수 있는 그룹API를 사용하면 편리하게 해당 그룹 사용자들만 조회 가능합니다.
-
-또한, 해당 그룹의 사용자들만 볼 수 있는 [롤(Role)](role.html)을 만들고 특정 Collection을 조회할 수 있도록도 할 수 있습니다. 사용에 따라서 다양한 활용이 가능합니다.
-
-## 그룹 생성하기
-[]({'id':'postGroups'})
-
-##### Request URI
-
-```
-'POST' /{baasio-id}/{app-id}/groups
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-
-##### Request Body
-
-Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Group Entity](#groupEntity)에서 살펴보시면 됩니다. 그룹을 등록하기 위해서는 최소한의 정보가 필요하며 반드시 포함되어야 할 정보는 path 입니다.
-	
-```
-{
-	"path":"mygroup"
-}
-```
-
-##### Request
-
-```
-'POST' https://api.baas.io/my-baasio-id/my-app-id/groups 
-
-{
-	"name":"manager",
-	"title":"Manager"
-}
-```
-
-##### Response
-- 성공
-	- Code: 200 
-	- Contents:
-	
-``` 
-{
-	"action2": "post",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/groups",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/groups",
-	"entities": [
-		{
-			"uuid": "b584c577-138d-11e2-a766-4061867ca222",
-			"type": "group",
-			"created": 1349951013123,
-			"modified": 1349951013123,
-			"metadata": {
-				"path": "/groups/b584c577-138d-11e2-a766-4061867ca222",
-				"sets": {
-					"rolenames": "/groups/b584c577-138d-11e2-a766-4061867ca222/rolenames",
-					"permissions": "/groups/b584c577-138d-11e2-a766-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/groups/b584c577-138d-11e2-a766-4061867ca222/activities",
-					"feed": "/groups/b584c577-138d-11e2-a766-4061867ca222/feed",
-					"roles": "/groups/b584c577-138d-11e2-a766-4061867ca222/roles",
-					"users": "/groups/b584c577-138d-11e2-a766-4061867ca222/users"
-				}
-			},
-			"path": "mygroup"
-		}
-	],
-	"timestamp": 1349951013054,
-	"duration": 176,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-	
-##### Example
-
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\" }' "https://api.baas.io/my-baasio-id/my-app-id/groups"
-```
-
-## 그룹 조회하기
-[]({'id':'getGroups'})
-
-##### Request Body
-  
-```
-'GET' /{baasio-id}/{app-id}/groups
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-
-##### Request
-
-```
-'GET' https://api.baas.io/my-baasio-id/my-app-id/groups
-```
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json 
-{
-	"action": "get",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/groups",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/groups",
-	"entities": [
-		{
-			"uuid": "b584c577-138d-11e2-a766-4061867ca222",
-			"type": "group",
-			"created": 1349951013123,
-			"modified": 1349951215587,
-			"metadata": {
-				"path": "/groups/b584c577-138d-11e2-a766-4061867ca222",
-				"sets": {
-					"rolenames": "/groups/b584c577-138d-11e2-a766-4061867ca222/rolenames",
-					"permissions": "/groups/b584c577-138d-11e2-a766-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/groups/b584c577-138d-11e2-a766-4061867ca222/activities",
-					"feed": "/groups/b584c577-138d-11e2-a766-4061867ca222/feed",
-					"roles": "/groups/b584c577-138d-11e2-a766-4061867ca222/roles",
-					"users": "/groups/b584c577-138d-11e2-a766-4061867ca222/users"
-				}
-			},
-			"path": "mygroup",
-			"update": "something"
-		},
-		{
-			"uuid": "68d9793a-138f-11e2-a766-4061867ca222",
-			"type": "group",
-			"created": 1349951743487,
-			"modified": 1349951743487,
-			"metadata": {
-				"path": "/groups/68d9793a-138f-11e2-a766-4061867ca222",
-				"sets": {
-					"rolenames": "/groups/68d9793a-138f-11e2-a766-4061867ca222/rolenames",
-					"permissions": "/groups/68d9793a-138f-11e2-a766-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/groups/68d9793a-138f-11e2-a766-4061867ca222/activities",
-					"feed": "/groups/68d9793a-138f-11e2-a766-4061867ca222/feed",
-					"roles": "/groups/68d9793a-138f-11e2-a766-4061867ca222/roles",
-					"users": "/groups/68d9793a-138f-11e2-a766-4061867ca222/users"
-				}
-			},
-			"path": "mygroup2"
-		}
-	],
-	"timestamp": 1349951749829,
-	"duration": 55,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups"
-```
-
-## 그룹을 쿼리로 조회하기
-[]({'id':'getGroupsByQuery'})
-
-[그룹 조회하기](#getGroups) API 에서 확인한 것처럼 등록된 그룹을 조회할 수 있습니다. 특정한 그룹을 조회하고 싶을 때, 데이터 질의 방법을 사용하여 그룹을 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
-
-##### Request URI
-  
-```
-'GET' /{baasio-id}/{app-id}/groups?{query}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-
-##### Query Parmeters
-
-|파라미터|자료형|기본값|필수|설명|
-|:-----:|:-----:|:----:|:----:|:----------|
-|ql|문자열 (String)|none|no|질의어|
-|filter|문자열 (String)|none|no|연산 조건에 따른 필터|
-|cursor|문자열 (String)||no|페이징을 위한 질의 결과셋의 엔코딩된 값|
-|limit|정수형 (Integer)|10|no|조회 결과의 데이터 개수 제한|
-
-##### Request
-	
-```
-'GET' https://api.baas.io/my-baasio-id/my-app-id/groups/mygroup?ql=select * where flag='1'
-```
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "get",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params" : {
-		"ql" : [ "select * where flag='1'" ]
-	},
-	"path": "/groups",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/groups",
-	"entities": [
-		{
-			"uuid": "b584c577-138d-11e2-a766-4061867ca222",
-			"type": "group",
-			"created": 1349951013123,
-			"modified": 1349951215587,
-			"metadata": {
-				"path": "/groups/b584c577-138d-11e2-a766-4061867ca222",
-				"sets": {
-					"rolenames": "/groups/b584c577-138d-11e2-a766-4061867ca222/rolenames",
-					"permissions": "/groups/b584c577-138d-11e2-a766-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/groups/b584c577-138d-11e2-a766-4061867ca222/activities",
-					"feed": "/groups/b584c577-138d-11e2-a766-4061867ca222/feed",
-					"roles": "/groups/b584c577-138d-11e2-a766-4061867ca222/roles",
-					"users": "/groups/b584c577-138d-11e2-a766-4061867ca222/users"
-				}
-			},
-			"path": "mygroup",
-			"update": "something",
-			"flag":"1"
-		}
-	],
-	"timestamp": 1349951749829,
-	"duration": 55,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups/?ql=select * where flag='1'"
-```
-
-## 그룹명 혹은 UUID로 조회하기|getGroup
-
-##### Request URI
-  
-```
-'GET' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-
-##### Request
-	
-```
-'GET' https://api.baas.io/my-baasio-id/my-app-id/groups/mygroup
-```
-	
-혹은
-	
-```
-'GET' https://api.baas.io/my-baasio-id/my-app-id/groups/b584c577-138d-11e2-a766-4061867ca222
-```
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json 
-{
-	"action": "get",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/groups",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/groups",
-	"entities": [
-		{
-			"uuid": "b584c577-138d-11e2-a766-4061867ca222",
-			"type": "group",
-			"created": 1349951013123,
-			"modified": 1349951215587,
-			"metadata": {
-				"path": "/groups/b584c577-138d-11e2-a766-4061867ca222",
-				"sets": {
-					"rolenames": "/groups/b584c577-138d-11e2-a766-4061867ca222/rolenames",
-					"permissions": "/groups/b584c577-138d-11e2-a766-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/groups/b584c577-138d-11e2-a766-4061867ca222/activities",
-					"feed": "/groups/b584c577-138d-11e2-a766-4061867ca222/feed",
-					"roles": "/groups/b584c577-138d-11e2-a766-4061867ca222/roles",
-					"users": "/groups/b584c577-138d-11e2-a766-4061867ca222/users"
-				}
-			},
-			"path": "mygroup",
-			"update": "something"
-		}
-	],
-	"timestamp": 1349951749829,
-	"duration": 55,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups/{group_uuid or group_path}"
-```
-
-## 그룹 정보 수정하기
-[]({'id':'putGroup'})
-
-##### Request URI
-  
-```
-'PUT' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-
-##### Request Body
-
-Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Group Entity](#groupEntity)에서 살펴보시면 됩니다.
-
-```	
-{
-	"update":"something"
-}
-```
-	
-##### Request
-
-```
-'POST' https://api.baas.io/my-baasio-id/my-app-id/groups
-
-{
-	"update":"something"
-}
-```
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```  
-{
-	"action": "put",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/groups",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/groups",
-	"entities": [
-		{
-			"uuid": "b584c577-138d-11e2-a766-4061867ca222",
-			"type": "group",
-			"created": 1349951013123,
-			"modified": 1349951215587,
-			"metadata": {
-				"path": "/groups/b584c577-138d-11e2-a766-4061867ca222",
-				"sets": {
-					"rolenames": "/groups/b584c577-138d-11e2-a766-4061867ca222/rolenames",
-					"permissions": "/groups/b584c577-138d-11e2-a766-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/groups/b584c577-138d-11e2-a766-4061867ca222/activities",
-					"feed": "/groups/b584c577-138d-11e2-a766-4061867ca222/feed",
-					"roles": "/groups/b584c577-138d-11e2-a766-4061867ca222/roles",
-					"users": "/groups/b584c577-138d-11e2-a766-4061867ca222/users"
-				}
-			},
-			"path": "mygroup",
-			"update": "something"
-		}
-	],
-	"timestamp": 1349951215507,
-	"duration": 114,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-
-##### Example
-
-```
-curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{ \"update\":\"something\" }' "https://api.baas.io/my-baasio-id/my-app-id/groups/{group_id}"
-```
-
-## 그룹 삭제하기
-[]({'id':'deleteGroup'})
-
-##### Request URI
-  
-```
-'DELETE' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-
-##### Request
-
-```
-'DELETE' https://api.baas.io/my-baasio-id/my-app-id/groups/mygroup
-```
-	
-또는
-	
-```
-'DELETE' https://api.baas.io/my-baasio-id/my-app-id/groups/b584c577-138d-11e2-a766-4061867ca222
-```
-	
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-	"action": "delete",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/groups",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/groups",
-	"entities": [
-		{
-			"uuid": "b584c577-138d-11e2-a766-4061867ca222",
-			"type": "group",
-			"created": 1349951013123,
-			"modified": 1349951215587,
-			"metadata": {
-				"path": "/groups/b584c577-138d-11e2-a766-4061867ca222",
-				"sets": {
-					"rolenames": "/groups/b584c577-138d-11e2-a766-4061867ca222/rolenames",
-					"permissions": "/groups/b584c577-138d-11e2-a766-4061867ca222/permissions"
-				},
-				"collections": {
-					"activities": "/groups/b584c577-138d-11e2-a766-4061867ca222/activities",
-					"feed": "/groups/b584c577-138d-11e2-a766-4061867ca222/feed",
-					"roles": "/groups/b584c577-138d-11e2-a766-4061867ca222/roles",
-					"users": "/groups/b584c577-138d-11e2-a766-4061867ca222/users"
-				}
-			},
-			"path": "mygroup",
-			"update": "something"
-		}
-	],
-	"timestamp": 1349951810041,
-	"duration": 201,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-	
-##### Example
- 
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups/{group_id}"
-```
-
-## 그룹에 사용자를 추가하기
-[]({'id':'postGroupUser'})
-
-##### Request URI
-
-```
-'POST' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}/users/{user_uuid or username}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-|user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
-
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```json
-{
-  "action": "post",
-  "application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
-  "params": {},
-  "path": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users",
-  "uri": "https://api.baas.io/my-baasio-id/test/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users",
-  "entities": [
-	{
-	  "uuid": "f51a6aab-1cdf-11e2-9b13-4061867ca222",
-	  "type": "user",
-	  "name": "realbeast",
-	  "created": 1350975898997,
-	  "modified": 1350975898997,
-	  "activated": true,
-	  "email": "realbeast@mail.com",
-	  "metadata": {
-		"path": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222",
-		"sets": {
-		  "rolenames": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/rolenames",
-		  "permissions": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/permissions"
-		},
-		"collections": {
-		  "activities": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/activities",
-		  "devices": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/devices",
-		  "feed": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/feed",
-		  "groups": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/groups",
-		  "roles": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/roles",
-		  "following": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/following",
-		  "followers": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/followers"
-		}
-	  },
-	  "picture": "https://www.gravatar.com/avatar/b150400a18767d0c9b0c24672bc3204f",
-	  "username": "realbeast"
-	}
-  ],
-  "timestamp": 1350978519878,
-  "duration": 79,
-  "organization": "my-baasio-id",
-  "applicationName": "test"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
- 
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups/{group_uuid or group_path}/users/{user_uuid or username}"
-```
-
-## 그룹에 등록된 사용자을 조회하기
-[]({'id':'getGroupUsers'})
-
-##### Request URI
-
-```
-'GET' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}/users
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-
-
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```
-{
-  "action": "get",
-  "application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
-  "params": {},
-  "path": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users",
-  "uri": "https://api.baas.io/my-baasio-id/my-app-id/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users",
-  "entities": [
-	{
-	  "uuid": "f51a6aab-1cdf-11e2-9b13-4061867ca222",
-	  "type": "user",
-	  "name": "realbeast",
-	  "created": 1350975898997,
-	  "modified": 1350975898997,
-	  "activated": true,
-	  "email": "realbeast@mail.com",
-	  "metadata": {
-		"path": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222",
-		"sets": {
-		  "rolenames": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/rolenames",
-		  "permissions": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/permissions"
-		},
-		"collections": {
-		  "activities": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/activities",
-		  "devices": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/devices",
-		  "feed": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/feed",
-		  "groups": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/groups",
-		  "roles": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/roles",
-		  "following": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/following",
-		  "followers": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/followers"
-		}
-	  },
-	  "picture": "https://www.gravatar.com/avatar/b150400a18767d0c9b0c24672bc3204f",
-	  "username": "realbeast"
-	}
-  ],
-  "timestamp": 1350978519878,
-  "duration": 79,
-  "organization": "my-baasio-id",
-  "applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-baasio-id/my-app-id/{uuid|groupname}/users"
-```
-
-## 그룹에서 사용자를 제외하기
-[]({'id':'deleteGroupUser'})
-
-##### Request URI
-
-```
-'DELETE'`' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}/users/{user_uuid or username}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:-----------:|:------------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-|user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
-
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```
-{
-  "action": "delete",
-  "application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
-  "params": {},
-  "path": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users",
-  "uri": "https://api.baas.io/my-baasio-id/my-app-id/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users",
-  "entities": [
-	{
-	  "uuid": "f51a6aab-1cdf-11e2-9b13-4061867ca222",
-	  "type": "user",
-	  "name": "realbeast",
-	  "created": 1350975898997,
-	  "modified": 1350975898997,
-	  "activated": true,
-	  "email": "realbeast@mail.com",
-	  "metadata": {
-		"path": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222",
-		"sets": {
-		  "rolenames": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/rolenames",
-		  "permissions": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/permissions"
-		},
-		"collections": {
-		  "activities": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/activities",
-		  "devices": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/devices",
-		  "feed": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/feed",
-		  "groups": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/groups",
-		  "roles": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/roles",
-		  "following": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/following",
-		  "followers": "/groups/eda4b8c1-1ce5-11e2-9b13-4061867ca222/users/f51a6aab-1cdf-11e2-9b13-4061867ca222/followers"
-		}
-	  },
-	  "picture": "https://www.gravatar.com/avatar/b150400a18767d0c9b0c24672bc3204f",
-	  "username": "realbeast"
-	}
-  ],
-  "timestamp": 1350978519878,
-  "duration": 79,
-  "organization": "my-baasio-id",
-  "applicationName": "my-app-id"
-}
-```
-	
-- 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-
-##### Example
-
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/{uuid|groupname}/users/{uuid|username}"
-```
-
-## Group Entity|groupEntity
-
-##### Group 기본 속성(Property)
-
-|프로퍼티명|타입|설명|
-|:------:|:-----:|:---------|
-|uuid|UUID|Group 유일한 Entity ID|
-|type|string|"group"|
-|created|long|Entity 생성 일자 (UNIX timestamp)|
-|modified|long|Entity 최종 수정일자 (UNIX timestamp)|
-|path|string|그룹 Path( 필수 )|
-|title|string|화면에 표시할 이름|
-
-##### Group 기본 Set
-
-|Set|타입|설명|
-|:-----:|:-----:|:--------|
-|connections|string|관계리스트|
-|rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](roles.html)|
-|credentials|string|credentials 리스트|
-
-##### Group 기본 Collection
-
-|Collection|타입|설명|
-|:-------:|:--------:|:------------|
-|users|users|시용자와의 관계들|
-|activities|activity|활동과의 관계들|
-|feed|activity|개인적인 알림들|
-|roles|role|롤(Role) 리스트|
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -5091,1963 +2129,1080 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 # Push
 []({'id':'push'})
 
-Push 서비스는 baas.io 의 API 를 사용하는 앱을 대상으로 Push Notification 을 발송하기 위한 API 로 구성되어 있습니다.
+baas.io는 <strong>GCM을 이용한 Push 기능을 제공</strong>합니다.
+이 Push 서비스를 이용하기 위해서는 몇 가지 준비작업이 필요합니다.
 
-Push 서비스를 사용하기 위해서는 MyPage 의 설정에서 Push 사용을 먼저 활성화 하여 주시기 바랍니다.
-Push 사용이 활성화 되면 등록된 Device 를 대상으로 MyPage 의 푸시관리를 통해 전체 혹은 단말 유형이나 개별 사용자를 대상으로 Push Notification 을 발송할 수 있습니다.
-물론 제공되는 API를 호출하여 Push Notification 을 발송할 수 있기 때문에 앱에서 발생하는 이벤트에 따라 같은 앱을 사용하는 다른 사용자에게 Push 를 전송할 수 있습니다.
+기타 GCM 관련 자세한 사항은 [Google Cloud Messaging for Android 페이지](http://developer.android.com/google/gcm/index.html)를 참고하시기 바랍니다.
 
-## 준비 하기
-[]({'id':'prepare'})
+## BaasioPush 클래스
 
-Push 서비스를 사용하기 위해서는 먼저 MyPage에서 Push 사용을 활성화 하고 인증서를 등록하여야 합니다.
+BaasioPush 클래스는, <strong>단말을 등록/해제/갱신 시켜주기 위한 기능 및 메시지를 전송하는 기능을 제공</strong>합니다.
 
-- [ios 용 인증서 발급하기](http://www.jamfsoftware.com/libraries/pdf/white_papers/JAMF-Software-Generating-and-Renewing-an-APNs-Certificate.pdf)
+이 함수의 등록/해제/갱신 함수를 이용하여 직접 GCM 기능을 구현하기 위해서는 깊은 이해가 필요합니다. <strong>baas.io Android SDK는 등록/해제/갱신을 쉽게 내부적으로 처리하고 있으며, 많은 테스트를 통해 검증되어 있어, 쉽게 Push 기능을 구현하실 수 있습니다.</strong>
 
-- [Android API Key 발급 받기](http://blog.baas.io/2012/11/21/android-api-key-%EB%B0%9C%EA%B8%89-%EB%B0%9B%EA%B8%B0/)
+#### Quick Start For Push|push-quick-start
 
-APNS 인증서와 Google APIKey 를 baas.io에 등록합니다.
+이 가이드를 통해 <strong>Push 기능을 활성화</strong> 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#push-quick-start-setup) 하셔도 됩니다.
 
- - MyPage > 설정 > push인증서 설정 
+>warning|Warning|Quick Start를 하셨나요?|이 가이드를 보시기 전에 [Quick Start](/develop/android/quickstart.html)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다. 
 
-Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#postDevice) API를 통해 등록하여야 합니다.
+### Google API Key &amp; Sender ID
+[]({'id':'quick-start-key-and-senderid'})
 
-## Push 전송하기
-[]({'id':'postPush'})
+GCM을 이용하기 위해서는 먼저 <strong>Google API Key와 Sender ID</strong>를 Google Console 페이지를 통해 발급 받아야합니다.
 
-##### Request URI
+이 과정으로 통해 <strong>Google API Key와 Sender ID</strong>를 발급 받으실 수 있습니다.
+
+###### Step1. Google 계정 만들기
+
+Google 계정을 만듭니다. 이미 있으시다면 있는 것을 사용하실 수 있습니다.
+
+###### Step2. GCM Sender ID 얻기
+
+[Google APIs Console Page 페이지](https://code.google.com/apis/console)로 이동합니다.
+
+생성된 API Project가 없다면 아래의 화면이 보일 것입니다.
+
+<div class="center"><img src="../../../images/develop/android/push-gcm-create-apis-project.png" class="img-polaroid"/></div>
+
+>info|Note|이미 생성이 되어 있나요?|이미 생성된 Project가 있다면 Dashboard 화면이 보일 것입니다. 여기서 새로운 Project를 더 생성할 수 있습니다.
+
+Create Project를 클릭하면 브라우저의 URL이 아래와 같은 형태로 보여질 것입니다.
 
 ```
-'POST' /{baasio-id}/{app-id}/pushes
+https://code.google.com/apis/console/#project:4815162342
 ```
 
-##### Parameters
+<strong>여기에서 #project: 다음에 표시되는 숫자가 GCM Sender ID 입니다. 여기서는 4815162342가 GCM Sender ID입니다.</strong>
 
-|파라미터|설명|
-|:----------:|:----------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-	
+###### Step3. GCM Service 활성화
 
-##### Request Body
-	
-```
-{    
-"target" : "user",    
-"to" : "1cd2bcfc-48cb-11e2-9f20-06fd000000c2",    
-"payload" : {                  
-	"badge" : 8,                  
-	"sound" : "bingbong.aiff",                  
-	"alert" : "오늘은 비가 옵니다. 우산을 준비하세요"                 
-	},    
-"reserve" : "201210021500",    
-"platform" : "I,G",    
-"memo" : "portal"
+[Google APIs Console Page 페이지](https://code.google.com/apis/console)에서 Services를 선택합니다.
+
+<div class="center"><img src="../../../images/develop/android/push-gcm-console-services.png" class="img-polaroid"/></div>
+
+Google Cloud Messaging for Android를 ON으로 설정하여 활성화시킵니다.
+
+<div class="center"><img src="../../../images/develop/android/push-gcm-console-services-gcm-on.png" class="img-polaroid"/></div>
+
+활성화를 시키면 약관을 확인하기 위한 화면이 나옵니다. <strong>약관을 확인하여, 승인을 합니다.</strong>
+
+###### Step4. Google API Key 생성
+
+[Google APIs Console Page 페이지](https://code.google.com/apis/console)에서 API Access를 선택합니다. 그러면 아래와 같은 화면이 보여집니다.
+
+<div class="center"><img src="../../../images/develop/android/push-gcm-console-api-access.png" class="img-polaroid"/></div>
+
+Create new Server key 버튼을 클릭하면 아래와 같은 화면이 나타납니다. 특별히 입력하지 않으셔도 됩니다.
+
+<div class="center"><img src="../../../images/develop/android/push-gcm-console-config-server-key.png" class="img-polaroid"/></div>
+
+Create 버튼을 클릭하면 아래와 같이 Api key가 생성되어 보여집니다. 아래 화면에서는 <strong>YourKeyWillBeShownHere라는 글자 위치</strong>에 표시됩니다.
+
+<div class="center"><img src="../../../images/develop/android/push-gcm-console-api-key.png" class="img-polaroid"/></div>
+
+>info|Note|API Key 변경하기|Key를 변경할 필요가 있으시면 Generate new key를 선택하여 새로운 키를 발급 받으실 수 있습니다. 새로운 키를 발급받으시면 이전 키는 24시간까지는 활성화된 상태로 유지됩니다.
+
+### Setting Up Push
+[]({'id':'quick-start-setup'})
+
+baas.io의 Push 기능을 이용하기 위해서는 ["Google API Key 와 Sender ID 생성"](#push-quick-start-key-and-senderid) 과정을 통해 Google API Key와 Sender ID를 발급 받아야 합니다.
+
+아래의 입력창에, <strong>적용하시려는 앱의 Package Name과 baas.io ID, Application ID, 발급받으신 Sender ID를 입력해주세요.</strong>
+
+<div class="center"><input class="package-name" type="text" placeholder="Your App's PackageName" value="com.example.app"></div>
+<div class="center"><input class="member-id" type="text" placeholder="Member ID" value="PUT_YOUR_BAASIO_MEMBER_ID"></div>
+<div class="center"><input class="app-id" type="text" placeholder="Application ID" value="PUT_YOUR_APPLICATION_ID"></div>
+<div class="center"><input class="sender-id" type="text" placeholder="GCM Sender ID" value="PUT_YOUR_GCM_SENDER_ID"></div>
+
+###### Step1. 백엔드앱의 설정에 Google API Key 등록
+
+<strong>baas.io 로그인 > My page > 백엔드앱 선택 > 설정 > 푸쉬인증서 관리</strong>에 Google API Key를 등록합니다.
+
+<div class="center"><img src="../../../images/develop/android/push-register-google-api-key.png" class="img-polaroid"/></div>
+
+###### Step2. BaasioConfig.java 수정
+
+아래 코드를 복사하여 "src/<span class="package-name-rep">com.example.app</span>" 위치의 <strong>BaasioConfig.java 파일을 수정</strong>합니다.
+
+```java
+package <span class="package-name-rep str">com.example.app</span>;
+
+public class BaasioConfig {
+	public static final String BAASIO_URL = "https://api.baas.io";
+
+	// baas.io member ID
+	public static final String BAASIO_ID = "<span class="member-id-rep str">PUT_YOUR_BAASIO_MEMBER_ID</span>";
+
+	// baas.io application ID
+	public static final String APPLICATION_ID = "<span class="app-id-rep str">PUT_YOUR_APPLICATION_ID</span>";
+
+	// GCM(google cloud messaging service) sender ID
+	public static final String GCM_SENDER_ID = "<span class="sender-id-rep str">PUT_YOUR_GCM_SENDER_ID</span>";
 }
-```
+```                         	
+                        
 
-##### body 구성
+###### Step3. BaasioApplication.java 수정
 
-|발송 구분|target|to|
-|:---------|:-----------:|:--------------------|
-|User 발송|user|user entity의 uuid|
-|Device 발송|device|device entity의 uuid|
-|Tag 발송|tag|device entity의 tags property|
-|전체 발송|all|null|
+BaasioApplication의 onCreate()에서 Baas.io().init()을 호출해 준 후에 Baas.io().setGCMEnabled()를 호출합니다. 이때, 리턴되는 AsyncTask는 앱이 종료될때 정상 종료될 수 있도록 onTerminate()에서 cancel()을 호출하여 줍니다.
 
-reserve 에 설정된 일자는 KST 기준입니다. 만약 2012년 10월 2일 15시 00분에 전송하기 를 원한다면 "201210021500" 을 설정하세요.
+baas.io().setGcmEnabled()를 호출하면 Main UI Thread가 아닌 background에서 단말 등록을 시도합니다. 이때 결과는 BaasioDeviceCallback으로 전달됩니다.
 
-plarform 에 설정되는 I,G 는 ios 와 google android 를 의미합니다. ios 전용 앱이라면 "I" 로 설정하세요.
+>info|Note|최초 실행시에는 setGcmEnabled()가 null을 리턴합니다.|최초 실행할때는 setGcmEnabled()가 호출되면 null을 리턴하며, 이는 정상 동작입니다. 이때 Sender ID를 GCM 서버에 등록하는 과정이 이루어지며, 등록이 완료되면 자동으로 GCM이 활성화 됩니다.
 
-##### Request
+"src/<span class="package-name-rep">com.example.app</span>"위치의 <strong>BaasioApplication.java파일이 아래의 코드와 같이 setGcmEnabled()를 제대로 호출하고 있는지 확인합니다. 그대로 복사해서 사용하셔도 됩니다.</strong>
 
-```
-'POST' https://api.baas.io/my-baasio-id/my-app-id/pushes 
+```java
+package <span class="package-name-rep">com.example.app</span>;
 
-{ 
-    "target" : "user", 
-    "to" : "1cd2bcfc-48cb-11e2-9f20-06fd000000c2", 
-    "payload" : { 
-        "badge" : 8, 
-        "sound" : "bingbong.aiff", 
-        "alert" : "오늘은 비가 옵니다. 우산을 준비하세요" 
-    }, 
-    "reserve" : "201210021500", 
-    "platform" : "I,G", 
-    "memo" : "portal" 
-}
-```
-	
-##### Response
+import com.kth.baasio.Baas;
+import com.kth.baasio.callback.BaasioDeviceCallback;
+import com.kth.baasio.entity.push.BaasioDevice;
+import com.kth.baasio.exception.BaasioException;
+import com.kth.common.utils.LogUtils;
 
-- 성공
-	- Code: 200 
-	- Contents:
+import android.app.Application;
+import android.os.AsyncTask;
 
-```
-{
-    "action": "post",
-    "application": "e92799f5-f308-11e1-90c4-4061867ca222",
-    "params": {},
-    "path": "/pushes/",
-    "uri": "http://api.baas.io/torg/tapp/pushes/apps",
-    "entities": [
-        {
-            "type": "com.kthcorp.baas.PushApplication",
-            "uuid": "2db6d191-f639-11e1-b75f-4061867ca222",
-            "created": 1346726123835,
-            "modified": 1346726123835,
-            "target" : "user",
-            "to" : [
-                { 
-                    "uuid" : "1cd2bcfc-48cb-11e2-9f20-06fd000000c2",
-                    "name" : "tebeca"
-                }
-            ],
-            "payload" : {
-                  "badge" : 8,
-                  "sound" : "bingbong.aiff",
-                  "alert" : "오늘은 비가 옵니다. 우산을 준비하세요"},
-            "reserve" : "201210021500",
-            "platform" : "I,G",
-            "status" : "sent",
-            "count" : 1,
-            "memo" : "portal"
+public class BaasioApplication extends Application {
+    private static final String TAG = LogUtils.makeLogTag(BaasioApplication.class);
+
+    AsyncTask mGCMRegisterTask;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Baas.io().init(this, BaasioConfig.BAASIO_URL, BaasioConfig.BAASIO_ID,
+                BaasioConfig.APPLICATION_ID);
+
+        mGCMRegisterTask = Baas.io().setGcmEnabled(this, null, new BaasioDeviceCallback() {
+
+	            @Override
+	            public void onException(BaasioException e) {
+	                LogUtils.LOGE(TAG, "init onException:" + e.toString());
+	            }
+
+	            @Override
+	            public void onResponse(BaasioDevice response) {
+	                LogUtils.LOGD(TAG, "init onResponse:" + response.toString());
+	            }
+	        }, BaasioConfig.GCM_SENDER_ID);
+
+    }
+
+    @Override
+    public void onTerminate() {
+        if (mGCMRegisterTask != null) {
+            mGCMRegisterTask.cancel(true);
         }
-    ],
-    "timestamp": 1346382949091,
-    "duration": 120
-}
-```
-	
-- 에러
-	- Code: 401 UNAUTHORIZED 
-	- Contents:
 
-```
-{ error : "Log in" }
-```
-	
- 	                		
-##### Example
+        Baas.io().uninit(this);
+        super.onTerminate();
+    }
+}                            	
+```                    
 
-	curl -X POST https://api.baas.io/my-baasio-id/my-app-id/pushes \
-	{"target" : "user",    \
-	"to" : "1cd2bcfc-48cb-11e2-9f20-06fd000000c2",    \
-	"payload" : {\                  
-		"badge" : 8,\
-        "sound" : "bingbong.aiff",\
-        "alert" : "오늘은 비가 옵니다. 우산을 준비하세요"\
-     },\
-    "reserve" : "201210021500",\
-    "platform" : "I,G",\
-    "memo" : "portal"}
+###### Step4. GCMIntentService.java 생성
 
+GCMIntentService.java는 GCM에서 보내주는 각종 메시지를 처리하는 역할을 하며, onMessage()에서 해당 메시지를 이용하여 Notification Bar에서 메시지를 보여주는 등의 처리를 할 수 있습니다.
 
+먼저, "src/<span class="package-name-rep">com.example.app</span>" 위치에 gcm이라는 path를 생성합니다.
 
-## Device 등록하기
-[]({'id':'postDevice'})
+생성한 경로에 <strong>GCMIntentService.java를 생성하여 아래의 코드를 붙여넣기 합니다.</strong>
 
-##### Request URI
+붙여넣기 한 코드는 기본적으로 Notification Bar에 메시지를 보여주도록 처리하고 있습니다. 이를 수정하려면 onMessage()를 수정하면 됩니다.
 
-	`POST` /{baasio-id}/{app-id}/pushes/devices
+```java
+/*
+ * Copyright 2012 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-##### Parameters
+package <span class="package-name-rep">com.example.app</span>.gcm;
 
-|파라미터|설명|
-|:----------:|:----------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-	
+import com.google.android.gcm.GCMBaseIntentService;
+import com.kth.baasio.entity.push.BaasioPayload;
+import com.kth.baasio.entity.push.BaasioPush;
+import com.kth.baasio.exception.BaasioException;
+import <span class="package-name-rep">com.example.app</span>.BaasioConfig;
+import <span class="package-name-rep">com.example.app</span>.R;
+import <span class="package-name-rep">com.example.app</span>.MainActivity;
+import com.kth.baasio.utils.JsonUtils;
+import com.kth.baasio.utils.ObjectUtils;
 
-##### Request Body
-	
-	{
-  	"token" : "kljsdf87sdf987s6sdf5567s9s",
-  	"platform" : "G",
-  	"tags" : ["korean","male"]
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+
+import java.util.Random;
+
+/**
+ * {@link android.app.IntentService} responsible for handling GCM messages.
+ */
+public class GCMIntentService extends GCMBaseIntentService {
+
+	private static final String TAG = LogUtils.makeLogTag("GCM");
+
+	public GCMIntentService() {
+		super(BaasioConfig.GCM_SENDER_ID);
 	}
 
-token 은 등록한 device 의 token  으로 단말에 설치된 어플리케이션에 할당된 token 으로 APNS 와 GCM(Google Cloud Message) API 를 통해 확인할 수 있습니다.
+	@Override
+	protected void onRegistered(Context context, String regId) {
+		LogUtils.LOGI(TAG, "Device registered: regId=" + regId);
 
-사용자가 로그인된 상태에서 user token 으로 device 를 등록하면, 해당 user 의 device 목록에 자동으로 등록됩니다.
-
-이미 존재하는 device token 으로 재등록을 시도한다면 기존이 device 정보를 삭제하고 새로 등록하셔야 합니다.
-
-push 의 수신 여부를 의미하는 state 는 자동 생성 됩니다.
-	
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-#####  
-	{
-    "action": "post",
-    "application": "e92799f5-f308-11e1-90c4-4061867ca222",
-    "params": {},
-    "path": "/pushes/devices",
-    "uri": "http://api.baas.io/torg/tapp/pushes/apps",
-    "entities": [
-        {
-            "type": "com.kthcorp.baas.PushApplication",
-            "uuid": "2db6d191-f639-11e1-b75f-4061867ca222",
-            "created": 1346726123835,
-            "modified": 1346726123835,
-            "token": "kljsdf87sdf987s6sdf5567s9s",
-            "platform" : "G"
-            "tags" : ["korean","male"]
-            "state" : true
-        }
-    ],
-    "timestamp": 1346382949091,
-    "duration": 120
+		try {
+		    BaasioPush.register(context, regId);
+		} catch (BaasioException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
 	}
-	
-- 에러
-	- Code: 401 UNAUTHORIZED 
-	- Contents:
 
-```
-{ 
-    "error" : "Log in" 
+	@Override
+	protected void onUnregistered(Context context, String regId) {
+		LogUtils.LOGI(TAG, "Device unregistered");
+
+		try {
+		    BaasioPush.unregister(context);
+		} catch (BaasioException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void onMessage(Context context, Intent intent) {
+		String announcement = intent.getStringExtra("message");
+		if (announcement != null) {
+		    generateNotification(context, announcement);
+		    return;
+		}
+	}
+
+	/**
+	 * Issues a notification to inform the user that server has sent a message.
+	 */
+	private static void generateNotification(Context context, String message) {
+		BaasioPayload msg = JsonUtils.parse(message, BaasioPayload.class);
+		if (ObjectUtils.isEmpty(msg)) {
+		    return;
+		}
+
+		String alert = "";
+		if (!ObjectUtils.isEmpty(msg.getAlert())) {
+		    alert = msg.getAlert().replace("\\r\\n", "\n");
+		}
+
+		int icon = R.drawable.ic_launcher;
+		long when = System.currentTimeMillis();
+		NotificationManager notificationManager = (NotificationManager)context
+		        .getSystemService(Context.NOTIFICATION_SERVICE);
+
+		Intent notificationIntent = new Intent(context, MainActivity.class);
+		// set intent so it does not start a new activity
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+		        | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+		Notification notification = new NotificationCompat.Builder(context).setWhen(when)
+		        .setSmallIcon(icon).setContentTitle(context.getString(R.string.app_name))
+		        .setContentText(alert).setContentIntent(intent).setTicker(alert)
+		        .setAutoCancel(true).getNotification();
+
+		notificationManager.notify(0, notification);
+	}
+
+	@Override
+	public void onError(Context context, String errorId) {
+		LogUtils.LOGE(TAG, "Received error: " + errorId);
+	}
+
+	@Override
+	protected boolean onRecoverableError(Context context, String errorId) {
+		// log message
+		LogUtils.LOGW(TAG, "Received recoverable error: " + errorId);
+		return super.onRecoverableError(context, errorId);
+	}
 }
-```
- 	                		
-##### Example
+``
 
-```
-curl -X POST https://api.baas.io/my-baasio-id/my-app-id/pushes/devices { \
-    "token" : "kljsdf87sdf987s6sdf5567s9s", \
-	"platform" : "G", \
-	"tags" : ["korean","male"] \
-}
-```
+###### Step5. GCMRedirectedBroadcastReceiver.java 구현
 
+GCMRedirectedBroadcastReceiver.java는 GCMIntentService가 메시지를 받을 수 있도록 전달해주는 역할을 합니다.
 
-## Device 변경하기
-[]({'id':'putDevice'})
+"src/<span class="package-name-rep">com.example.app</span>" 위치에 <strong>GCMRedirectedBroadcastReceiver.java를 생성하여 아래의 코드를 붙여넣기하시기 바랍니다.</strong>
 
-##### Request URI
+```java
+/*
+ * Copyright 2012 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-```
-'PUT' /{baasio-id}/{app-id}/pushes/devices/{device_id}
-```
+package <span class="package-name-rep">com.example.app</span>.gcm;
 
-##### Parameters
+import com.google.android.gcm.GCMBroadcastReceiver;
 
-|파라미터|설명|
-|:----------:|:----------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|device_id|Device 의 uuid|
-	
+import android.content.Context;
 
-##### Request Body
+/**
+ * @author trevorjohns@google.com (Trevor Johns)
+ */
+public class GCMRedirectedBroadcastReceiver extends GCMBroadcastReceiver {
 
-```json	
-{
-	"token" : "kljsdf87sdf987s6sdf5567s9s",
-	"platform" : "G",
-	"tags" : ["korean","male"],
-    "state":false
-}
-```
-
-사용자가 로그인된 상태에서 user token 으로 device 를 등록하면, 해당 user 의 device 목록에 자동으로 등록됩니다.
-state 는 수정될 device 의 상태이며 boolean값을 설정합니니다. state 가 false라면 Push 를 수신하지 않습니다.
-
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-	
-```json
-{
-    "action": "put",
-    "application": "e92799f5-f308-11e1-90c4-4061867ca222",
-    "params": {},
-    "path": "/pushes/devices",
-    "uri": "http://api.baas.io/torg/tapp/pushes/apps/e92799f5-f308-11e1-90c4-4061867ca222",
-    "entities": [
-        {
-            "type": "com.kthcorp.baas.PushApplication",
-            "uuid": "2db6d191-f639-11e1-b75f-4061867ca222",
-            "created": 1346726123835,
-            "modified": 1346726123835,
-            "token": "kljsdf87sdf987s6sdf5567s9s",
-            "platform" : "G"
-			"state":false
-            "tags" : ["korean","male"]
-        }
-    ],
-    "timestamp": 1346385949091,
-    "duration": 120
-}
-```
-	
-- 에러
-	- Code: 401 UNAUTHORIZED 
-	- Contents:
-
-``` 
-{ 
-    "error" : "Log in" 
-}
-```
-
-
-##### Example
-
-```
-curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f639-11e1-b75f-4061867ca222 { \
-  	"token" : "kljsdf87sdf987s6sdf5567s9s", \
-  	"platform" : "G", \
-  	"tags" : ["korean","male"], \
-	"state":false
-}
-```
-
-## Device 정보 읽기
-[]({'id':'getDevice'})
-
-##### Request URI
-
-```
-'GET' /{baasio-id}/{app-id}/pushes/devices/{device_id}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:----------:|:----------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|device_id|Device 의 uuid|
-	
-	
-##### Response
-
-- 성공
-	- Code: 200 
-	- Contents:
-
-```
-{
-    "action": "get",
-    "application": "e92799f5-f308-11e1-90c4-4061867ca222",
-    "params": {},
-    "path": "/pushes/devices/e92799f5-f308-11e1-90c4-4061867ca222",
-    "uri": "http://api.baas.io/torg/tapp/pushes/apps",
-    "entities": [
-        {
-            "type": "com.kthcorp.baas.PushApplication",
-            "uuid": "2db6d191-f639-11e1-b75f-4061867ca222",
-            "created": 1346726123835,
-            "modified": 1346726123835,
-            "token": "kljsdf87sdf987s6sdf5567s9s",
-            "platform" : "G"
-			"state":false
-            "tags" : ["korean","male"]
-        }
-    ],
-    "timestamp": 1346385949091,
-    "duration": 120
+	/**
+	 * Gets the class name of the intent service that will handle GCM messages.
+	 * Used to override class name, so that GCMIntentService can live in a
+	 * subpackage.
+	 */
+	@Override
+	protected String getGCMIntentServiceClassName(Context context) {
+	return GCMIntentService.class.getCanonicalName();
+	}
 }
 ```
 
-- 에러
-	- Code: 401 UNAUTHORIZED 
-	- Contents:
+###### Step6. AndroidManifest.xml 수정
 
-```
-{ 
-    "error" : "Log in" 
-}
-```
-	
- 	                		
-##### Example
+Push를 이용하기 위해 아래와 같이 AndroidManifest.xml에 관련 클래스를 등록하고 퍼미션을 설정합니다.
 
-```
-curl -X GET https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f639-11e1-b75f-4061867ca222
-```
+```xml
+&lt;permission
+    android:name="<span class="package-name-rep str">com.example.app</span>.permission.C2D_MESSAGE"
+    android:protectionLevel="signature" /&gt;
+&lt;uses-permission android:name="<span class="package-name-rep str">com.example.app</span>.permission.C2D_MESSAGE" /&gt;
 
-## Device 삭제하기
-[]({'id':'deleteDevice'})
+&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /&gt;
+&lt;uses-permission android:name="android.permission.GET_ACCOUNTS" /&gt;
+&lt;uses-permission android:name="android.permission.WAKE_LOCK" /&gt;
+&lt;uses-permission android:name="android.permission.USE_CREDENTIALS" /&gt;
 
-Device 를 삭제한다. 응답으로 삭제된 Device 의 정보를 전송한다.
+&lt;!--  전역 클래스 등록 --&gt;
+&lt;application
+    android:name="<span class="package-name-rep str">com.example.app</span>.BaasioApplication"
+    android:icon="@drawable/ic_launcher"
+    android:label="@string/app_name"&gt;
 
-##### Request URI
+    ...
 
-```
-'DELETE' /{baasio-id}/{app-id}/pushes/devices/{device_id}
-```
+    &lt;!--  GCM관련 모듈 등록 --&gt;
+    &lt;!--
+      BroadcastReceiver that will receive the C2DM messages from GCM
+      services and handle them to the custom IntentService.
 
-##### Parameters
+      The com.google.android.c2dm.permission.SEND permission is necessary
+      so only GCM services can send data messages for the app.
+    --&gt;
+    &lt;receiver
+        android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMRedirectedBroadcastReceiver"
+        android:permission="com.google.android.c2dm.permission.SEND" &gt;
+        &lt;intent-filter&gt;
+            &lt;!-- Receives the actual messages. --&gt;
+            &lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
+            &lt;!-- Receives the registration id. --&gt;
+            &lt;action android:name="com.google.android.c2dm.intent.REGISTRATION" /&gt;
 
-|파라미터|설명|
-|:----------:|:----------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|device_id|Device 의 uuid|
+            &lt;category android:name="<span class="package-name-rep str">com.example.app</span>" /&gt;
+        &lt;/intent-filter&gt;
+    &lt;/receiver&gt;
 
-##### Response
+    &lt;!--
+      Application-specific subclass of GCMBaseIntentService that will
+      handle received messages.
 
-- 성공
-	- Code: 200 
-	- Contents:
-
-```
-{
-    "action": "delete",
-    "application": "e92799f5-f308-11e1-90c4-4061867ca222",
-    "params": {},
-    "path": "/pushes/devices/e92799f5-f308-11e1-90c4-4061867ca222",
-    "uri": "http://api.baas.io/torg/tapp/pushes/apps",
-    "entities": [
-        {
-            "type": "com.kthcorp.baas.PushApplication",
-            "uuid": "2db6d191-f639-11e1-b75f-4061867ca222",
-            "created": 1346726123835,
-            "modified": 1346726123835,
-            "token": "kljsdf87sdf987s6sdf5567s9s",
-            "platform" : "G"
-			"state":false
-            "tags" : ["korean","male"]
-        }
-    ],
-    "timestamp": 1346385949091,
-    "duration": 120
-}
-```
-	
-- 에러
-	- Code: 401 UNAUTHORIZED 
-	- Contents:
-
-```
-{ 
-    "error" : "Log in" 
-}
-```
-	
- 	                		
-##### Example
-
-```
-curl -X DELETE https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f639-11e1-b75f-4061867ca222
+      By default, it must be named .GCMIntentService, unless the
+      application uses a custom BroadcastReceiver that redefines its name.
+    --&gt;
+    &lt;service android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMIntentService" /&gt;
+&lt;/application&gt;                    	
 ```
 
+###### Step7. 푸쉬 확인해보기
+
+<strong>baas.io 로그인 > My page > 백엔드앱을 선택 > 푸시관리 > 푸시발송</strong>에서 내용을 입력하고 메시지를 보내보세요.
+
+테스트 하실 때에는 Google Play가 설치된 실제 안드로이드 단말에서 테스트 바랍니다. 특히, 에뮬레이터는 메시지를 받을 수 없습니다.
+
+테스트하시는 단말로 메시지가 도착하셨나요?
+
+>info|Note|잘 안되시나요? Push가 정상 설정되었는지 확인해 보세요.|
+<li>Google Play가 설치된 실제 안드로이드 단말에서 테스트하셔야합니다.</li>
+<li>baas.io 로그인 &gt; My page 이동&gt; Application 선택</li>
+<li>설정 &gt; 푸시인증서 관리 Android API KEY 등록되었는지 확인</li>
+<li>푸시 사용 설정이 사용함인지 확인</li>
+<li>데이터브라우저 &gt; Role 선택 &gt; guest 선택 &gt; Permission 탭 선택</li>
+<li>"/devices" Create 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices")</li>
+<li>"/devices/*" Update, Delete 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices/*")</li>
+<li>데이터브라우저 &gt; Role 선택 &gt; default 선택 &gt; Permission 탭 선택</li>
+<li>설정된 Role이 "/device" Create와 "/devices/*" Update, Delete를 포함하고 있는지 확인(v0.8.1 이전 버전은 "/pushes/devices", "/pushes/devices/*")</li>
+<li>
+	<p>프로젝트의 AndroidMenifest.xml 파일을 열어 아래와 같이 package 명이 제대로 들어가 있는지 확인합니다.</p>
+    <pre class="prettyprint">
+&lt;permission
+	android:name="<span class="package-name-rep str">com.example.app</span>.permission.C2D_MESSAGE"
+	android:protectionLevel="signature" /&gt;
+...
+	&lt;receiver
+		android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMRedirectedBroadcastReceiver"
+		android:permission="com.google.android.c2dm.permission.SEND" &gt;
+		&lt;intent-filter&gt;
+			&lt;!-- Receives the actual messages. --&gt;
+			&lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
+			&lt;!-- Receives the registration id. --&gt;
+			&lt;action android:name="com.google.android.c2dm.intent.REGISTRATION" /&gt;
+			&lt;category android:name="<span class="package-name-rep str">com.example.app</span>" /&gt;
+		&lt;/intent-filter&gt;
+	&lt;/receiver&gt;
+...
+&lt;service android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMIntentService" /&gt;
+    </pre>
+</li>
 
 
+## Device Register
+[]({'id':'device-register'})
+
+<strong>단말을 baas.io로 등록 합니다.</strong> 등록하는 방법은 <strong>Tag정보를 포함하여 등록하는 방법과 그냥 등록하는 방법</strong>, 두 가지가 있습니다.
+
+각 <strong>Tag는 36자까지 길이를 허용</strong>합니다.
+
+```java
+// 단말 등록
+BaasioDeviceAsyncTask mGCMRegisterTask = BaasioPush.registerInBackground(
+        context
+        , new BaasioDeviceCallback() {
+
+	            @Override
+	            public void onException(BaasioException e) {
+	                // 등록 실패
+	            }
+
+	            @Override
+	            public void onResponse(BaasioDevice response) {
+	                if (response != null) {
+	                    // 등록 성공
+	                }
+
+	            }
+	        });
+
+// 태그 정보와 함께 단말 등록
+BaasioDeviceAsyncTask mGCMRegisterTask = BaasioPush.registerWithTagsInBackground(
+        context
+        , tags          // 태그 정보
+        , new BaasioDeviceCallback() {
+
+	            @Override
+	            public void onException(BaasioException e) {
+	                // 등록 실패
+	            }
+
+	            @Override
+	            public void onResponse(BaasioDevice response) {
+	                if (response != null) {
+	                    // 등록 성공
+	                }
+
+	            }
+	        });
+```
+
+## Device Unregister
+[]({'id':'device-unregister'})
+
+<strong>등록된 단말을 해제</strong> 합니다. 해제되면 더이상 메시지를 받을 수 없습니다.
+
+```java
+BaasioPush.unregisterInBackground(
+        context
+        , new BaasioResponseCallback() {
+
+	            @Override
+	            public void onException(BaasioException e) {
+	                // 해제 실패
+	            }
+
+	            @Override
+	            public void onResponse(BaasioResponse response) {
+	                if (response != null) {
+	                    // 해제 성공
+	                }
+	            }
+    		});
+```
+
+>error|Caution|Push On/Off|Push기능을 On/Off 하기위해 register/unregister를 이용하지 말아야합니다. 즉, 앱의 설정으로 Push 메시지 수신 기능을 On/Off 하시려면, 메시지를 수신하는 부분인 GCMIntentService.java에서 메시지를 무시하도록 구현하시기 바랍니다. 관련 링크는 [GCM Advanced Topics - Unregistration](http://developer.android.com/google/gcm/adv.html#unreg)를 참고바랍니다.
 
 
+## Sending Pushes
+[]({'id':'sending-push'})
+
+<strong>Push 메시지 구성을 쉽게 하기 위해 BaasioMessage 클래스가 제공</strong>됩니다. 필요한 데이터를 채워 BaasioPush 클래스를 이용하여 메시지를 전송합니다.
+
+메시지를 전송하는 방법은 <strong>setMessage()와 setPayload()</strong>, 이렇게 두 가지 방법이 있습니다.
+
+setMessage()는 비교적 간단한 메시지를 전송하기 위해 사용하고, <strong>setPayload()는 기본 메시지 규격외에 Custom한 데이터를 전송하기 위해 사용</strong>합니다.
+
+### Push for All
+[]({'id':'all'})
+
+<strong>모든 단말로 Push를 발송합니다.</strong>
+
+```java
+// setMessage를 이용한 방법
+BaasioMessage message = new BaasioMessage();
+message.setMessage(
+	"전체 발송"         // 전송할 메시지
+	, "homerun.caf"     // iOS APNS의 sound
+	, 1);               // iOS APNS badge 갯수
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+
+// setPayload를 이용한 방법
+BaasioPayload payload = new BaasioPayload();
+payload.setAlert("전체 발송");      // 전송할 메시지
+payload.setSound("homerun.caf");    // iOS APNS의 sound
+payload.setBadge(1);                // iOS APNS badge 갯수
+
+BaasioMessage message = new BaasioMessage();
+message.setPayload(payload);
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+```
+
+### Push by Platform
+[]({'id':'platform'})
+
+<strong>setPlatform()를 호출하여 메시지를 받을 플랫폼을 설정하여 발송합니다.</strong> 
+
+안드로이드만 푸시를 보내기 위해서는 <strong>BaasioMessage.PLATFORM_FLAG_TYPE_GCM</strong>, iOS만 보내기위해서는 <strong>BaasioMessage.PLATFORM_FLAG_TYPE_IOS</strong>를 설정합니다.
+
+두 플랫폼을 모두 보내려면 <strong>BaasioMessage.PLATFORM_FLAG_TYPE_GCM|BaasioMessage.PLATFORM_FLAG_TYPE_IOS</strong>로 설정합니다.
+
+```java
+// setMessage를 이용한 방법
+BaasioMessage message = new BaasioMessage();
+message.setMessage(
+	"안드로이드만 발송" // 전송할 메시지
+	, "homerun.caf"     // iOS APNS의 sound
+	, 2);               // iOS APNS badge 갯수
+message.setPlatform(BaasioMessage.PLATFORM_FLAG_TYPE_GCM); // Android GCM으로만 발송
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+
+// setPayload를 이용한 방법
+BaasioPayload payload = new BaasioPayload();
+payload.setAlert("안드로이드만 발송");  // 전송할 메시지
+payload.setSound("homerun.caf");        // iOS APNS의 sound
+payload.setBadge(2);                    // iOS APNS badge 갯수
+
+BaasioMessage message = new BaasioMessage();
+message.setPayload(payload);
+message.setPlatform(BaasioMessage.PLATFORM_FLAG_TYPE_GCM); // Android GCM으로만 발송
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+```
+
+### Push by Tags
+[]({'id':'tag'})
+
+<strong>단말을 등록할 때 설정된 태그별로 메시지를 발송합니다.</strong>
+
+```java
+// setMessage를 이용한 방법
+BaasioMessage message = new BaasioMessage();
+message.setMessage(
+"태그별 발송"          // 전송할 메시지
+, "homerun.caf"     // iOS APNS의 sound
+, 3);               // iOS APNS badge 갯수
+message.setTarget(BaasioMessage.TARGET_TYPE_TAG);   // 태그별 발송
+message.setTo("friend,male");                       // friend와 male tag로 등록된 단말로 발송 
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+	        @Override
+	        public void onException(BaasioException e) {
+	            // 실패
+	        }
+
+	        @Override
+	        public void onResponse(BaasioMessage response) {
+	            if (response != null) {
+	                // 성공
+	            }
+
+	        }
+	    });
+
+// setPayload를 이용한 방법
+BaasioPayload payload = new BaasioPayload();
+payload.setAlert("태그별 발송");       // 전송할 메시지
+payload.setSound("homerun.caf");    // iOS APNS의 sound
+payload.setBadge(3);                // iOS APNS badge 갯수
+
+BaasioMessage message = new BaasioMessage();
+message.setPayload(payload);
+message.setTarget(BaasioMessage.TARGET_TYPE_TAG);   // 태그별 발송
+message.setTo("friend,male");                       // friend와 male tag로 등록된 단말로 발송
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+	        @Override
+	        public void onException(BaasioException e) {
+	            // 실패
+	        }
+
+	        @Override
+	        public void onResponse(BaasioMessage response) {
+	            if (response != null) {
+	                // 성공
+	            }
+
+	        }
+    	});
+```
+
+### Push by User, Device
+[]({'id':'each'})
+
+<strong>회원별로 또는 단말별로 개별 발송할 수 있습니다.</strong>
+
+개별 전송은 <strong>최대 50개의 대상</strong>에게 발송할 수 있습니다.
+
+```java
+// setMessage를 이용한 방법
+BaasioMessage message = new BaasioMessage();
+message.setMessage(
+	"개별 발송"         // 전송할 메시지
+	, "homerun.caf"     // iOS APNS의 sound
+	, 5);   // iOS APNS badge 갯수
+message.setTarget(BaasioMessage.TARGET_TYPE_USER);  // 회원 개별 발송
+message.setTo("uuid1,uuid2");                       // uuid1, uuid2의 회원에게 전송
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+
+// setPayload를 이용한 방법
+BaasioPayload payload = new BaasioPayload();
+payload.setAlert("개별 발송");      // 전송할 메시지
+payload.setSound("homerun.caf");    // iOS APNS의 sound
+payload.setBadge(5);                // iOS APNS badge 갯수
+
+BaasioMessage message = new BaasioMessage();
+message.setPayload(payload);
+message.setTarget(BaasioMessage.TARGET_TYPE_USER);  // 회원 개별 발송
+message.setTo("uuid1,uuid2");                       // uuid1, uuid2의 회원에게 전송
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+```
+
+### Reserved Push
+[]({'id':'reserved'})
+
+<strong>정해진 시간에 메시지가 발송되도록 요청합니다.</strong>
+
+시간은 <strong>KST 기준</strong>이며, 예약 발송으로 전송된 시간의 남은 시간이 <strong>5분 이내일 경우에는 바로 발송 처리</strong>됩니다.
+
+```java
+// setMessage를 이용한 방법
+BaasioMessage message = new BaasioMessage();
+message.setMessage(
+	"예약 발송"         // 전송할 메시지
+	, "homerun.caf"     // iOS APNS의 sound
+	, 4);   // iOS APNS badge 갯수
+message.setReserve("201301251422"); // 2013년 1월 25일 오후 2시 22분
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+
+// setPayload를 이용한 방법
+BaasioPayload payload = new BaasioPayload();
+payload.setAlert("예약 발송");      // 전송할 메시지
+payload.setSound("homerun.caf");    // iOS APNS의 sound
+payload.setBadge(4);                // iOS APNS badge 갯수
+
+BaasioMessage message = new BaasioMessage();
+message.setReserve("201301251422"); // 2013년 1월 25일 오후 2시 22분
+message.setPayload(payload);
+
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
+
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
+
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
+
+		    }
+		});
+```
 
 
+### Push with Custom Fields
+[]({'id':'custom'})
 
+<strong>setPayload()를 이용하면, 추가로 다른 필드를 넣어서 메시지를 전송할 수 있습니다.</strong>
 
+```java
+BaasioPayload payload = new BaasioPayload();
+payload.setAlert("커스텀 필드와 함께 전체발송");
+payload.setProperty("extra", "커스텀필드");
 
+BaasioMessage message = new BaasioMessage();
+message.setPayload(payload);
 
+BaasioPush.sendPushInBackground(
+	message
+	, new BaasioCallback&lt;BaasioMessage&gt;() {
 
+		    @Override
+		    public void onException(BaasioException e) {
+		        // 실패
+		    }
 
+		    @Override
+		    public void onResponse(BaasioMessage response) {
+		        if (response != null) {
+		            // 성공
+		        }
 
+		    }
+		});
+```
 
 
 
 
 # Help Center
-[]({'id':'help'})
+[]({'id':'helpcenter'})
 
-## 고객센터 코드 조회
-[]({'id':'getHelpConfigurations'})
+baas.io는 고객님의 앱이 <strong>고객님의 회원분들에게 더 나은 서비스를 제공할 수 있도록, 고객센터 서비스를 제공</strong>해드리고 있습니다.
+baas.io 고객센터 서비스는 <strong>자주하는 질문(FAQ), 문의하기 기능</strong>을 제공해드리고 있습니다.
 
-##### Request URI
-  
+특히, baas.io Android SDK에서는 모바일에서 고객센터를 쉽게 구현하실 수 있도록 고객센터 UI 라이브러리를 오픈소스 라이브러리 형태로 제공해드리고 있습니다. 이 UI 라이브러리를 이용하시면 간단히 구현하실 수 있습니다.
+
+
+## BaasioHelp 클래스
+
+BaasioHelp 클래스를 통해 고객센터의 FAQ를 조회하고 문의사항을 전송하는 기능을 제공합니다.
+
+
+## Quick Start For Help Center
+[]({'id':'quick-start'})
+
+고객센터 UI 라이브러리를 프로젝트에 적용하는 방법을 가이드합니다.
+
+개발 툴은 Eclipse 또는 Android Studio, IntelliJ를 이용하시길 권장합니다.
+
+순서대로 따라하시면 baas.io를 이용하기 위한 프로젝트 설정을 완료하실 수 있습니다.
+
+>warning|Warning|Quick Start를 하셨나요?|이 가이드를 보시기 전에 [Quick Start](/develop/android/quickstart.html)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다. 
+
+##### Step1. UI 라이브러리 다운받기
+
+Git를 이용하거나 Zip으로 다운로드 받으실 수 있습니다.
+
+- Git
+
+```text
+git clone https://github.com/baasio/baas.io-helpcenter-android.git
 ```
-'GET' /{baasio-id}/{app-id}/help
-```
 
-##### Response
+- [Zip 다운로드](https://github.com/baasio/baas.io-helpcenter-android/archive/master.zip)
 
-* 성공
-	* Code: 200 
-	* Contents:
+##### Step2. UI 라이브러리 Import하기
 
-```json
-{
-    "entities": [
-        {
-            "created_at": 1351138964,
-            "disabled": false,
-            "featured_help": true,
-            "featured_help_sort": 1,
-            "id": 22,
-            "is_portal": false,
-            "mobile_featured_help": true,
-            "mobile_featured_help_limit": 0,
-            "mobile_featured_help_sort": 1,
-            "name": "9a956e2c-182f-11e2-8d70-020026de0053",
-            "official": false,
-            "official_email": null,
-            "organization_id": 14,
-            "organization_uuid": "9a5f1bdd-182f-11e2-8d70-020026de0053",
-            "public_accessable": false,
-            "updated_at": 1351824877,
-            "use_classification": true,
-            "use_help": false,
-            "use_push": true,
-            "use_satisfaction_level": true,
-            "use_status": true,
-            "uuid": "9a956e2c-182f-11e2-8d70-020026de0053",
-            "satisfaction_levels": [
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 1,
-                    "disabled": false,
-                    "id": 64,
-                    "name": "보통",
-                    "sort": 1,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 2,
-                    "disabled": false,
-                    "id": 65,
-                    "name": "불만",
-                    "sort": 2,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 3,
-                    "disabled": false,
-                    "id": 66,
-                    "name": "칭찬",
-                    "sort": 3,
-                    "updated_at": "2012-10-25T04:22:44Z"
+<!-- <div class="tab-content">
+	<div class="btn-tab btn-group" data-toggle="buttons-radio">
+    	<button type="button" class="btn btn-android-guide active" href="#quickstart-eclipse"><i class="icon-ok"> </i>Eclipse</button>
+    	<button type="button" class="btn btn-android-guide" href="#quickstart-intellij"><i class="icon-ok hidden"> </i>Android Studio 또는 IntelliJ</button>
+    </div>
+</div> -->
+<div class="tab-content">
+	<div class="tab-pane active" id="quickstart-eclipse">
+
+		<p>Eclipse의 <strong>File > Import 메뉴</strong>를 선택합니다.</p>
+
+		<div class="center"><img src="/images/develop/android/quickstart-eclipse-import.png" width="500px" class="img-polaroid"/></div>
+
+		<p>Import 다이얼로그에서 <strong>"General-Existing Projects into Workspace"</strong>를 선택하고 <strong>"Next"버튼</strong>을 선택합니다.</p>
+
+		<div class="center"><img src="/images/develop/android/quickstart-eclipse-import-exist.png" width="500px" class="img-polaroid"/></div>
+
+		<p>다음 Import 다이얼로그 화면에서 <strong>"Select root directory"의 "Browse"버튼</strong>을 눌러 다운로드 받은 폴더를 선택하고, <strong>"Projects:"에서 ActionBarSherlock, BaasioHelpCenter, BaasioHelpCenterSampleProject 프로젝트를 선택</strong>하고 <strong>"Finish"</strong>를 선택합니다.</p>
+
+		<div class="center"><img src="/images/develop/android/select_BaasioHelpCenter.png" width="500px" class="img-polaroid"/></div>
+
+		<p>BaasioHelpCenterSampleProject 프로젝트는 샘플 앱으로, 고객 센터를 실행하기 위한 샘플이 이미 구현되어 있으니 참고 바랍니다.</p>
+
+		<h5>Step3. UI 라이브러리 연동하기</h5>
+
+		<p>Eclipse의 <strong>Package Exploror 화면</strong>에서 생성하신 프로젝트에서 오른쪽 마우스를 클릭하여 <strong>Properties</strong>를 선택합니다.</p>
+
+		<div class="center"><img src="/images/develop/android/Project-Properties.png" width="500px" class="img-polaroid"/></div>
+
+		<p>Properties 다이얼로그에서 <strong>Android</strong>를 선택하고 아래에 있는 <strong>Library에서 Add버튼</strong>을 선택합니다.</p>
+
+		<div class="center"><img src="/images/develop/android/Project-Properties-Dialog.png" width="500px" class="img-polaroid"/></div>
+
+		<p>Projection Selection 다이얼로그에서 <strong>BaasioHelpCenter프로젝트를 선택</strong>하고, <strong>"OK"</strong>를 선택합니다.</p>
+
+		<div class="center"><img src="/images/develop/android/Project_HelpCenter_Selection.png" width="500px" class="img-polaroid"/></div>
+	</div>
+	<div class="tab-pane" id="quickstart-intellij">
+
+	</div>
+</div>
+
+
+
+## Get FAQ List
+[]({'id':'get-faq'})
+
+<strong>FAQ 리스트를 조회해 옵니다.</strong>
+
+```java
+BaasioHelp.getHelpsInBackground(
+    new BaasioCallback&lt;List&lt;FaqCategory&gt;&gt;() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(List&lt;FaqCategory&gt; response) {
+
+                if (response != null) {
+                    // 성공
                 }
-            ],
-            "statuses": [
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 1,
-                    "disabled": false,
-                    "id": 64,
-                    "name": "미처리",
-                    "sort": 1,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 2,
-                    "disabled": false,
-                    "id": 65,
-                    "name": "처리중",
-                    "sort": 2,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 3,
-                    "disabled": false,
-                    "id": 66,
-                    "name": "완료",
-                    "sort": 3,
-                    "updated_at": "2012-10-25T04:22:44Z"
+            }
+        });
+```
+
+
+## Get FAQ Content
+[]({'id':'get-faq-content'})
+
+<strong> FAQ 내용을 가져옵니다.</<strong>strong>
+
+```java
+BaasioHelp.getHelpDetailInBackground(
+    uuid        // 도움말 항목의 uuid
+    , new BaasioCallback&lt;Faq&gt;() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(Faq response) {
+                if (response != null) {
+                    // 성공
                 }
-            ],
-            "classifications": [
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 1,
-                    "disabled": false,
-                    "id": 211,
-                    "name": "일반",
-                    "sort": 1,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 2,
-                    "disabled": false,
-                    "id": 212,
-                    "name": "이용방법",
-                    "sort": 2,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 3,
-                    "disabled": false,
-                    "id": 213,
-                    "name": "장애",
-                    "sort": 3,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 4,
-                    "disabled": false,
-                    "id": 214,
-                    "name": "회원",
-                    "sort": 4,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 5,
-                    "disabled": false,
-                    "id": 215,
-                    "name": "요금",
-                    "sort": 5,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 6,
-                    "disabled": false,
-                    "id": 216,
-                    "name": "변경",
-                    "sort": 6,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 7,
-                    "disabled": false,
-                    "id": 217,
-                    "name": "제안",
-                    "sort": 7,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 8,
-                    "disabled": false,
-                    "id": 218,
-                    "name": "신고",
-                    "sort": 8,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 9,
-                    "disabled": false,
-                    "id": 219,
-                    "name": "스팸",
-                    "sort": 9,
-                    "updated_at": "2012-10-25T04:22:44Z"
-                },
-                {
-                    "application_id": 22,
-                    "created_at": "2012-10-25T04:22:44Z",
-                    "default_id": 10,
-                    "disabled": false,
-                    "id": 220,
-                    "name": "기타",
-                    "sort": 10,
-                    "updated_at": "2012-10-25T04:22:44Z"
+            }
+        });
+```
+
+
+## Search FAQ
+[]({'id':'search-faq'})
+
+<strong>검색할 단어를 포함하는 FAQ를 조회해 옵니다.</strong>
+
+```java
+BaasioHelp.searchHelpsInBackground(
+    keyword     // 찾으려는 키워드
+    , new BaasioCallback&lt;List&lt;FaqCategory&gt;&gt;() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(List&lt;FaqCategory&gt; response) {
+
+                if (response != null) {
+                    // 성공
                 }
-            ]
-        }
-    ]
-}
-```
- 	                		
-##### Example
-
-```
-curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help
-```
-
-## 문의하기
-[]({'id':'postQuestions'})
-
-##### Request URI
-  
-```
-'POST' /{baasio-id}/{app-id}/help/questions
-```
-
-##### Body Parameters
- 
-|파라미터|자료형|기본값|필수|설명|              
-|:----:|:------:|:-------:|:-----:|:----------|
-|email|string||*|문의자 이메일|
-|content|string||*|문의 내용|        
-|classification_id|integer||*|문의 분류|
-|app_info|string|||모바일 앱 정보|
-|device_info|string|||모바일 장비 정보|
-|os_info|string|||모바일 OS 정보|
-|tags|string|||태그정보|
-
->info|Note|classification_id?|classification_id는 "고객센터 코드 조회"에서 조회한 classifications Collection의 id값을 의미함
-
-##### Request Body
-	
-```
-{
-	"email":"baas@baas.io",
-	"content":"content", 
-	"classification_id":1
-}
-```
-
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-    "action": "post",
-    "application": "9a956e2c-182f-11e2-8d70-020026de0053",
-    "params": {},
-    "entities": [
-        {
-            "uuid": "2b270e14-cdd2-412b-9f82-b4bf969a8810",
-            "type": "help",
-            "accepted_at": "20121025",
-            "accepted_number": "121025132300000",
-            "answer_count": 0,
-            "answers_count": 0,
-            "app_info": null,
-            "application_id": 22,
-            "classification_id": 1,
-            "completed_at": null,
-            "content": "content",
-            "created_at": 1351139026,
-            "deleted": false,
-            "device_info": null,
-            "disabled": false,
-            "editable": true,
-            "email": "baas@baas.io",
-            "id": 2020,
-            "official": false,
-            "os_info": null,
-            "platform": null,
-            "public_accessible": false,
-            "satisfaction_level_id": 0,
-            "status_id": 64,
-            "tags": [],
-            "temporary_answer": null,
-            "title": null,
-            "updated_at": 1351139026,
-            "user_id": 184,
-            "user_name": "user_name184",
-            "view_count": 0,
-            "vote": 0
-        }
-    ],
-    "timestamp": 1351139025160,
-    "duration": 1337,
-    "organization": "my-baasio-id",
-    "applicationName": "my-app-id"
-}
-```
-
-* 에러
-
-다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
- 	                		
-##### Example
-
-```
-curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/questions \
-{"email":"baas@baas.io","content":"content", "classification_id":1}
-```
-
-## 도움말 등록
-[]({'id':'postHelp'})
-
-##### Request URI
-  
-```
-'POST' /{baasio-id}/{app-id}/help/helps
-```
-
-##### Request Body
-	
-```json
-{ 
-	"title": "baas.io 사용은?", 
-	"content": "잘 사용하시면 됩니다.", 
-	"classification_id":1 
-}
-```
-
-##### Body Requests
- 
-|파라미터|자료형|기본값|필수|설명|              
-|:----:|:------:|:-------:|:-----:|:----------|
-|title|string||*|도움말 제목|
-|content|string||*|도움말 내용|
-|classification_id|integer||*|도움말 분류|
-
-
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{	
-    "action": "post",
-    "application": "9a956e2c-182f-11e2-8d70-020026de0053",
-    "params": {},
-    "entities": [
-        {
-            "uuid": "76f3fa3c-6302-461e-8fed-a3c704a8a2b2",
-            "type": "help",
-            "application_id": 22,
-            "classification_id": 1,
-            "content": "잘 사용하시면 됩니다.",
-            "created_at": 1351149297,
-            "disabled": false,
-            "id": 47,
-            "is_featured": false,
-            "title": "baas 사용은?",
-            "updated_at": 1351149297,
-            "view_count": 0
-        }
-    ],
-    "timestamp": 1351149297803,
-    "duration": 81,
-    "organization": "my-baasio-id",
-    "applicationName": "my-app-id"
-}
-```
-
- 	                		
-##### Example
-
-```
-curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/helps \
-{ "title": "baas 사용은?", "content": "잘 사용하시면 됩니다.", "classification_id":1 }
-```
-
-## 도움말 조회
-[]({'id':'getHelp'})
-
-##### Request URI
-  
-```
-'GET' /{baasio-id}/{app-id}/help/helps/{help_uuid}
-```
-
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-    "action": "get",
-    "application": "9a956e2c-182f-11e2-8d70-020026de0053",
-    "params": {},
-    "entities": [
-        {
-            "uuid": "76f3fa3c-6302-461e-8fed-a3c704a8a2b2",
-            "type": "help",
-            "application_id": 22,
-            "classification_id": 1,
-            "content": "잘 사용하시면 됩니다.",
-            "created_at": 1351149297,
-            "disabled": false,
-            "id": 47,
-            "is_featured": false,
-            "title": "baas 사용은?",
-            "updated_at": 1351149297,
-            "view_count": 0
-        }
-    ],
-    "timestamp": 1351149468265,
-    "duration": 24,
-    "organization": "my-baasio-id",
-    "applicationName": "my-app-id"
-}
-```
-
- 	                		
-##### Example
-
-```
-curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-4ead-a416-f680cf35bf61
-```
-
-## 도움말 수정
-[]({'id':'putHelp'})
-
-##### Request URI
-  
-```
-'PUT' /{baasio-id}/{app-id}/help/helps/{help_uuid}
+            }
+        });
 ```
 
 
-##### Request Body
-	
-```json
-{ 
-	"title": "baas.io 사용 방법은?", 
-	"content": "가이드 문서를 참고 하세요.", 
-	"classification_id":4 
-}
-```
+## Create Question
+[]({'id':'create'})
 
-##### Body Requests
- 
-|파라미터|자료형|기본값|필수|설명|              
-|:----:|:------:|:-------:|:-----:|:----------|
-|title|string||*|도움말 제목|
-|content|string||*|도움말 내용|
-|classification_id|integer||*|도움말 분류|  
+<strong>문의 사항을 보냅니다.</strong>
 
+```java
+BaasioHelp.sendQuestionInBackground(
+    context
+    , email     // 이메일 주소
+    , body      // 문의사항
+    , new BaasioCallback&lt;Question&gt;() {
 
-##### Response
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
 
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-    "action": "put",
-    "application": "9a956e2c-182f-11e2-8d70-020026de0053",
-    "params": {},
-    "entities": [
-        {
-            "uuid": "3ee8a6fe-41d3-4ead-a416-f680cf35bf61",
-            "type": "help",
-            "application_id": 22,
-            "classification_id": 4,
-            "content": "가이드 문서를 참고 하세요.",
-            "created_at": 1351149335,
-            "disabled": false,
-            "id": 48,
-            "is_featured": false,
-            "title": "baas 사용 방법은?",
-            "updated_at": 1351149468,
-            "view_count": 0
-        }
-    ],
-    "timestamp": 1351149468265,
-    "duration": 24,
-    "organization": "my-baasio-id",
-    "applicationName": "my-app-id"
-}
-```
-                		
-##### Example
-
-```
-curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-4ead-a416-f680cf35bf61 \
-{ "title": "baas 사용 방법은?", "content": "가이드 문서를 참고 하세요.", "classification_id":4 }
-```
-
-## 도움말 삭제
-[]({'id':'deleteHelp'})
-
-##### Request URI
-  
-```
-'DELETE' /{baasio-id}/{app-id}/help/helps/{help_uuid}
-```
-
-
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{	
-    "action": "delete",
-    "application": "9a956e2c-182f-11e2-8d70-020026de0053",
-    "params": {},
-    "entities": [
-        {
-            "uuid": "14389952-2b2c-4c43-a396-0d1b8c352c51",
-            "type": "help",
-            "application_id": 22,
-            "classification_id": 1,
-            "content": "내용3",
-            "created_at": 1351149601,
-            "disabled": true,
-            "id": 52,
-            "is_featured": false,
-            "title": "제목3",
-            "updated_at": 1351149626,
-            "view_count": 0
-        }
-    ],
-    "timestamp": 1351149626750,
-    "duration": 20,
-    "organization": "my-baasio-id",
-    "applicationName": "my-app-id"
-}
-```
- 	                		
-##### Example
-
-```
-curl -X DELETE https://api.baas.io/my-baasio-id/my-app-id/help/helps/14389952-2b2c-4c43-a396-0d1b8c352c51
-```
-
-## 도움말 검색
-[]({'id':'searchHelp'})
-
-##### Request URI
-  
-```
-'GET' /{baasio-id}/{app-id}/help/helps?keyword={keyword}&page={page}
-```
-
-##### Query String
- 
-|파라미터|자료형|기본값|필수|설명|              
-|:----:|:------:|:-------:|:-----:|:----------|
-|page|integer||페이지 번호|
-|keyword|string||검색어|
-
-
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json  
-{
-    "action": "get",
-    "application": "9a956e2c-182f-11e2-8d70-020026de0053",
-    "params": {
-        "page": [
-            "1"
-        ],
-        "keyword": [
-            "baa"
-        ]
-    },
-    "entities": [
-        {
-            "type": "help",
-            "name": "추천 도움말",
-            "helps": [
-                {
-                    "application_id": 22,
-                    "classification_id": 0,
-                    "content": "",
-                    "created_at": 1351149335,
-                    "disabled": false,
-                    "id": 48,
-                    "title": "baas 사용 방법은?",
-                    "updated_at": 1351149468,
-                    "uuid": "3ee8a6fe-41d3-4ead-a416-f680cf35bf61",
-                    "view_count": 0,
-                    "is_featured": true
-                },
-                {
-                    "application_id": 22,
-                    "classification_id": 0,
-                    "content": "",
-                    "created_at": 1351149297,
-                    "disabled": false,
-                    "id": 47,
-                    "title": "baas 사용은?",
-                    "updated_at": 1351149297,
-                    "uuid": "76f3fa3c-6302-461e-8fed-a3c704a8a2b2",
-                    "view_count": 0,
-                    "is_featured": true
+            @Override
+            public void onResponse(Question response) {
+                if(response != null) {
+                    // 성공
                 }
-            ],
-            "id": 0,
-            "sort": 0
-        },
-        {
-            "type": "help",
-            "name": "일반",
-            "helps": [
-                {
-                    "application_id": 22,
-                    "classification_id": 1,
-                    "content": "",
-                    "created_at": 1351149297,
-                    "disabled": false,
-                    "id": 47,
-                    "title": "baas 사용은?",
-                    "updated_at": 1351149297,
-                    "uuid": "76f3fa3c-6302-461e-8fed-a3c704a8a2b2",
-                    "view_count": 0,
-                    "is_featured": false
-                }
-            ],
-            "id": 211,
-            "sort": 1
-        },
-        {
-            "type": "help",
-            "name": "이용방법",
-            "helps": [],
-            "id": 212,
-            "sort": 2
-        },
-        {
-            "type": "help",
-            "name": "장애",
-            "helps": [],
-            "id": 213,
-            "sort": 3
-        },
-        {
-            "type": "help",
-            "name": "회원",
-            "helps": [
-                {
-                    "application_id": 22,
-                    "classification_id": 4,
-                    "content": "",
-                    "created_at": 1351149335,
-                    "disabled": false,
-                    "id": 48,
-                    "title": "baas 사용 방법은?",
-                    "updated_at": 1351149468,
-                    "uuid": "3ee8a6fe-41d3-4ead-a416-f680cf35bf61",
-                    "view_count": 0,
-                    "is_featured": false
-                }
-            ],
-            "id": 214,
-            "sort": 4
-        },
-        {
-            "type": "help",
-            "name": "요금",
-            "helps": [],
-            "id": 215,
-            "sort": 5
-        },
-        {
-            "type": "help",
-            "name": "변경",
-            "helps": [],
-            "id": 216,
-            "sort": 6
-        },
-        {
-            "type": "help",
-            "name": "제안",
-            "helps": [],
-            "id": 217,
-            "sort": 7
-        },
-        {
-            "type": "help",
-            "name": "신고",
-            "helps": [],
-            "id": 218,
-            "sort": 8
-        },
-        {
-            "type": "help",
-            "name": "스팸",
-            "helps": [],
-            "id": 219,
-            "sort": 9
-        },
-        {
-            "type": "help",
-            "name": "기타",
-            "helps": [],
-            "id": 220,
-            "sort": 10
-        }
-    ],
-    "timestamp": 1351150143821,
-    "duration": 1253,
-    "organization": "test.help",
-    "applicationName": "sandbox"
-}
+            }
+        });
 ```
- 	                		
-##### Example
-
-```
-curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps?keyword=baa&page=1
-```
-
-
-
-
-
-
-
-
-
-
-
-# Role
-[]({'id':'role'})
-
-## 롤 만들기
-[]({'id':'postRoles'})
-
-##### Request URI
-
-```
-'POST' /{baasio-id}/{app-id}/roles
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-	
-##### Request Body
-
-```json	
-{
-	"name" : "newrole",
-	"title" : "NewRole"
-}
-```
-		
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"action": "post",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/roles",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/roles",
-	"entities": [
-		{
-			"uuid": "fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2",
-			"type": "role",
-			"name": "newrole",
-			"created": 1350005364546,
-			"modified": 1350005364546,
-			"inactivity": 0,
-			"metadata": {
-				"path": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2",
-				"sets": {
-					"permissions": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2/permissions"
-				},
-				"collections": {
-					"groups": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2/groups",
-					"users": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2/users"
-				}
-			},
-			"roleName": "newrole",
-			"title": "NewRole"
-		}
-	],
-	"timestamp": 1350005364464,
-	"duration": 288,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-
-##### Example
-
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"name\" : \"newrole\", \"title\" : \"NewRole\" }' "https://api.baas.io/my-baasio-id/my-app-id/roles"
-```
-
-## 롤 조회하기
-[]({'id':'getRoles'})
-
-##### Request URI
-
-```
-'GET' /{baasio-id}/{app-id}/roles
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"action": "get",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/roles",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/roles",
-	"entities": [
-		{
-			"uuid": "70f39f36-1825-379d-8385-7a7fbe9ec74a",
-			"type": "role",
-			"name": "admin",
-			"created": 1349940834371,
-			"modified": 1349940834371,
-			"inactivity": 0,
-			"metadata": {
-				"path": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a",
-				"sets": {
-					"permissions": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/permissions"
-				},
-				"collections": {
-					"groups": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/groups",
-					"users": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/users"
-				}
-			},
-			"roleName": "admin",
-			"title": "Administrator"
-		},
-		{
-			"uuid": "b8f8f336-30c9-3553-b447-6891f3e1e6bf",
-			"type": "role",
-			"name": "default",
-			"created": 1349940834495,
-			"modified": 1349940834495,
-			"inactivity": 0,
-			"metadata": {
-				"path": "/roles/b8f8f336-30c9-3553-b447-6891f3e1e6bf",
-				"sets": {
-					"permissions": "/roles/b8f8f336-30c9-3553-b447-6891f3e1e6bf/permissions"
-				},
-				"collections": {
-					"groups": "/roles/b8f8f336-30c9-3553-b447-6891f3e1e6bf/groups",
-					"users": "/roles/b8f8f336-30c9-3553-b447-6891f3e1e6bf/users"
-				}
-			},
-			"roleName": "default",
-			"title": "Default"
-		},
-		{
-			"uuid": "bd397ea1-a71c-3249-8a4c-62fd53c78ce7",
-			"type": "role",
-			"name": "guest",
-			"created": 1349940834580,
-			"modified": 1349940834580,
-			"inactivity": 0,
-			"metadata": {
-				"path": "/roles/bd397ea1-a71c-3249-8a4c-62fd53c78ce7",
-				"sets": {
-					"permissions": "/roles/bd397ea1-a71c-3249-8a4c-62fd53c78ce7/permissions"
-				},
-				"collections": {
-					"groups": "/roles/bd397ea1-a71c-3249-8a4c-62fd53c78ce7/groups",
-					"users": "/roles/bd397ea1-a71c-3249-8a4c-62fd53c78ce7/users"
-				}
-			},
-			"roleName": "guest",
-			"title": "Guest"
-		}
-	],
-	"timestamp": 1350005054235,
-	"duration": 163,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-	
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles"
-```
-
-## 롤이름 혹은 UUID로 조회하기
-[]({'id':'getRole'})
-
-##### Request URI
-
-```
-'GET' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"action": "get",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/roles",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/roles",
-	"entities": [
-		{
-			"uuid": "70f39f36-1825-379d-8385-7a7fbe9ec74a",
-			"type": "role",
-			"name": "admin",
-			"created": 1349940834371,
-			"modified": 1349940834371,
-			"inactivity": 0,
-			"metadata": {
-				"path": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a",
-				"sets": {
-					"permissions": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/permissions"
-				},
-				"collections": {
-					"groups": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/groups",
-					"users": "/roles/70f39f36-1825-379d-8385-7a7fbe9ec74a/users"
-				}
-			},
-			"roleName": "admin",
-			"title": "Administrator"
-		}
-	],
-	"timestamp": 1350005054235,
-	"duration": 163,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}"
-```
-
-## 롤 삭제하기
-[]({'id':'deleteRole'})
-
-##### Request URI
-
-```
-'DELETE' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"action": "delete",
-	"application": "027de571-1376-11e2-a5bf-4061867ca222",
-	"params": {},
-	"path": "/roles",
-	"uri": "https://api.baas.io/my-baasio-id/my-app-id/roles",
-	"entities": [
-		{
-			"uuid": "fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2",
-			"type": "role",
-			"name": "newrole",
-			"created": 1350005364546,
-			"modified": 1350005364546,
-			"inactivity": 0,
-			"metadata": {
-				"path": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2",
-				"sets": {
-					"permissions": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2/permissions"
-				},
-				"collections": {
-					"groups": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2/groups",
-					"users": "/roles/fa9e1073-9f5f-3e6b-8ae8-5813be89b1c2/users"
-				}
-			},
-			"roleName": "newrole",
-			"title": "NewRole"
-		}
-	],
-	"timestamp": 1350005554920,
-	"duration": 321,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}"
-```
-
-## 롤에 권한 추가하기
-[]({'id':'postPermission'})
-
-##### Request URI
-
-```
-'POST' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}
-	
-{
-	"permission" : "get,put,post,delete:/users/me/groups"
-}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-|permission|URL 패턴과 Operation을 조합하여 만든 규칙 - 참고. [Apache Ant pattern matching](http://ant.apache.org/manual/dirtasks.html#patterns)|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-  "action" : "post",
-  "application" : "7fb8d891-477d-11e1-b2bd-22000a1c4e22",
-  "params" : {
-	"_" : [ "1328058543902" ]
-  },
-  "path": "/roles",
-  "uri" : "https://api.baas.io/22000a1c4e22-7fb8d891-477d-11e1-b2bd/7fb8d891-477d-11e1-b2bd-22000a1c4e22",
-  "entities":  [
-	  {
-	   "uuid": "382d0991-74bb-3548-8166-6b07e44495ef",
-	   "type": "role",
-	   "name": "manager",
-	   "created": 1353359536973,
-	   "modified": 1353359536973,
-	   "inactivity": 0,
-	   "metadata":  {
-		 "path": "/roles/382d0991-74bb-3548-8166-6b07e44495ef",
-		 "sets":  {
-		   "permissions": "/roles/382d0991-74bb-3548-8166-6b07e44495ef/permissions"
-		},
-		"collections":  {
-		  "groups": "/roles/382d0991-74bb-3548-8166-6b07e44495ef/groups",
-		  "users": "/roles/382d0991-74bb-3548-8166-6b07e44495ef/users"
-		}
-	  },
-	  "roleName": "manager",
-	  "title": "Manager"
-	}
-  ],
-	"timestamp": 1350005554920,
-	"duration": 321,
-	"organization": "my-baasio-id",
-	"applicationName": "my-app-id"
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-	
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/manager -d '{"permission":"get,put,post,delete:/users/me/groups" }'
-```
-
-## 롤에 권한 삭제하기
-[]({'id':'deletePermission'})
-
-##### Request URI
-
-```
-'DELETE' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}/permission={grant_url_pattern}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-|grant_url_pattern|URL 패턴과 Operation을 조합하여 만든 규칙 - 참고. [Apache Ant pattern matching](http://ant.apache.org/manual/dirtasks.html#patterns)|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-	
-```json
-{
-  "action" : "delete",
-  "application" : "7fb8d891-477d-11e1-b2bd-22000a1c4e22",
-  "params" : {
-	"permission":  [
-	   "delete"
-	]
-  },
-  "path": "/roles",
-  "uri" : "https://api.baas.io/22000a1c4e22-7fb8d891-477d-11e1-b2bd/7fb8d891-477d-11e1-b2bd-22000a1c4e22",
-  "entities":  [
-	  {
-	  "uuid": "382d0991-74bb-3548-8166-6b07e44495ef",
-	  "type": "role",
-	  "name": "manager",
-	  "created": 1353359536973,
-	  "modified": 1353359536973,
-	  "inactivity": 0,
-	  "metadata":  {
-		"path": "/roles/382d0991-74bb-3548-8166-6b07e44495ef",
-		"sets":  {
-		  "permissions": "/roles/382d0991-74bb-3548-8166-6b07e44495ef/permissions"
-		},
-		"collections":  {
-		  "groups": "/roles/382d0991-74bb-3548-8166-6b07e44495ef/groups",
-		  "users": "/roles/382d0991-74bb-3548-8166-6b07e44495ef/users"
-		}
-	  },
-	  "roleName": "manager",
-			"title": "Manager"
-		  }
-   ],
-   "timestamp": 1353360762403,
-   "duration": 181,
-   "organization": "my-baasio-id",
-   "applicationName": "my-app-id"
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
-	
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/manager/permission?permission=delete"
-```
-
-## 롤에 사용자 추가하기
-[]({'id':'postRoleUser'})
-
-롤과 사용자와의 관계를 설정할 수 있습니다. 롤에서 대해서 특정 사용자를 등록하는 경우를 알아보겠습니다.
-
-##### Request URI
-
-```
-'POST' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}/users/{user_uuid or username}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-|user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"timestamp":1350982257160,
-	"duration":0
-}
-```
-
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-
-##### Example
- 
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}/users/{user_uuid or username}"
-```
-
-## 롤에 사용자 삭제하기
-[]({'id':'deleteRoleUser'})
-
-##### Request URI
-
-```
-'DELETE' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}/users/{user_uuid or username}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-|user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"timestamp":1350982257160,
-	"duration":0
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
-##### Example
- 
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}/users/{user_uuid or username}"
-```
-
-## 롤에 그룹 추가하기
-[]({'id':'postRoleGroup'})
-
-롤과 그룹관의 관계를 설정할 수 있습니다. 롤에서 대해서 특정 그룹을 등록하는 경우를 알아보겠습니다.
-
-##### Request URI
-
-```
-'POST' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}/groups/{group_uuid or group_path}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"timestamp":1350982257160,
-	"duration":0
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-
-##### Example
- 
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}/groups/{group_uuid or group_path}"
-```
-
-## 롤에 그룹 삭제하기
-[]({'id':'deleteRoleGroup'})
-
-##### Request URI
-
-```
-'DELETE' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}/groups/{group_uuid or group_path}
-```
-
-##### Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-|group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
-
-	
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"timestamp":1350982257160,
-	"duration":0
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-
-##### Example
- 
-```
-curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}/groups/{group_uuid or group_path}"
-```
-
-## 롤에 권한설정하기
-[]({'id':'setPermission'})
-
-추가한 사용자, 그룹에 대한 권한설정을 롤을 통해서 할 수 있다. 예를들어,
-
-1. "salery" 라는 Collection을 생성, {baasio-id}/{app-id}/salery URI 가 부여됨
-2. "Administrator" 롤을 생성
-3. "Administrator" 롤에 특정한 사용자, 그룹을 추가
-
-{baasio-id}/{app-id}/salery URI 는 기본적으로 조회가 안되고, "Administrator" 롤에 대해서만 조회, 추가, 수정, 삭제 권한을 설정하고 싶다. 이같은 상황일 때 해당 API 를 통해서 특정 롤에 대한 권한을 설정할 수 있다.
-
-##### Request URI
-
-```
-'POST' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}
-```
-
-##### URI Parameters
-
-|파라미터|설명|
-|:------:|:-------|
-|baasio-id|회원 ID|
-|app-id|앱 ID|
-|role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
-
-##### Request Body
-
-```json
-{
-	"permission" : "get,put,post,delete:/salery"
-}
-```
-
-|파라미터|형식|설명|
-|:--------:|:----:|:----|
-|permission|string|설정정보 - 허용할 HTTP METHOD:URI 패턴 ex. get,put,post,delete:/salery|
-
-##### Response
-
-* 성공
-	* Code: 200 
-	* Contents:
-
-```json
-{
-	"timestamp":1350982257160,
-	"duration":0
-}
-```
-	
-* 에러
-
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-
-##### Example
- 
-```
-curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"permission\" : \"get,put,post,delete:/salery\" }' "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}"
-```
-
-## Role Entity
-[]({'id':'roleEntity'})
-
-##### Role 기본 속성(Property)
-
-|속성|형식|설명|
-|:-----:|:-------:|:-----------|
-|uuid|UUID|Role 유일한 Entity ID|
-|type|string|"role"|
-|created|long|Entity 생성 일자 (UNIX timestamp)|
-|modified|long|Entity 최종 수정일자 (UNIX timestamp)|
-|name|string|롤 이름 ( 필수 )|
-|roleName|string|롤 이름|
-|name|string|이름|
-|title|string|출력되는 이름명|
-
-##### Role 기본 Set
-
-|Set|형식|설명|
-|:-------:|:----------:|:-----------|
-|permissions|string|퍼미션 리스트|
-
-##### Role 기본 Collection
-
-|Collection|형식|설명|
-|:-------:|:---------:|:------------|
-|users|users|시용자와의 관계들|
-|groups|group|그룹과의 관계들|
