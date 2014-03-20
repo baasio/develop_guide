@@ -3195,7 +3195,7 @@ BaasioHelp.searchHelpsInBackground(
 
 
 ## Create Question
-[]({'id':'helpcentercreate'})
+[]({'id':'helpcenter-create'})
 
 <strong>문의 사항을 보냅니다.</strong>
 

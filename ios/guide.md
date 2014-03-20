@@ -1,18 +1,97 @@
 # iOS Intro
-[]({'id':'intro'})
-iOS 인트로
+[]({'id':'iOS Intro'})
 
 
+## Specification
+[]({'id':'Specification'})
+baas.io는 iOS App을 개발하기 위한 SDK를 제공합니다. SDK는 Framework 형태로 제공되며 Download 페이지 & github를 통해 다운 받으실 수 있습니다.
+
+baas.io iOS SDK는 아래와 같은 개발 환경을 지원합니다.
+
+* iOS 5.1.1
+
+또한 아래와 같은 외부 Library를 사용하고 있습니다.
+
+* AFNetworking
+
+CocoaPods를 이용한 SDK 설치는 아직 지원하지 않습니다.
 
 
+## Class Structure
+[]({'id':'Class Structure'})
+
+baas.io SDK는 baas.io에서 제공하는 서비스에 따라 아래와 같은 클래스를 제공합니다.
+
+- Users(회원관리): BaasioUser
+- Data(데이터관리): BaasioEntity
+- Query(조회): BaasioQuery
+- Group(그룹관리): BaasioGroup
+- File(파일관리): BaasioFile
+- Push(푸시메시지): BaasioPush
+- Help Center(고객센터): BaasioHelp
+
+
+## Method Rule
+[]({'id':'Method Rule'})
+
+baas.io는 모든 클래스의 메소드에 대해 <strong>동기/비동기 방식</strong>을 지원하며, 쌍으로 제공하고 있습니다.
+
+메소드의 이름은 방식에 따라, 동기식의 경우, 동사(Verb)로 명명하고 있으며, 비동기식은 동사(Verb)+InBackground 명명하고 있습니다.
+아래의 예는 save(저장)이라는 동사에 따른 동기/비동기식 함수의 예를 보여주고 있습니다.
+
+##### 동기식 코드
+```objc
+BaasioEntity *entity = [BaasioEntity entitytWithName:@"Collection_Name"];
+[entity save:error];
+
+if (!error) {
+    //성공
+} else {
+    //실패
+}
+```
+
+##### 비동기식 코드
+```objc
+BaasioEntity *entity = [BaasioEntity entitytWithName:@"Collection_Name"];
+[entity saveInBackground:^(BaasioEntity *entity) {
+				// Success
+            }
+            failureBlock:^(NSError *error) {
+            	// Failure
+            }];
+```
+
+차이점은, 동기식은 메소드의 리턴(Return)값으로 결과를 전달되고 있으며, 비동기식은 메소드로 전달된 Callback을 통해 결과가 전달되고 있음을 알 수 있습니다.
+
+비동기 작업의 경우 Blocks를 이용하였습니다. 처음에는 조금 어려워 보일 수도 있지만 Delegate를 사용하는 것보다 더 편하다는 것을 알게 될 것입니다.
+
+Blocks에 대해서는  [Blocks Programming Topics](https://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html)를 참고하기를 바라지만,  짧게 설명하면 2가지로 요약이 가능합니다.
+
+* Method의 argument로  코드 블럭을 넘기는 것입니다.
+* baas.io의 경우 ^ 바로 뒤가 리턴값 되도록 구현하였습니다.(\^(void)는  void가, \^(BaasioEntity *entity)는  entity가 리턴된다.)
+
+대부분의 경우 동기(Sync)와 비동기(Async) API를 동시에 제공하나, 일반적으로 대부분의 프로그래밍은 비동기(Async)로 작성됩니다.
+
+## etc
+[]({'id':'intro-etc'})
+
+#### Permission
+baas.io의 모든 Data관련 Method들은 Permission 설정이 필요합니다. 회원 가입시 자동으로 부여되는 회원의 role은 default입니다.
+
+role에 권한을 추가하거나 유저에게 권한을 추가하는 방법은 SDK에서는 제공하지 않습니다. REST API를 이용하여 권한을 설정하거나 마이 페이지의 데이터 브라우저를 이용하여 권한을 설정하면 됩니다.
+
+
+#### Unique Value
+key가 name인 프로퍼티는 Unique한 속성을 가지고 있습니다. Entity 설계시 참고하기 바랍니다.
 
 # Users
-[]({'id':'users'})
+[]({'id':'Users'})
 User 기능은 **users Collection**을 통해 지원되며, 사용자의 회원가입, 로그인 및 정보의 관리 기능을 제공합니다.
 
 
 ##Sign Up
-[]({'id':'sign-up'})
+[]({'id':'Sign Up'})
 회원을 가입하는 방법은 username(email)을 통한 가입과 Facebook을 통한 가입을 지원합니다.
 
 ####동기식 코드
@@ -33,14 +112,6 @@ if(e){
 ```
 
 ####비동기식 코드
-비동기 작업의 경우 Blocks를 이용하였습니다. 처음에는 조금 어려워 보일 수도 있지만 Delegate를 사용하는 것보다 더 편하다는 것을 알게 될 것입니다.
-
-Blocks에 대해서는  [Blocks Programming Topics](https://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html)를 참고하기를 바라지만,  짧게 설명하면 2가지로 요약이 가능합니다.
-
-* Method의 argument로  코드 블럭을 넘기는 것입니다.
-* baas.io의 경우 ^ 바로 뒤가 리턴값 되도록 구현하였습니다.(\^(void)는  void가, \^(BaasioEntity *entity)는  entity가 리턴된다.)
-
-대부분의 경우 동기(Sync)와 비동기(Async) API를 동시에 제공하나, 일반적으로 대부분의 프로그래밍은 비동기(Async)로 작성됩니다.
 
 ```objc
 BaasioUser *user = [BaasioUser user];
@@ -340,8 +411,8 @@ BaasioUser *user = [BaasioUser currentUser];
 []({'id':'users-etc'})
 
 ##### 로그인
-일단 로그인이 되면 SDK 내부에서 baas.io 서버에서 발급해준 token을 가지고 있다.
-그리고 token이 있다면 그 후부터는 모든 RESTFul API 접근 시에 자동으로 token을 실어서 보낸다.
+일단 로그인이 되면 SDK 내부에서 baas.io 서버에서 발급해준 token을 가지고 있습니다.
+그리고 token이 있다면 그 후부터는 모든 RESTFul API 접근 시에 자동으로 token을 실어서 보냅니다.
 
 ##### 로그인 된 사용자의 정보
 ```objc
@@ -371,11 +442,11 @@ baas.io의 Entity 객체는 기본적으로 key/value 형태의 Dictionary입니
 
 미리 정의된 값들은  @property 선언되어 바로 참조가 가능하지만 그 외 사용자가 원하는 값은 아래와 같은 방법으로 읽고, 쓰기가 가능합니다.
 
-또한, Entity를 활용하려면 사용하는 Collection에 대한 Permission이 필요합니다. Permission 설정은 Rest API를 활용하거나 데이터 브라우저를 이용하여 설정할 수 있습니다.
+또한, Entity를 활용하려면 사용하는 Collection에 대한 Permission이 필요합니다. Permission 설정은 Rest API를 활용하거나 마이페이지의 데이터 브라우저를 이용하여 설정할 수 있습니다.
 
 #####이미 정의된 프로퍼티 사용
 ```objc
-BaasioEntity *entity = [BaasioEntity entitytWithName:@"COLLECTION_NAME"];
+BaasioEntity *entity = [BaasioEntity entitytWithName:@"COLLECTION NAME"];
 
 //이미 정의 된 프로퍼티에 셋팅
 entity.name = @"cetauri";
