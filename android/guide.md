@@ -143,6 +143,7 @@ entity.saveInBackground(
 baas.io는 가입/로그인/로그아웃/탈퇴 등의 <strong>회원관리 기능을 제공</strong>하고 있습니다. 또한 <strong>Facebook을 통한 가입/로그인 기능</strong>도 제공이 되고 있으며, 이런 기능들은 모두 BaasioUser 클래스를 이용하여 구현하실 수 있습니다. 
 
 ## BaasioUser 클래스
+[]({'id':'users-class'})
 
 BaasioUser클래스는 "users" Collection으로 관리되며, <strong>"users" Collection으로 "user" entity를 생성/삭제하여 회원을 가입/탈퇴</strong> 할 수 있습니다. 회원을 가입하는 방법은 username으로 가입하는 방법과 Facebook 계정으로 가입하는 방법을 지원합니다.
 
@@ -329,7 +330,7 @@ BaasioUser.signInViaFacebookInBackground(
 |911|400|이미 존재하는 리소스입니다.|
 
 ## Update User
-[]({'id':'update'})
+[]({'id':'users-update'})
 가입되어 있는 회원의 정보를 추가하거나 수정합니다. 정보는 <strong>Entity의 Property</strong>로 저장하며, 즉, Key와 Value의 쌍으로 저장할 수 있습니다.
 
 아래는 성별 정보와 주소를 추가로 등록하는 예제입니다.
@@ -730,13 +731,14 @@ baas.io는 <strong>데이터를 저장하고 조회, 삭제하는 기능을 제�
 Relationship(관계)에 대한 자세한 내용은 Basic Concepts의 Relationship을 참고하시기 바랍니다.
 
 ## BaasioEntity 클래스
+[]({'id':'data-clas'})
 
 BaasioUser 클래스가 "users" Collection의 "user" Entity를 관리하기위해 제공되는 것과 비교하면, BaasioEntity 클래스는 사용자가 정의한 Type의 Entity를 관리하기위해 제공됩니다.
 
 Entity와 Collection의 관계는 [Basic Concepts의 Entity 페이지](/develop/android/concept/entity.html#entity-title), [Basic Concepts의 Collection 페이지](/develop/android/concept/collection.html#collection-title)을 참고하시기 바랍니다.
 
 ## Create Entity
-[]({'id':'create'})
+[]({'id':'data-create'})
 
 데이터를 저장하여 Entity를 생성합니다.
 
@@ -850,8 +852,9 @@ BaasioEntity.saveInBackground("bulk", entities,
 |913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
 |-100|500|알수 없는 에러입니다.|
 
+
 ## Get Entity
-[]({'id':'get'})
+[]({'id':'data-get'})
 baas.io에 <strong>저장되어 있는 Entity를 얻어 옵니다.</strong> 어떤 Entity를 읽어올지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 읽어 옵니다.
 
 동기식은 BaasioEntity.get() 메소드, 비동기식은 BaasioEntity.getInBackground() 메소드를 제공합니다.
@@ -896,7 +899,7 @@ entity.getInBackground(
 |-100|500|알수 없는 에러입니다.|
 
 ## Update Entity
-[]({'id':'update'})
+[]({'id':'data-update'})
 baas.io에 저장되어 있는 <strong>Entity를 수정합니다.</strong> 어떤 Entity를 수정할 지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 수정 합니다.
 
 동기식은 BaasioEntity.update() 메소드, 비동기식은 BaasioEntity.updateInBackground() 메소드를 제공합니다.
@@ -939,7 +942,7 @@ entity.updateInBackground(
 |-100|500|알수 없는 에러입니다.|
 
 ## Remove Entity
-[]({'id':'remove'})
+[]({'id':'data-remove'})
 baas.io에 저장되어 있는 <strong>Entity를 삭제합니다.</strong> 어떤 Entity를 삭제할 지 식별할 수 있도록, “uuid” 또는 “name” Property를 설정하여 이에 해당하는 Entity를 삭제 합니다.
 
 동기식은 BaasioEntity.delete() 메소드, 비동기식은 BaasioEntity.deleteInBackground() 메소드를 제공합니다.
@@ -1101,7 +1104,7 @@ dog.disconnectInBackground(
 baas.io에 저장된 데이터를 <strong>특정 조건으로 조회하는 기능을 제공</strong>합니다. <strong>SQL 구문과 비슷한 형태</strong>로 조회할 수 있습니다.
 
 ## BaasioQuery 클래스
-[]({'id':'class'})
+[]({'id':'query-class'})
 baas.io는 BaasioQuery클래스를 이용하여 아래의 세 가지 조회 방법을 제공합니다.
 
 - "users" Collection의 "user" Entity, "groups" Collection의 "group" Entity, "files" Collection의 "file" Entity와 같이, 어떤 Collection의 Entity를 조회 (Custom Collection 포함)
@@ -1116,7 +1119,8 @@ baas.io는 BaasioQuery클래스를 이용하여 아래의 세 가지 조회 방�
 
 <strong>최초 조회할 때는 query() 또는 queryInBackground()로 먼저 요청해야하는 것에 유의</strong>바랍니다.
 
-#### Query Entities from Collection|query-collection
+### Query Entities from Collection
+[]({'id':'query-collection'})
 Collection으로부터 데이터를 조회할때는 <strong>setType() 메소드를 이용하여 조회할 Entity의 Type을 설정</strong>합니다.
 
 아래의 예는 "friends" Collection으로부터 "friend" Entity를 조회해 오는 예입니다.
@@ -1303,7 +1307,7 @@ query.queryInBackground(    // 조회 요청
 ```
 
 ## Query User Entities from Group
-[]({'id':'group'})
+[]({'id':'query-group'})
 <strong>특정 Group에 속해있는 User를 조회</strong>합니다.
 
 BaasioGroup 인스턴스를 생성하고, setPath() 메소드를 이용하여 조회할 Group의 Path를 설정한 후, BaasioQuery의 setGroup() 메소드를 이용하여 앞서 생성한 BaasioGroup 인스턴스를 설정합니다.
@@ -1378,6 +1382,7 @@ query.queryInBackground(
         });
 ```
 
+
 ## Query with Raw Query String
 []({'id':'rawstring'})
 앞서 살펴본 기본적인 조회 방법외에 <strong>직접 질의문을 만들어 복잡한 조회를 할 수 있습니다.</strong> <strong>setRawString() 메소드를 이용하여 Raw Query String을 설정하며, URL Encoding하여 설정</strong>하여야 합니다.
@@ -1446,10 +1451,14 @@ BaasioGroup 클래스를 이용하여 그룹을 생성/수정/삭제할 수 있�
 
 어떤 그룹에 속한 User를 조회하기 위해서는 BaasioQuery를 이용합니다. 관련 내용은 [Query > Query User Entities from Group 가이드](/develop/android/guide/query.html#query-group)를 참고바랍니다.
 
-#### BaasioGroup
+
+## BaasioGroup
+[]({'id':'group-class'})
 BaasioGroup클래스는  <strong>"groups" Collection으로 관리</strong>되며, "groups" Collection에 "group" Entity를 생성/삭제하여 그룹을 생성하거나 삭제합니다.
 
-#### Create Group|group-create
+
+## Create Group
+[]({'id':'group-create'})
 그룹을 생성할 때는, 그룹을 유일하게 식별할 수 있는, "path" Property를 꼭 설정해줘야 합니다. 이 Predefined Property는 setPath() 메소드로 설정할 수 있습니다.
 
 이 외에 "title"이라는 Predefined Property가 있으며, 그룹의 표시명으로 사용됩니다. 이 Property는 setTitle() 메소드로 설정할 수 있습니다.
@@ -1482,7 +1491,7 @@ group.saveInBackground(
 
 
 ## Get Group
-[]({'id':'get'})
+[]({'id':'group-get'})
 <strong>그룹 Entity의 정보를 얻어옵니다.</strong>
 
 동기식은 get(), 비동기식은 getInBackground() 메소드를 제공합니다.
@@ -1512,7 +1521,7 @@ group.getInBackground(
 
 
 ## Update Group
-[]({'id':'update'})
+[]({'id':'group-update'})
 <strong>그룹 Entity의 정보를 수정합니다.</strong>
 
 동기식은 update(), 비동기식은 updateInBackground() 메소드를 제공합니다.
@@ -1543,7 +1552,7 @@ entity.updateInBackground(
 
 
 ## Remove Group
-[]({'id':'remove'})
+[]({'id':'group-remove'})
 <strong>그룹 Entity를 삭제합니다.</strong>
 
 동기식은 delete(), 비동기식은 deleteInBackground() 메소드를 제공합니다.
@@ -1649,8 +1658,9 @@ baas.io는 <strong>파일을 저장하고 조회, 삭제, 수정하는 기능을
 
 
 ## BaasioFile 클래스
+[]({'id':'file-class'})
 
-BaasioFile 클래스는 <strong>"files" Collection으로 관리됩니다.</strong> "files" Collection에 "file" Entity는 다른 Entity들과 마찬가지로, Predefined Property를 가지고 있으며, 필요한 다른 Property를 추가로 저장할 수 있습니다. 
+BaasioFile 클래스는 <strong>"files" Collection으로 관리됩니다.</strong> "files" Collection에 "file" Entity는 다른 Entity들과 마찬가지로, Predefined Property를 가지고 있으며, 필요한 다른 Property를 추가로 저장할 수 있습니다.
 
 
 ## Create File With Content
@@ -1865,7 +1875,7 @@ BaasioDownloadAsyncTask downloadFileAsyncTask = downloadFile.fileDownloadInBackg
 
 
 ## Get File
-[]({'id':'get'})
+[]({'id':'file-get'})
 
 <strong>파일을 다운로드하지 않고, Entity의 정보만 얻어옵니다.</strong>
 
@@ -1972,7 +1982,7 @@ uploadFile.updateInBackground(
 
 
 ## Remove File
-[]({'id':'remove'})
+[]({'id':'file-remove'})
 
 파일을 삭제합니다. <strong>파일 정보와 실제 파일이 함께 삭제</strong>됩니다.
 
@@ -2135,12 +2145,14 @@ baas.io는 <strong>GCM을 이용한 Push 기능을 제공</strong>합니다.
 기타 GCM 관련 자세한 사항은 [Google Cloud Messaging for Android 페이지](http://developer.android.com/google/gcm/index.html)를 참고하시기 바랍니다.
 
 ## BaasioPush 클래스
+[]({'id':'push-class'})
 
 BaasioPush 클래스는, <strong>단말을 등록/해제/갱신 시켜주기 위한 기능 및 메시지를 전송하는 기능을 제공</strong>합니다.
 
 이 함수의 등록/해제/갱신 함수를 이용하여 직접 GCM 기능을 구현하기 위해서는 깊은 이해가 필요합니다. <strong>baas.io Android SDK는 등록/해제/갱신을 쉽게 내부적으로 처리하고 있으며, 많은 테스트를 통해 검증되어 있어, 쉽게 Push 기능을 구현하실 수 있습니다.</strong>
 
-#### Quick Start For Push|push-quick-start
+## Quick Start For Push
+[]({'id':'quick-start'})
 
 이 가이드를 통해 <strong>Push 기능을 활성화</strong> 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#push-quick-start-setup) 하셔도 됩니다.
 
@@ -2301,8 +2313,8 @@ public class BaasioApplication extends Application {
         Baas.io().uninit(this);
         super.onTerminate();
     }
-}                            	
-```                    
+}
+```
 
 ###### Step4. GCMIntentService.java 생성
 
@@ -2672,7 +2684,7 @@ BaasioPush.unregisterInBackground(
 setMessage()는 비교적 간단한 메시지를 전송하기 위해 사용하고, <strong>setPayload()는 기본 메시지 규격외에 Custom한 데이터를 전송하기 위해 사용</strong>합니다.
 
 ### Push for All
-[]({'id':'all'})
+[]({'id':'sending-push-all'})
 
 <strong>모든 단말로 Push를 발송합니다.</strong>
 
@@ -2731,7 +2743,7 @@ BaasioPush.sendPushInBackground(
 ```
 
 ### Push by Platform
-[]({'id':'platform'})
+[]({'id':'sending-push-platform'})
 
 <strong>setPlatform()를 호출하여 메시지를 받을 플랫폼을 설정하여 발송합니다.</strong> 
 
@@ -2796,7 +2808,7 @@ BaasioPush.sendPushInBackground(
 ```
 
 ### Push by Tags
-[]({'id':'tag'})
+[]({'id':'sending-push-tag'})
 
 <strong>단말을 등록할 때 설정된 태그별로 메시지를 발송합니다.</strong>
 
@@ -2859,7 +2871,7 @@ BaasioPush.sendPushInBackground(
 ```
 
 ### Push by User, Device
-[]({'id':'each'})
+[]({'id':'sending-push-each'})
 
 <strong>회원별로 또는 단말별로 개별 발송할 수 있습니다.</strong>
 
@@ -3032,12 +3044,13 @@ baas.io 고객센터 서비스는 <strong>자주하는 질문(FAQ), 문의하기
 
 
 ## BaasioHelp 클래스
+[]({'id':'helpcenter-class'})
 
 BaasioHelp 클래스를 통해 고객센터의 FAQ를 조회하고 문의사항을 전송하는 기능을 제공합니다.
 
 
 ## Quick Start For Help Center
-[]({'id':'quick-start'})
+[]({'id':'helpcenter-quick-start'})
 
 고객센터 UI 라이브러리를 프로젝트에 적용하는 방법을 가이드합니다.
 
@@ -3182,7 +3195,7 @@ BaasioHelp.searchHelpsInBackground(
 
 
 ## Create Question
-[]({'id':'create'})
+[]({'id':'helpcentercreate'})
 
 <strong>문의 사항을 보냅니다.</strong>
 

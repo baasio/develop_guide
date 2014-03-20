@@ -156,7 +156,7 @@ if (!error) {
 
 
 ## Sign In With Facebook
-[]({'id':'sign-in-via-facebook'})
+[]({'id':'users-sign-in-via-facebook'})
 
 #####동기식 코드
 ```objc
@@ -186,7 +186,7 @@ NSString *accessToken = @"......"	//facebook Token
 
 
 ## Update User
-[]({'id':'update'})
+[]({'id':'users-update'})
 회원의 정보를 수정할 수 있습니다.
 
 #####동기식 코드
@@ -337,10 +337,10 @@ BaasioUser *user = [BaasioUser currentUser];
 
 
 ## etc.
-[]({'id':'etc'})
+[]({'id':'users-etc'})
 
 ##### 로그인
-일단 로그인이 되면 SDK 내부에서 baas.io 서버에서 발급해준 token을 가지고 있다. 
+일단 로그인이 되면 SDK 내부에서 baas.io 서버에서 발급해준 token을 가지고 있다.
 그리고 token이 있다면 그 후부터는 모든 RESTFul API 접근 시에 자동으로 token을 실어서 보낸다.
 
 ##### 로그인 된 사용자의 정보
@@ -410,7 +410,7 @@ NSString *cheatMode = [entity objectForKey:@"cheatMode"];
 
 
 ## Create Entity
-[]({'id':'create'})
+[]({'id':'data-create'})
 데이터를 저장 후 error를 확인하여 성공 여부를 확인하여 작업하면 됩니다.
 
 ##### 동기식 코드
@@ -446,7 +446,7 @@ BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 
 
 ## Get Entity
-[]({'id':'get'})
+[]({'id':'data-get'})
 ```objc
 [BaasioEntity getInBackground:@"SomeBlog"
                          uuid:uuid
@@ -460,7 +460,7 @@ BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 
 
 ## Update Entity
-[]({'id':'update'})
+[]({'id':'data-update'})
 ```objc
 BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 entity.uuid = uuid;
@@ -476,7 +476,7 @@ entity.uuid = uuid;
 
 
 ## Delete Entity
-[]({'id':'delete'})
+[]({'id':'data-delete'})
 ```objc
 BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 entity.uuid = uuid;
@@ -490,7 +490,7 @@ entity.uuid = uuid;
 
 
 ## Entity Relationship
-[]({'id':'connect'})
+[]({'id':'data-connect'})
 Entity간의 relation이 필요할 때가 있습니다.
 
 예를 들면 블로그(blogEntity)와 댓글(commentEntity)처럼 1:N 관계를 설정한다고 한다면,
@@ -615,7 +615,7 @@ Group 기능은 **Group** Collection을 통해 지원되며, 그룹을 만들어
 
 
 ## Create Group
-[]({'id':'create'})
+[]({'id':'group-create'})
 **vip**라는 group 생성
 
 #####동기식 코드
@@ -646,12 +646,12 @@ BaasioGroup *group = [[BaasioGroup alloc]init];
 
 
 ## Get Group
-[]({'id':'get'})
+[]({'id':'group-get'})
 query를 이용하여 Group정보를 얻을 수 있습니다.
 
 
 ## Update Group
-[]({'id':'update'})
+[]({'id':'group-update'})
 그룹 정보를 수정할 수 있습니다.
 
 ##### 동기식 코드
@@ -688,7 +688,7 @@ group.uuid = uuid;
 
 
 ## Delete Group
-[]({'id':'delete'})
+[]({'id':'group-delete'})
 group의 uuid로 group 삭제할 수 있습니다.
 
 #####동기식 코드
@@ -903,7 +903,7 @@ file.uuid = uuid;
 
 
 ## Delete File
-[]({'id':'delete'})
+[]({'id':'file-delete'})
 파일을 삭제합니다.
 ```objc
 NSString *uuid = @"......";
@@ -1063,8 +1063,8 @@ message.to = [NSMutableArray arrayWithObject:@"f5df22f9-547e-11e2-b5a4-06ebb8000
 ```
 
 
-## 테그별 발송
-[]({'id':'tag'})
+## 태그별 발송
+[]({'id':'push-tag'})
 BaasioMessage.to에 tag 이름을 입력하면 됩니다.
 
 ```objc
@@ -1210,7 +1210,7 @@ BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
 
 
 ## 문의하기
-[]({'id':'create'})
+[]({'id':'helpcenter-create'})
 
 ```objc
 BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
