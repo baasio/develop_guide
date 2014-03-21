@@ -103,6 +103,7 @@ Type도 Property와 비슷하게 baas.io에서 이미 정의하여 사용하고 
 
 Predefined Type의 종류는 아래와 같습니다.
 
+
 Predefined Type | Predefined Collection 이름 및 위치 |	용도
 ------------ | ------------------- | -------------
 user | /users |	회원정보
@@ -118,7 +119,9 @@ location | /locations |	(예약)위치정보
 script | /scripts |	(예약)스크립트
 service | /services |	(예약)서비스
 
-##### 관련 에러코드
+
+관련 에러코드
+
 
 Error Code | HTTP Status Code| 설명
 --------- | ---------------- | --------------------------------------------
