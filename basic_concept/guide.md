@@ -103,20 +103,20 @@ Type도 Property와 비슷하게 baas.io에서 이미 정의하여 사용하고 
 
 Predefined Type의 종류는 아래와 같습니다.
 
-Predefined Type|Predefined Collection 이름 및 위치|	용도
-------------|-------------------|-------------
-user|/users|	회원정보
-group|/groups|	회원그룹
-role|/roles|	역할
-activity|/activities|	Activity Stream
-device|/devices|	단말정보
-file|/files|	파일
-event|/events|	(예약)이벤트
-help|helps|	고객센터
-push|/pushes|	푸시정보
-location|/locations|	(예약)위치정보
-script|/scripts|	(예약)스크립트
-service|/services|	(예약)서비스
+Predefined Type | Predefined Collection 이름 및 위치 |	용도
+------------ | ------------------- | -------------
+user | /users |	회원정보
+group | /groups |	회원그룹
+role | /roles |	역할
+activity | /activities |	Activity Stream
+device | /devices |	단말정보
+file | /files |	파일
+event | /events |	(예약)이벤트
+help | helps |	고객센터
+push | /pushes |	푸시정보
+location | /locations |	(예약)위치정보
+script | /scripts |	(예약)스크립트
+service | /services |	(예약)서비스
 
 ##### 관련 에러코드
 
