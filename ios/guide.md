@@ -1,9 +1,9 @@
 # iOS Intro
-[]({'id':'iOS Intro'})
+[]({'id':'iOS-intro'})
 
 
 ## Specification
-[]({'id':'Specification'})
+[]({'id':'specification'})
 baas.io는 iOS App을 개발하기 위한 SDK를 제공합니다. SDK는 Framework 형태로 제공되며 Download 페이지 & github를 통해 다운 받으실 수 있습니다.
 
 baas.io iOS SDK는 아래와 같은 개발 환경을 지원합니다.
@@ -18,7 +18,7 @@ CocoaPods를 이용한 SDK 설치는 아직 지원하지 않습니다.
 
 
 ## Class Structure
-[]({'id':'Class Structure'})
+[]({'id':'class-structure'})
 
 baas.io SDK는 baas.io에서 제공하는 서비스에 따라 아래와 같은 클래스를 제공합니다.
 
@@ -32,7 +32,7 @@ baas.io SDK는 baas.io에서 제공하는 서비스에 따라 아래와 같은 �
 
 
 ## Method Rule
-[]({'id':'Method Rule'})
+[]({'id':'method-rule'})
 
 baas.io는 모든 클래스의 메소드에 대해 <strong>동기/비동기 방식</strong>을 지원하며, 쌍으로 제공하고 있습니다.
 
@@ -86,12 +86,12 @@ role에 권한을 추가하거나 유저에게 권한을 추가하는 방법은 
 key가 name인 프로퍼티는 Unique한 속성을 가지고 있습니다. Entity 설계시 참고하기 바랍니다.
 
 # Users
-[]({'id':'Users'})
+[]({'id':'users'})
 User 기능은 **users Collection**을 통해 지원되며, 사용자의 회원가입, 로그인 및 정보의 관리 기능을 제공합니다.
 
 
 ##Sign Up
-[]({'id':'Sign Up'})
+[]({'id':'sign-up'})
 회원을 가입하는 방법은 username(email)을 통한 가입과 Facebook을 통한 가입을 지원합니다.
 
 ####동기식 코드
@@ -1231,7 +1231,11 @@ BaasioHelp 클래스를 이용하여 간편하게 고객센터 서비스를 구�
 
 직접 UI를 구현하기 보다는 아래 링크에서 UI 템플릿을 받아 수정하기를 권합니다.
 
+-----
+**유의하기** 고객센터는 비동기 API만 제공됩니다.
 >고객선터는 비동기 API만 제공됩니다. 혹시 동기식 API가 필요하다고 생각되면, 먼저 진짜 필요한지 아키텍쳐에 대해서 고민해보기 바랍니다.
+
+-----
 
 ## 도움말(FAQ) 목록
 []({'id':'helpcenter-get-faq'})
@@ -1329,8 +1333,13 @@ SDK에서 최신 기능이 추가되거나 버그에 대한  hotfix 등등으로
 
 ## Error
 []({'id':'error'})
+
+-----
+**유의하기** Error handling에 대한 고민은 계속되고 있습니다.
+
 >Error handling에 대해서는 계속 고민중이지만, 좋은 아이디어 있으면 Pull Requests를 부탁드립니다. 우리는 항상 열려있습니다.
 
+-----
 Error code와 localizedDescription를 통해서 에러를 확인 할 수 있습니다.
 
 ```objc
@@ -1347,8 +1356,11 @@ SimpleNetworkManager 클래스를 이용하면 추가적인 네트워크 라이�
 
 또한 SDK에서 제공하지 못하는 Rest API도 이 클래스를 이용하면 확장하여 사용이 가능합니다.
 
-
+-----
+**알고가기** AFNetworking을 기본 네트워크 라이브러리로 사용합니다.
 >iOS SDK는 [AFNetworking](https://github.com/AFNetworking/AFNetworking)를 기본 네트워크 라이브러리로 사용합니다. 그렇기 때문에 한 프로젝트에 AFNetworking와 baas.io iOS SDK를 동시에 사용하면 "duplicate symbol" 에러가 발생합니다.그 경우, AFNetworking에 관련된 *.m파일을 지우면 해결 할 수 있습니다.
+
+-----
 
 #####동기식 코드
 ```objc

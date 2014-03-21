@@ -4,7 +4,7 @@
 ## Specification
 []({'id':'specification'})
 
-baas.io는 Android App을 개발하기 위한 SDK를 제공합니다. SDK는 <strong>Static Library형태의 jar파일과 Open Source로 제공</strong>되며, Download 페이지를 통해 다운받으실 수 있습니다.
+baas.io는 Android App을 개발하기 위한 SDK를 제공합니다. SDK는 **Static Library형태의 jar파일과 Open Source로 제공**되며, Download 페이지를 통해 다운받으실 수 있습니다.
 
 baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 
@@ -41,7 +41,7 @@ baas.io Android SDK는 baas.io에서 제공하는 서비스에 따라 아래와 
 []({'id':'method-rule'})
 
 Android는 Main UI Thread에서 네트워크 통신을 하지 않도록 하고 있습니다.
-따라서, baas.io는 모든 클래스의 메소드에 대해 <strong>동기/비동기 방식</strong>을 지원하며, 쌍으로 제공하고 있습니다.
+따라서, baas.io는 모든 클래스의 메소드에 대해 **동기/비동기 방식**을 지원하며, 쌍으로 제공하고 있습니다.
 
 메소드의 이름은 방식에 따라, 동기식의 경우, 동사(Verb)로 명명하고 있으며, 비동기식은 동사(Verb)+InBackground 명명하고 있습니다.
 아래의 예는 save(저장)이라는 동사에 따른 동기/비동기식 함수의 예를 보여주고 있습니다.
@@ -74,8 +74,8 @@ entity.saveInBackground(
 ## Exception Handling
 []({'id':'exception-handling'})
 
-baas.io에서 제공되는 함수를 통해 요청을 할 때, 문제가 있어 성공되지 못한 경우, <strong>에러 코드와 관련 오류 내용을 전달</strong>합니다.
-baas.io Android SDK에서는 전달된 <strong>에러 코드, 오류 내용을 BaasioException을 통하여 앱에 전달</strong>합니다.
+baas.io에서 제공되는 함수를 통해 요청을 할 때, 문제가 있어 성공되지 못한 경우, **에러 코드와 관련 오류 내용을 전달**합니다.
+baas.io Android SDK에서는 전달된 **에러 코드, 오류 내용을 BaasioException을 통하여 앱에 전달**합니다.
 
 ```java
 //동기식
@@ -140,19 +140,24 @@ entity.saveInBackground(
 # Users
 []({'id':'users'})
 
-baas.io는 가입/로그인/로그아웃/탈퇴 등의 <strong>회원관리 기능을 제공</strong>하고 있습니다. 또한 <strong>Facebook을 통한 가입/로그인 기능</strong>도 제공이 되고 있으며, 이런 기능들은 모두 BaasioUser 클래스를 이용하여 구현하실 수 있습니다. 
+baas.io는 가입/로그인/로그아웃/탈퇴 등의 **회원관리 기능을 제공**하고 있습니다. 또한 **Facebook을 통한 가입/로그인 기능**도 제공이 되고 있으며, 이런 기능들은 모두 BaasioUser 클래스를 이용하여 구현하실 수 있습니다. 
 
 ## BaasioUser 클래스
 []({'id':'users-class'})
 
-BaasioUser클래스는 "users" Collection으로 관리되며, <strong>"users" Collection으로 "user" entity를 생성/삭제하여 회원을 가입/탈퇴</strong> 할 수 있습니다. 회원을 가입하는 방법은 username으로 가입하는 방법과 Facebook 계정으로 가입하는 방법을 지원합니다.
+BaasioUser클래스는 "users" Collection으로 관리되며, **"users" Collection으로 "user" entity를 생성/삭제하여 회원을 가입/탈퇴** 할 수 있습니다. 회원을 가입하는 방법은 username으로 가입하는 방법과 Facebook 계정으로 가입하는 방법을 지원합니다.
 
->info|Note|Facebook 가입|Facebook 계정을 통해 회원 가입하면 Facebook에 저장된 프로필 정보들이 함께 저장됩니다.
+-----
+**Note** Facebook 가입
+> Facebook 계정을 통해 회원 가입하면 Facebook에 저장된 프로필 정보들이 함께 저장됩니다.
+
+-----
+
 
 ## Sign Up
 []({'id':'sign-up'})
 
-회원을 가입하기 위해서는, <strong>username과 비밀번호</strong>가 꼭 필요합니다. 이 외에, 이메일 주소, 이름을 추가로 넣을 수 있습니다.
+회원을 가입하기 위해서는, **username과 비밀번호**가 꼭 필요합니다. 이 외에, 이메일 주소, 이름을 추가로 넣을 수 있습니다.
 username은 영문과 숫자, 특수기호를 사용할 수 있으며, 유일한 값이어야 합니다.
 또한, 비밀번호 변경 또는 초기화를 위해서 가급적 이메일 주소를 받는 것이 좋습니다.
 
@@ -196,7 +201,7 @@ BaasioUser.signUpInBackground(
 
 ## Sign Up with Facebook
 []({'id':'signup-via-facebook'})
-Facebook 계정을 통해 회원 가입을 할 수 있습니다. 이 기능을 이용하기 위해서는 먼저 <strong>Facebook Api Key를 발급받으셔야 하며, Facebook Api Key와 Facebook SDK를 이용하여 인증 과정을 통해 Facebook Access Token을 발급</strong> 받아야 합니다.
+Facebook 계정을 통해 회원 가입을 할 수 있습니다. 이 기능을 이용하기 위해서는 먼저 **Facebook Api Key를 발급받으셔야 하며, Facebook Api Key와 Facebook SDK를 이용하여 인증 과정을 통해 Facebook Access Token을 발급** 받아야 합니다.
 
 관련 내용은 [Facebook 가이드](/develop/android/guide/users.html#users-facebook)에 자세하게 설명되어 있습니다.
 
@@ -236,7 +241,7 @@ BaasioUser.signUpViaFacebookInBackground(
 []({'id':'sign-in'})
 회원가입이 되어 있으면 로그인을 하여 인증을 받을 수 있습니다. 로그인이 성공하면, 결과로 회원의 인증 토큰(Access Token)이 단말에 저장되어 SDK를 통해 관리되며, 이 인증 토큰(Access Token)은 로그인된 회원의 [역할(Role)](/develop/android/concept/security.html#security-role) 및 [권한(Permission)](/develop/android/concept/security.html#security-permission)을 체크하는 용도로 사용됩니다.
 
-또한, <strong>로그인이 성공되면 현재 로그인한 회원의 정보가 단말에 저장되며, SDK에서 로그인 상태에 따라 관리됩니다.</strong>
+또한, **로그인이 성공되면 현재 로그인한 회원의 정보가 단말에 저장되며, SDK에서 로그인 상태에 따라 관리됩니다.**
 
 아래와 같이 로그인을 진행할 수 있습니다.
 
@@ -268,14 +273,20 @@ BaasioUser.signInInBackground(
             }
         });
 ```
->info|Note|현재 로그인한 회원의 정보는 어떻게 확인하나요?|Baas.io().getSignedInUser()를 호출하면 BaasioUser 객체로 Return됩니다.
 
-<!>
->warning|Warning|Access Token의 유효기간|
-<li>Access Token은 1일 간 유효합니다.</li>
-<li><strong>Access Token을 앱이 실행될때 마다 발급받아 처리하는 것은 좋은 방법이 아닙니다.</strong></li>
-<li>Twitter나 Facebook과 같은 앱들도 OAuth정책에 따라 유효시간이 존재하며, 이 유효시간이 지나면 회원으로부터 Username과 Password를 입력받아 직접 로그인하도록 처리하는 것이 좋습니다.</li>
-<li>사용자의 Username, Password를 저장하여 자동으로 로그인하는 방법은 Username, Password가 유출될 수 있으므로 권장하지 않습니다.</li>
+-----
+**Note** 현재 로그인한 회원의 정보는 어떻게 확인하나요?
+> Baas.io().getSignedInUser()를 호출하면 BaasioUser 객체로 Return됩니다.
+
+**Warning** Access Token의 유효기간
+> Access Token은 1일 간 유효합니다.
+**Access Token을 앱이 실행될때 마다 발급받아 처리하는 것은 좋은 방법이 아닙니다.**
+
+> Twitter나 Facebook과 같은 앱들도 OAuth정책에 따라 유효시간이 존재하며, 이 유효시간이 지나면 회원으로부터 Username과 Password를 입력받아 직접 로그인하도록 처리하는 것이 좋습니다.
+
+> 사용자의 Username, Password를 저장하여 자동으로 로그인하는 방법은 Username, Password가 유출될 수 있으므로 권장하지 않습니다.
+
+-----
 
 #### 관련 에러코드
 |Error Code | HTTP Status Code | 설명 |
@@ -331,7 +342,7 @@ BaasioUser.signInViaFacebookInBackground(
 
 ## Update User
 []({'id':'users-update'})
-가입되어 있는 회원의 정보를 추가하거나 수정합니다. 정보는 <strong>Entity의 Property</strong>로 저장하며, 즉, Key와 Value의 쌍으로 저장할 수 있습니다.
+가입되어 있는 회원의 정보를 추가하거나 수정합니다. 정보는 **Entity의 Property**로 저장하며, 즉, Key와 Value의 쌍으로 저장할 수 있습니다.
 
 아래는 성별 정보와 주소를 추가로 등록하는 예제입니다.
 
@@ -340,7 +351,7 @@ BaasioUser user = Baas.io().getSignedInUser();
 user.setProperty("gender","female");
 user.setProperty("address","서울시");
 user.updateInBackground(
-    new BaasioCallback&lt;BaasioUser&gt;() {
+    new BaasioCallback<BaasioUser>() {
 
             @Override
             public void onException(BaasioException e) {
@@ -363,7 +374,7 @@ user.updateInBackground(
 BaasioUser user = Baas.io().getSignedInUser();
 user.setProperty("gender","male");
 user.updateInBackground(
-    new BaasioCallback&lt;BaasioUser&gt;() {
+    new BaasioCallback<BaasioUser>() {
 
             @Override
             public void onException(BaasioException e) {
@@ -402,7 +413,7 @@ user.updateInBackground(
 ```java
 BaasioUser.changePasswordInBackground(
     oldPassword, newPassword
-    new BaasioCallback&lt;Boolean&gt;() {
+    new BaasioCallback<Boolean>() {
 
         @Override
         public void onException(BaasioException e) {
@@ -434,12 +445,13 @@ BaasioUser.changePasswordInBackground(
 |213|401|탈퇴된 사용자입니다.|
 |-100|500|알수 없는 에러입니다.|
 
+
 ## Reset Password
 []({'id':'resetpassword'})
-이메일을 이용하여 특정 User의 비밀번호를 초기화 합니다. <strong>초기화를 위해서는 User의 가입 정보에 이메일 정보가 꼭 설정되어 있어야 합니다.</strong>
+이메일을 이용하여 특정 User의 비밀번호를 초기화 합니다. **초기화를 위해서는 User의 가입 정보에 이메일 정보가 꼭 설정되어 있어야 합니다.**
 
 초기화는 두 가지 방법으로 제공하고 있습니다.
-첫 번째는 초기화 URL 주소를 얻어와 웹브라우저에서 해당 URL을 열어 이메일을 발송하여 초기화하는 방법이며, 두 번쨰는 API를 호출하여 이메일을 발송하여 초기화하는 방법입니다.   
+첫 번째는 초기화 URL 주소를 얻어와 웹브라우저에서 해당 URL을 열어 이메일을 발송하여 초기화하는 방법이며, 두 번쨰는 API를 호출하여 이메일을 발송하여 초기화하는 방법입니다.
 
 #### URL을 얻어 브라우저를 통한 초기화
 
@@ -447,7 +459,7 @@ BaasioUser.changePasswordInBackground(
 
 이렇게 얻어낸 URL을, 아래의 예제와 같이 웹브라우저로 열어 초기화를 진행합니다.
 웹브라우저에는 초기화를 위한 이메일을 발송할 것인지 물어보는 화면이 나타납니다.
-   
+
 ```java
 Uri uri = BaasioUser.getResetPasswordUrl(email);
 
@@ -457,10 +469,10 @@ startActivity(intent);
 
 #### API를 호출하여 초기화
 
-API를 호출하여 초기화를 위한 이메일이 발송되도록 요청합니다. 회원 가입시에 입력된 이메일 주소 또는 User의 uuid 나 username을 파라미터로 전달합니다. 
+API를 호출하여 초기화를 위한 이메일이 발송되도록 요청합니다. 회원 가입시에 입력된 이메일 주소 또는 User의 uuid 나 username을 파라미터로 전달합니다.
 
 ```java
-BaasioUser.resetPasswordInBackground(email, new BaasioCallback&lt;Boolean&gt;() {
+BaasioUser.resetPasswordInBackground(email, new BaasioCallback<Boolean>() {
 
     @Override
     public void onResponse(Boolean response) {
@@ -501,7 +513,7 @@ BaasioUser.resetPasswordInBackground(email, new BaasioCallback&lt;Boolean&gt;() 
 ```java
 BaasioUser user = Baas.io().getSignedInUser();
 user.unsubscribeInBackground(
-    new BaasioCallback&lt;BaasioUser&gt;() {
+    new BaasioCallback<BaasioUser>() {
 
             @Override
             public void onException(BaasioException e) {
@@ -517,9 +529,13 @@ user.unsubscribeInBackground(
         });
 ```
 
->warning|Warning|회원 탈퇴|
-<li>현재 로그인한 회원이 임의의 다른 회원을 탈퇴시킬 수 없도록, [역할(Role)](/develop/android/concept/security.html#security-role)과 [권한(Permission)](/develop/android/concept/security.html#security-permission) 설정을 올바르게 해야 합니다.</li>
-<li>관련 가이드는 Basic Concepts의 [Security(보안)](/develop/common/concept/security.html)를 참고바랍니다.</li>
+-----
+**Warning** 회원 탈퇴
+> 현재 로그인한 회원이 임의의 다른 회원을 탈퇴시킬 수 없도록, [역할(Role)](/develop/android/concept/security.html#security-role)과 [권한(Permission)](/develop/android/concept/security.html#security-permission) 설정을 올바르게 해야 합니다.
+
+> 관련 가이드는 Basic Concepts의 [Security(보안)](/develop/common/concept/security.html)를 참고바랍니다.</li>
+
+-----
 
 #### 관련 에러코드
 |Error Code | HTTP Status Code | 설명 |
@@ -535,7 +551,7 @@ user.unsubscribeInBackground(
 ## Facebook
 []({'id':'facebook'})
 
-baas.io는 <strong>Facebook으로 로그인/가입하는 기능을 제공</strong>하고 있습니다. 이 기능을 이용하기 위해서는 Facebook의 Access Token이 필요합니다.
+baas.io는 **Facebook으로 로그인/가입하는 기능을 제공**하고 있습니다. 이 기능을 이용하기 위해서는 Facebook의 Access Token이 필요합니다.
 
 이 가이드를 통해 Facebook SDK for Android v3.0을 이용하여 Facebook의 Access token을 얻는 방법을 가이드합니다. 더 자세한 내용은 [Facebook SDK for Android 페이지](https://developers.facebook.com/docs/android/)를 참고바랍니다.
 
@@ -566,11 +582,15 @@ keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.k
 ```
 
 실행시키면 비밀번호를 묻는데, 'android'라고 입력하면 30글자로 된 Hash 값이 결과로 나옵니다.
-<strong>이 Key Hash 값은 앱 생성을 위해 사용되니 잘 적어놓습니다.</strong>
+**이 Key Hash 값은 앱 생성을 위해 사용되니 잘 적어놓습니다.**
 
 ![facebook key hash](/images/develop/android/users-facebook-keyhash.png)
 
->warning|Warning|개발용과 배포용|개발시에는 Debug용 Key의 Hash만 얻어내면 되지만, 배포할때는 배포용 Key의 Hash도 필요합니다. 등록한 Key와 앱에 설정된 인증키(keystore)가 다르면 Facebook에서 오류가 나옵니다.
+-----
+**Warning** 개발용과 배포용
+> 개발시에는 Debug용 Key의 Hash만 얻어내면 되지만, 배포할때는 배포용 Key의 Hash도 필요합니다. 등록한 Key와 앱에 설정된 인증키(keystore)가 다르면 Facebook에서 오류가 나옵니다.
+
+-----
 
 ##### Step4. Facebook 개발자 설정|facebook-step4
 
@@ -596,7 +616,7 @@ App Dashboard 페이지로 이동하여, '새 앱 만들기(Create New App)'를 
 
 ![facebook create new app](/images/develop/android/users-facebook-create-new-app.png)
 
-생성이 완료되면 아래와 같은 App ID가 나옵니다. <strong>이 App ID는 개발하시는 애플리케이션에서 사용될 것이므로 기억해 둡니다.</strong>
+생성이 완료되면 아래와 같은 App ID가 나옵니다. **이 App ID는 개발하시는 애플리케이션에서 사용될 것이므로 기억해 둡니다.**
 
 ![facebook app id](/images/develop/android/users-facebook-info-app-id.png)
 
@@ -617,46 +637,46 @@ Eclipse에서 File &gt; New &gt; Project를 선택하여 새로운 Android 프�
 res/values 위치에 있는 string.xml 파일에 아래와 같이 app_id라는 string 값을 추가하고, Step 5에서 얻은 Facebook App ID를 넣어줍니다.
 
 ```xml
-&lt;resources&gt;
-    
-    ...
-
-    &lt;!-- Facebook app_id --&gt;
-    &lt;string name="app_id"&gt;497906953566757&lt;/string&gt;
+<resources>
 
     ...
 
-&lt;/resources&gt;
+    <!-- Facebook app_id -->
+    <string name="app_id">497906953566757</string>
+
+    ...
+
+</resources>
 ```
 
 AndroidManifest.xml파일을 열어 'permission'과 'meta-data'정보, Facebook의 로그인 화면인 LoginActivity를 등록해 줍니다.
 
 ```xml
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    ... &gt;
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    ... >
 
     ...
 
-    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+    <uses-permission android:name="android.permission.INTERNET" >
 
     ...
 
-    &lt;application
-        ... &gt;
+    <application
+        ... >
 
         ...
 
-        &lt;meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/&gt;
-        
-        &lt;activity
-            android:name="com.facebook.LoginActivity"&gt;
-        &lt;/activity&gt;
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id">
+
+        <activity
+            android:name="com.facebook.LoginActivity">
+        </activity>
 
         ...
 
-    &lt;/application&gt;
+    </application>
 
-&lt;/manifest&gt;                                 
+</manifest>
 ```
 
 ##### Step7. Android 앱 정보 등록|facebook-step7
@@ -726,7 +746,7 @@ public class MainActivity extends Activity {
 # Data(Entity)
 []({'id':'data'})
 
-baas.io는 <strong>데이터를 저장하고 조회, 삭제하는 기능을 제공</strong>합니다. 또한, Entity와 Entity를 Connect(연결)하여 <strong>Relationship(관계)</strong>를 만들 수 있습니다.
+baas.io는 **데이터를 저장하고 조회, 삭제하는 기능을 제공**합니다. 또한, Entity와 Entity를 Connect(연결)하여 **Relationship(관계)**를 만들 수 있습니다.
 
 Relationship(관계)에 대한 자세한 내용은 Basic Concepts의 Relationship을 참고하시기 바랍니다.
 
@@ -744,17 +764,17 @@ Entity와 Collection의 관계는 [Basic Concepts의 Entity 페이지](/develop/
 
 동기식인 BaasioEntity.save() 메소드와 BaasioEntity.saveInBackground() 메소드를 제공합니다.
 
-Entity를 생성하기 위해서는, <strong>Type이 꼭 정의 되어야 하며, Type은 Collection의 이름을 결정</strong>하게됩니다. Type은 BaasioEntity의 setType() 메소드를 통해 설정할 수 있으며, 생성자를 통해서도 설정할 수 있습니다.
+Entity를 생성하기 위해서는, **Type이 꼭 정의 되어야 하며, Type은 Collection의 이름을 결정**하게됩니다. Type은 BaasioEntity의 setType() 메소드를 통해 설정할 수 있으며, 생성자를 통해서도 설정할 수 있습니다.
 
 데이터의 세부 정보는 setProperty() 메소드를 이용하여 Key, Value 쌍으로 설정할 수 있습니다. 이 때, Predefined Property와 중복되지 않도록 유의 바랍니다. 
 
-<strong>Predefined Property 중에 "name" Property는, 같은 Collection내에서 유일하게 식별될 수 있는 값</strong>으로 저장되어야 합니다. 특히, "name" Property는 최초 저장된 Value를 수정할 수 없으니 유의하시기 바랍니다. 즉, 해당 Entity를 삭제하고 새로운 "name" Property로 생성해야 합니다.
+**Predefined Property 중에 "name" Property는, 같은 Collection내에서 유일하게 식별될 수 있는 값**으로 저장되어야 합니다. 특히, "name" Property는 최초 저장된 Value를 수정할 수 없으니 유의하시기 바랍니다. 즉, 해당 Entity를 삭제하고 새로운 "name" Property로 생성해야 합니다.
 
 관련 자세한 내용은 [Basic Concepts의 Entity 페이지](/develop/android/concept/entity.html#entity-title)를 참고하시기 바랍니다.
 
-<strong>Entity 생성이 성공되면, baas.io로 부터 유일한 uuid를 부여받게되고, 이 uuid는 모든 데이터를 통틀어 유일하게 식별하기 위한 용도로 사용됩니다.</strong> uuid는 BaasioEntity.getUuid() 메소드를 통해 알 수 있습니다.
+**Entity 생성이 성공되면, baas.io로 부터 유일한 uuid를 부여받게되고, 이 uuid는 모든 데이터를 통틀어 유일하게 식별하기 위한 용도로 사용됩니다.** uuid는 BaasioEntity.getUuid() 메소드를 통해 알 수 있습니다.
 
-<strong>Property의 Value는, JSON의 Value가 될 수 있는, String, Number, Object, Array, Boolean, null로 설정</strong>할 수 있습니다.
+**Property의 Value는, JSON의 Value가 될 수 있는, String, Number, Object, Array, Boolean, null로 설정**할 수 있습니다.
 
 아래의 코드는, "friend" Type의 Entity에 String, Integer, Double 데이터를 저장하는 예를 보여주고 있습니다.
 
@@ -802,7 +822,7 @@ entity.saveInBackground(
 
 ## Create Bulk Entities
 []({'id':'create-bulk'})
-여러 개의 데이터를 <strong>한꺼번에 생성합니다.</strong>
+여러 개의 데이터를 **한꺼번에 생성합니다.**
 
 동기식인 BaasioEntity.save() 메소드, 비동기식인 BaasioEntity.saveInBackground() 메소드를 제공합니다.
 
@@ -855,7 +875,8 @@ BaasioEntity.saveInBackground("bulk", entities,
 
 ## Get Entity
 []({'id':'data-get'})
-baas.io에 <strong>저장되어 있는 Entity를 얻어 옵니다.</strong> 어떤 Entity를 읽어올지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 읽어 옵니다.
+
+baas.io에 **저장되어 있는 Entity를 얻어 옵니다.** 어떤 Entity를 읽어올지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 읽어 옵니다.
 
 동기식은 BaasioEntity.get() 메소드, 비동기식은 BaasioEntity.getInBackground() 메소드를 제공합니다.
 
@@ -900,7 +921,7 @@ entity.getInBackground(
 
 ## Update Entity
 []({'id':'data-update'})
-baas.io에 저장되어 있는 <strong>Entity를 수정합니다.</strong> 어떤 Entity를 수정할 지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 수정 합니다.
+baas.io에 저장되어 있는 **Entity를 수정합니다.** 어떤 Entity를 수정할 지 식별할 수 있도록, "uuid" 또는 "name" Property를 설정하여 이에 해당하는 Entity를 수정 합니다.
 
 동기식은 BaasioEntity.update() 메소드, 비동기식은 BaasioEntity.updateInBackground() 메소드를 제공합니다.
 
@@ -941,9 +962,10 @@ entity.updateInBackground(
 |913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
 |-100|500|알수 없는 에러입니다.|
 
+
 ## Remove Entity
 []({'id':'data-remove'})
-baas.io에 저장되어 있는 <strong>Entity를 삭제합니다.</strong> 어떤 Entity를 삭제할 지 식별할 수 있도록, “uuid” 또는 “name” Property를 설정하여 이에 해당하는 Entity를 삭제 합니다.
+baas.io에 저장되어 있는 **Entity를 삭제합니다.** 어떤 Entity를 삭제할 지 식별할 수 있도록, “uuid” 또는 “name” Property를 설정하여 이에 해당하는 Entity를 삭제 합니다.
 
 동기식은 BaasioEntity.delete() 메소드, 비동기식은 BaasioEntity.deleteInBackground() 메소드를 제공합니다.
 
@@ -982,16 +1004,18 @@ entity.deleteInBackground(
 |913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
 |-100|500|알수 없는 에러입니다.|
 
+
 ## Connection between Entities(Relationship)
 []({'id':'connect'})
-<strong>Entity와 Entity 사이에 Relationship(관계)을 만들 수 있습니다.</strong> 이렇게 만들어진 관계를 이용하여, Twitter의 following/follower 또는 Facebook의 like를 구현할 수 있습니다.
+
+**Entity와 Entity 사이에 Relationship(관계)을 만들 수 있습니다.** 이렇게 만들어진 관계를 이용하여, Twitter의 following/follower 또는 Facebook의 like를 구현할 수 있습니다.
 
 Relationship은 BaasioConnectableEntity를 상속받은 객체라면 서로 연결을 할 수 있습니다. 예를 들어, BaasioConnectableEntity를 상속받은 BaasioUser, BaasioEntity, BaasioFile, BaasioGroup 등은 서로 Relationship으로 연결할 수 있습니다. 연결할 때, 서로의 클래스가 같지 않아도 연결할 수 있습니다.
 
 Relationship과 관련된 자세한 설명은 [Basic Concepts의 Relationship 가이드 페이지](/develop/android/concept/relation.html#relation-title)를 참고하시기 바랍니다.
 
 ### Connect
-<strong>Entity와 Entity를 Relationship으로 연결</strong>합니다.
+**Entity와 Entity를 Relationship으로 연결**합니다.
 
 동기식은 BaasioEntity.connect() 메소드, 비동기식은 BaasioEntity.connectInBackground() 메소드를 제공합니다.
 
@@ -1026,7 +1050,7 @@ doc.connectInBackground(
         });
 ```
 
-<strong>Relationship으로 연결에 성공하면 결과로 연결된 대상을 전달합니다.</strong> 위의 예제에서는 cat이 전달됩니다.
+**Relationship으로 연결에 성공하면 결과로 연결된 대상을 전달합니다.** 위의 예제에서는 cat이 전달됩니다.
 
 #### 관련 에러코드
 
@@ -1044,7 +1068,7 @@ doc.connectInBackground(
 |-100|500|알수 없는 에러입니다.|
 
 ### Disconnect
-<strong>Entity와 Entity의 Relationship을 해제</strong>합니다.
+**Entity와 Entity의 Relationship을 해제**합니다.
 
 연결을 해제하기 위해서는 각각의 Entity를 식별하기 위한 "uuid" 또는 "name" Property가 설정되어 있어야 합니다.
 
@@ -1079,7 +1103,7 @@ dog.disconnectInBackground(
         });
 ```
 
-<strong>Relationship 해제에 성공하면 결과로 연결이 해제된 대상을 전달합니다.</strong> 위의 예제에서는 cat이 전달됩니다.
+**Relationship 해제에 성공하면 결과로 연결이 해제된 대상을 전달합니다.** 위의 예제에서는 cat이 전달됩니다.
 
 #### 관련 에러코드
 
@@ -1101,7 +1125,7 @@ dog.disconnectInBackground(
 
 # Query
 []({'id':'query'})
-baas.io에 저장된 데이터를 <strong>특정 조건으로 조회하는 기능을 제공</strong>합니다. <strong>SQL 구문과 비슷한 형태</strong>로 조회할 수 있습니다.
+baas.io에 저장된 데이터를 **특정 조건으로 조회하는 기능을 제공**합니다. **SQL 구문과 비슷한 형태**로 조회할 수 있습니다.
 
 ## BaasioQuery 클래스
 []({'id':'query-class'})
@@ -1111,17 +1135,17 @@ baas.io는 BaasioQuery클래스를 이용하여 아래의 세 가지 조회 방�
 - 어떤 Group에 속한 "user" Entity를 조회
 - 어떤 Entity와 연결(connect)되어 Relationship을 가지고 있는 Entity를 조회
 
-또한, 복잡하거나 다양한 검색을 지원하기 위해 <strong>직접 질의문(Raw Query String)을 입력</strong>하여 요청할 수 있습니다.
+또한, 복잡하거나 다양한 검색을 지원하기 위해 **직접 질의문(Raw Query String)을 입력**하여 요청할 수 있습니다.
 
-조회는 <strong>queryInBackground() 메소드를 이용하여 특정 갯수만큼만 조회</strong>해 올 수 있으며, 그 다음 <strong>데이터를 조회하기 위해서는 nextInBackground() 메소드, 이전 데이터를 조회하기 위해서는 prevInBackground() 메소드를 이용</strong>합니다.
+조회는 **queryInBackground() 메소드를 이용하여 특정 갯수만큼만 조회**해 올 수 있으며, 그 다음 **데이터를 조회하기 위해서는 nextInBackground() 메소드, 이전 데이터를 조회하기 위해서는 prevInBackground() 메소드를 이용**합니다.
 
-조회를 위한 메소드들은 동기화 방식도 물론 제공하고 있으며, 각각의 메소드는 <strong>query(), next(), prev()</strong>입니다.
+조회를 위한 메소드들은 동기화 방식도 물론 제공하고 있으며, 각각의 메소드는 **query(), next(), prev()**입니다.
 
-<strong>최초 조회할 때는 query() 또는 queryInBackground()로 먼저 요청해야하는 것에 유의</strong>바랍니다.
+**최초 조회할 때는 query() 또는 queryInBackground()로 먼저 요청해야하는 것에 유의**바랍니다.
 
 ### Query Entities from Collection
 []({'id':'query-collection'})
-Collection으로부터 데이터를 조회할때는 <strong>setType() 메소드를 이용하여 조회할 Entity의 Type을 설정</strong>합니다.
+Collection으로부터 데이터를 조회할때는 **setType() 메소드를 이용하여 조회할 Entity의 Type을 설정**합니다.
 
 아래의 예는 "friends" Collection으로부터 "friend" Entity를 조회해 오는 예입니다.
 
@@ -1138,7 +1162,7 @@ mQuery.queryInBackground(                   // 조회 요청
     new BaasioQueryCallback() { 
 
             @Override
-            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+            public void onResponse(List<BaasioBaseEntity> entities, List<Object> list, BaasioQuery query, long timestamp) {
                 mQuery = query;	// 결과로 들어온 Query 객체로 교체
             }
 
@@ -1160,7 +1184,7 @@ mQuery.nextInBackground(    // 조회 요청
     new BaasioQueryCallback() {
 
             @Override
-            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+            public void onResponse(List<BaasioBaseEntity> entities, List<Object> list, BaasioQuery query, long timestamp) {
                 // 성공
                 mQuery = query;						// 결과로 들어온 Query 객체로 교체
             }
@@ -1179,7 +1203,7 @@ mQuery.prevInBackground(    // 조회 요청
     new BaasioQueryCallback() {
 
             @Override
-            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+            public void onResponse(List<BaasioBaseEntity>; entities, List<Object> list, BaasioQuery query, long timestamp) {
                 // 성공
                 mQuery = query;					// 결과로 들어온 Query 객체로 교체
             }
@@ -1193,32 +1217,36 @@ mQuery.prevInBackground(    // 조회 요청
 
 ### setLimit()
 []({'id':'setlimit'})
-한 번에 조회해 올 수 있는 데이터의 갯수는 <strong>기본 10개</strong>이며, 이 갯수는 <strong>setLimit()를 호출하여 원하는 값으로 설정</strong>할 수 있습니다.
+한 번에 조회해 올 수 있는 데이터의 갯수는 **기본 10개**이며, 이 갯수는 **setLimit()를 호출하여 원하는 값으로 설정**할 수 있습니다.
 
->warning|Warning|한꺼번에 받을 수 없나요?|
-<li>데이터를 한꺼번에 받게되면 응답시간이 느려지게 됩니다. 느린 응답시간은 서비스의 질을 떨어뜨리는 요소가 될 것입니다. 더구나, 응답시간이 느려지면, 중간에 네트워크의 이상으로 실패할 가능성이 많아집니다.</li>
-<li>적당한 양의 데이터를 요청하여 좋은 UX를 제공하는 것을 권장합니다.</li>
+-----
+**Warning** 한꺼번에 받을 수 없나요?
+> 데이터를 한꺼번에 받게되면 응답시간이 느려지게 됩니다. 느린 응답시간은 서비스의 질을 떨어뜨리는 요소가 될 것입니다. 더구나, 응답시간이 느려지면, 중간에 네트워크의 이상으로 실패할 가능성이 많아집니다.
+
+>적당한 양의 데이터를 요청하여 좋은 UX를 제공하는 것을 권장합니다.
+
+-----
 
 ### setOrderBy()
 []({'id':'setOrderBy'})
-<strong>조회할 데이터의 순서를 설정</strong>합니다. 특정 Property에 대해, <strong>오름차순(ORDER_BY.ASCENDING) 또는 내림차순(ORDER_BY.DESCENDING)의 순서로 데이터를 조회</strong>할 수 있습니다.
+**조회할 데이터의 순서를 설정**합니다. 특정 Property에 대해, **오름차순(ORDER_BY.ASCENDING) 또는 내림차순(ORDER_BY.DESCENDING)의 순서로 데이터를 조회**할 수 있습니다.
 
 ### setWheres()
 []({'id':'setWheres'})
-<strong>조회할 조건을 설정</strong>합니다. Entity의 Property 값이 어떤 조건에 부합하는 Entity만 조회할 수 있습니다.
+**조회할 조건을 설정**합니다. Entity의 Property 값이 어떤 조건에 부합하는 Entity만 조회할 수 있습니다.
 
 아래의 예는 회원 중에 나이가 20살 이상인 회원을 "users" Collection에서 조회하는 예입니다.
 
 ```java
 BaasioQuery query = new BaasioQuery();
 query.setType(BaasioUser.ENTITY_TYPE);						// 조회할 Entity type
-query.setWheres("age &gt;= 20");
+query.setWheres("age >= 20");
 query.setLimit(10);							// 한번에 받을 갯수 설정
 query.queryInBackground(    // 조회 요청
-    new BaasioQueryCallback() { 
+    new BaasioQueryCallback() {
 
             @Override
-            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+            public void onResponse(List<BaasioBaseEntity> entities, List<Object> list, BaasioQuery query, long timestamp) {
                 //성공
             }
 
@@ -1245,11 +1273,11 @@ Property의 값이 숫자(Number)형이 아닌 문자열(String) 형으로 저�
 
 |연산자 종류|연산자 설명|예제|
 |:------:|:------:|:-:|
-|비교 연산자|보다 작다|'&lt;' 또는 'lt'|
-||보다 작거나 같다|'&lt;=' 또는 'lte'|
+|비교 연산자|보다 작다|'<' 또는 'lt'|
+||보다 작거나 같다|'<=' 또는 'lte'|
 ||같다|'=' 또는 'eq'|
-||보다 크거나 같다|'&gt;=' 또는 'gte'|
-||보다 크다|'&gt;' 또는 'gt'|
+||보다 크거나 같다|'>=' 또는 'gte'|
+||보다 크다|'>' 또는 'gt'|
 |검색 연산자|문자열 전문 검색 (String full text search)|property contains '[검색할 문자열]'|
 |||property contains '[검색할 문자열]*'|
 ||시작 문자열 비교|name = 'foo*'|
@@ -1258,7 +1286,7 @@ Property의 값이 숫자(Number)형이 아닌 문자열(String) 형으로 저�
 ||결과의 합집합|or|
 ||결과의 차집합|not|
 
-연산자 중에 <strong>"contains" 연산자는 문자열에 어떤 문자가 포함되어 있는지 검색하는 용도</strong>로 사용됩니다. 
+연산자 중에 **"contains" 연산자는 문자열에 어떤 문자가 포함되어 있는지 검색하는 용도**로 사용됩니다. 
 
 예를 들어, 어떤 Entity에 "contents" Property가 "서울 강남구 청담동"이라는 값을 가지고 있을때, 해당 Entity를 검색하기 위한 조건에 따른 결과는 아래와 같습니다.
 
@@ -1272,7 +1300,7 @@ Property의 값이 숫자(Number)형이 아닌 문자열(String) 형으로 저�
 
 ### setProjectionIn()
 []({'id':'setProjectionIn'})
-<strong>조회할 Entity중에 필요한 Property만 요청</strong>합니다.
+**조회할 Entity중에 필요한 Property만 요청**합니다.
 
 아래의 예는 "friend" Collection으로부터 "friend" Entity를 조회하는데, "age" Property와 "gender" Property만 조회하는 예입니다.
 
@@ -1285,12 +1313,12 @@ query.queryInBackground(    // 조회 요청
     new BaasioQueryCallback() { 
 
             @Override
-            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+            public void onResponse(List<BaasioBaseEntity> entities, List<Object> list, BaasioQuery query, long timestamp) {
                 if (list != null) {
         				if (list.size() &gt; 0) {
         					for (Object object : list) {
-        						List&lt;Object&gt; item = (List)object;
-        						for (int i = 0; i &lt; item.size(); i++) {
+        						List<Object> item = (List)object;
+        						for (int i = 0; i < item.size(); i++) {
         							int age = (Integer)item.get(0);		// age
         							String gender = (String)item.get(1);	// gender
         					}
@@ -1308,11 +1336,11 @@ query.queryInBackground(    // 조회 요청
 
 ## Query User Entities from Group
 []({'id':'query-group'})
-<strong>특정 Group에 속해있는 User를 조회</strong>합니다.
+**특정 Group에 속해있는 User를 조회**합니다.
 
 BaasioGroup 인스턴스를 생성하고, setPath() 메소드를 이용하여 조회할 Group의 Path를 설정한 후, BaasioQuery의 setGroup() 메소드를 이용하여 앞서 생성한 BaasioGroup 인스턴스를 설정합니다.
 
-<strong>다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.</strong>
+**다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.**
 
 아래의 예는 family라는 그룹에 속한 "user" Entity를 "username" Property의 오름차순으로 10개 조회하는 예입니다.
 
@@ -1329,7 +1357,7 @@ query.setLimit(10);                     // 한번에 받을 갯수 설정
 query.queryInBackground(
     new BaasioQueryCallback() {
             @Override
-            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+            public void onResponse(List<BaasioBaseEntity> entities, List<Object> list, BaasioQuery query, long timestamp) {
                 // 성공
             }
 
@@ -1342,19 +1370,21 @@ query.queryInBackground(
 
 ## Query Entities with Relationship
 []({'id':'relationship'})
-<strong>어떤 Entity와 Entity가 서로 Relationship으로 연결되어 있을 때, 연결된 Entity들을 조회할 수 있습니다.</strong>
 
-<strong>다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.</strong>
+**어떤 Entity와 Entity가 서로 Relationship으로 연결되어 있을 때, 연결된 Entity들을 조회할 수 있습니다.**
+
+**다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.**
 
 조회할 Entity는 Entity를 유일하게 식별할 수 있는 Property인 "uuid" Property 또는 "name" Property가 설정되어 있어야 합니다. 
 
->warning|Warning|유일하게 식별할 수 있는 Property|
-<li>기본적으로 유일하게 식별할 수 있는 Property는 "uuid"와 "name" Property입니다.</li>
-<li>몇 가지 예외가 있습니다.</li>
-<ul>
-<li>"user" Entity는 "name" Property가 아닌, BaasioUser.getUsername() 메소드로 얻을 수 있는, "username" Property가 유일하게 식별할 수 있는 Property입니다.</li>
-<li>"group" Entity는 BaasioGroup.getPath() 메소드로 얻을 수 있는 "path" Property가 유일하게 식별할 수 있는 Property입니다.</li>
-</ul>
+-----
+**Warning** 유일하게 식별할 수 있는 Property
+> 기본적으로 유일하게 식별할 수 있는 Property는 "uuid"와 "name" Property입니다.
+몇 가지 예외가 있습니다.
+* "user" Entity는 "name" Property가 아닌, BaasioUser.getUsername() 메소드로 얻을 수 있는, "username" Property가 유일하게 식별할 수 있는 Property입니다.
+* "group" Entity는 BaasioGroup.getPath() 메소드로 얻을 수 있는 "path" Property가 유일하게 식별할 수 있는 Property입니다.
+
+-----
 
 아래 예는 happy라는 강아지(dog)와 "love"라는 Relationship으로 연결되어 있는 Entity들을 조회하는 예입니다.
 
@@ -1371,7 +1401,7 @@ query.queryInBackground(
     new BaasioQueryCallback() {
 
             @Override
-            public void onResponse(List&lt;BaasioBaseEntity&gt; entities, List&lt;Object&gt; list, BaasioQuery query, long timestamp) {
+            public void onResponse(List<BaasioBaseEntity> entities, List<Object> list, BaasioQuery query, long timestamp) {
                 // 성공
             }
 
@@ -1385,11 +1415,11 @@ query.queryInBackground(
 
 ## Query with Raw Query String
 []({'id':'rawstring'})
-앞서 살펴본 기본적인 조회 방법외에 <strong>직접 질의문을 만들어 복잡한 조회를 할 수 있습니다.</strong> <strong>setRawString() 메소드를 이용하여 Raw Query String을 설정하며, URL Encoding하여 설정</strong>하여야 합니다.
+앞서 살펴본 기본적인 조회 방법외에 **직접 질의문을 만들어 복잡한 조회를 할 수 있습니다.** **setRawString() 메소드를 이용하여 Raw Query String을 설정하며, URL Encoding하여 설정**하여야 합니다.
 
 다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다.
 
-<strong>다만, setWheres(), setOrderBy(), setLimit(), setProjectionIn()은 Raw Query String이 포함하고 있으므로 무시됩니다.</strong>
+**다만, setWheres(), setOrderBy(), setLimit(), setProjectionIn()은 Raw Query String이 포함하고 있으므로 무시됩니다.**
 
 Raw Query String은 SQL구문과 비슷한 문법으로 구성되어 있습니다.
 
@@ -1407,7 +1437,7 @@ SQL구문과 다른 점은, "ql"이라는 URL Parameter에 Query String을 설�
 |select * from cities where name like '강남%'|cities?ql=select * where name contains '강남&#x0204e;'|cities에서 name이 '강남'으로 시작되는 데이터 조회|
 |select name, age, gender from users order by age desc|users?ql=select name, age, gender order by age desc|users에서 age의 내림차순으로, 데이터의 name, age, gender만 조회|
 
-조건문을 설정하는 방법은 <strong>setWheres()에서 설명한 내용과 동일</strong>합니다. 즉, setWheres()에서 설정된 값과 Raw Query String의 "where"절에 들어가는 방법이 같습니다.
+조건문을 설정하는 방법은 **setWheres()에서 설명한 내용과 동일**합니다. 즉, setWheres()에서 설정된 값과 Raw Query String의 "where"절에 들어가는 방법이 같습니다.
 
 아래의 예는 "friends" Collection에서 나이(age)가 20이상인 Entity를 수정된 시간(modified)의 내림차순으로 조회하는 예입니다.
 
@@ -1445,7 +1475,7 @@ mQuery.queryInBackground(
 # Group
 []({'id':'group'})
 
-baas.io는 <strong>회원 그룹관리 기능을 제공</strong>하고 있습니다.
+baas.io는 **회원 그룹관리 기능을 제공**하고 있습니다.
 
 BaasioGroup 클래스를 이용하여 그룹을 생성/수정/삭제할 수 있으며, 생성된 그룹에 회원을 추가하거나 제거할 수 있습니다.
 
@@ -1454,7 +1484,7 @@ BaasioGroup 클래스를 이용하여 그룹을 생성/수정/삭제할 수 있�
 
 ## BaasioGroup
 []({'id':'group-class'})
-BaasioGroup클래스는  <strong>"groups" Collection으로 관리</strong>되며, "groups" Collection에 "group" Entity를 생성/삭제하여 그룹을 생성하거나 삭제합니다.
+BaasioGroup클래스는  **"groups" Collection으로 관리**되며, "groups" Collection에 "group" Entity를 생성/삭제하여 그룹을 생성하거나 삭제합니다.
 
 
 ## Create Group
@@ -1492,7 +1522,7 @@ group.saveInBackground(
 
 ## Get Group
 []({'id':'group-get'})
-<strong>그룹 Entity의 정보를 얻어옵니다.</strong>
+**그룹 Entity의 정보를 얻어옵니다.**
 
 동기식은 get(), 비동기식은 getInBackground() 메소드를 제공합니다.
 
@@ -1522,7 +1552,7 @@ group.getInBackground(
 
 ## Update Group
 []({'id':'group-update'})
-<strong>그룹 Entity의 정보를 수정합니다.</strong>
+**그룹 Entity의 정보를 수정합니다.**
 
 동기식은 update(), 비동기식은 updateInBackground() 메소드를 제공합니다.
 
@@ -1553,7 +1583,7 @@ entity.updateInBackground(
 
 ## Remove Group
 []({'id':'group-remove'})
-<strong>그룹 Entity를 삭제합니다.</strong>
+**그룹 Entity를 삭제합니다.**
 
 동기식은 delete(), 비동기식은 deleteInBackground() 메소드를 제공합니다.
 
@@ -1582,7 +1612,7 @@ entity.deleteInBackground(
 
 ## Add User To Group
 []({'id':'add-user'})
-<strong>그룹에 User를 추가합니다.</strong>
+**그룹에 User를 추가합니다.**
 
 동기식은 add(), 비동기식은 addInBackground() 메소드를 제공합니다.
 
@@ -1616,7 +1646,7 @@ entity.addInBackground(
 
 ## Remove User From Group
 []({'id':'remove-user'})
-<strong>그룹에 추가되어 있는 User를 제외합니다.</strong>
+**그룹에 추가되어 있는 User를 제외합니다.**
 
 동기식은 remove(), 비동기식은 removeInBackground() 메소드를 제공합니다.
 
@@ -1654,19 +1684,19 @@ entity.removeInBackground(
 # File
 []({'id':'file'})
 
-baas.io는 <strong>파일을 저장하고 조회, 삭제, 수정하는 기능을 제공</strong>합니다. 
+baas.io는 **파일을 저장하고 조회, 삭제, 수정하는 기능을 제공**합니다. 
 
 
 ## BaasioFile 클래스
 []({'id':'file-class'})
 
-BaasioFile 클래스는 <strong>"files" Collection으로 관리됩니다.</strong> "files" Collection에 "file" Entity는 다른 Entity들과 마찬가지로, Predefined Property를 가지고 있으며, 필요한 다른 Property를 추가로 저장할 수 있습니다.
+BaasioFile 클래스는 **"files" Collection으로 관리됩니다.** "files" Collection에 "file" Entity는 다른 Entity들과 마찬가지로, Predefined Property를 가지고 있으며, 필요한 다른 Property를 추가로 저장할 수 있습니다.
 
 
 ## Create File With Content
 []({'id':'create-with-content'})
 
-<strong>Property로 구성된 파일 정보와 실제 파일을 함께 저장하여 "file" Entity를 생성합니다.</strong>
+**Property로 구성된 파일 정보와 실제 파일을 함께 저장하여 "file" Entity를 생성합니다.**
 
 비동기식인 fileUploadInBackground() 메소드만 제공되며, 비동기식 메소드는 제공되지 않습니다.
 또한, Callback의 onProgress() 함수로 파일이 전송되는 진행상황을 전달합니다.
@@ -1707,7 +1737,7 @@ BaasioUploadAsyncTask uploadFileAsyncTask = uploadFile.fileUploadInBackground(
         });
 ```
 
-<strong>만약 filename을 전달하지 않으면, 실제 업로드하는 파일의 이름으로 설정됩니다.</strong>
+**만약 filename을 전달하지 않으면, 실제 업로드하는 파일의 이름으로 설정됩니다.**
 
 #### 관련 에러코드
 
@@ -1731,7 +1761,7 @@ BaasioUploadAsyncTask uploadFileAsyncTask = uploadFile.fileUploadInBackground(
 ## Create File Without Content
 []({'id':'create-without-content'})
 
-<strong>파일 없이 Property만으로 "file" Entity를 생성합니다.</strong> 여기서 주의하실 점은, <strong>실제 파일을 업로드하지 않더라도, filename을 setFilename()을 통해 설정해 주어야 합니다.</strong>
+**파일 없이 Property만으로 "file" Entity를 생성합니다.** 여기서 주의하실 점은, **실제 파일을 업로드하지 않더라도, filename을 setFilename()을 통해 설정해 주어야 합니다.**
 
 물론, 나중에 필요할때 파일만 업로드할 수도 있습니다.
 
@@ -1787,14 +1817,14 @@ uploadFile.saveInBackground(
 ## Download File
 []({'id':'download-content'})
 
-업로드되어 있는 <strong>파일을 다운로드</strong>합니다.
+업로드되어 있는 **파일을 다운로드**합니다.
 
 비동기식인 fileDownloadInBackground() 메소드만 제공되며, 비동기식 메소드는 제공되지 않습니다.
 또한, Callback의 onProgress() 함수로 파일이 전송되는 진행상황을 전달합니다.
 
 아래는 uuid를 통해 파일을 다운로드하는 예입니다.
 
->warning|Warning|다운로드 경로|다운로드 경로가 파일이름을 포함하고 있는 경우와 포함하지 않는 경우를 구분해서 사용해야 합니다. <strong>즉, 파일이름이 포함되어 있을 경우에는 uuid를 통해 다운로드가 가능하지만, 파일이름이 포함되어 있지 않을 경우에는, setFilename() 메소드를 통해 다운받을 파일의 이름을 설정해줘야 합니다.</strong>
+>warning|Warning|다운로드 경로|다운로드 경로가 파일이름을 포함하고 있는 경우와 포함하지 않는 경우를 구분해서 사용해야 합니다. **즉, 파일이름이 포함되어 있을 경우에는 uuid를 통해 다운로드가 가능하지만, 파일이름이 포함되어 있지 않을 경우에는, setFilename() 메소드를 통해 다운받을 파일의 이름을 설정해줘야 합니다.**
 
 ```java
 String localPath = "/mnt/sdcard/baasio/test.txt";
@@ -1822,7 +1852,7 @@ BaasioDownloadAsyncTask downloadFileAsyncTask = downloadFile.fileDownloadInBackg
         });
 ```
 
-아래는 <strong>다운로드 경로가 파일이름을 포함하지 않았을 때</strong>, setFilename() 메소드로 파일이름을 설정하여 다운로드 하는 예입니다.
+아래는 **다운로드 경로가 파일이름을 포함하지 않았을 때**, setFilename() 메소드로 파일이름을 설정하여 다운로드 하는 예입니다.
 
 ```java
 String localPath = "/mnt/sdcard/baasio/";
@@ -1877,7 +1907,7 @@ BaasioDownloadAsyncTask downloadFileAsyncTask = downloadFile.fileDownloadInBackg
 ## Get File
 []({'id':'file-get'})
 
-<strong>파일을 다운로드하지 않고, Entity의 정보만 얻어옵니다.</strong>
+**파일을 다운로드하지 않고, Entity의 정보만 얻어옵니다.**
 
 동기식은 get(), 비동기식은 getInBackground() 메소드를 제공합니다.
 
@@ -1907,7 +1937,7 @@ file.getInBackground(
 ## Update File With Content
 []({'id':'update-with-content'})
 
-이미 생성되어 있는 "file" Entity를 <strong>파일 정보와 실제 파일을 전송하여 수정</strong>합니다.
+이미 생성되어 있는 "file" Entity를 **파일 정보와 실제 파일을 전송하여 수정**합니다.
 
 비동기식인 fileUpdateInBackground() 메소드만 제공되며, 비동기식 메소드는 제공되지 않습니다.
 또한, Callback의 onProgress() 함수로 파일이 전송되는 진행상황을 전달합니다.
@@ -1954,7 +1984,7 @@ BaasioUploadAsyncTask uploadFileAsyncTask = updateFile.fileUpdateInBackground(
 ## Update File Without Content
 []({'id':'update-without-content'})
 
-파일 내용은 바꾸지 않고 <strong>파일 정보만 수정</strong>합니다.
+파일 내용은 바꾸지 않고 **파일 정보만 수정**합니다.
 
 아래는 uuid를 통해 "memo" Property를 수정하는 예입니다.
 
@@ -1984,7 +2014,7 @@ uploadFile.updateInBackground(
 ## Remove File
 []({'id':'file-remove'})
 
-파일을 삭제합니다. <strong>파일 정보와 실제 파일이 함께 삭제</strong>됩니다.
+파일을 삭제합니다. **파일 정보와 실제 파일이 함께 삭제**됩니다.
 
 아래는 uuid를 통해 삭제하는 예입니다.
 
@@ -2011,7 +2041,7 @@ deleteFile.deleteInBackground(
 ## Cancel Upload/Download
 []({'id':'upload-download-cancel'})
 
-파일을 생성하거나 수정하기 위해 수행되는 <strong>업로드 작업 또는 파일을 다운로드하는 작업 중에 해당 작업을 취소</strong>할 수 있습니다.
+파일을 생성하거나 수정하기 위해 수행되는 **업로드 작업 또는 파일을 다운로드하는 작업 중에 해당 작업을 취소**할 수 있습니다.
 
 아래는 R.id.upload에 해당하는 메뉴를 눌러 파일을 업로드 하고, R.id.upload_canel에 해당하는 메뉴를 눌러 파일 업로드를 취소하는 예입니다.
 
@@ -2076,7 +2106,7 @@ public class MainActivity extends Activity {
 }
 ```
 
-<strong>다운로드를 취소하는 방법도 동일합니다.</strong> 
+**다운로드를 취소하는 방법도 동일합니다.** 
 
 아래는 R.id.download에 해당하는 메뉴를 눌러 파일을 업로드 하고, R.id.download_canel에 해당하는 메뉴를 눌러 파일 업로드를 취소하는 예입니다.
 
@@ -2139,7 +2169,7 @@ public class MainActivity extends Activity {
 # Push
 []({'id':'push'})
 
-baas.io는 <strong>GCM을 이용한 Push 기능을 제공</strong>합니다.
+baas.io는 **GCM을 이용한 Push 기능을 제공**합니다.
 이 Push 서비스를 이용하기 위해서는 몇 가지 준비작업이 필요합니다.
 
 기타 GCM 관련 자세한 사항은 [Google Cloud Messaging for Android 페이지](http://developer.android.com/google/gcm/index.html)를 참고하시기 바랍니다.
@@ -2147,23 +2177,23 @@ baas.io는 <strong>GCM을 이용한 Push 기능을 제공</strong>합니다.
 ## BaasioPush 클래스
 []({'id':'push-class'})
 
-BaasioPush 클래스는, <strong>단말을 등록/해제/갱신 시켜주기 위한 기능 및 메시지를 전송하는 기능을 제공</strong>합니다.
+BaasioPush 클래스는, **단말을 등록/해제/갱신 시켜주기 위한 기능 및 메시지를 전송하는 기능을 제공**합니다.
 
-이 함수의 등록/해제/갱신 함수를 이용하여 직접 GCM 기능을 구현하기 위해서는 깊은 이해가 필요합니다. <strong>baas.io Android SDK는 등록/해제/갱신을 쉽게 내부적으로 처리하고 있으며, 많은 테스트를 통해 검증되어 있어, 쉽게 Push 기능을 구현하실 수 있습니다.</strong>
+이 함수의 등록/해제/갱신 함수를 이용하여 직접 GCM 기능을 구현하기 위해서는 깊은 이해가 필요합니다. **baas.io Android SDK는 등록/해제/갱신을 쉽게 내부적으로 처리하고 있으며, 많은 테스트를 통해 검증되어 있어, 쉽게 Push 기능을 구현하실 수 있습니다.**
 
 ## Quick Start For Push
 []({'id':'quick-start'})
 
-이 가이드를 통해 <strong>Push 기능을 활성화</strong> 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#push-quick-start-setup) 하셔도 됩니다.
+이 가이드를 통해 **Push 기능을 활성화** 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#push-quick-start-setup) 하셔도 됩니다.
 
 >warning|Warning|Quick Start를 하셨나요?|이 가이드를 보시기 전에 [Quick Start](/develop/android/quickstart.html)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다. 
 
 ### Google API Key &amp; Sender ID
 []({'id':'quick-start-key-and-senderid'})
 
-GCM을 이용하기 위해서는 먼저 <strong>Google API Key와 Sender ID</strong>를 Google Console 페이지를 통해 발급 받아야합니다.
+GCM을 이용하기 위해서는 먼저 **Google API Key와 Sender ID**를 Google Console 페이지를 통해 발급 받아야합니다.
 
-이 과정으로 통해 <strong>Google API Key와 Sender ID</strong>를 발급 받으실 수 있습니다.
+이 과정으로 통해 **Google API Key와 Sender ID**를 발급 받으실 수 있습니다.
 
 ###### Step1. Google 계정 만들기
 
@@ -2185,7 +2215,7 @@ Create Project를 클릭하면 브라우저의 URL이 아래와 같은 형태로
 https://code.google.com/apis/console/#project:4815162342
 ```
 
-<strong>여기에서 #project: 다음에 표시되는 숫자가 GCM Sender ID 입니다. 여기서는 4815162342가 GCM Sender ID입니다.</strong>
+**여기에서 #project: 다음에 표시되는 숫자가 GCM Sender ID 입니다. 여기서는 4815162342가 GCM Sender ID입니다.**
 
 ###### Step3. GCM Service 활성화
 
@@ -2197,7 +2227,7 @@ Google Cloud Messaging for Android를 ON으로 설정하여 활성화시킵니�
 
 <div class="center"><img src="../../../images/develop/android/push-gcm-console-services-gcm-on.png" class="img-polaroid"/></div>
 
-활성화를 시키면 약관을 확인하기 위한 화면이 나옵니다. <strong>약관을 확인하여, 승인을 합니다.</strong>
+활성화를 시키면 약관을 확인하기 위한 화면이 나옵니다. **약관을 확인하여, 승인을 합니다.**
 
 ###### Step4. Google API Key 생성
 
@@ -2209,7 +2239,7 @@ Create new Server key 버튼을 클릭하면 아래와 같은 화면이 나타�
 
 <div class="center"><img src="../../../images/develop/android/push-gcm-console-config-server-key.png" class="img-polaroid"/></div>
 
-Create 버튼을 클릭하면 아래와 같이 Api key가 생성되어 보여집니다. 아래 화면에서는 <strong>YourKeyWillBeShownHere라는 글자 위치</strong>에 표시됩니다.
+Create 버튼을 클릭하면 아래와 같이 Api key가 생성되어 보여집니다. 아래 화면에서는 **YourKeyWillBeShownHere라는 글자 위치**에 표시됩니다.
 
 <div class="center"><img src="../../../images/develop/android/push-gcm-console-api-key.png" class="img-polaroid"/></div>
 
@@ -2220,7 +2250,7 @@ Create 버튼을 클릭하면 아래와 같이 Api key가 생성되어 보여집
 
 baas.io의 Push 기능을 이용하기 위해서는 ["Google API Key 와 Sender ID 생성"](#push-quick-start-key-and-senderid) 과정을 통해 Google API Key와 Sender ID를 발급 받아야 합니다.
 
-아래의 입력창에, <strong>적용하시려는 앱의 Package Name과 baas.io ID, Application ID, 발급받으신 Sender ID를 입력해주세요.</strong>
+아래의 입력창에, **적용하시려는 앱의 Package Name과 baas.io ID, Application ID, 발급받으신 Sender ID를 입력해주세요.**
 
 <div class="center"><input class="package-name" type="text" placeholder="Your App's PackageName" value="com.example.app"></div>
 <div class="center"><input class="member-id" type="text" placeholder="Member ID" value="PUT_YOUR_BAASIO_MEMBER_ID"></div>
@@ -2229,13 +2259,13 @@ baas.io의 Push 기능을 이용하기 위해서는 ["Google API Key 와 Sender 
 
 ###### Step1. 백엔드앱의 설정에 Google API Key 등록
 
-<strong>baas.io 로그인 > My page > 백엔드앱 선택 > 설정 > 푸쉬인증서 관리</strong>에 Google API Key를 등록합니다.
+**baas.io 로그인 > My page > 백엔드앱 선택 > 설정 > 푸쉬인증서 관리**에 Google API Key를 등록합니다.
 
 <div class="center"><img src="../../../images/develop/android/push-register-google-api-key.png" class="img-polaroid"/></div>
 
 ###### Step2. BaasioConfig.java 수정
 
-아래 코드를 복사하여 "src/<span class="package-name-rep">com.example.app</span>" 위치의 <strong>BaasioConfig.java 파일을 수정</strong>합니다.
+아래 코드를 복사하여 "src/<span class="package-name-rep">com.example.app</span>" 위치의 **BaasioConfig.java 파일을 수정**합니다.
 
 ```java
 package <span class="package-name-rep str">com.example.app</span>;
@@ -2263,7 +2293,7 @@ baas.io().setGcmEnabled()를 호출하면 Main UI Thread가 아닌 background에
 
 >info|Note|최초 실행시에는 setGcmEnabled()가 null을 리턴합니다.|최초 실행할때는 setGcmEnabled()가 호출되면 null을 리턴하며, 이는 정상 동작입니다. 이때 Sender ID를 GCM 서버에 등록하는 과정이 이루어지며, 등록이 완료되면 자동으로 GCM이 활성화 됩니다.
 
-"src/<span class="package-name-rep">com.example.app</span>"위치의 <strong>BaasioApplication.java파일이 아래의 코드와 같이 setGcmEnabled()를 제대로 호출하고 있는지 확인합니다. 그대로 복사해서 사용하셔도 됩니다.</strong>
+"src/<span class="package-name-rep">com.example.app</span>"위치의 **BaasioApplication.java파일이 아래의 코드와 같이 setGcmEnabled()를 제대로 호출하고 있는지 확인합니다. 그대로 복사해서 사용하셔도 됩니다.**
 
 ```java
 package <span class="package-name-rep">com.example.app</span>;
@@ -2322,7 +2352,7 @@ GCMIntentService.java는 GCM에서 보내주는 각종 메시지를 처리하는
 
 먼저, "src/<span class="package-name-rep">com.example.app</span>" 위치에 gcm이라는 path를 생성합니다.
 
-생성한 경로에 <strong>GCMIntentService.java를 생성하여 아래의 코드를 붙여넣기 합니다.</strong>
+생성한 경로에 **GCMIntentService.java를 생성하여 아래의 코드를 붙여넣기 합니다.**
 
 붙여넣기 한 코드는 기본적으로 Notification Bar에 메시지를 보여주도록 처리하고 있습니다. 이를 수정하려면 onMessage()를 수정하면 됩니다.
 
@@ -2459,7 +2489,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 GCMRedirectedBroadcastReceiver.java는 GCMIntentService가 메시지를 받을 수 있도록 전달해주는 역할을 합니다.
 
-"src/<span class="package-name-rep">com.example.app</span>" 위치에 <strong>GCMRedirectedBroadcastReceiver.java를 생성하여 아래의 코드를 붙여넣기하시기 바랍니다.</strong>
+"src/<span class="package-name-rep">com.example.app</span>" 위치에 **GCMRedirectedBroadcastReceiver.java를 생성하여 아래의 코드를 붙여넣기하시기 바랍니다.**
 
 ```java
 /*
@@ -2506,105 +2536,106 @@ public class GCMRedirectedBroadcastReceiver extends GCMBroadcastReceiver {
 Push를 이용하기 위해 아래와 같이 AndroidManifest.xml에 관련 클래스를 등록하고 퍼미션을 설정합니다.
 
 ```xml
-&lt;permission
+<permission
     android:name="<span class="package-name-rep str">com.example.app</span>.permission.C2D_MESSAGE"
-    android:protectionLevel="signature" /&gt;
-&lt;uses-permission android:name="<span class="package-name-rep str">com.example.app</span>.permission.C2D_MESSAGE" /&gt;
+    android:protectionLevel="signature" />
+<uses-permission android:name="<span class="package-name-rep str">com.example.app</span>.permission.C2D_MESSAGE" />
 
-&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-&lt;uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /&gt;
-&lt;uses-permission android:name="android.permission.GET_ACCOUNTS" /&gt;
-&lt;uses-permission android:name="android.permission.WAKE_LOCK" /&gt;
-&lt;uses-permission android:name="android.permission.USE_CREDENTIALS" /&gt;
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+<uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
-&lt;!--  전역 클래스 등록 --&gt;
-&lt;application
+<!--  전역 클래스 등록 -->
+<application
     android:name="<span class="package-name-rep str">com.example.app</span>.BaasioApplication"
     android:icon="@drawable/ic_launcher"
     android:label="@string/app_name"&gt;
 
     ...
 
-    &lt;!--  GCM관련 모듈 등록 --&gt;
-    &lt;!--
+    <!--  GCM관련 모듈 등록 -->
+    <!--
       BroadcastReceiver that will receive the C2DM messages from GCM
       services and handle them to the custom IntentService.
 
       The com.google.android.c2dm.permission.SEND permission is necessary
       so only GCM services can send data messages for the app.
-    --&gt;
-    &lt;receiver
+    -->
+    <receiver
         android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMRedirectedBroadcastReceiver"
-        android:permission="com.google.android.c2dm.permission.SEND" &gt;
-        &lt;intent-filter&gt;
-            &lt;!-- Receives the actual messages. --&gt;
-            &lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
-            &lt;!-- Receives the registration id. --&gt;
-            &lt;action android:name="com.google.android.c2dm.intent.REGISTRATION" /&gt;
+        android:permission="com.google.android.c2dm.permission.SEND" >
+        <intent-filter>
+            <!-- Receives the actual messages. -->
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <!-- Receives the registration id. -->
+            <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-            &lt;category android:name="<span class="package-name-rep str">com.example.app</span>" /&gt;
-        &lt;/intent-filter&gt;
-    &lt;/receiver&gt;
+            <category android:name="<span class="package-name-rep str">com.example.app</span>" />
+        </intent-filter>
+    </receiver>
 
-    &lt;!--
+    <!--
       Application-specific subclass of GCMBaseIntentService that will
       handle received messages.
 
       By default, it must be named .GCMIntentService, unless the
       application uses a custom BroadcastReceiver that redefines its name.
-    --&gt;
-    &lt;service android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMIntentService" /&gt;
-&lt;/application&gt;                    	
+    -->
+    <service android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMIntentService" />
+</application>
 ```
 
 ###### Step7. 푸쉬 확인해보기
 
-<strong>baas.io 로그인 > My page > 백엔드앱을 선택 > 푸시관리 > 푸시발송</strong>에서 내용을 입력하고 메시지를 보내보세요.
+**baas.io 로그인 > My page > 백엔드앱을 선택 > 푸시관리 > 푸시발송**에서 내용을 입력하고 메시지를 보내보세요.
 
 테스트 하실 때에는 Google Play가 설치된 실제 안드로이드 단말에서 테스트 바랍니다. 특히, 에뮬레이터는 메시지를 받을 수 없습니다.
 
 테스트하시는 단말로 메시지가 도착하셨나요?
 
->info|Note|잘 안되시나요? Push가 정상 설정되었는지 확인해 보세요.|
-<li>Google Play가 설치된 실제 안드로이드 단말에서 테스트하셔야합니다.</li>
-<li>baas.io 로그인 &gt; My page 이동&gt; Application 선택</li>
-<li>설정 &gt; 푸시인증서 관리 Android API KEY 등록되었는지 확인</li>
-<li>푸시 사용 설정이 사용함인지 확인</li>
-<li>데이터브라우저 &gt; Role 선택 &gt; guest 선택 &gt; Permission 탭 선택</li>
-<li>"/devices" Create 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices")</li>
-<li>"/devices/*" Update, Delete 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices/*")</li>
-<li>데이터브라우저 &gt; Role 선택 &gt; default 선택 &gt; Permission 탭 선택</li>
-<li>설정된 Role이 "/device" Create와 "/devices/*" Update, Delete를 포함하고 있는지 확인(v0.8.1 이전 버전은 "/pushes/devices", "/pushes/devices/*")</li>
-<li>
-	<p>프로젝트의 AndroidMenifest.xml 파일을 열어 아래와 같이 package 명이 제대로 들어가 있는지 확인합니다.</p>
-    <pre class="prettyprint">
-&lt;permission
+-----
+**Note** 잘 안되시나요? Push가 정상 설정되었는지 확인해 보세요.
+> Google Play가 설치된 실제 안드로이드 단말에서 테스트하셔야합니다.
+* baas.io 로그인 > My page 이동 > Application 선택
+* 설정 > 푸시인증서 관리 Android API KEY 등록되었는지 확인
+* 푸시 사용 설정이 사용함인지 확인
+* 데이터브라우저 > Role 선택 > guest 선택 > Permission 탭 선택
+* "/devices" Create 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices")
+* "/devices/*" Update, Delete 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices/*")
+* 데이터브라우저 > Role 선택 > default 선택 > Permission 탭 선택
+* 설정된 Role이 "/device" Create와 "/devices/*" Update, Delete를 포함하고 있는지 확인(v0.8.1 이전 버전은 "/pushes/devices", "/pushes/devices/*")
+* 프로젝트의 AndroidMenifest.xml 파일을 열어 아래와 같이 package 명이 제대로 들어가 있는지 확인합니다.
+```xml
+<permission
 	android:name="<span class="package-name-rep str">com.example.app</span>.permission.C2D_MESSAGE"
-	android:protectionLevel="signature" /&gt;
+	android:protectionLevel="signature" />
 ...
-	&lt;receiver
+	<receiver
 		android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMRedirectedBroadcastReceiver"
-		android:permission="com.google.android.c2dm.permission.SEND" &gt;
-		&lt;intent-filter&gt;
-			&lt;!-- Receives the actual messages. --&gt;
-			&lt;action android:name="com.google.android.c2dm.intent.RECEIVE" /&gt;
-			&lt;!-- Receives the registration id. --&gt;
-			&lt;action android:name="com.google.android.c2dm.intent.REGISTRATION" /&gt;
-			&lt;category android:name="<span class="package-name-rep str">com.example.app</span>" /&gt;
-		&lt;/intent-filter&gt;
-	&lt;/receiver&gt;
+		android:permission="com.google.android.c2dm.permission.SEND" >
+		<intent-filter>
+			<!-- Receives the actual messages. -->
+			<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+			<!-- Receives the registration id. -->
+			<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+			<category android:name="<span class="package-name-rep str">com.example.app</span>" />
+		</intent-filter>
+	</receiver>
 ...
-&lt;service android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMIntentService" /&gt;
-    </pre>
-</li>
+<service android:name="<span class="package-name-rep str">com.example.app</span>.gcm.GCMIntentService" />
+```
+
+-----
 
 
 ## Device Register
 []({'id':'device-register'})
 
-<strong>단말을 baas.io로 등록 합니다.</strong> 등록하는 방법은 <strong>Tag정보를 포함하여 등록하는 방법과 그냥 등록하는 방법</strong>, 두 가지가 있습니다.
+**단말을 baas.io로 등록 합니다.** 등록하는 방법은 **Tag정보를 포함하여 등록하는 방법과 그냥 등록하는 방법**, 두 가지가 있습니다.
 
-각 <strong>Tag는 36자까지 길이를 허용</strong>합니다.
+각 **Tag는 36자까지 길이를 허용**합니다.
 
 ```java
 // 단말 등록
@@ -2650,7 +2681,7 @@ BaasioDeviceAsyncTask mGCMRegisterTask = BaasioPush.registerWithTagsInBackground
 ## Device Unregister
 []({'id':'device-unregister'})
 
-<strong>등록된 단말을 해제</strong> 합니다. 해제되면 더이상 메시지를 받을 수 없습니다.
+**등록된 단말을 해제** 합니다. 해제되면 더이상 메시지를 받을 수 없습니다.
 
 ```java
 BaasioPush.unregisterInBackground(
@@ -2677,16 +2708,16 @@ BaasioPush.unregisterInBackground(
 ## Sending Pushes
 []({'id':'sending-push'})
 
-<strong>Push 메시지 구성을 쉽게 하기 위해 BaasioMessage 클래스가 제공</strong>됩니다. 필요한 데이터를 채워 BaasioPush 클래스를 이용하여 메시지를 전송합니다.
+**Push 메시지 구성을 쉽게 하기 위해 BaasioMessage 클래스가 제공**됩니다. 필요한 데이터를 채워 BaasioPush 클래스를 이용하여 메시지를 전송합니다.
 
-메시지를 전송하는 방법은 <strong>setMessage()와 setPayload()</strong>, 이렇게 두 가지 방법이 있습니다.
+메시지를 전송하는 방법은 **setMessage()와 setPayload()**, 이렇게 두 가지 방법이 있습니다.
 
-setMessage()는 비교적 간단한 메시지를 전송하기 위해 사용하고, <strong>setPayload()는 기본 메시지 규격외에 Custom한 데이터를 전송하기 위해 사용</strong>합니다.
+setMessage()는 비교적 간단한 메시지를 전송하기 위해 사용하고, **setPayload()는 기본 메시지 규격외에 Custom한 데이터를 전송하기 위해 사용**합니다.
 
 ### Push for All
 []({'id':'sending-push-all'})
 
-<strong>모든 단말로 Push를 발송합니다.</strong>
+**모든 단말로 Push를 발송합니다.**
 
 ```java
 // setMessage를 이용한 방법
@@ -2698,7 +2729,7 @@ message.setMessage(
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -2725,7 +2756,7 @@ message.setPayload(payload);
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -2745,11 +2776,11 @@ BaasioPush.sendPushInBackground(
 ### Push by Platform
 []({'id':'sending-push-platform'})
 
-<strong>setPlatform()를 호출하여 메시지를 받을 플랫폼을 설정하여 발송합니다.</strong> 
+**setPlatform()를 호출하여 메시지를 받을 플랫폼을 설정하여 발송합니다.** 
 
-안드로이드만 푸시를 보내기 위해서는 <strong>BaasioMessage.PLATFORM_FLAG_TYPE_GCM</strong>, iOS만 보내기위해서는 <strong>BaasioMessage.PLATFORM_FLAG_TYPE_IOS</strong>를 설정합니다.
+안드로이드만 푸시를 보내기 위해서는 **BaasioMessage.PLATFORM_FLAG_TYPE_GCM**, iOS만 보내기위해서는 **BaasioMessage.PLATFORM_FLAG_TYPE_IOS**를 설정합니다.
 
-두 플랫폼을 모두 보내려면 <strong>BaasioMessage.PLATFORM_FLAG_TYPE_GCM|BaasioMessage.PLATFORM_FLAG_TYPE_IOS</strong>로 설정합니다.
+두 플랫폼을 모두 보내려면 **BaasioMessage.PLATFORM_FLAG_TYPE_GCM|BaasioMessage.PLATFORM_FLAG_TYPE_IOS**로 설정합니다.
 
 ```java
 // setMessage를 이용한 방법
@@ -2762,7 +2793,7 @@ message.setPlatform(BaasioMessage.PLATFORM_FLAG_TYPE_GCM); // Android GCM으로�
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -2790,7 +2821,7 @@ message.setPlatform(BaasioMessage.PLATFORM_FLAG_TYPE_GCM); // Android GCM으로�
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -2810,7 +2841,7 @@ BaasioPush.sendPushInBackground(
 ### Push by Tags
 []({'id':'sending-push-tag'})
 
-<strong>단말을 등록할 때 설정된 태그별로 메시지를 발송합니다.</strong>
+**단말을 등록할 때 설정된 태그별로 메시지를 발송합니다.**
 
 ```java
 // setMessage를 이용한 방법
@@ -2820,11 +2851,11 @@ message.setMessage(
 , "homerun.caf"     // iOS APNS의 sound
 , 3);               // iOS APNS badge 갯수
 message.setTarget(BaasioMessage.TARGET_TYPE_TAG);   // 태그별 발송
-message.setTo("friend,male");                       // friend와 male tag로 등록된 단말로 발송 
+message.setTo("friend,male");                       // friend와 male tag로 등록된 단말로 발송
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 	        @Override
 	        public void onException(BaasioException e) {
@@ -2853,7 +2884,7 @@ message.setTo("friend,male");                       // friend와 male tag로 등
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 	        @Override
 	        public void onException(BaasioException e) {
@@ -2873,9 +2904,9 @@ BaasioPush.sendPushInBackground(
 ### Push by User, Device
 []({'id':'sending-push-each'})
 
-<strong>회원별로 또는 단말별로 개별 발송할 수 있습니다.</strong>
+**회원별로 또는 단말별로 개별 발송할 수 있습니다.**
 
-개별 전송은 <strong>최대 50개의 대상</strong>에게 발송할 수 있습니다.
+개별 전송은 **최대 50개의 대상**에게 발송할 수 있습니다.
 
 ```java
 // setMessage를 이용한 방법
@@ -2889,7 +2920,7 @@ message.setTo("uuid1,uuid2");                       // uuid1, uuid2의 회원에
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -2918,7 +2949,7 @@ message.setTo("uuid1,uuid2");                       // uuid1, uuid2의 회원에
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -2938,9 +2969,9 @@ BaasioPush.sendPushInBackground(
 ### Reserved Push
 []({'id':'reserved'})
 
-<strong>정해진 시간에 메시지가 발송되도록 요청합니다.</strong>
+**정해진 시간에 메시지가 발송되도록 요청합니다.**
 
-시간은 <strong>KST 기준</strong>이며, 예약 발송으로 전송된 시간의 남은 시간이 <strong>5분 이내일 경우에는 바로 발송 처리</strong>됩니다.
+시간은 **KST 기준**이며, 예약 발송으로 전송된 시간의 남은 시간이 **5분 이내일 경우에는 바로 발송 처리**됩니다.
 
 ```java
 // setMessage를 이용한 방법
@@ -2953,7 +2984,7 @@ message.setReserve("201301251422"); // 2013년 1월 25일 오후 2시 22분
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -2981,7 +3012,7 @@ message.setPayload(payload);
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -3002,7 +3033,7 @@ BaasioPush.sendPushInBackground(
 ### Push with Custom Fields
 []({'id':'custom'})
 
-<strong>setPayload()를 이용하면, 추가로 다른 필드를 넣어서 메시지를 전송할 수 있습니다.</strong>
+**setPayload()를 이용하면, 추가로 다른 필드를 넣어서 메시지를 전송할 수 있습니다.**
 
 ```java
 BaasioPayload payload = new BaasioPayload();
@@ -3014,7 +3045,7 @@ message.setPayload(payload);
 
 BaasioPush.sendPushInBackground(
 	message
-	, new BaasioCallback&lt;BaasioMessage&gt;() {
+	, new BaasioCallback<BaasioMessage>() {
 
 		    @Override
 		    public void onException(BaasioException e) {
@@ -3037,8 +3068,8 @@ BaasioPush.sendPushInBackground(
 # Help Center
 []({'id':'helpcenter'})
 
-baas.io는 고객님의 앱이 <strong>고객님의 회원분들에게 더 나은 서비스를 제공할 수 있도록, 고객센터 서비스를 제공</strong>해드리고 있습니다.
-baas.io 고객센터 서비스는 <strong>자주하는 질문(FAQ), 문의하기 기능</strong>을 제공해드리고 있습니다.
+baas.io는 고객님의 앱이 **고객님의 회원분들에게 더 나은 서비스를 제공할 수 있도록, 고객센터 서비스를 제공**해드리고 있습니다.
+baas.io 고객센터 서비스는 **자주하는 질문(FAQ), 문의하기 기능**을 제공해드리고 있습니다.
 
 특히, baas.io Android SDK에서는 모바일에서 고객센터를 쉽게 구현하실 수 있도록 고객센터 UI 라이브러리를 오픈소스 라이브러리 형태로 제공해드리고 있습니다. 이 UI 라이브러리를 이용하시면 간단히 구현하실 수 있습니다.
 
@@ -3083,15 +3114,15 @@ git clone https://github.com/baasio/baas.io-helpcenter-android.git
 <div class="tab-content">
 	<div class="tab-pane active" id="quickstart-eclipse">
 
-		<p>Eclipse의 <strong>File > Import 메뉴</strong>를 선택합니다.</p>
+		<p>Eclipse의 **File > Import 메뉴**를 선택합니다.</p>
 
 		<div class="center"><img src="/images/develop/android/quickstart-eclipse-import.png" width="500px" class="img-polaroid"/></div>
 
-		<p>Import 다이얼로그에서 <strong>"General-Existing Projects into Workspace"</strong>를 선택하고 <strong>"Next"버튼</strong>을 선택합니다.</p>
+		<p>Import 다이얼로그에서 **"General-Existing Projects into Workspace"**를 선택하고 **"Next"버튼**을 선택합니다.</p>
 
 		<div class="center"><img src="/images/develop/android/quickstart-eclipse-import-exist.png" width="500px" class="img-polaroid"/></div>
 
-		<p>다음 Import 다이얼로그 화면에서 <strong>"Select root directory"의 "Browse"버튼</strong>을 눌러 다운로드 받은 폴더를 선택하고, <strong>"Projects:"에서 ActionBarSherlock, BaasioHelpCenter, BaasioHelpCenterSampleProject 프로젝트를 선택</strong>하고 <strong>"Finish"</strong>를 선택합니다.</p>
+		<p>다음 Import 다이얼로그 화면에서 **"Select root directory"의 "Browse"버튼**을 눌러 다운로드 받은 폴더를 선택하고, **"Projects:"에서 ActionBarSherlock, BaasioHelpCenter, BaasioHelpCenterSampleProject 프로젝트를 선택**하고 **"Finish"**를 선택합니다.</p>
 
 		<div class="center"><img src="/images/develop/android/select_BaasioHelpCenter.png" width="500px" class="img-polaroid"/></div>
 
@@ -3099,15 +3130,15 @@ git clone https://github.com/baasio/baas.io-helpcenter-android.git
 
 		<h5>Step3. UI 라이브러리 연동하기</h5>
 
-		<p>Eclipse의 <strong>Package Exploror 화면</strong>에서 생성하신 프로젝트에서 오른쪽 마우스를 클릭하여 <strong>Properties</strong>를 선택합니다.</p>
+		<p>Eclipse의 **Package Exploror 화면**에서 생성하신 프로젝트에서 오른쪽 마우스를 클릭하여 **Properties**를 선택합니다.</p>
 
 		<div class="center"><img src="/images/develop/android/Project-Properties.png" width="500px" class="img-polaroid"/></div>
 
-		<p>Properties 다이얼로그에서 <strong>Android</strong>를 선택하고 아래에 있는 <strong>Library에서 Add버튼</strong>을 선택합니다.</p>
+		<p>Properties 다이얼로그에서 **Android**를 선택하고 아래에 있는 **Library에서 Add버튼**을 선택합니다.</p>
 
 		<div class="center"><img src="/images/develop/android/Project-Properties-Dialog.png" width="500px" class="img-polaroid"/></div>
 
-		<p>Projection Selection 다이얼로그에서 <strong>BaasioHelpCenter프로젝트를 선택</strong>하고, <strong>"OK"</strong>를 선택합니다.</p>
+		<p>Projection Selection 다이얼로그에서 **BaasioHelpCenter프로젝트를 선택**하고, **"OK"**를 선택합니다.</p>
 
 		<div class="center"><img src="/images/develop/android/Project_HelpCenter_Selection.png" width="500px" class="img-polaroid"/></div>
 	</div>
@@ -3121,11 +3152,11 @@ git clone https://github.com/baasio/baas.io-helpcenter-android.git
 ## Get FAQ List
 []({'id':'get-faq'})
 
-<strong>FAQ 리스트를 조회해 옵니다.</strong>
+**FAQ 리스트를 조회해 옵니다.**
 
 ```java
 BaasioHelp.getHelpsInBackground(
-    new BaasioCallback&lt;List&lt;FaqCategory&gt;&gt;() {
+    new BaasioCallback<List<FaqCategory>>() {
 
             @Override
             public void onException(BaasioException e) {
@@ -3133,7 +3164,7 @@ BaasioHelp.getHelpsInBackground(
             }
 
             @Override
-            public void onResponse(List&lt;FaqCategory&gt; response) {
+            public void onResponse(List<FaqCategory> response) {
 
                 if (response != null) {
                     // 성공
@@ -3146,12 +3177,12 @@ BaasioHelp.getHelpsInBackground(
 ## Get FAQ Content
 []({'id':'get-faq-content'})
 
-<strong> FAQ 내용을 가져옵니다.</<strong>strong>
+** FAQ 내용을 가져옵니다.</**strong>
 
 ```java
 BaasioHelp.getHelpDetailInBackground(
     uuid        // 도움말 항목의 uuid
-    , new BaasioCallback&lt;Faq&gt;() {
+    , new BaasioCallback<Faq>() {
 
             @Override
             public void onException(BaasioException e) {
@@ -3171,12 +3202,12 @@ BaasioHelp.getHelpDetailInBackground(
 ## Search FAQ
 []({'id':'search-faq'})
 
-<strong>검색할 단어를 포함하는 FAQ를 조회해 옵니다.</strong>
+**검색할 단어를 포함하는 FAQ를 조회해 옵니다.**
 
 ```java
 BaasioHelp.searchHelpsInBackground(
     keyword     // 찾으려는 키워드
-    , new BaasioCallback&lt;List&lt;FaqCategory&gt;&gt;() {
+    , new BaasioCallback<List<FaqCategory>>() {
 
             @Override
             public void onException(BaasioException e) {
@@ -3184,7 +3215,7 @@ BaasioHelp.searchHelpsInBackground(
             }
 
             @Override
-            public void onResponse(List&lt;FaqCategory&gt; response) {
+            public void onResponse(List<FaqCategory> response) {
 
                 if (response != null) {
                     // 성공
@@ -3197,14 +3228,14 @@ BaasioHelp.searchHelpsInBackground(
 ## Create Question
 []({'id':'helpcenter-create'})
 
-<strong>문의 사항을 보냅니다.</strong>
+**문의 사항을 보냅니다.**
 
 ```java
 BaasioHelp.sendQuestionInBackground(
     context
     , email     // 이메일 주소
     , body      // 문의사항
-    , new BaasioCallback&lt;Question&gt;() {
+    , new BaasioCallback<Question>() {
 
             @Override
             public void onException(BaasioException e) {
