@@ -316,7 +316,7 @@ if (!error) {
 ##### 관련 에러코드
 
 Error Code|HTTP Status Code|설명
----------|----------------|----
+---------|----------------|--------------------------------------------
 101|404|요청받은 리소스가 서버에 존재하지 않습니다.
 102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.
 103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.
@@ -328,6 +328,25 @@ Error Code|HTTP Status Code|설명
 212|401|차단된 사용자입니다.
 213|401|탈퇴된 사용자입니다.
 -100|500|알수 없는 에러입니다.
+
+
+
+
+
+Predefined Type|Predefined Collection 이름 및 위치|	용도
+------------|-------------------|-------------
+user|/users|	회원정보
+group|/groups|	회원그룹
+role|/roles|	역할
+activity|/activities|	Activity Stream
+device|/devices|	단말정보
+file|/files|	파일
+event|/events|	(예약)이벤트
+help|helps|	고객센터
+push|/pushes|	푸시정보
+location|/locations|	(예약)위치정보
+script|/scripts|	(예약)스크립트
+service|/services|	(예약)서비스
 
 
 ## Reset Password
