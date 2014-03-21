@@ -492,7 +492,7 @@ startActivity(intent);
 API를 호출하여 초기화를 위한 이메일이 발송되도록 요청합니다. 회원 가입시에 입력된 이메일 주소 또는 User의 uuid 나 username을 파라미터로 전달합니다.
 
 ```java
-BaasioUser.resetPasswordInBackground(email, new BaasioCallback<Boolean>() {
+BaasioUser.resetPasswordInBackground(email, new BaasioCallback< Boolean>() {
     @Override
     public void onResponse(Boolean response) {
         if(response) {
@@ -582,15 +582,18 @@ baas.io는 **Facebook으로 로그인/가입하는 기능을 제공**하고 있�
 
 관련 샘플은 baas.io-sample-project v0.8.1버전 이후부터 제공되고 있으니 참고 바랍니다.
 
-##### Step1. Facebook 가입|facebook-step1
+##### Step1. Facebook 가입
+[]({'id':'users-facebook-step1'})
 
 Facebook 계정이 필요합니다. 계정이 없다면 가입해주세요.
 
-##### Step2. Facebook SDK for Android 다운로드|facebook-step2
+##### Step2. Facebook SDK for Android 다운로드
+[]({'id':'users-facebook-step2'})
 
 Facebook SDK for Android에서 SDK를 다운로드하여 적당한 위치에 압축을 풀어줍니다.
 
-##### Step3. Key Hash 생성|facebook-step3
+##### Step3. Key Hash 생성
+[]({'id':'users-facebook-step3'})
 
 Debug용 Key의 Hash를 얻기 위해, 아래와 같은 명령어를 prompt에서 실행시킵니다. Windows에서 개발하시는 분들은 [openssl](http://slproweb.com/products/Win32OpenSSL.html) 설치가 필요합니다.
 
@@ -617,7 +620,8 @@ keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.k
 
 -----
 
-##### Step4. Facebook 개발자 설정|facebook-step4
+##### Step4. Facebook 개발자 설정
+[]({'id':'users-facebook-step4'})
 
 Facebook에 로그인을 하면 오른쪽 상단에 Dropdown 메뉴가 있습니다.(Profile 이름 옆에)
 
@@ -631,7 +635,8 @@ Settings 메뉴를 선택하고, 왼쪽 세션에 Developer Settings를 선택�
 
 ![facebook developer settings](/images/develop/android/users-facebook-developer-settings.png)
 
-##### Step5. Facebook 앱 생성|facebook-step5
+##### Step5. Facebook 앱 생성
+[]({'id':'users-facebook-step5'})
 
 App Dashboard 페이지로 이동하여, '새 앱 만들기(Create New App)'를 선택합니다.
 
@@ -651,7 +656,8 @@ App Dashboard 페이지로 이동하여, '새 앱 만들기(Create New App)'를 
 
 '네이티브 Android 앱(Native Android App)'세션을 엽니다. Key Hash란에 Step2에서 얻어낸 Key Hash를 입력하고 저장합니다.
 
-##### Step6. 새로운 Android 앱 프로젝트 생성 및 App ID 등록|facebook-step6
+##### Step6. 새로운 Android 앱 프로젝트 생성 및 App ID 등록
+[]({'id':'users-facebook-step6'})
 
 Eclipse에서 File < New > Project를 선택하여 새로운 Android 프로젝트를 생성합니다.
 
@@ -677,7 +683,7 @@ res/values 위치에 있는 string.xml 파일에 아래와 같이 app_id라는 s
 AndroidManifest.xml파일을 열어 'permission'과 'meta-data'정보, Facebook의 로그인 화면인 LoginActivity를 등록해 줍니다.
 
 ```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+< manifest xmlns:android="http://schemas.android.com/apk/res/android"
     ... >
 
     ...
@@ -700,17 +706,18 @@ AndroidManifest.xml파일을 열어 'permission'과 'meta-data'정보, Facebook�
         ...
 
     </application>
-
 </manifest>
 ```
 
-##### Step7. Android 앱 정보 등록|facebook-step7
+##### Step7. Android 앱 정보 등록
+[]({'id':'users-facebook-step7'})
 
 다시 Facebook의 App Dashboard로 돌아가 생성한 Android 앱의 package name과 Facebook의 로그인을 시도할 Activity의 Class name을 등록합니다.
 
 ![facebook register app info](/images/develop/android/users-facebook-register-app-info.png)
 
-##### Step8. Facebook 로그인 및 baas.io 로그인|facebook-step8
+##### Step8. Facebook 로그인 및 baas.io 로그인
+[]({'id':'users-facebook-step8'})
 
 Facebook SDK의 Session.openActiveSession를 호출하여 Facebook 로그인을 진행합니다.
 
@@ -865,7 +872,7 @@ entity1.setProperty("test","test1");
 BaasioEntity entity2 = new BaasioEntity("bulk");
 entity2.setProperty("test","test2");
 
-List<BaasioEntity> entities = new ArrayList<BaasioEntity>();
+List< BaasioEntity> entities = new ArrayList< BaasioEntity>();
 entities.add(entity1);
 entities.add(entity2);
 
