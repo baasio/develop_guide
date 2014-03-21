@@ -7,7 +7,7 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 
 각각의 Backend App은 독립적으로 관리되어, 서로 공유할 수 없습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/backend-app.png) -->
+![](https://stage.baas.io/images/develop/common/backend-app.png)
 
 `caution` "sandbox" Backend App
 
@@ -24,7 +24,7 @@ baas.io에서 저장되는 모든 데이터들은 Entity(엔터티)라고 지칭
 
 각 Entity들은 Key(이름)와 Value(값)의 쌍으로 구성된 Property(속성)들을 가지고 있습니다. Entity는 Type(타입)이라는 속성을 필수로 가지고 있으며, 같은 Type의 Entity들의 집합을 Collection(컬렉션)이라고 합니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/collection-entity.png) -->
+![](https://stage.baas.io/images/develop/common/collection-entity.png)
 
 아래는 간단한 Entity의 샘플 입니다.
 
@@ -103,63 +103,20 @@ Type도 Property와 비슷하게 baas.io에서 이미 정의하여 사용하고 
 
 Predefined Type의 종류는 아래와 같습니다.
 
-| Heading 1 | Heading 2
-| --------- | ---------
-| Cell 1    | Cell 2
-| Cell 3    | Cell 4
-
-| Header 1 | Header 2 | Header 3 | Header 4 |
-| :------: | -------: | :------- | -------- |
-| Cell 1   | Cell 2   | Cell 3   | Cell 4   |
-| Cell 5   | Cell 6   | Cell 7   | Cell 8   |
-
-    Test code
-
-Header 1 | Header 2
--------- | --------
-Cell 1   | Cell 2
-Cell 3   | Cell 4
-
-Header 1|Header 2|Header 3|Header 4
-:-------|:------:|-------:|--------
-Cell 1  |Cell 2  |Cell 3  |Cell 4
-*Cell 5*|Cell 6  |Cell 7  |Cell 8
-
-
-Predefined Type | Predefined Collection 이름 및 위치 |	용도
------------- | ------------------- | -------------
-user | /users |	회원정보
-group | /groups |	회원그룹
-role | /roles |	역할
-activity | /activities |	Activity Stream
-device | /devices |	단말정보
-file | /files |	파일
-event | /events |	(예약)이벤트
-help | helps |	고객센터
-push | /pushes |	푸시정보
-location | /locations |	(예약)위치정보
-script | /scripts |	(예약)스크립트
-service | /services |	(예약)서비스
-
-
-관련 에러코드
-
-
-Error Code | HTTP Status Code| 설명
---------- | ---------------- | --------------------------------------------
-101 | 404 | 요청받은 리소스가 서버에 존재하지 않습니다.
-102 | 400 | 전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.
-103 | 400 | 해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.
-200 | 401 | 인증 또는 권한과 관련된 문제가 발생했습니다.
-201 | 401 | 잘못된 id이거나 password 입니다.
-202 | 401 | 접근 권한이 없습니다.
-210 | 401 | 인증 토큰에 문제가 있습니다.
-211 | 401 | 만료된 인증 토큰입니다.
-212 | 401 | 차단된 사용자입니다.
-213 | 401 | 탈퇴된 사용자입니다.
--100 | 500 | 알수 없는 에러입니다.
-
-
+Predefined Type |Predefined Collection 이름 및 위치 |	용도
+------------|-------------------|-------------
+user |/users|	회원정보
+group |/groups|	회원그룹
+role |/roles|	역할
+activity |/activities|	Activity Stream
+device |/devices|	단말정보
+file |/files|	파일
+event|/events|	(예약)이벤트
+help|helps|	고객센터
+push|/pushes|	푸시정보
+location|/locations|	(예약)위치정보
+script|/scripts|	(예약)스크립트
+service|/services|	(예약)서비스
 []({'class':'table-bordered'})
 
 `Note` (예약)된 컬렉션
@@ -192,7 +149,7 @@ Collection의 이름은 Entity Type의 복수형으로 정해집니다. 예를�
 
 만들려는 이름의 Collection이 없더라도 Entity를 생성하면, 생성하려는 Entity Type의 복수형으로 Collection이 생성됩니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/collection-entity.png) -->
+![](https://stage.baas.io/images/develop/common/collection-entity.png)
 
 ## Predefined vs. Custom Collection
 []({'id':'collection-predefined','data-menu':'Predefined vs. Custom Collection'})
@@ -236,7 +193,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 아래 그림을 살펴보겠습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/following-follower.png) -->
+![](https://stage.baas.io/images/develop/common/following-follower.png)
 
 즉, user A가 user B를 following 할 경우, user A의 following을 조회하면 user B가 나오지만, user B의 following 목록에는 user A가 나오지 않습니다. user B는 followers를 조회해야 user A가 나오는 것입니다.
 
@@ -251,7 +208,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 즉, 아래의 그림과 같이 Relationship이 만들어집니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/custom-relationship.png) -->
+![](https://stage.baas.io/images/develop/common/custom-relationship.png)
 
 
 
@@ -322,7 +279,7 @@ baas.io는 Role(역할)과 Permission(권한)을 통하여 강력한 보안 시�
 
 Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터브라우저 > Role을 통하여 수정할 수 있습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role.png) -->
+![](https://stage.baas.io/images/develop/common/databrowser-role.png)
 
 ## Role
 []({'id':'security-role','data-menu':'Role'})
@@ -331,7 +288,7 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 
 데이터브라우저의 Role에는 아래와 같이 세 가지 Role을 보여주고 있습니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role-list.png) -->
+![](https://stage.baas.io/images/develop/common/databrowser-role-list.png)
 
 각 Role은 아래와 같은 용도로 사용됩니다.
 
@@ -365,7 +322,7 @@ Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성
 
 즉, "*"이 오는 경우는 바로 하위 위치까지 허용하는 Path이며, "**"이 오는 경우는 하위의 모든 하위 위치까지 허용하는 Path입니다.
 
-<!-- ![](https://stage.baas.io/images/develop/common/databrowser-role-permission.png) -->
+![](https://stage.baas.io/images/develop/common/databrowser-role-permission.png)
 
 예를 들어, 위 사진은 Guest Role의 기본 Permission이며, 세 개의 Permission이 설정되어 있는 것을 보실 수 있습니다. 이 Permission들은 Backend App을 생성하면 Guest Role에 기본으로 설정되는 Permission입니다.
 
