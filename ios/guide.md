@@ -8,13 +8,11 @@ baas.io는 iOS App을 개발하기 위한 SDK를 제공합니다. SDK는 Framewo
 
 baas.io iOS SDK는 아래와 같은 개발 환경을 지원합니다.
 
-* iOS 5.1.1
+- iOS 5.1.1 이상
 
 또한 아래와 같은 외부 Library를 사용하고 있습니다.
 
-* AFNetworking
-
-CocoaPods를 이용한 SDK 설치는 아직 지원하지 않습니다.
+- AFNetworking
 
 
 ## Class Structure
@@ -34,14 +32,14 @@ baas.io SDK는 baas.io에서 제공하는 서비스에 따라 아래와 같은 �
 ## Method Rule
 []({'id':'method-rule'})
 
-baas.io는 모든 클래스의 메소드에 대해 <strong>동기/비동기 방식</strong>을 지원하며, 쌍으로 제공하고 있습니다.
+baas.io는 모든 클래스의 메소드에 대해 **동기/비동기 방식**을 지원하며, 쌍으로 제공하고 있습니다.
 
 메소드의 이름은 방식에 따라, 동기식의 경우, 동사(Verb)로 명명하고 있으며, 비동기식은 동사(Verb)+InBackground 명명하고 있습니다.
 아래의 예는 save(저장)이라는 동사에 따른 동기/비동기식 함수의 예를 보여주고 있습니다.
 
 ##### 동기식 코드
 ```objc
-BaasioEntity *entity = [BaasioEntity entitytWithName:@"Collection_Name"];
+BaasioEntity *entity = [BaasioEntity entitytWithName:@"Collection Name"];
 [entity save:error];
 
 if (!error) {
@@ -53,7 +51,7 @@ if (!error) {
 
 ##### 비동기식 코드
 ```objc
-BaasioEntity *entity = [BaasioEntity entitytWithName:@"Collection_Name"];
+BaasioEntity *entity = [BaasioEntity entitytWithName:@"Collection Name"];
 [entity saveInBackground:^(BaasioEntity *entity) {
 				// Success
             }
@@ -73,6 +71,7 @@ Blocks에 대해서는  [Blocks Programming Topics](https://developer.apple.com/
 
 대부분의 경우 동기(Sync)와 비동기(Async) API를 동시에 제공하나, 일반적으로 대부분의 프로그래밍은 비동기(Async)로 작성됩니다.
 
+
 ## etc
 []({'id':'intro-etc'})
 
@@ -81,9 +80,11 @@ baas.io의 모든 Data관련 Method들은 Permission 설정이 필요합니다. 
 
 role에 권한을 추가하거나 유저에게 권한을 추가하는 방법은 SDK에서는 제공하지 않습니다. REST API를 이용하여 권한을 설정하거나 마이 페이지의 데이터 브라우저를 이용하여 권한을 설정하면 됩니다.
 
-
 #### Unique Value
 key가 name인 프로퍼티는 Unique한 속성을 가지고 있습니다. Entity 설계시 참고하기 바랍니다.
+
+
+
 
 # Users
 []({'id':'users'})
@@ -313,24 +314,24 @@ if (!error) {
 ```
 
 ##### 관련 에러코드
-|Error Code | HTTP Status Code | 설명 |
-|:---------:|:----------------:|:----|
-|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
-|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
-|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
-|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
-|201|401|잘못된 id이거나 password 입니다.|
-|202|401|접근 권한이 없습니다.|
-|210|401|인증 토큰에 문제가 있습니다.|
-|211|401|만료된 인증 토큰입니다.|
-|212|401|차단된 사용자입니다.|
-|213|401|탈퇴된 사용자입니다.|
-|-100|500|알수 없는 에러입니다.|
+Error Code|HTTP Status Code|설명
+:---------:|:----------------:|:----
+101|404|요청받은 리소스가 서버에 존재하지 않습니다.
+102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.
+103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.
+200|401|인증 또는 권한과 관련된 문제가 발생했습니다.
+201|401|잘못된 id이거나 password 입니다.
+202|401|접근 권한이 없습니다.
+210|401|인증 토큰에 문제가 있습니다.
+211|401|만료된 인증 토큰입니다.
+212|401|차단된 사용자입니다.
+213|401|탈퇴된 사용자입니다.
+-100|500|알수 없는 에러입니다.
 
 
 ## Reset Password
 []({'id':'reset-password'})
-이메일을 이용하여 특정 User의 비밀번호를 초기화 합니다. <strong>초기화를 위해서는 User의 가입 정보에 이메일 정보가 꼭 설정되어 있어야 합니다.</strong>
+이메일을 이용하여 특정 User의 비밀번호를 초기화 합니다. **초기화를 위해서는 User의 가입 정보에 이메일 정보가 꼭 설정되어 있어야 합니다.**
 
 이를 호출하면 User의 Email로 초기화메일이 발송됩니다.
 
@@ -362,19 +363,19 @@ if (!error) {
 ```
 
 ##### 관련 에러코드
-|Error Code | HTTP Status Code | 설명 |
-|:---------:|:----------------:|:----|
-|101|404|요청받은 리소스가 서버에 존재하지 않습니다.|
-|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
-|103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.|
-|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
-|201|401|잘못된 id이거나 password 입니다.|
-|202|401|접근 권한이 없습니다.|
-|210|401|인증 토큰에 문제가 있습니다.|
-|211|401|만료된 인증 토큰입니다.|
-|212|401|차단된 사용자입니다.|
-|213|401|탈퇴된 사용자입니다.|
-|-100|500|알수 없는 에러입니다.|
+Error Code | HTTP Status Code | 설명
+:---------:|:----------------:|:----
+101|404|요청받은 리소스가 서버에 존재하지 않습니다.
+102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.
+103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.
+200|401|인증 또는 권한과 관련된 문제가 발생했습니다.
+201|401|잘못된 id이거나 password 입니다.
+202|401|접근 권한이 없습니다.
+210|401|인증 토큰에 문제가 있습니다.
+211|401|만료된 인증 토큰입니다.
+212|401|차단된 사용자입니다.
+213|401|탈퇴된 사용자입니다.
+-100|500|알수 없는 에러입니다.
 
 
 ## Unsubscribe User
@@ -472,12 +473,12 @@ NSString *cheatMode = [entity objectForKey:@"cheatMode"];
 
 미리 정의된 @property는 다음과 같습니다.
 
-| name | 의미 |
-| :---- | :---- |
-|uuid|키|
-|created|작성일|
-|modified|최종수정일|
-|type|entity 명|
+name|의미
+:----|:----
+uuid|키
+created|작성일
+modified|최종수정일
+type|entity 명
 
 
 ## Create Entity
@@ -620,7 +621,6 @@ failureBlock:^(NSError *error) {
 
 이 쿼리는 MySQL의 SQL 쿼리와 같습니다.
 ```sql
-sql
 select
 	name, title
 from
@@ -637,8 +637,7 @@ limit 10
 []({'id':'paging'})
 baas.io는 게시판의 페이징을 구현 할 수는 없지만, 타임라인과 같이 전/후 페이지 조회는 할 수 있습니다.
 
-내부적으로 cursor을 이용하기 때문에 query(queryInBackground)를 한번 한 후, 
-
+내부적으로 cursor을 이용하기 때문에 query(queryInBackground)를 한번 한 후,  
 next(nextInBackground), prev(prevInBackground)를 이용하여 다음 Array를 가져 올 수 있습니다.
 
 
@@ -664,6 +663,7 @@ BaasioQuery *query = [BaasioQuery queryWithGroup:@"students"];
 BaasioQuery.queryWithRelationship를 이용하여 연결 된 Entities를 쿼리 할 수 있습니다.
 
 아래 예제는 blogEntity에서 아이디가 `fd0c96dc-8573-11e2-9f13-06fd000000c2`이고, `blogWithComment`라는 이름으로 연결된 Entity들을 조회하는 쿼리
+
 ```objc
 BaasioQuery *query = [BaasioQuery queryWithRelationship:@"blogEntity"
                                                withUUID:@"fd0c96dc-8573-11e2-9f13-06fd000000c2"
@@ -691,7 +691,7 @@ Group 기능은 **Group** Collection을 통해 지원되며, 그룹을 만들어
 
 #####동기식 코드
 ```objc
-BaasioGroup *group = [[BaasioGroup alloc]init];    
+BaasioGroup *group = [[BaasioGroup alloc] init];
 [group setObject:groupName forKey:@"vip"];
 [group save:&error];
 if (!error) {
@@ -705,7 +705,7 @@ if (!error) {
 
 #####비동기식 코드
 ```objc
-BaasioGroup *group = [[BaasioGroup alloc]init];    
+BaasioGroup *group = [[BaasioGroup alloc] init];
 [group setObject:groupName forKey:@"vip"];
 [group saveInBackground:^(BaasioGroup *group){
                NSLog(@"group : %@", group.description);
@@ -1002,7 +1002,7 @@ iOS의 경우 APNS (Apple Push Notification Services)을 사용하여 각각의 
 
 APNS 관련 정보는 다음 링크를 참조하여 주시고, 푸시서비스의 전반적인 상세 설명은 별도로 제공되는 `Push Notification 개발자 가이드`를 참고하여 주시기 바랍니다.
 
-[APNS (Apple Push Notification Service) Guide](http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingWIthAPS/CommunicatingWIthAPS.html) 
+[APNS (Apple Push Notification Service) Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html#//apple_ref/doc/uid/TP40008194-CH100-SW9)
 
 
 ## Device Register
@@ -1233,7 +1233,7 @@ BaasioHelp 클래스를 이용하여 간편하게 고객센터 서비스를 구�
 
 -----
 **유의하기** 고객센터는 비동기 API만 제공됩니다.
->고객선터는 비동기 API만 제공됩니다. 혹시 동기식 API가 필요하다고 생각되면, 먼저 진짜 필요한지 아키텍쳐에 대해서 고민해보기 바랍니다.
+> 고객선터는 비동기 API만 제공됩니다. 혹시 동기식 API가 필요하다고 생각되면, 먼저 진짜 필요한지 아키텍쳐에 대해서 고민해보기 바랍니다.
 
 -----
 
@@ -1337,7 +1337,7 @@ SDK에서 최신 기능이 추가되거나 버그에 대한  hotfix 등등으로
 -----
 **유의하기** Error handling에 대한 고민은 계속되고 있습니다.
 
->Error handling에 대해서는 계속 고민중이지만, 좋은 아이디어 있으면 Pull Requests를 부탁드립니다. 우리는 항상 열려있습니다.
+> Error handling에 대해서는 계속 고민중이지만, 좋은 아이디어 있으면 Pull Requests를 부탁드립니다. 우리는 항상 열려있습니다.
 
 -----
 Error code와 localizedDescription를 통해서 에러를 확인 할 수 있습니다.
@@ -1358,7 +1358,7 @@ SimpleNetworkManager 클래스를 이용하면 추가적인 네트워크 라이�
 
 -----
 **알고가기** AFNetworking을 기본 네트워크 라이브러리로 사용합니다.
->iOS SDK는 [AFNetworking](https://github.com/AFNetworking/AFNetworking)를 기본 네트워크 라이브러리로 사용합니다. 그렇기 때문에 한 프로젝트에 AFNetworking와 baas.io iOS SDK를 동시에 사용하면 "duplicate symbol" 에러가 발생합니다.그 경우, AFNetworking에 관련된 *.m파일을 지우면 해결 할 수 있습니다.
+> iOS SDK는 [AFNetworking](https://github.com/AFNetworking/AFNetworking)를 기본 네트워크 라이브러리로 사용합니다. 그렇기 때문에 한 프로젝트에 AFNetworking와 baas.io iOS SDK를 동시에 사용하면 "duplicate symbol" 에러가 발생합니다.그 경우, AFNetworking에 관련된 *.m파일을 지우면 해결 할 수 있습니다.
 
 -----
 
