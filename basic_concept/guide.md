@@ -103,6 +103,28 @@ Type도 Property와 비슷하게 baas.io에서 이미 정의하여 사용하고 
 
 Predefined Type의 종류는 아래와 같습니다.
 
+| Heading 1 | Heading 2
+| --------- | ---------
+| Cell 1    | Cell 2
+| Cell 3    | Cell 4
+
+| Header 1 | Header 2 | Header 3 | Header 4 |
+| :------: | -------: | :------- | -------- |
+| Cell 1   | Cell 2   | Cell 3   | Cell 4   |
+| Cell 5   | Cell 6   | Cell 7   | Cell 8   |
+
+    Test code
+
+Header 1 | Header 2
+-------- | --------
+Cell 1   | Cell 2
+Cell 3   | Cell 4
+
+Header 1|Header 2|Header 3|Header 4
+:-------|:------:|-------:|--------
+Cell 1  |Cell 2  |Cell 3  |Cell 4
+*Cell 5*|Cell 6  |Cell 7  |Cell 8
+
 
 Predefined Type | Predefined Collection 이름 및 위치 |	용도
 ------------ | ------------------- | -------------
