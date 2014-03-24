@@ -331,7 +331,7 @@ https://api.baas.io/{baasio-id}/{app-id}
 사용자의 정보(아이디, 이메일, 이름, 주소 등 )를 앱에서 관리하길 원한다면, 아래의 API 를 사용하면 쉽게 적용할 수 있습니다.
 
 ## 사용자 등록하기
-[]({'id':'postUsers', 'data-menu':'사용자 등록하기'})
+[]({'id':'users-postUsers', 'data-menu':'사용자 등록하기'})
 
 ##### Request URI
 
@@ -436,7 +436,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",
 ```
 
 ## 사용자 조회하기
-[]({'id':'getUsers', 'data-menu':'사용자 조회하기'})
+[]({'id':'users-getUsers', 'data-menu':'사용자 조회하기'})
 
 ##### Request URI
 
@@ -531,15 +531,15 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users"
 ```
 
 ## 사용자를 쿼리로 조회하기
-[]({'id':'getUsersByQuery', 'data-menu':'사용자를 쿼리로 조회하기'})
+[]({'id':'users-getUsersByQuery', 'data-menu':'사용자를 쿼리로 조회하기'})
 
 [사용자 조회하기](users.html#getUsers) API 에서 확인한 것처럼 등록된 사용자를 조회할 수 있습니다. 특정한 사용자를 조회하고 싶을 때, 데이터 질의 방법을 사용하여 사용자를 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
 
@@ -572,9 +572,9 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
+
 
 ```json
 {
@@ -651,17 +651,17 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users?ql=select * where flag='1'"
 ```
-	
- 
+
+
 
 ## 사용자 UUID, username, email 으로 조회하기
-[]({'id':'getUser', 'data-menu':'사용자 UUID, username, email로 조회하기'})
+[]({'id':'users-getUser', 'data-menu':'사용자 UUID, username, email로 조회하기'})
 
 ##### Request URI
 
@@ -683,9 +683,9 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
+
 ```json
 {
 	"action": "get",
@@ -731,17 +731,17 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
 ```
 
- 
+
 
 ## 사용자의 정보를 수정하기
-[]({'id':'putUser', 'data-menu':'사용자 정보 수정하기'})
+[]({'id':'users-putUser', 'data-menu':'사용자 정보 수정하기'})
 
 ##### Request URI
 
@@ -821,7 +821,7 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [Use
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
 
 ```
@@ -830,7 +830,7 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 
 
 ## 사용자의 정보를 삭제하기
-[]({'id':'deleteUser', 'data-menu':'사용자 정보 삭제하기'})
+[]({'id':'users-deleteUser', 'data-menu':'사용자 정보 삭제하기'})
 
 ##### Request URI
 
@@ -907,10 +907,9 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
 ```
 
- 
 
 ## 사용자의 비밀번호를 변경하기
-[]({'id':'putPassword', 'data-menu':'사용자의 비밀번호 변경하기'})
+[]({'id':'users-putPassword', 'data-menu':'사용자의 비밀번호 변경하기'})
 
 [사용자 등록](#postUsers) 시 등록한 사용자의 비밀번호를 변경하려면 해당 API를 이용하면 됩니다. 해당 API는 기존 비밀번호를 알고 있는 경우를 전제로 합니다. 만약, 사용자의 기존 비밀번호를 모른다면 [사용자의 비밀번호를 재설정하기](#resetpassword) 방법으로 비밀번호를 설정하셔야 합니다.
 
@@ -919,14 +918,14 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 ```
 `POST` /{baasio-id}/{app-id}/users/{user_id}/password
 ```
-	
+
 ```json
 {
 	"oldpassword":"old",
 	"newpassword":"new"
 }
 ```
-	
+
 ##### Parameters
 
 |파라미터|설명|
@@ -942,7 +941,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```json
@@ -967,7 +966,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my
 
 
 ## 사용자의 비밀번호를 재설정하기
-[]({'id':'resetPassword', 'data-menu':'사용자의 비밀번호 재설정하기'})
+[]({'id':'users-resetPassword', 'data-menu':'사용자의 비밀번호 재설정하기'})
 
 [사용자 등록](#postUsers) 시에 *이메일 정보를 받지 않은 사용자는 비밀번호를 재설정할 수 없습니다.* 따라서, [사용자 수정 하기](#putUser) 방법으로 이메일 정보를 수정 이용하면 됩니다.
 
@@ -1024,7 +1023,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applicat
 ```
 
 ## 사용자의 인증 토큰 발급하기
-[]({'id':'token', 'data-menu':'사용자의 인증 토큰 발급하기'})
+[]({'id':'users-token', 'data-menu':'사용자의 인증 토큰 발급하기'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 인증 토큰을 발급받을 수 있습니다. 더 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
 
@@ -1033,7 +1032,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 ```
 `POST` /{baasio-id}/{app-id}/token
 ```
-	
+
 ```json
 {
 	"grant_type":"password",
@@ -1041,7 +1040,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 	"password":"{password}"
 }
 ```
-	
+
 ##### Parameters
 
 |파라미터|설명|
@@ -1056,7 +1055,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```json
@@ -1088,7 +1087,7 @@ curl -X POST -i -d '{\"grant_type\":\"password\",\"username\":\"bob@company.com\
 
 
 ## 사용자가 발급한 인증 토큰을 만료 시키기
-[]({'id':'revokekoken', 'data-menu':'사용자가 발급한 인증 토큰을 만료시키기'})
+[]({'id':'users-revokekoken', 'data-menu':'사용자가 발급한 인증 토큰을 만료시키기'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에 발급받은 개별 인증 토큰을 만료시킬 수 있습니다. 인증 토큰 만료는 로그아웃 처리라고 생각하시면 편할듯 합니다. 만약 사용자가 발급받은 모든 인증 토큰을 만료하려면 [사용자가 발급한 인증 토큰 모두 만료 시키기](#revoketokens) API 를 사용하세요. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
 
@@ -1140,7 +1139,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"token\":\"{token}\"
 ```
 
 ## 사용자가 발급한 인증 토큰 모두 만료 시키기
-[]({'id':'revoketokens', 'data-menu':'사용자가 발급한 인증 토큰 모두 만료시키기'})
+[]({'id':'users-revoketokens', 'data-menu':'사용자가 발급한 인증 토큰 모두 만료시키기'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 발급 받은 인증 토큰을 모두 만료시킬 수 있습니다. 만약 1개의 인증 토큰을 만료하려면 [사용자 발급한 토큰을 만료 시키기](#revoketoken) API 를 사용하면 됩니다. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
 
@@ -1149,7 +1148,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 ```
 `POST` /{baasio-id}/{app-id}/users/{uuid or username or email_address}/revoketokens
 ```
- 
+
 ##### Parameters
 
 |파라미터|설명|
@@ -1163,7 +1162,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```json
@@ -1185,7 +1184,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 ```
 
 ## 사용자가 속한 그룹 조회하기
-[]({'id':'getGroups', 'data-menu':'사용자가 속한 그룹 조회하기'})
+[]({'id':'users-getGroups', 'data-menu':'사용자가 속한 그룹 조회하기'})
 
 ##### Request URI
 
@@ -1264,13 +1263,13 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 
 
 ## 그룹에 사용자를 추가하기
-[]({'id':'postGroups', 'data-menu':'그룹에 사용자를 추가하기'})
+[]({'id':'users-postGroups', 'data-menu':'그룹에 사용자를 추가하기'})
 
 해당기능은 Group API [그룹에 사용자를 추가하기](groups.html#postGroupUser) 에서 확인하세요.
 
 
 ## 사용자의 롤 조회하기
-[]({'id':'getRoles', 'data-menu':'사용자의 롤 조회하기'})
+[]({'id':'users-getRoles', 'data-menu':'사용자의 롤 조회하기'})
 
 ##### Request URI
 
@@ -1342,13 +1341,13 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 
 ## 사용자의 롤 추가하기
-[]({'id':'postRoleUser', 'data-menu':'사용자의 롤 추가하기'})
+[]({'id':'users-postRoleUser', 'data-menu':'사용자의 롤 추가하기'})
 
 롤과 사용자와의 관계를 설정할 수 있습니다. 특정 사용자에서 롤을 등록하는 경우는 Role API [롤에 사용자 추가하기](roles.html#) 에서 확인하세요.
 
 
 ## 사용자와 특정 Entity 관계(Connection) 설정하기
-[]({'id':'postConnection', 'data-menu':'사용자와 특정 Entity 관계 설정하기'})
+[]({'id':'users-postConnection', 'data-menu':'사용자와 특정 Entity 관계 설정하기'})
 
 Collections 들은 서로간의 관계(Connection)를 만들 수 있습니다. 예를들어, 사용자 로그인 기반의 음악앱을 만든다고 하였을 때, Collection(collection)은 users, musics 2개의 Collection을 생각할 수 있겠죠.
 
@@ -1469,7 +1468,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applicat
 ```
 
 ## 사용자와 특정 Entity 관계(Connection) 해제하기
-[]({'id':'deleteConnection', 'data-menu':'사용자와 특정 Entity 관계 해제하기'})
+[]({'id':'users-deleteConnection', 'data-menu':'사용자와 특정 Entity 관계 해제하기'})
 
 Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니다. 또한, 관계를 맺은 Collection 한쪽의 Entity가 삭제 되었을 시에 자동으로 이 관계(Connection)는 해제됩니다.
 
@@ -1537,7 +1536,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 
 
 ## User Entity
-[]({'id':'userEntity', 'data-menu':'User Entity'})
+[]({'id':'users-userEntity', 'data-menu':'User Entity'})
 
 ##### User 기본 속성(Property)
 
@@ -2348,7 +2347,7 @@ $.ajax({
 });
 ```
 
->info|Notes|"name" Property로 관계 생성하기|
+`Notes` "name" Property로 관계 생성하기  
 /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_type}/{second_entity_id}
 Relation을 생성한다. Relation을 생성할 때 두번째 Entity의 타입을 지정하면 UUID가 아니라 이름으로 커넥션을 생성할 수 있다.
 
@@ -2433,7 +2432,7 @@ $.ajax({
 });
 ```
 
->info|Notes|"name" Property로 관계 해제하기|
+`Notes` "name" Property로 관계 해제하기  
 /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_type}/{second_entity_name}을 사용한다면 second_entity 의 uuid 가 아니라 name 으로 relation 을 해제할 수 있다.
 
 
@@ -2460,7 +2459,8 @@ $.ajax({
 - [파일 업로드](#uploadBLOB)
 - [파일 업로드(DATA 커맨드 이용)](#uploadBLOBwithDataCMD)
 
-##### 파일 엔티티 생성 및 업로드|createFileEntityAndUploadBLOB
+##### 파일 엔티티 생성 및 업로드
+[]({'id':'createFileEntityAndUploadBLOB'})
 
 POST 메소드를 사용하여 새로운 파일 엔티티와 그와 연결된 BLOB(Binary Large Object) 를 업로드 할 수 있습니다. 이때 엔티티 정보(예: 메타 정보=이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 같이 등록 할 수도 있습니다.
 
@@ -2617,7 +2617,7 @@ Content-Type: image/jpeg; name="file"
 Content-Transfer-Encoding: binary
 Content-Disposition: form-data; name="file"; filename="test.jpg"
 
-&lt;binary&gt;
+< binary>
 
 ------=_Part_27_1294272899.1358507963208
 Content-Type: application/json; name="entity"
@@ -2678,7 +2678,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 파일 엔티티 생성|createFileEntity
+##### 파일 엔티티 생성
+[]({'id':'createFileEntity'})
 
 POST 메소드를 사용하여 새로운 파일 엔티티를 생성합니다. 파일의 BLOB 는 포함하지 않고 엔티티를 먼저 생성하는 것을 의미합니다. (파일에 대한 메타 정보(예: 메타 정보=파일명, 파일 종류, 이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 통해 먼저 엔티티를 생성)
 
@@ -2871,7 +2872,7 @@ Host: api.baas.io
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
 
-&lt;binary&gt;
+< binary>
 ```
 
 - Response
@@ -2914,7 +2915,7 @@ application/octet-stream
 ###### Request Body Entity (application/octet-stream)
 
 ```
-&lt;binary&gt;
+< binary>
 ```
 
 ###### Response
@@ -2948,7 +2949,7 @@ Host: api.baas.io
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
 
-&lt;binary&gt;
+< binary >
 ```
 
 - Response
@@ -3113,12 +3114,12 @@ Transfer-Encoding: chunked
 
 - Status Code
 
-| Code | error code	| 의미 |
+|Code|error code|의미|
 |:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
+|200|N/A|성공|
+|401|202|유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음|
+|404|101|입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음|
+|500|920|시스템 장애|
 
 []({'class':'table-bordered'})
 
@@ -3157,7 +3158,7 @@ Transfer-Encoding: chunked
   },
   "path" : "/files",
   "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ 
+  "entities" : [
 	  {
 	    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
 	    "type" : "file",
@@ -3178,7 +3179,7 @@ Transfer-Encoding: chunked
 	    "size" : 3276800,
 	    "title" : "my europe travel memories"
 	  },
-  	  
+
   	  ....
 
   ],
@@ -3384,7 +3385,7 @@ Transfer-Encoding: chunked
 ## 파일 다운로드
 []({'id':'file-download', 'data-menu':'파일 다운로드'})
 
-- [파일 다운로드](#downloadFile)
+- [파일 다운로드](/#restapi/file/file-download/#downloadFile)
 - [파일 다운로드(DATA 커맨드 이용)](#downloadFilewithDataCMD)
 
 ##### 파일 다운로드
@@ -3583,7 +3584,8 @@ PUT 메소드를 사용하여 이미 올려진 파일 엔티티와 그와 연결
 multipart/form-data 
 ```
 
->warning|Warning|Request Entity Type|다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
+`Warning` Request Entity Type  
+다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
 
 ###### Request Body Entity (Multipart/form-data)
 
@@ -4486,7 +4488,7 @@ Transfer-Encoding: chunked
 또한, 해당 그룹의 사용자들만 볼 수 있는 [롤(Role)](role.html)을 만들고 특정 Collection을 조회할 수 있도록도 할 수 있습니다. 사용에 따라서 다양한 활용이 가능합니다.
 
 ## 그룹 생성하기
-[]({'id':'postGroups', 'data-menu':'그룹 생성하기'})
+[]({'id':'group-postGroups', 'data-menu':'그룹 생성하기'})
 
 ##### Request URI
 
@@ -4577,7 +4579,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\"
 ```
 
 ## 그룹 조회하기
-[]({'id':'getGroups', 'data-menu':'그룹 조회하기'})
+[]({'id':'group-getGroups', 'data-menu':'그룹 조회하기'})
 
 ##### Request Body
 
@@ -4770,7 +4772,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ```
 
 ## 그룹명 혹은 UUID로 조회하기
-[]({'id':'getGroup'})
+[]({'id':'getGroup', 'data-menu':'그룹명 혹은 UUID로 조회하기'})
 
 ##### Request URI
 
@@ -5268,7 +5270,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/{uuid|groupname}/users/{uuid|username}"
 ```
 
-## Group Entity|groupEntity
+## Group Entity
+[]({'id':'groupEntity', 'data-menu':'Group Entity'})
 
 ##### Group 기본 속성(Property)
 
@@ -6040,7 +6043,8 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help
 |os_info|string|||모바일 OS 정보|
 |tags|string|||태그정보|
 
->info|Note|classification_id?|classification_id는 "고객센터 코드 조회"에서 조회한 classifications Collection의 id값을 의미함
+`Note` classification_id?  
+classification_id는 "고객센터 코드 조회"에서 조회한 classifications Collection의 id값을 의미함
 
 ##### Request Body
 
