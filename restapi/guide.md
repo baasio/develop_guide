@@ -2347,7 +2347,7 @@ $.ajax({
 });
 ```
 
->info|Notes|"name" Property로 관계 생성하기|
+`Notes` "name" Property로 관계 생성하기  
 /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_type}/{second_entity_id}
 Relation을 생성한다. Relation을 생성할 때 두번째 Entity의 타입을 지정하면 UUID가 아니라 이름으로 커넥션을 생성할 수 있다.
 
@@ -2432,7 +2432,7 @@ $.ajax({
 });
 ```
 
->info|Notes|"name" Property로 관계 해제하기|
+`Notes` "name" Property로 관계 해제하기  
 /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_type}/{second_entity_name}을 사용한다면 second_entity 의 uuid 가 아니라 name 으로 relation 을 해제할 수 있다.
 
 
@@ -2459,7 +2459,8 @@ $.ajax({
 - [파일 업로드](#uploadBLOB)
 - [파일 업로드(DATA 커맨드 이용)](#uploadBLOBwithDataCMD)
 
-##### 파일 엔티티 생성 및 업로드|createFileEntityAndUploadBLOB
+##### 파일 엔티티 생성 및 업로드
+[]({'id':'createFileEntityAndUploadBLOB'})
 
 POST 메소드를 사용하여 새로운 파일 엔티티와 그와 연결된 BLOB(Binary Large Object) 를 업로드 할 수 있습니다. 이때 엔티티 정보(예: 메타 정보=이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 같이 등록 할 수도 있습니다.
 
@@ -2616,7 +2617,7 @@ Content-Type: image/jpeg; name="file"
 Content-Transfer-Encoding: binary
 Content-Disposition: form-data; name="file"; filename="test.jpg"
 
-&lt;binary&gt;
+< binary>
 
 ------=_Part_27_1294272899.1358507963208
 Content-Type: application/json; name="entity"
@@ -2677,7 +2678,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 파일 엔티티 생성|createFileEntity
+##### 파일 엔티티 생성
+[]({'id':'createFileEntity'})
 
 POST 메소드를 사용하여 새로운 파일 엔티티를 생성합니다. 파일의 BLOB 는 포함하지 않고 엔티티를 먼저 생성하는 것을 의미합니다. (파일에 대한 메타 정보(예: 메타 정보=파일명, 파일 종류, 이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 통해 먼저 엔티티를 생성)
 
@@ -2870,7 +2872,7 @@ Host: api.baas.io
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
 
-&lt;binary&gt;
+< binary>
 ```
 
 - Response
@@ -2913,7 +2915,7 @@ application/octet-stream
 ###### Request Body Entity (application/octet-stream)
 
 ```
-&lt;binary&gt;
+< binary>
 ```
 
 ###### Response
@@ -2947,7 +2949,7 @@ Host: api.baas.io
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
 
-&lt;binary&gt;
+< binary >
 ```
 
 - Response
@@ -3112,12 +3114,12 @@ Transfer-Encoding: chunked
 
 - Status Code
 
-| Code | error code	| 의미 |
+|Code|error code|의미|
 |:----:|:-----------|:-----|
-| 200 | N/A | 성공 |
-| 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
-| 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
-| 500 | 920 | 시스템 장애 |
+|200|N/A|성공|
+|401|202|유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음|
+|404|101|입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음|
+|500|920|시스템 장애|
 
 []({'class':'table-bordered'})
 
@@ -3156,7 +3158,7 @@ Transfer-Encoding: chunked
   },
   "path" : "/files",
   "uri" : "https://api.baas.io/mybaasid/sandbox/files",
-  "entities" : [ 
+  "entities" : [
 	  {
 	    "uuid" : "ebf1c09a-6160-11e2-b7eb-02004d17003f",
 	    "type" : "file",
@@ -3177,7 +3179,7 @@ Transfer-Encoding: chunked
 	    "size" : 3276800,
 	    "title" : "my europe travel memories"
 	  },
-  	  
+
   	  ....
 
   ],
@@ -3383,7 +3385,7 @@ Transfer-Encoding: chunked
 ## 파일 다운로드
 []({'id':'file-download', 'data-menu':'파일 다운로드'})
 
-- [파일 다운로드](#downloadFile)
+- [파일 다운로드](/#restapi/file/file-download/#downloadFile)
 - [파일 다운로드(DATA 커맨드 이용)](#downloadFilewithDataCMD)
 
 ##### 파일 다운로드
@@ -3582,7 +3584,8 @@ PUT 메소드를 사용하여 이미 올려진 파일 엔티티와 그와 연결
 multipart/form-data 
 ```
 
->warning|Warning|Request Entity Type|다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
+`Warning` Request Entity Type  
+다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
 
 ###### Request Body Entity (Multipart/form-data)
 
@@ -6040,7 +6043,8 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help
 |os_info|string|||모바일 OS 정보|
 |tags|string|||태그정보|
 
->info|Note|classification_id?|classification_id는 "고객센터 코드 조회"에서 조회한 classifications Collection의 id값을 의미함
+`Note` classification_id?  
+classification_id는 "고객센터 코드 조회"에서 조회한 classifications Collection의 id값을 의미함
 
 ##### Request Body
 
