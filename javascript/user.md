@@ -62,3 +62,5 @@ $(document).ready(function(){
 |202|401|접근 권한(Permission)이 없습니다.|
 |911|400|이미 존재하는 리소스입니다.|
 |913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+
+[]({'class':'table table-striped'})
