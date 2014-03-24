@@ -1,5 +1,5 @@
 # Intro
-[]({'id':'intro'})
+[]({'id':'intro', 'data-menu':'Intro'})
 
 baas.io API는 baas.io가 제공하는 Entity,Collection과 다른 데이타에 접근하기 위한 REST 기반의 구조를 제공하고 있습니다. 각 자원들은 URL 경로로 표현되며, 작성하신 앱은 이 URL에 기반하여 다양한 관리 작업들을 요청할수 있게 됩니다.
 
@@ -16,7 +16,9 @@ baas.io API는 baas.io가 제공하는 Entity,Collection과 다른 데이타에 
 |File|/files|파일 Entity|
 |Device|/devices|디바이스 Entity - 지원예정|
 |Events and counters|/events|이벤트 와 카운터 Entity - 지원예정|
-|일반용도|Collection|/|사용자 Entity|
+|일반용도|Collection|/|
+
+[]({'class':'table-bordered'})
 
 baas.io 의 데이터 구조는 계층형 입니다. 모든 Entity의 타입에 대해서, 그 타입의 모든 Entity를 가지고 있는 Collection이 있습니다. Collection들은 앱에 속해 있고, 앱은 각 사용자에 속해 있습니다.
 
@@ -25,7 +27,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 일반 용도 Collection은 자신만의 Collection을 만드는 것 부터 시작합니다. 특정한 Entity 를 위한 Collection이 아니며 필요한 Entity 를 정의하고 그 Entity 를 저장할 Collection을 자유롭게 생성할 수 있습니다.
 
 ## Endpoints
-[]({'id':'intro-endpoint'})
+[]({'id':'intro-endpoint', 'data-menu':'Endpoints'})
 
 - [Application](#intro-endpoints-application)
 - [Authorization](#intro-endpoints-authorization)
@@ -37,20 +39,27 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 - [Help](#intro-endpoints-help)
 - [Collection](#intro-endpoints-collection)
 
-##### Application|intro-endpoints-application
+##### Application
+[]({'id':'intro-endpoints-application'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
 |PUT|{baasio-id}/{app-id}|application/json|Application 정보 수정|
 
-##### Authorization|intro-endpoints-authorization
+[]({'class':'table-bordered'})
+
+##### Authorization
+[]({'id':'intro-endpoints-authorization'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
-|<del>GET</del>|<del>{baasio-id}/{app-id}/token</del>|<del>application/json<del>|<del>Application,Application 사용자 인증하기</del> (Deprecated)|
+|<del>GET</del>|<del>{baasio-id}/{app-id}/token</del>|<del>application/json</del>|<del>Application,Application 사용자 인증하기</del> (Deprecated)|
 |POST|{baasio-id}/{app-id}/token|application/json|Application,Application 사용자 인증하기|
 
-##### User|intro-endpoints-user
+[]({'class':'table-bordered'})
+
+##### User
+[]({'id':'intro-endpoints-user'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -75,7 +84,10 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |POST|users/{uuid or username or email_address}/{collection_name}/{collection_uuid}|application/json|사용자와 특정 Entity 관계(Connection) 설정하기|
 |DELETE|users/{uuid or username or email_address}/{collection_name}/{collection_uuid}|application/json|사용자와 특정 Entity 관계(Connection) 해제하기|
 
-##### Group|intro-endpoints-group
+[]({'class':'table-bordered'})
+
+##### Group
+[]({'id':'intro-endpoints-group'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -91,7 +103,10 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |DELETE|groups/{uuid or groupname}/users/{uuid or username}|application/json|그룹에서 사용자를 제외하기|
 |GET|groups/{uuid or groupname}/feed|application/json|그룹 피드(feed) 조회하기|
 
-##### Role|intro-endpoints-role
+[]({'class':'table-bordered'})
+
+##### Role
+[]({'id':'intro-endpoints-role'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -105,7 +120,10 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |GET|roles/{role_id}/users|application/json|롤에 추가된 사용자 조회하기|
 |DELETE|roles/{role_id}/users/{uuid or username or email_address}|application/json|롤에 사용자 삭제하기|
 
-##### Push|intro-endpoints-push
+[]({'class':'table-bordered'})
+
+##### Push
+[]({'id':'intro-endpoints-push'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -118,7 +136,10 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |PUT|pushes/devices/{uuid}|application/json|Device 변경하기|
 |DELETE|pushes/devices/{uuid}|application/json|Device 삭제하기|
 
-##### File|intro-endpoints-file
+[]({'class':'table-bordered'})
+
+##### File
+[]({'id':'intro-endpoints-file'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -144,7 +165,10 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |DELETE|files?ql={query clause}|N/A|질의를 이용한 파일 삭제|
 |DELETE|{collectionName}/{entityID}/files/{entityID}|N/A|다른 컬렉션의 엔티티와 파일 엔티티 관계 끊기|
 
-##### Help|intro-endpoints-help
+[]({'class':'table-bordered'})
+
+##### Help
+[]({'id':'intro-endpoints-help'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -157,7 +181,10 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |DELETE|help/helps/{uuid}|application/json|도움말 삭제
 |GET|help/helps?keyword={keyword}&page={page}|application/json|도움말 검색
 
-##### Collection|intro-endpoints-collection
+[]({'class':'table-bordered'})
+
+##### Collection
+[]({'id':'intro-endpoints-collection'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -171,15 +198,19 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |POST|{collection}/{first_entity_id}/{relationship}/{second_entity_id}|application/json|Entity의 Relation 을 생성하고 다른 Entity를 등록하기|
 |DELETE|{collection}/{first_entity_id}/{relationship}/{second_entity_id}|application/json|Entity의 Relation에서 Entity를 삭제하기|
 
+[]({'class':'table-bordered'})
+
+
 ## Error Handling
-[]({'id':'intro-error-handling'})
+[]({'id':'intro-error-handling', 'data-menu':'Error Handling'})
 
 baas.io 의 REST API 들은 일반적인 HTTP 요청과 마찬가지로 모든 요청은 status code를 가지며, 예외 상황에 대해서 좀 더 구체적인 정보를 제공하기 위해 error code 역시 제공합니다.
 
 - [HTTP Status Codes](#intro-error-handling-statuscode)
 - [Error Codes](#intro-error-handling-errorcode)
 
-##### HTTP Status Codes|intro-error-handling-statuscode
+##### HTTP Status Codes
+[]({'id':'intro-error-handling-statuscode'})
 
 HTTP/1.1 Status Code 표준에는 수 많은 코드가 존재하지만, baas.io 에서는 좀 더 단순화 하여 아래의 5개의 코드를 를 주로 사용합니다.
 
@@ -190,6 +221,8 @@ HTTP/1.1 Status Code 표준에는 수 많은 코드가 존재하지만, baas.io 
 |401|(Unauthorized)|인증이나 권한이 필요한 접근입니다.|
 |404|(Not Found)|해당 리소스가 존재하지 않습니다.|
 |500|(Internal Server Error)|서버 에러|
+
+[]({'class':'table-bordered'})
 
 baas.io REST API 사용하는 대부분의 경우, 위의 status code 만으로도 성공/실패 여부를 확인할 수 있으며, 사용중이신 클라이언트에서 성공과 실패 callback 을 활용하실 수 있습니다.
 Error Codes
@@ -214,11 +247,14 @@ HTTP Status code 가 4xx 대 이거나 500 인 경우 에러 상황에 대한 �
 |error_uuid|고유 에러에 대한 event UUID로 각각의 에러 상황을 식별하기 위한 값|
 |error_code|각 에러별 baas.io 고유 코드|
 
+[]({'class':'table-bordered'})
+
 대부분의 에러는 error_description 속성을 통해 자세한 설명을 얻을 수 있으며, error_uuid 를 통해 baas.io 개발팀의 도움을 받으실 수 도 있습니다.
 
 각 상세 에러코드의 의미는 다음과 같습니다.
 
-##### 상세 Error code|intro-error-handling-errorcode
+##### 상세 Error code
+[]({'id':'intro-error-handling-errorcode'})
 
 |이름|status code|error code|	의미|
 |:---|:---------|:---------|:---|
@@ -240,10 +276,12 @@ HTTP Status code 가 4xx 대 이거나 500 인 경우 에러 상황에 대한 �
 |QUERY_PARSE_ERROR|400|915|잘못된 쿼리입니다.|
 |UNKNOWN_ERROR|500|-100|알수 없는 에러입니다.|
 
+[]({'class':'table-bordered'})
+
 
 
 # Application
-[]({'id':'application'})
+[]({'id':'application', 'data-menu':'Application'})
 
 Application Entity는 baas.io 포털의 백엔드 앱 생성 기능을 통해서 생성되는 Entity입니다. Application Entity는 아래와 같은 주소를 통해서 접근이 가능합니다.
 
@@ -273,6 +311,8 @@ https://api.baas.io/{baasio-id}/{app-id}
 |registrationRequiresAdminApproval|boolean|사용자 등록시 관리자 승인 필요 여부|
 |accesstokenttl|long|Application 억세스 토큰의 TTL값|
 
+[]({'class':'table-bordered'})
+
 #### Application의 기본 Collection
 
 |Collection|Entity Type|설명|
@@ -281,15 +321,17 @@ https://api.baas.io/{baasio-id}/{app-id}
 |groups|group|앱내 그룹 Collection|
 |devices|device|서비스내 등록된 기기들에 대한 Collection|
 
+[]({'class':'table-bordered'})
+
 
 
 # Users
-[]({'id':'users'})
+[]({'id':'users', 'data-menu':'Users'})
 
 사용자의 정보(아이디, 이메일, 이름, 주소 등 )를 앱에서 관리하길 원한다면, 아래의 API 를 사용하면 쉽게 적용할 수 있습니다.
 
 ## 사용자 등록하기
-[]({'id':'postUsers'})
+[]({'id':'postUsers', 'data-menu':'사용자 등록하기'})
 
 ##### Request URI
 
@@ -302,7 +344,9 @@ https://api.baas.io/{baasio-id}/{app-id}
 |파라미터|설명|
 |:------:|:----|
 |baasio-id|회원 ID|
-|app-id|앱 ID| 
+|app-id|앱 ID|
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
 
@@ -392,7 +436,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",
 ```
 
 ## 사용자 조회하기
-[]({'id':'getUsers'})
+[]({'id':'getUsers', 'data-menu':'사용자 조회하기'})
 
 ##### Request URI
 
@@ -406,6 +450,8 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",
 |:----------:|:------------|
 |baasio-id|회원 ID|
 |app-id|앱 ID|
+
+[]({'class':'table-bordered'})
 
 
 ##### Response
@@ -493,7 +539,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ```
 
 ## 사용자를 쿼리로 조회하기
-[]({'id':'getUsersByQuery'})
+[]({'id':'getUsersByQuery', 'data-menu':'사용자를 쿼리로 조회하기'})
 
 [사용자 조회하기](users.html#getUsers) API 에서 확인한 것처럼 등록된 사용자를 조회할 수 있습니다. 특정한 사용자를 조회하고 싶을 때, 데이터 질의 방법을 사용하여 사용자를 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
 
@@ -510,6 +556,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |baasio-id	| 회원 ID|
 |app-id|앱 ID|
 
+[]({'class':'table-bordered'})
+
 ##### Query Parmeters
 
 |파라미터|자료형|기본값|필수|설명|
@@ -518,6 +566,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |filter|문자열 (String)|none|no|연산 조건에 따른 필터|
 |cursor|문자열 (String)||no|페이징을 위한 질의 결과셋의 엔코딩된 값|
 |limit|정수형 (Integer)|10|no|조회 결과의 데이터 개수 제한|
+
+[]({'class':'table-bordered'})
 
 ##### Response
 
@@ -611,7 +661,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
  
 
 ## 사용자 UUID, username, email 으로 조회하기
-[]({'id':'getUser'})
+[]({'id':'getUser', 'data-menu':'사용자 UUID, username, email로 조회하기'})
 
 ##### Request URI
 
@@ -626,6 +676,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 혹은 email|
+
+[]({'class':'table-bordered'})
 
 
 ##### Response
@@ -689,7 +741,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
  
 
 ## 사용자의 정보를 수정하기
-[]({'id':'putUser'})
+[]({'id':'putUser', 'data-menu':'사용자 정보 수정하기'})
 
 ##### Request URI
 
@@ -704,6 +756,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 혹은 email|
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
 
@@ -720,7 +774,7 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [Use
 - 성공
 	- Code: 200 
 	- Contents:
-	
+
 ```json
 {
 	"action": "put",
@@ -774,10 +828,9 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [Use
 curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }' "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
 ```
 
- 
 
 ## 사용자의 정보를 삭제하기
-[]({'id':'deleteUser'})
+[]({'id':'deleteUser', 'data-menu':'사용자 정보 삭제하기'})
 
 ##### Request URI
 
@@ -793,14 +846,16 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 |app-id|앱 ID|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
-	
+
 	- Code: 200 
 	- Contents:
 
-```json   
+```json
 {
 	"action": "delete",
 	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
@@ -845,9 +900,9 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
 ```
@@ -855,7 +910,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
  
 
 ## 사용자의 비밀번호를 변경하기
-[]({'id':'putPassword'})
+[]({'id':'putPassword', 'data-menu':'사용자의 비밀번호 변경하기'})
 
 [사용자 등록](#postUsers) 시 등록한 사용자의 비밀번호를 변경하려면 해당 API를 이용하면 됩니다. 해당 API는 기존 비밀번호를 알고 있는 경우를 전제로 합니다. 만약, 사용자의 기존 비밀번호를 모른다면 [사용자의 비밀번호를 재설정하기](#resetpassword) 방법으로 비밀번호를 설정하셔야 합니다.
 
@@ -882,6 +937,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |oldpassword|변경 전 비밀번호|
 |newpassword|변경 할 비밀번호|
 
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
@@ -899,18 +956,18 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my-baasio-id/my-app-id/users/{user_id}/password"
 ```
 
 
- 
+
 
 ## 사용자의 비밀번호를 재설정하기
-[]({'id':'resetPassword'})
+[]({'id':'resetPassword', 'data-menu':'사용자의 비밀번호 재설정하기'})
 
 [사용자 등록](#postUsers) 시에 *이메일 정보를 받지 않은 사용자는 비밀번호를 재설정할 수 없습니다.* 따라서, [사용자 수정 하기](#putUser) 방법으로 이메일 정보를 수정 이용하면 됩니다.
 
@@ -934,12 +991,14 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
 	- Code: 200 
 	- Contents:
-	
+
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -957,15 +1016,15 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: application/x-www-form-urlencoded" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_id}/resetpw"
 ```
 
 ## 사용자의 인증 토큰 발급하기
-[]({'id':'token'})
+[]({'id':'token', 'data-menu':'사용자의 인증 토큰 발급하기'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 인증 토큰을 발급받을 수 있습니다. 더 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
 
@@ -991,7 +1050,9 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 |password|사용자의 비밀번호|
- 
+
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
@@ -1017,18 +1078,17 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
-	
+
 ```
 curl -X POST -i -d '{\"grant_type\":\"password\",\"username\":\"bob@company.com\",\"password\":\"password\"}' "https://api.baas.io/my-baasio-id/my-app-id/token"
 ```
 
 
- 
-	
-## 사용자 발급한 인증 토큰을 만료 시키기
-[]({'id':'revokekoken'})
+
+## 사용자가 발급한 인증 토큰을 만료 시키기
+[]({'id':'revokekoken', 'data-menu':'사용자가 발급한 인증 토큰을 만료시키기'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에 발급받은 개별 인증 토큰을 만료시킬 수 있습니다. 인증 토큰 만료는 로그아웃 처리라고 생각하시면 편할듯 합니다. 만약 사용자가 발급받은 모든 인증 토큰을 만료하려면 [사용자가 발급한 인증 토큰 모두 만료 시키기](#revoketokens) API 를 사용하세요. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
 
@@ -1037,13 +1097,13 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 ```
 `POST` /{baasio-id}/{app-id}/users/{uuid or username or email_address}/revoketoken
 ```
-	
+
 ```json
 {
 	"token":"{token}"
 }
 ```
-	
+
 ##### Parameters
 
 |파라미터|설명|
@@ -1052,13 +1112,15 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 |token|만료시킬 token|
- 
+
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
+
 ```json
 {
 	"action": "revoked user token",
@@ -1070,15 +1132,15 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
-	
+
 ```
 curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"token\":\"{token}\"}' "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/revoketoken"
 ```
 
 ## 사용자가 발급한 인증 토큰 모두 만료 시키기
-[]({'id':'revoketokens'})
+[]({'id':'revoketokens', 'data-menu':'사용자가 발급한 인증 토큰 모두 만료시키기'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 발급 받은 인증 토큰을 모두 만료시킬 수 있습니다. 만약 1개의 인증 토큰을 만료하려면 [사용자 발급한 토큰을 만료 시키기](#revoketoken) API 를 사용하면 됩니다. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
 
@@ -1095,6 +1157,8 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
+
+[]({'class':'table-bordered'})
 
 ##### Response
 
@@ -1113,15 +1177,15 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
-	
+
 ```
 curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/revoketokens"
 ```
 
-## 사용자가 속한 그룹조회하기
-[]({'id':'getGroups'})
+## 사용자가 속한 그룹 조회하기
+[]({'id':'getGroups', 'data-menu':'사용자가 속한 그룹 조회하기'})
 
 ##### Request URI
 
@@ -1137,12 +1201,14 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
+
 ```json
 {
   "action": "get",
@@ -1185,11 +1251,11 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
   "applicationName": "test"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
 
 ```
@@ -1198,13 +1264,13 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 
 
 ## 그룹에 사용자를 추가하기
-[]({'id':'postGroups'})
+[]({'id':'postGroups', 'data-menu':'그룹에 사용자를 추가하기'})
 
 해당기능은 Group API [그룹에 사용자를 추가하기](groups.html#postGroupUser) 에서 확인하세요.
 
 
 ## 사용자의 롤 조회하기
-[]({'id':'getRoles'})
+[]({'id':'getRoles', 'data-menu':'사용자의 롤 조회하기'})
 
 ##### Request URI
 
@@ -1220,10 +1286,12 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```json
@@ -1261,25 +1329,26 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-	
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{uuid or username or email_address}/roles"
 ```
-	
+
+
 ## 사용자의 롤 추가하기
-[]({'id':'postRoleUser'})
+[]({'id':'postRoleUser', 'data-menu':'사용자의 롤 추가하기'})
 
 롤과 사용자와의 관계를 설정할 수 있습니다. 특정 사용자에서 롤을 등록하는 경우는 Role API [롤에 사용자 추가하기](roles.html#) 에서 확인하세요.
 
 
 ## 사용자와 특정 Entity 관계(Connection) 설정하기
-[]({'id':'postConnection'})
+[]({'id':'postConnection', 'data-menu':'사용자와 특정 Entity 관계 설정하기'})
 
 Collections 들은 서로간의 관계(Connection)를 만들 수 있습니다. 예를들어, 사용자 로그인 기반의 음악앱을 만든다고 하였을 때, Collection(collection)은 users, musics 2개의 Collection을 생각할 수 있겠죠.
 
@@ -1300,11 +1369,11 @@ Users는 기본 Collection이기 때문에 생성할 필요는 없으며, musics
 	"name":"Gangnam Style"
 }
 ```
-	
+
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```json
@@ -1352,14 +1421,16 @@ Users는 기본 Collection이기 때문에 생성할 필요는 없으며, musics
 |app-id|앱 ID|
 |collection_name|Users와 관계를 맺을 Collection 이름|
 |collection_uuid|Users와 관계를 맺을 Collection 에 저장된 Entity UUID|
- 
-	
+
+[]({'class':'table-bordered'})
+
+
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
+
 ```json
 {
 	"action": "post",
@@ -1398,16 +1469,16 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applicat
 ```
 
 ## 사용자와 특정 Entity 관계(Connection) 해제하기
-[]({'id':'deleteConnection'})
+[]({'id':'deleteConnection', 'data-menu':'사용자와 특정 Entity 관계 해제하기'})
 
 Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니다. 또한, 관계를 맺은 Collection 한쪽의 Entity가 삭제 되었을 시에 자동으로 이 관계(Connection)는 해제됩니다.
 
 ##### Request URI
-	
+
 ```
 'DELETE' /{baasio-id}/{app-id}/users/{uuid or username or email_address}/{collection_name}/{collection_uuid}
 ```
- 
+
 ##### Parameters
 
 |파라미터|설명|
@@ -1416,15 +1487,17 @@ Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니�
 |app-id|앱 ID|
 |collection_name|Users와 관계를 맺을 Collection 이름|
 |collection_uuid|Users와 관계를 맺을 Collection 에 저장된 Entity UUID|
- 
-	
+
+[]({'class':'table-bordered'})
+
+
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
-```json  
+```json
 {
 	"action": "delete",
 	"application": "8e59b1fa-18e0-11e2-a311-4061867ca222",
@@ -1439,7 +1512,7 @@ Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니�
 			"created": 1350974706502,
 			"modified": 1350974706502,
 			"artist": "psy",
-			"metadata": 
+			"metadata":
 				"path": "/users/0b455770-1cdd-11e2-9b13-4061867ca222/musics/2e521eb4-1cdd-11e2-9b13-4061867ca222"
 			}
 		}
@@ -1451,11 +1524,11 @@ Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니�
 	"applicationName": "test"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
 
 ```
@@ -1464,7 +1537,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 
 
 ## User Entity
-[]({'id':'userEntity'})
+[]({'id':'userEntity', 'data-menu':'User Entity'})
 
 ##### User 기본 속성(Property)
 
@@ -1484,6 +1557,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 |lastname|string|사용자 last 이름|
 |picture|string|사용자 사진 ( 이메일 입력시 gravatar.com 연동 후 사진을 자동으로 연결함 )|
 
+[]({'class':'table-bordered'})
+
 ##### User 기본 Set
 
 |Set|형식|설명|
@@ -1492,6 +1567,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 |rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](roles.html)|
 |permissions|string|퍼미션 리스트|
 |credentials|string|credentials 리스트|
+
+[]({'class':'table-bordered'})
 
 ##### User 기본 Collection
 
@@ -1506,6 +1583,8 @@ User Entity 에서는 기본으로 제공하는 Collection과의 관계 설정�
 |feed|activity|개인적인 알림들|
 |roles|role|롤(Role) 리스트|
 
+[]({'class':'table-bordered'})
+
 
 
 
@@ -1515,16 +1594,16 @@ User Entity 에서는 기본으로 제공하는 Collection과의 관계 설정�
 
 
 # Collection
-[]({'id':'collection'})
+[]({'id':'collection', 'data-menu':'Collection'})
 
-baas.io의 Data 서비스는 Collection과 Entity 그리고 Entity 간의 Relation으로 이루어진다. 
+baas.io의 Data 서비스는 Collection과 Entity 그리고 Entity 간의 Relation으로 이루어진다.
 Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될 수 있다.
 실제로 User 서비스의 Follower/Following/Devices/Group 등도 Relation에 해당한다.
 물론 User 서비스의 Follower/Following/Devices/Group은 baas.io가 미리 준비한 특별한 Relation이다.
 
 
 ## Collection/Entity 생성하기
-[]({'id':'postCollection'})
+[]({'id':'postCollection', 'data-menu':'Collection/Entity 생성하기'})
 
 특정 Collection을 생성한다. Body 에 Entity 정보가 있다면 생성된 Collection 에 Entity를 등록한다.
 
@@ -1534,13 +1613,15 @@ Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될
 `POST`  /{baasio-id}/{app-id}/{collection}
 ```
 
-  
+
 ##### URI Parameters
 |파라미터|설명|
 |:------:|:-------|
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |collection|Collection name|
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
 
@@ -1553,12 +1634,12 @@ Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될
 	}
 }
 ```
-    
+
 
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```javascript
@@ -1590,9 +1671,9 @@ Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될
 	"applicationName": "test-app"
 }
 ```
- 
+
 - 에러
-	
+
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
 ##### Example
@@ -1601,7 +1682,7 @@ Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될
 $.ajax({
 	url: "/test-organization/test-apps/foo",
 	dataType: "json",
-	data : { 
+	data : {
 		{
 			"foo": "bar",
 			"a": {
@@ -1618,13 +1699,13 @@ $.ajax({
 ```
 
 ## Entity 목록 조회하기
-[]({'id':'getColection'})
+[]({'id':'getColection', 'data-menu':'Entity 목록 조회하기'})
 
 모든 Entity를 제한 갯수까지 리턴한다.
 
 ##### Request URI
 
-```       
+```
 `GET`  /{baasio-id}/{app-id}/{collection}
 ```
 
@@ -1636,11 +1717,13 @@ $.ajax({
 |app-id|앱 ID|
 |collection|Collection name|
 
+[]({'class':'table-bordered'})
+
 
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```json
@@ -1672,34 +1755,34 @@ $.ajax({
 	"applicationName": "test-app"
 }
 ```
- 	
- 
+
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](../rest/errors.html)를 살펴보세요.
-	  
+
 ##### Example
 
 ```javascript
 $.ajax({
 	url: "/test-organization/test-app/foo",
 	dataType: "json",
-	data : 
+	data :
 	},
 	type : "GET",
 	success : function(r) {
 	  console.log(r);
 	}
 });
-```	
+```
 
 ## Query를 사용하여 Collection의 Entity 목록 조회하기
-[]({'id':'getCollections'})
+[]({'id':'getCollections', 'data-menu':'Query를 사용하여 Collection의 Entity 목록 조회하기'})
 
 Query의 조건에 맞는 Entity 목록을 리턴한다.
 
 ##### Request URI
-       
+
 ```
 `GET`  /{baasio-id}/{app-id}/{collection}?{query}
 ```
@@ -1712,6 +1795,8 @@ Query의 조건에 맞는 Entity 목록을 리턴한다.
 |app-id|앱 ID|
 |collection|Collection name|
 
+[]({'class':'table-bordered'})
+
 
 ##### Response
 
@@ -1748,12 +1833,12 @@ Query의 조건에 맞는 Entity 목록을 리턴한다.
 	"applicationName": "test-app"
 }
 ```
- 	
- 
+
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](../rest/errors.html)를 살펴보세요.
-	  
+
 ##### Example
 
 ```javascript
@@ -1766,11 +1851,11 @@ Query의 조건에 맞는 Entity 목록을 리턴한다.
 		success : function(r) {
 		  console.log(r);
 		}
-	});          
+	});
 ```
 
 ## Entity 정보 조회하기
-[]({'id':'getEntity'})
+[]({'id':'getEntity', 'data-menu':'Entity 정보 조회하기'})
 
 UUID나 name 속성으로 찾은 Entity를 리턴한다.
 
@@ -1787,6 +1872,8 @@ UUID나 name 속성으로 찾은 Entity를 리턴한다.
 |app-id|앱 ID|
 |collection|Collection name|
 |entity_id|조회할 Entity uuid|
+
+[]({'class':'table-bordered'})
 
 ##### Response
 
@@ -1823,7 +1910,7 @@ UUID나 name 속성으로 찾은 Entity를 리턴한다.
 	"applicationName": "test-app"
 }
 ```
- 	 
+
 - 에러
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
@@ -1843,12 +1930,12 @@ $.ajax({
 ```
 
 ## Entity 정보 수정하기
-[]({'id':'putEntity'})
+[]({'id':'putEntity', 'data-menu':'Entity 정보 수정하기'})
 
 Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다.
 
 ##### Request URI
-       
+
 ```
 `PUT`  /{baasio-id}/{app-id}/{collection}/{entity_id}
 ```
@@ -1860,6 +1947,8 @@ Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다
 |app-id|앱 ID|
 |collection|Collection name|
 |entity_id|조회할 Entity uuid|
+
+[]({'class':'table-bordered'})
 
 
 ##### Request Body
@@ -1907,14 +1996,14 @@ Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다
 	"applicationName": "test-app"
 }
 ```
- 
- 
+
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
 ##### Example
-  
+
 ```javascript
 $.ajax({
 	url: "/test-organization/test-app/foo/89434a5b-1278-11e2-8553-02e81ac5a17b",
@@ -1932,7 +2021,7 @@ $.ajax({
 ----
 
 ## Query를 사용하여 Entity 정보 수정하기
-[]({'id':'putEntities'})
+[]({'id':'putEntities', 'data-menu':'Query를 사용하여 Entity 정보 수정하기'})
 
 Query의 조건에 맞는 Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다.
 
@@ -1949,6 +2038,8 @@ Query의 조건에 맞는 Collection의 Entity를 수정한다. 새로운 속성
 |app-id|앱 ID|
 |collection|Collection name|
 |entity_id|수정할 Entity uuid|
+
+[]({'class':'table-bordered'})
 
 
 ##### Request Body
@@ -1996,8 +2087,8 @@ Query의 조건에 맞는 Collection의 Entity를 수정한다. 새로운 속성
 	"applicationName": "test-app"
 }
 ```
- 
- 
+
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
@@ -2019,7 +2110,7 @@ $.ajax({
 ```
 
 ## Entity 삭제하기
-[]({'id':'deleteEntity'})
+[]({'id':'deleteEntity', 'data-menu':'Entity 삭제하기'})
 
 UUID나 name 속성으로 찾은 Entity를 삭제한다. 삭제된 Entity의 내용을 리턴한다.
 
@@ -2036,7 +2127,9 @@ UUID나 name 속성으로 찾은 Entity를 삭제한다. 삭제된 Entity의 내
 |app-id|앱 ID|
 |collection|Collection name|
 |entity_id|삭제할 Entity uuid|
-    
+
+[]({'class':'table-bordered'})
+
 
 ##### Response
 
@@ -2074,7 +2167,7 @@ UUID나 name 속성으로 찾은 Entity를 삭제한다. 삭제된 Entity의 내
 	"applicationName": "test-app"
 }
 ```
- 
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
@@ -2098,7 +2191,7 @@ $.ajax({
 ----------
 
 #### Entity의 Relation Entity 목록을 조회하기
-[]({'id':'getConnection'})
+[]({'id':'getConnection', 'data-menu':'Entity의 Relation Entity 목록을 조회하기'})
 
 Query 기준에 맞는 Entity들을 리턴하거나 Query나 필터가 없다면 모든 Entity를 제한 갯수까지 리턴한다.
 
@@ -2116,6 +2209,8 @@ Query 기준에 맞는 Entity들을 리턴하거나 Query나 필터가 없다면
 |collection|Collection name|
 |first_entity_id|조회할 Entity uuid|
 |relationship|조회할 relation 이름|
+
+[]({'class':'table-bordered'})
 
 ##### Response
 
@@ -2177,12 +2272,12 @@ $.ajax({
 ```
 
 ## Entity의 Relation을 생성하고 다른 Entity와 관계를 생성하기
-[]({'id':'postConnection'})
+[]({'id':'postConnection', 'data-menu':'Entity의 Relation을 생성하고 다른 Entity와 관계를 생성하기'})
 Collection의 특정 Entity에 Connection을 생성하고 다른 Entity를 커넥션에 등록한다.
 
 ##### Request URI
-  
-```    
+
+```
 `POST`  /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_id}
 ```
 
@@ -2195,6 +2290,8 @@ Collection의 특정 Entity에 Connection을 생성하고 다른 Entity를 커�
 |first_entity_id|조회할 Entity uuid|
 |relationship|조회할 relation 이름|
 |second_entity_id|relation 관계에 있는 entity 의 uuid|
+
+[]({'class':'table-bordered'})
 
 ##### Response
 
@@ -2256,12 +2353,12 @@ $.ajax({
 Relation을 생성한다. Relation을 생성할 때 두번째 Entity의 타입을 지정하면 UUID가 아니라 이름으로 커넥션을 생성할 수 있다.
 
 ## Entity의 Relation에서 Entity를 삭제하기
-[]({'id':'deleteRelation'})
+[]({'id':'deleteRelation', 'data-menu':'Entity의 Relation에서 Entity를 삭제하기'})
 
 Collection의 특정 Entity의 relation 에서 다른 Entity 와의 Relation 을 해제한다. 
 
 ##### Request URI
-       
+
 ```
 `DELETE`  /{baasio-id}/{app-id}/{collection}/{first_entity_id}/{relationship}/{second_entity_id}
 ```
@@ -2275,7 +2372,9 @@ Collection의 특정 Entity의 relation 에서 다른 Entity 와의 Relation 을
 |first_entity_id|Entity uuid|
 |relationship|relation 이름|
 |second_entity_id|relation 관계에 있는 entity 의 uuid|
-    
+
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
@@ -2351,10 +2450,10 @@ $.ajax({
 
 
 # File
-[]({'id':'file'})
+[]({'id':'file', 'data-menu':'File'})
 
 ## 파일 엔티티 생성&업로드
-[]({'id':'file-create'})
+[]({'id':'file-create', 'data-menu':'파일 엔티티 생성&업로드'})
 
 - [파일 엔티티 생성 및 업로드](#createFileEntityAndUploadBLOB)
 - [파일 엔티티 생성](#createFileEntity)
@@ -2376,13 +2475,16 @@ POST 메소드를 사용하여 새로운 파일 엔티티와 그와 연결된 BL
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 
+[]({'class':'table-bordered'})
+
 ###### Request Entity Type
 
 ```
-multipart/form-data 
+multipart/form-data
 ```
-	
->warning|Warning|Request Entity Type|다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
+
+`Warning` Request Entity Type  
+다른 multipart 타입은 지원 안함, 1개 파일만 허용(2013.01 현재), [RFC2388](http://www.ietf.org/rfc/rfc2388.txt) 참조
 
 
 ###### Request Body Entity (Multipart/form-data)
@@ -2412,6 +2514,8 @@ Content-Disposition: form-data; name="entity";
 | entity | Entity 정보 | application/json | X |
 | file | 파일 정보 와 Binary | <파일의 Content Type> | O (1개의 파일만 허용) | Content-Disposition 헤더가 있어야 하며 filename 가 포함되어 있어야 함 |
 
+[]({'class':'table-bordered'})
+
 ####### File 파트
 
 - Part 헤더
@@ -2425,6 +2529,8 @@ Content-Type: image/jpeg; name="file"
 | content-type | 문자열 (String)	| <파일의 content type> | O | 파일의 Content Type |
 | name | 문자열 (String)	| file | O | 파트명 |
 
+[]({'class':'table-bordered'})
+
 
 - Disposition 헤더
 
@@ -2436,6 +2542,8 @@ Content-Disposition: form-data; name="file"; filename="test.jpg"
 |:------------:|:------------|:-----:|:----:|:----|
 | filename    	| 문자열 (String)	|		| O 	| 파일명
 | name		| 문자열 (String)	| file		| O	| 파트명
+
+[]({'class':'table-bordered'})
 
 
 ####### Entity 파트 (application/json, optional)
@@ -2467,6 +2575,8 @@ Content-Type: application/json; name="entity"
 |:------------:|:------------|:-----:|:----:|:----|
 | <원하는 Property명> | <원하는 자료형> |  | X	| 이용자가 정의한 Property |
 
+[]({'class':'table-bordered'})
+
 
 
 ###### Response
@@ -2481,6 +2591,8 @@ Content-Type: application/json; name="entity"
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 
@@ -2581,6 +2693,8 @@ POST 메소드를 사용하여 새로운 파일 엔티티를 생성합니다. �
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 
+[]({'class':'table-bordered'})
+
 ###### Request Entity Type
 
 ```
@@ -2606,6 +2720,8 @@ application/json
 | content-type | 문자열 (String)	| 나중에 올릴 BLOB 의 Content-type (다운로드시 활용) |
 | <원하는 Property명> | <원하는 자료형>	| <없음> | X | 이용자가 정의한 Property |
 
+[]({'class':'table-bordered'})
+
 
 ###### Response
 
@@ -2618,6 +2734,8 @@ application/json
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -2690,7 +2808,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 파일 업로드|uploadBLOB
+##### 파일 업로드
+[]({'id':'uploadBLOB'})
 
 [파일 엔티티 생성](#createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#createFileEntity) 또는 [파일 엔티티 수정](#updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
 
@@ -2705,6 +2824,8 @@ Transfer-Encoding: chunked
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
+
+[]({'class':'table-bordered'})
 
 ###### Request Entity Type
 
@@ -2730,6 +2851,8 @@ application/octet-stream
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -2763,7 +2886,8 @@ Connection: close
 Transfer-Encoding: chunked
 ```
 
-##### 파일 업로드(DATA 커맨드 이용)|uploadBLOBwithDataCMD
+##### 파일 업로드(DATA 커맨드 이용)
+[]({'id':'uploadBLOBwithDataCMD'})
 
 [파일 엔티티 생성](#createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#createFileEntity) 또는 [파일 엔티티 수정](#updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
 
@@ -2778,6 +2902,8 @@ Transfer-Encoding: chunked
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
+
+[]({'class':'table-bordered'})
 
 ###### Request Entity Type
 
@@ -2802,6 +2928,8 @@ application/octet-stream
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -2836,16 +2964,17 @@ Transfer-Encoding: chunked
 ```
 
 ## 파일 엔티티 조회
-[]({'id':'file-get'})
+[]({'id':'file-get', 'data-menu':'파일 엔티티 조회'})
 
 - [파일 엔티티 조회(전체)](#getEntireFileEntities)
 - [필터를 이용한 파일 엔티티 조회](#getFilteredFileEntities)
 - [질의를 이용한 파일 엔티티 조회](#getFileEntitiesWithQuery)
 - [파일 엔티티 조회(단일)](#getFileEntity)
 
-##### 파일 엔티티 조회|getEntireFileEntities
+##### 파일 엔티티 조회
+[]({'id':'getEntireFileEntities'})
 
-올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 조회할 수 있습니다. 
+올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 조회할 수 있습니다.
 
 ###### Request URI
 
@@ -2855,6 +2984,8 @@ Transfer-Encoding: chunked
 |:-----------:|:-----|
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
+
+[]({'class':'table-bordered'})
 
 ###### Request Entity Type
 
@@ -2876,6 +3007,8 @@ Transfer-Encoding: chunked
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -2932,7 +3065,7 @@ Transfer-Encoding: chunked
 	    "size" : 3276800,
 	    "title" : "my europe travel memories"
 	  },
-  	  
+
   	  ....
 
   ],
@@ -2943,7 +3076,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 필터를 이용한 파일 엔티티 조회|getFilteredFileEntities
+##### 필터를 이용한 파일 엔티티 조회
+[]({'id':'getFilteredFileEntities'})
 
 올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 조회할 수 있습니다. 필터를 통해 특정 조건에 맞는 파일들을 조회할 수도 있습니다. 
 
@@ -2962,6 +3096,8 @@ Transfer-Encoding: chunked
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+
+[]({'class':'table-bordered'})
 
 ###### Request Entity Type
 
@@ -2983,6 +3119,8 @@ Transfer-Encoding: chunked
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -3051,7 +3189,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 질의를 이용한 파일 엔티티 조회|getFileEntitiesWithQuery
+##### 질의를 이용한 파일 엔티티 조회
+[]({'id':'getFileEntitiesWithQuery'})
 
 올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 조회할 수 있습니다. 질의를 통해 조건을 부여하고 원하는 엔티티 속성 그리고 목록 정렬을 해볼 수도 있습니다. (원하는 목록 형태를 구성)
 
@@ -3070,6 +3209,8 @@ Transfer-Encoding: chunked
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+
+[]({'class':'table-bordered'})
 
 ###### Request Entity Type
 
@@ -3091,6 +3232,8 @@ Transfer-Encoding: chunked
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -3135,9 +3278,10 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 파일 엔티티 조회(단일)|getFileEntity
+##### 파일 엔티티 조회(단일)
+[]({'id':'getFileEntity', 'data-menu':'파일 엔티티 조회 - 단일'})
 
-올려진 파일에 대한 엔티티 정보를 조회할 수 있습니다. 
+올려진 파일에 대한 엔티티 정보를 조회할 수 있습니다.
 
 ###### Request URI
 
@@ -3150,6 +3294,8 @@ Transfer-Encoding: chunked
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -3172,6 +3318,8 @@ Transfer-Encoding: chunked
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -3234,15 +3382,16 @@ Transfer-Encoding: chunked
 ```
 
 ## 파일 다운로드
-[]({'id':'file-download'})
+[]({'id':'file-download', 'data-menu':'파일 다운로드'})
 
 - [파일 다운로드](#downloadFile)
 - [파일 다운로드(DATA 커맨드 이용)](#downloadFilewithDataCMD)
 
-##### 파일 다운로드|downloadFile
+##### 파일 다운로드
+[]({'id':'downloadFile'})
 
 GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수 있습니다.
- 
+
 ###### Request URI
 
 ```
@@ -3258,6 +3407,8 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | fileName | 파일명 (없을 경우 서버에 올려진 파일명으로 다운로드 하지만 별도로 파일명을 지정하고 싶을때) |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -3282,7 +3433,8 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 404 | N/A | 파일 BLOB 가 없음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
-	
+
+[]({'class':'table-bordered'})
 
 ###### Example
 
@@ -3316,10 +3468,11 @@ Connection: close
 &lt;binary&gt;
 ```
 
-##### 파일 다운로드(DATA 커맨드 이용)|downloadFilewithDataCMD
+##### 파일 다운로드(DATA 커맨드 이용)
+[]({'id':'downloadFilewithDataCMD'})
 
 GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수 있습니다.
- 
+
 ###### Request URI
 
 ```
@@ -3335,6 +3488,8 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | fileName | 파일명 (없을 경우 서버에 올려진 파일명으로 다운로드 하지만 별도로 파일명을 지정하고 싶을때) |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -3359,7 +3514,8 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 404 | N/A | 파일 BLOB 가 없음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
-	
+
+[]({'class':'table-bordered'})
 
 ###### Example
 
@@ -3394,14 +3550,15 @@ Connection: close
 ```
 
 ## 파일 엔티티 수정 및 교체
-[]({'id':'file-update'})
+[]({'id':'file-update', 'data-menu':'파일 엔티티 수정 및 교체'})
 
 - [파일 엔티티 수정 및 교체](#updateFileEntityAndReplaceBLOB)
 - [파일 엔티티 수정](#updateFileEntity)
 - [필터를 이용한 일괄 파일 엔티티 수정](#updateFilteredFileEntities)
 - [질의를 이용한 일괄 파일 엔티티 수정](#updateFileEntitiesWithQuery)
 
-##### 파일 엔티티 수정 및 교체|updateFileEntityAndReplaceBLOB
+##### 파일 엔티티 수정 및 교체
+[]({'id':'updateFileEntityAndReplaceBLOB'})
 
 PUT 메소드를 사용하여 이미 올려진 파일 엔티티와 그와 연결된 BLOB(Binary Large Object) 를 교체 할 수 있습니다. 이때 엔티티 정보(예: 메타 정보=이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 같이 수정하거나 추가 할 수도 있습니다.
 
@@ -3416,6 +3573,8 @@ PUT 메소드를 사용하여 이미 올려진 파일 엔티티와 그와 연결
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -3453,6 +3612,8 @@ Content-Disposition: form-data; name="entity";
 | entity | Entity 정보 | application/json | X |
 | file | 파일 정보 와 Binary | <파일의 Content Type> | O (1개의 파일만 허용) | Content-Disposition 헤더가 있어야 하며 filename 가 포함되어 있어야 함 |
 
+[]({'class':'table-bordered'})
+
 
 
 ####### File 파트
@@ -3468,6 +3629,8 @@ Content-Type: image/jpeg; name="file"
 | content-type | 문자열 (String)	| <파일의 content type> | O | 파일의 Content Type |
 | name | 문자열 (String)	| file | O | 파트명 |
 
+[]({'class':'table-bordered'})
+
 
 - Disposition 헤더
 
@@ -3479,6 +3642,8 @@ Content-Disposition: form-data; name="file"; filename="test.jpg"
 |:------------:|:------------|:-----:|:----:|:----|
 | filename    	| 문자열 (String)	|		| O 	| 파일명
 | name		| 문자열 (String)	| file		| O	| 파트명
+
+[]({'class':'table-bordered'})
 
 
 ####### Entity 파트 (application/json, optional)
@@ -3493,6 +3658,8 @@ Content-Type: application/json; name="entity"
 |:------------:|:------------|:-----:|:----:|:----|
 | content-type | 문자열 (String)	| application/json	| O	| 엔티티의 Content Type
 | name | 문자열 (String)	| entity		| O	| 파트명
+
+[]({'class':'table-bordered'})
 
 
 - Body 구성 (application/json)
@@ -3510,6 +3677,8 @@ Content-Type: application/json; name="entity"
 |:------------:|:------------|:-----:|:----:|:----|
 | <원하는 Property명> | <원하는 자료형> |  | X	| 이용자가 정의한 Property |
 
+[]({'class':'table-bordered'})
+
 
 ###### Response
 
@@ -3523,6 +3692,8 @@ Content-Type: application/json; name="entity"
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 ###### Example
 
@@ -3607,7 +3778,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 파일 엔티티 수정|updateFileEntity
+##### 파일 엔티티 수정
+[]({'id':'updateFileEntity'})
 
 PUT 메소드를 사용하여 이미 올려진 파일 엔티티를 수정합니다. 파일의 메타정보(예: 메타 정보=파일명, 파일 종류, 이미지 촬영 장치, 화소수, 동영상 코덱 등등)를 수정하는 것을 의미합니다.
 
@@ -3622,6 +3794,8 @@ PUT 메소드를 사용하여 이미 올려진 파일 엔티티를 수정합니�
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -3649,6 +3823,8 @@ application/json
 | content-type | 문자열 (String)	| BLOB 의 Content-type (다운로드시 활용) |
 | <원하는 Property명> | <원하는 자료형>	| <없음> | X | 이용자가 정의한 Property |
 
+[]({'class':'table-bordered'})
+
 
 ###### Response
 
@@ -3662,6 +3838,8 @@ application/json
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -3735,7 +3913,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 필터를 이용한 일괄 파일 엔티티 수정|updateFilteredFileEntities
+##### 필터를 이용한 일괄 파일 엔티티 수정
+[]({'id':'updateFilteredFileEntities'})
 
 올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 수정할 수 있습니다. 필터 및 질의를 통해 특정 조건에 맞는 파일 엔티티를 찾아 수정 할 수도 있습니다. 주의해야 할 점은 한꺼번에 수정되기 때문에 **개별적으로 존재해야 하는 속성(예: 파일명, 파일 Content-type) 을 수정하지는 말아야 합니다.** (이경우 복구가 되지 않습니다.), 이 기능은 특정 속성과 그에 따른 값을 가진 파일들을 일괄 수정하는데 유용합니다.(예: A라는 태그를 가진 파일들을 B라고 전체 변경)
 
@@ -3755,6 +3934,8 @@ Transfer-Encoding: chunked
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | filter | filter 절 (자세한 내용은 <a href="../devguide/query.html#filterClause">여기서</a> 확인)  |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -3790,6 +3971,8 @@ content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Con
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 ###### Example
 
@@ -3856,7 +4039,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 질의를 이용한 일괄 파일 엔티티 수정|updateFileEntitiesWithQuery
+##### 질의를 이용한 일괄 파일 엔티티 수정
+[]({'id':'updateFileEntitiesWithQuery'})
 
 올려진 하나 혹은 전체 파일에 대한 엔티티 정보를 수정할 수 있습니다. 필터 및 질의를 통해 특정 조건에 맞는 파일 엔티티를 찾아 수정 할 수도 있습니다. 주의해야 할 점은 한꺼번에 수정되기 때문에 **개별적으로 존재해야 하는 속성(예: 파일명, 파일 Content-type) 을 수정하지는 말아야 합니다.** (이경우 복구가 되지 않습니다.), 이 기능은 특정 속성과 그에 따른 값을 가진 파일들을 일괄 수정하는데 유용합니다.(예: A라는 태그를 가진 파일들을 B라고 전체 변경)
 
@@ -3876,6 +4060,8 @@ Transfer-Encoding: chunked
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -3898,6 +4084,8 @@ filename		| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 파일
 content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Content-type (다운로드시 활용)
 <원하는 Property명> | <원하는 자료형>	| <없음>	| X	| 이용자가 정의한 Property
 
+[]({'class':'table-bordered'})
+
 
 ###### Response
 
@@ -3911,6 +4099,8 @@ content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Con
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 ###### Example
 
@@ -3959,13 +4149,14 @@ Transfer-Encoding: chunked
 ```
 
 ## 파일 삭제
-[]({'id':'file-delete'})
+[]({'id':'file-delete', 'data-menu':'파일 삭제'})
 
 - [파일 삭제(단일)](#deleteFileEntityAndBLOB)
 - [필터를 이용한 파일 삭제](#deleteFilteredFileEntitiesAndBLOB)
 - [질의를 이용한 파일 삭제](#deleteFileEntitiesWithQueryAndBLOB)
 
-##### 파일 삭제(단일)|deleteFileEntityAndBLOB
+##### 파일 삭제(단일)
+[]({'id':'deleteFileEntityAndBLOB'})
 
 Delete 메소드를 이용해서 파일 엔티티와 그와 함께 저장된 파일 BLOB(Binary Large Object) 를 같이 삭제할 수 있습니다.
 
@@ -3980,6 +4171,8 @@ Delete 메소드를 이용해서 파일 엔티티와 그와 함께 저장된 파
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -4003,6 +4196,8 @@ Delete 메소드를 이용해서 파일 엔티티와 그와 함께 저장된 파
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 
 ###### Example
@@ -4067,9 +4262,10 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 필터를 이용한 일괄 파일 삭제|deleteFilteredFileEntitiesAndBLOB
+##### 필터를 이용한 일괄 파일 삭제
+[]({'id':'deleteFilteredFileEntitiesAndBLOB'})
 
-올려진 하나 혹은 전체 파일을 삭제 할 수 있습니다.(관련 BLOB(Binary Large Object 포함) 주의 해야 할 점은 복구가 되지 않기 때문에 신중을 기해 삭제해야 한다는 점입니다. 
+올려진 하나 혹은 전체 파일을 삭제 할 수 있습니다.(관련 BLOB(Binary Large Object 포함) 주의 해야 할 점은 복구가 되지 않기 때문에 신중을 기해 삭제해야 한다는 점입니다.
 
 ###### Request URI
 
@@ -4085,6 +4281,8 @@ Transfer-Encoding: chunked
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | filter | filter 절 (자세한 내용은 <a href="../devguide/query.html#filterClause">여기서</a> 확인)  |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -4107,6 +4305,8 @@ Transfer-Encoding: chunked
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 ###### Example
 
@@ -4169,7 +4369,8 @@ Transfer-Encoding: chunked
 }
 ```
 
-##### 질의를 이용한 일괄 파일 삭제|deleteFileEntitiesWithQueryAndBLOB
+##### 질의를 이용한 일괄 파일 삭제
+[]({'id':'deleteFileEntitiesWithQueryAndBLOB'})
 
 올려진 하나 혹은 전체 파일을 삭제 할 수 있습니다.(관련 BLOB(Binary Large Object 포함) 주의 해야 할 점은 복구가 되지 않기 때문에 신중을 기해 삭제해야 한다는 점입니다. 
 
@@ -4187,6 +4388,8 @@ Transfer-Encoding: chunked
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+
+[]({'class':'table-bordered'})
 
 
 ###### Request Entity Type
@@ -4209,6 +4412,8 @@ Transfer-Encoding: chunked
 | 401 | 202 | 유효하지 않은 토큰(토큰 인증 실패), 접근 권한 없음 |
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
+
+[]({'class':'table-bordered'})
 
 ###### Example
 
@@ -4273,15 +4478,15 @@ Transfer-Encoding: chunked
 
 
 
-# Group|그룹
-[]({'id':'group'})
+# Group
+[]({'id':'group', 'data-menu':'Group'})
 
 그룹의 경우는 [User](user.html)를 좀 더 잘 활용하기 위해서 사용합니다. 예를 들어, 이벤트(생일, 결혼 등) 같이 특정 사용자들의 모임을 만들고자 합니다. 사용자를 그룹화 할 수 있는 그룹API를 사용하면 편리하게 해당 그룹 사용자들만 조회 가능합니다.
 
 또한, 해당 그룹의 사용자들만 볼 수 있는 [롤(Role)](role.html)을 만들고 특정 Collection을 조회할 수 있도록도 할 수 있습니다. 사용에 따라서 다양한 활용이 가능합니다.
 
 ## 그룹 생성하기
-[]({'id':'postGroups'})
+[]({'id':'postGroups', 'data-menu':'그룹 생성하기'})
 
 ##### Request URI
 
@@ -4296,10 +4501,12 @@ Transfer-Encoding: chunked
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
+[]({'class':'table-bordered'})
+
 ##### Request Body
 
 Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Group Entity](#groupEntity)에서 살펴보시면 됩니다. 그룹을 등록하기 위해서는 최소한의 정보가 필요하며 반드시 포함되어야 할 정보는 path 입니다.
-	
+
 ```
 {
 	"path":"mygroup"
@@ -4309,7 +4516,7 @@ Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Gro
 ##### Request
 
 ```
-'POST' https://api.baas.io/my-baasio-id/my-app-id/groups 
+'POST' https://api.baas.io/my-baasio-id/my-app-id/groups
 
 {
 	"name":"manager",
@@ -4319,10 +4526,10 @@ Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Gro
 
 ##### Response
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
-``` 
+
+```
 {
 	"action2": "post",
 	"application": "027de571-1376-11e2-a5bf-4061867ca222",
@@ -4357,12 +4564,12 @@ Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Gro
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
-	
+
 ##### Example
 
 ```
@@ -4370,10 +4577,10 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\"
 ```
 
 ## 그룹 조회하기
-[]({'id':'getGroups'})
+[]({'id':'getGroups', 'data-menu':'그룹 조회하기'})
 
 ##### Request Body
-  
+
 ```
 'GET' /{baasio-id}/{app-id}/groups
 ```
@@ -4385,6 +4592,8 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\"
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
+[]({'class':'table-bordered'})
+
 ##### Request
 
 ```
@@ -4394,10 +4603,10 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\"
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
-```json 
+
+```json
 {
 	"action": "get",
 	"application": "027de571-1376-11e2-a5bf-4061867ca222",
@@ -4453,25 +4662,25 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\"
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
 
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups"
 ```
 
 ## 그룹을 쿼리로 조회하기
-[]({'id':'getGroupsByQuery'})
+[]({'id':'getGroupsByQuery', 'data-menu':'그룹을 쿼리로 조회하기'})
 
 [그룹 조회하기](#getGroups) API 에서 확인한 것처럼 등록된 그룹을 조회할 수 있습니다. 특정한 그룹을 조회하고 싶을 때, 데이터 질의 방법을 사용하여 그룹을 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
 
 ##### Request URI
-  
+
 ```
 'GET' /{baasio-id}/{app-id}/groups?{query}
 ```
@@ -4484,6 +4693,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
+[]({'class':'table-bordered'})
+
 ##### Query Parmeters
 
 |파라미터|자료형|기본값|필수|설명|
@@ -4493,8 +4704,10 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |cursor|문자열 (String)||no|페이징을 위한 질의 결과셋의 엔코딩된 값|
 |limit|정수형 (Integer)|10|no|조회 결과의 데이터 개수 제한|
 
+[]({'class':'table-bordered'})
+
 ##### Request
-	
+
 ```
 'GET' https://api.baas.io/my-baasio-id/my-app-id/groups/mygroup?ql=select * where flag='1'
 ```
@@ -4502,7 +4715,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
 
 ```json
@@ -4544,22 +4757,23 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups/?ql=select * where flag='1'"
 ```
 
-## 그룹명 혹은 UUID로 조회하기|getGroup
+## 그룹명 혹은 UUID로 조회하기
+[]({'id':'getGroup'})
 
 ##### Request URI
-  
+
 ```
 'GET' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}
 ```
@@ -4572,14 +4786,16 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
+[]({'class':'table-bordered'})
+
 ##### Request
-	
+
 ```
 'GET' https://api.baas.io/my-baasio-id/my-app-id/groups/mygroup
 ```
-	
+
 혹은
-	
+
 ```
 'GET' https://api.baas.io/my-baasio-id/my-app-id/groups/b584c577-138d-11e2-a766-4061867ca222
 ```
@@ -4587,10 +4803,10 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ##### Response
 
 - 성공
-	- Code: 200 
+	- Code: 200
 	- Contents:
-	
-```json 
+
+```json
 {
 	"action": "get",
 	"application": "027de571-1376-11e2-a5bf-4061867ca222",
@@ -4626,23 +4842,23 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups/{group_uuid or group_path}"
 ```
 
 ## 그룹 정보 수정하기
-[]({'id':'putGroup'})
+[]({'id':'putGroup', 'data-menu':'그룹 정보 수정하기'})
 
 ##### Request URI
-  
+
 ```
 'PUT' /{baasio-id}/{app-id}/groups/{group_uuid or group_path}
 ```
@@ -4654,6 +4870,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
 
@@ -4717,11 +4935,11 @@ Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Gro
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 
 ##### Example
 
@@ -4730,7 +4948,7 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{ \"update\":\"somethin
 ```
 
 ## 그룹 삭제하기
-[]({'id':'deleteGroup'})
+[]({'id':'deleteGroup', 'data-menu':'그룹 삭제하기'})
 
 ##### Request URI
   
@@ -4745,6 +4963,8 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{ \"update\":\"somethin
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
+
+[]({'class':'table-bordered'})
 
 ##### Request
 
@@ -4809,7 +5029,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 ```
 
 ## 그룹에 사용자를 추가하기
-[]({'id':'postGroupUser'})
+[]({'id':'postGroupUser', 'data-menu':'그룹에 사용자를 추가하기'})
 
 ##### Request URI
 
@@ -4825,6 +5045,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
+
+[]({'class':'table-bordered'})
 
 
 ##### Response
@@ -4875,19 +5097,19 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
   "applicationName": "test"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
 ##### Example
- 
+
 ```
 curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/groups/{group_uuid or group_path}/users/{user_uuid or username}"
 ```
 
-## 그룹에 등록된 사용자을 조회하기
-[]({'id':'getGroupUsers'})
+## 그룹에 등록된 사용자를 조회하기
+[]({'id':'getGroupUsers', 'data-menu':'그룹에 등록된 사용자를 조회하기'})
 
 ##### Request URI
 
@@ -4902,6 +5124,8 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
+
+[]({'class':'table-bordered'})
 
 
 
@@ -4953,11 +5177,11 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
   "applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
 
 ```
@@ -4965,7 +5189,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 ```
 
 ## 그룹에서 사용자를 제외하기
-[]({'id':'deleteGroupUser'})
+[]({'id':'deleteGroupUser', 'data-menu':'그룹에서 사용자를 제외하기'})
 
 ##### Request URI
 
@@ -4981,6 +5205,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
+
+[]({'class':'table-bordered'})
 
 
 ##### Response
@@ -5031,7 +5257,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
   "applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
@@ -5055,6 +5281,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |path|string|그룹 Path( 필수 )|
 |title|string|화면에 표시할 이름|
 
+[]({'class':'table-bordered'})
+
 ##### Group 기본 Set
 
 |Set|타입|설명|
@@ -5062,6 +5290,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |connections|string|관계리스트|
 |rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](roles.html)|
 |credentials|string|credentials 리스트|
+
+[]({'class':'table-bordered'})
 
 ##### Group 기본 Collection
 
@@ -5071,6 +5301,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |activities|activity|활동과의 관계들|
 |feed|activity|개인적인 알림들|
 |roles|role|롤(Role) 리스트|
+
+[]({'class':'table-bordered'})
 
 
 
@@ -5089,7 +5321,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 
 # Push
-[]({'id':'push'})
+[]({'id':'push', 'data-menu':'Push'})
 
 Push 서비스는 baas.io 의 API 를 사용하는 앱을 대상으로 Push Notification 을 발송하기 위한 API 로 구성되어 있습니다.
 
@@ -5098,7 +5330,7 @@ Push 사용이 활성화 되면 등록된 Device 를 대상으로 MyPage 의 푸
 물론 제공되는 API를 호출하여 Push Notification 을 발송할 수 있기 때문에 앱에서 발생하는 이벤트에 따라 같은 앱을 사용하는 다른 사용자에게 Push 를 전송할 수 있습니다.
 
 ## 준비 하기
-[]({'id':'prepare'})
+[]({'id':'prepare', 'data-menu':'준비하기'})
 
 Push 서비스를 사용하기 위해서는 먼저 MyPage에서 Push 사용을 활성화 하고 인증서를 등록하여야 합니다.
 
@@ -5113,7 +5345,7 @@ APNS 인증서와 Google APIKey 를 baas.io에 등록합니다.
 Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#postDevice) API를 통해 등록하여야 합니다.
 
 ## Push 전송하기
-[]({'id':'postPush'})
+[]({'id':'postPush', 'data-menu':'Push 전송하기'})
 
 ##### Request URI
 
@@ -5127,21 +5359,22 @@ Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#postDevice) 
 |:----------:|:----------|
 |baasio-id|회원 ID|
 |app-id|앱 ID|
-	
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
-	
+
 ```
-{    
-"target" : "user",    
-"to" : "1cd2bcfc-48cb-11e2-9f20-06fd000000c2",    
-"payload" : {                  
-	"badge" : 8,                  
-	"sound" : "bingbong.aiff",                  
-	"alert" : "오늘은 비가 옵니다. 우산을 준비하세요"                 
-	},    
-"reserve" : "201210021500",    
-"platform" : "I,G",    
+{
+"target" : "user",
+"to" : "1cd2bcfc-48cb-11e2-9f20-06fd000000c2",
+"payload" : {
+	"badge" : 8,
+	"sound" : "bingbong.aiff",
+	"alert" : "오늘은 비가 옵니다. 우산을 준비하세요"
+	},
+"reserve" : "201210021500",
+"platform" : "I,G",
 "memo" : "portal"
 }
 ```
@@ -5154,6 +5387,8 @@ Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#postDevice) 
 |Device 발송|device|device entity의 uuid|
 |Tag 발송|tag|device entity의 tags property|
 |전체 발송|all|null|
+
+[]({'class':'table-bordered'})
 
 reserve 에 설정된 일자는 KST 기준입니다. 만약 2012년 10월 2일 15시 00분에 전송하기 를 원한다면 "201210021500" 을 설정하세요.
 
@@ -5227,14 +5462,14 @@ plarform 에 설정되는 I,G 는 ios 와 google android 를 의미합니다. io
 ```
 { error : "Log in" }
 ```
-	
- 	                		
+
+
 ##### Example
 
 	curl -X POST https://api.baas.io/my-baasio-id/my-app-id/pushes \
 	{"target" : "user",    \
 	"to" : "1cd2bcfc-48cb-11e2-9f20-06fd000000c2",    \
-	"payload" : {\                  
+	"payload" : {\
 		"badge" : 8,\
         "sound" : "bingbong.aiff",\
         "alert" : "오늘은 비가 옵니다. 우산을 준비하세요"\
@@ -5246,7 +5481,7 @@ plarform 에 설정되는 I,G 는 ios 와 google android 를 의미합니다. io
 
 
 ## Device 등록하기
-[]({'id':'postDevice'})
+[]({'id':'postDevice', 'data-menu':'Device 등록하기'})
 
 ##### Request URI
 
@@ -5258,10 +5493,11 @@ plarform 에 설정되는 I,G 는 ios 와 google android 를 의미합니다. io
 |:----------:|:----------|
 |baasio-id|회원 ID|
 |app-id|앱 ID|
-	
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
-	
+
 	{
   	"token" : "kljsdf87sdf987s6sdf5567s9s",
   	"platform" : "G",
@@ -5275,7 +5511,7 @@ token 은 등록한 device 의 token  으로 단말에 설치된 어플리케이
 이미 존재하는 device token 으로 재등록을 시도한다면 기존이 device 정보를 삭제하고 새로 등록하셔야 합니다.
 
 push 의 수신 여부를 의미하는 state 는 자동 생성 됩니다.
-	
+
 ##### Response
 
 - 성공
@@ -5314,7 +5550,7 @@ push 의 수신 여부를 의미하는 state 는 자동 생성 됩니다.
     "error" : "Log in" 
 }
 ```
- 	                		
+
 ##### Example
 
 ```
@@ -5327,7 +5563,7 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/pushes/devices { \
 
 
 ## Device 변경하기
-[]({'id':'putDevice'})
+[]({'id':'putDevice', 'data-menu':'Device 변경하기'})
 
 ##### Request URI
 
@@ -5342,7 +5578,8 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/pushes/devices { \
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |device_id|Device 의 uuid|
-	
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
 
@@ -5411,7 +5648,7 @@ curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f
 ```
 
 ## Device 정보 읽기
-[]({'id':'getDevice'})
+[]({'id':'getDevice', 'data-menu':'Device 정보 읽기'})
 
 ##### Request URI
 
@@ -5426,8 +5663,9 @@ curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |device_id|Device 의 uuid|
-	
-	
+
+[]({'class':'table-bordered'})
+
 ##### Response
 
 - 성공
@@ -5467,8 +5705,8 @@ curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f
     "error" : "Log in" 
 }
 ```
-	
- 	                		
+
+
 ##### Example
 
 ```
@@ -5476,7 +5714,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f
 ```
 
 ## Device 삭제하기
-[]({'id':'deleteDevice'})
+[]({'id':'deleteDevice', 'data-menu':'Device 삭제하기'})
 
 Device 를 삭제한다. 응답으로 삭제된 Device 의 정보를 전송한다.
 
@@ -5493,6 +5731,8 @@ Device 를 삭제한다. 응답으로 삭제된 Device 의 정보를 전송한�
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |device_id|Device 의 uuid|
+
+[]({'class':'table-bordered'})
 
 ##### Response
 
@@ -5533,8 +5773,8 @@ Device 를 삭제한다. 응답으로 삭제된 Device 의 정보를 전송한�
     "error" : "Log in" 
 }
 ```
-	
- 	                		
+
+
 ##### Example
 
 ```
@@ -5559,13 +5799,13 @@ curl -X DELETE https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d19
 
 
 # Help Center
-[]({'id':'help'})
+[]({'id':'help', 'data-menu':'Help Center'})
 
 ## 고객센터 코드 조회
-[]({'id':'getHelpConfigurations'})
+[]({'id':'getHelpConfigurations', 'data-menu':'고객센터 코드 조회'})
 
 ##### Request URI
-  
+
 ```
 'GET' /{baasio-id}/{app-id}/help
 ```
@@ -5772,7 +6012,7 @@ curl -X DELETE https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d19
     ]
 }
 ```
- 	                		
+
 ##### Example
 
 ```
@@ -5780,20 +6020,20 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help
 ```
 
 ## 문의하기
-[]({'id':'postQuestions'})
+[]({'id':'postQuestions', 'data-menu':'문의하기'})
 
 ##### Request URI
-  
+
 ```
 'POST' /{baasio-id}/{app-id}/help/questions
 ```
 
 ##### Body Parameters
- 
-|파라미터|자료형|기본값|필수|설명|              
+
+|파라미터|자료형|기본값|필수|설명|
 |:----:|:------:|:-------:|:-----:|:----------|
 |email|string||*|문의자 이메일|
-|content|string||*|문의 내용|        
+|content|string||*|문의 내용|
 |classification_id|integer||*|문의 분류|
 |app_info|string|||모바일 앱 정보|
 |device_info|string|||모바일 장비 정보|
@@ -5803,7 +6043,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help
 >info|Note|classification_id?|classification_id는 "고객센터 코드 조회"에서 조회한 classifications Collection의 id값을 의미함
 
 ##### Request Body
-	
+
 ```
 {
 	"email":"baas@baas.io",
@@ -5869,7 +6109,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help
 * 에러
 
 다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
- 	                		
+
 ##### Example
 
 ```
@@ -5878,16 +6118,16 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/questions \
 ```
 
 ## 도움말 등록
-[]({'id':'postHelp'})
+[]({'id':'postHelp', 'data-menu':'도움말 등록'})
 
 ##### Request URI
-  
+
 ```
 'POST' /{baasio-id}/{app-id}/help/helps
 ```
 
 ##### Request Body
-	
+
 ```json
 { 
 	"title": "baas.io 사용은?", 
@@ -5898,11 +6138,13 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/questions \
 
 ##### Body Requests
  
-|파라미터|자료형|기본값|필수|설명|              
+|파라미터|자료형|기본값|필수|설명|
 |:----:|:------:|:-------:|:-----:|:----------|
 |title|string||*|도움말 제목|
 |content|string||*|도움말 내용|
 |classification_id|integer||*|도움말 분류|
+
+[]({'class':'table-bordered'})
 
 
 ##### Response
@@ -5939,7 +6181,7 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/questions \
 }
 ```
 
- 	                		
+
 ##### Example
 
 ```
@@ -5948,7 +6190,7 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/helps \
 ```
 
 ## 도움말 조회
-[]({'id':'getHelp'})
+[]({'id':'getHelp', 'data-menu':'도움말 조회'})
 
 ##### Request URI
   
@@ -5990,7 +6232,7 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/helps \
 }
 ```
 
- 	                		
+
 ##### Example
 
 ```
@@ -5998,7 +6240,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-
 ```
 
 ## 도움말 수정
-[]({'id':'putHelp'})
+[]({'id':'putHelp', 'data-menu':'도움말 수정'})
 
 ##### Request URI
   
@@ -6019,11 +6261,13 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-
 
 ##### Body Requests
  
-|파라미터|자료형|기본값|필수|설명|              
+|파라미터|자료형|기본값|필수|설명|
 |:----:|:------:|:-------:|:-----:|:----------|
 |title|string||*|도움말 제목|
 |content|string||*|도움말 내용|
-|classification_id|integer||*|도움말 분류|  
+|classification_id|integer||*|도움말 분류|
+
+[]({'class':'table-bordered'})
 
 
 ##### Response
@@ -6059,7 +6303,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-
     "applicationName": "my-app-id"
 }
 ```
-                		
+
 ##### Example
 
 ```
@@ -6068,7 +6312,7 @@ curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-
 ```
 
 ## 도움말 삭제
-[]({'id':'deleteHelp'})
+[]({'id':'deleteHelp', 'data-menu':'도움말 삭제'})
 
 ##### Request URI
   
@@ -6110,7 +6354,7 @@ curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-
     "applicationName": "my-app-id"
 }
 ```
- 	                		
+
 ##### Example
 
 ```
@@ -6118,20 +6362,22 @@ curl -X DELETE https://api.baas.io/my-baasio-id/my-app-id/help/helps/14389952-2b
 ```
 
 ## 도움말 검색
-[]({'id':'searchHelp'})
+[]({'id':'searchHelp', 'data-menu':'도움말 검색'})
 
 ##### Request URI
-  
+
 ```
 'GET' /{baasio-id}/{app-id}/help/helps?keyword={keyword}&page={page}
 ```
 
 ##### Query String
  
-|파라미터|자료형|기본값|필수|설명|              
+|파라미터|자료형|기본값|필수|설명|
 |:----:|:------:|:-------:|:-----:|:----------|
 |page|integer||페이지 번호|
 |keyword|string||검색어|
+
+[]({'class':'table-bordered'})
 
 
 ##### Response
@@ -6292,7 +6538,7 @@ curl -X DELETE https://api.baas.io/my-baasio-id/my-app-id/help/helps/14389952-2b
     "applicationName": "sandbox"
 }
 ```
- 	                		
+
 ##### Example
 
 ```
@@ -6310,10 +6556,10 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps?keyword=baa&pa
 
 
 # Role
-[]({'id':'role'})
+[]({'id':'role', 'data-menu':'Role'})
 
 ## 롤 만들기
-[]({'id':'postRoles'})
+[]({'id':'postRoles', 'data-menu':'롤 만들기'})
 
 ##### Request URI
 
@@ -6327,7 +6573,9 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps?keyword=baa&pa
 |:------:|:-------|
 |baasio-id|회원 ID|
 |app-id|앱 ID|
-	
+
+[]({'class':'table-bordered'})
+
 ##### Request Body
 
 ```json	
@@ -6336,7 +6584,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps?keyword=baa&pa
 	"title" : "NewRole"
 }
 ```
-		
+
 ##### Response
 
 * 성공
@@ -6390,7 +6638,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"name\" : \"newrole
 ```
 
 ## 롤 조회하기
-[]({'id':'getRoles'})
+[]({'id':'getRoles', 'data-menu':'롤 조회하기'})
 
 ##### Request URI
 
@@ -6404,6 +6652,8 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"name\" : \"newrole
 |:------:|:-------|
 |baasio-id|회원 ID|
 |app-id|앱 ID|
+
+[]({'class':'table-bordered'})
 
 
 	
@@ -6500,7 +6750,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ```
 
 ## 롤이름 혹은 UUID로 조회하기
-[]({'id':'getRole'})
+[]({'id':'getRole', 'data-menu':'롤이름 혹은 UUID로 조회하기'})
 
 ##### Request URI
 
@@ -6515,6 +6765,8 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
+
+[]({'class':'table-bordered'})
 
 	
 ##### Response
@@ -6570,7 +6822,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ```
 
 ## 롤 삭제하기
-[]({'id':'deleteRole'})
+[]({'id':'deleteRole', 'data-menu':'롤 삭제하기'})
 
 ##### Request URI
 
@@ -6586,7 +6838,9 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 
-	
+[]({'class':'table-bordered'})
+
+
 ##### Response
 
 * 성공
@@ -6640,7 +6894,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 ```
 
 ## 롤에 권한 추가하기
-[]({'id':'postPermission'})
+[]({'id':'postPermission', 'data-menu':'롤에 권한 추가하기'})
 
 ##### Request URI
 
@@ -6660,6 +6914,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |permission|URL 패턴과 Operation을 조합하여 만든 규칙 - 참고. [Apache Ant pattern matching](http://ant.apache.org/manual/dirtasks.html#patterns)|
+
+[]({'class':'table-bordered'})
 
 	
 ##### Response
@@ -6717,7 +6973,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 ```
 
 ## 롤에 권한 삭제하기
-[]({'id':'deletePermission'})
+[]({'id':'deletePermission', 'data-menu':'롤에 권한 삭제하기'})
 
 ##### Request URI
 
@@ -6733,6 +6989,8 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |grant_url_pattern|URL 패턴과 Operation을 조합하여 만든 규칙 - 참고. [Apache Ant pattern matching](http://ant.apache.org/manual/dirtasks.html#patterns)|
+
+[]({'class':'table-bordered'})
 
 	
 ##### Response
@@ -6792,7 +7050,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 ```
 
 ## 롤에 사용자 추가하기
-[]({'id':'postRoleUser'})
+[]({'id':'postRoleUser', 'data-menu':'롤에 사용자 추가하기'})
 
 롤과 사용자와의 관계를 설정할 수 있습니다. 롤에서 대해서 특정 사용자를 등록하는 경우를 알아보겠습니다.
 
@@ -6811,7 +7069,9 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
-	
+[]({'class':'table-bordered'})
+
+
 ##### Response
 
 * 성공
@@ -6836,7 +7096,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 ```
 
 ## 롤에 사용자 삭제하기
-[]({'id':'deleteRoleUser'})
+[]({'id':'deleteRoleUser', 'data-menu':'롤에 사용자 삭제하기'})
 
 ##### Request URI
 
@@ -6853,7 +7113,9 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
-	
+[]({'class':'table-bordered'})
+
+
 ##### Response
 
 * 성공
@@ -6878,7 +7140,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 ```
 
 ## 롤에 그룹 추가하기
-[]({'id':'postRoleGroup'})
+[]({'id':'postRoleGroup', 'data-menu':'롤에 그룹 추가하기'})
 
 롤과 그룹관의 관계를 설정할 수 있습니다. 롤에서 대해서 특정 그룹을 등록하는 경우를 알아보겠습니다.
 
@@ -6896,6 +7158,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
+
+[]({'class':'table-bordered'})
 
 	
 ##### Response
@@ -6922,7 +7186,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 ```
 
 ## 롤에 그룹 삭제하기
-[]({'id':'deleteRoleGroup'})
+[]({'id':'deleteRoleGroup', 'data-menu':'롤에 그룹 삭제하기'})
 
 ##### Request URI
 
@@ -6938,6 +7202,8 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
+
+[]({'class':'table-bordered'})
 
 	
 ##### Response
@@ -6963,8 +7229,8 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}/groups/{group_uuid or group_path}"
 ```
 
-## 롤에 권한설정하기
-[]({'id':'setPermission'})
+## 롤에 권한 설정하기
+[]({'id':'setPermission', 'data-menu':'롤에 권한 설정하기'})
 
 추가한 사용자, 그룹에 대한 권한설정을 롤을 통해서 할 수 있다. 예를들어,
 
@@ -6987,6 +7253,8 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
+
+[]({'class':'table-bordered'})
 
 ##### Request Body
 
@@ -7024,7 +7292,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"permission\" : \"g
 ```
 
 ## Role Entity
-[]({'id':'roleEntity'})
+[]({'id':'roleEntity', 'data-menu':'Role Entity'})
 
 ##### Role 기본 속성(Property)
 
@@ -7039,11 +7307,15 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"permission\" : \"g
 |name|string|이름|
 |title|string|출력되는 이름명|
 
+[]({'class':'table-bordered'})
+
 ##### Role 기본 Set
 
 |Set|형식|설명|
 |:-------:|:----------:|:-----------|
 |permissions|string|퍼미션 리스트|
+
+[]({'class':'table-bordered'})
 
 ##### Role 기본 Collection
 
@@ -7051,3 +7323,5 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"permission\" : \"g
 |:-------:|:---------:|:------------|
 |users|users|시용자와의 관계들|
 |groups|group|그룹과의 관계들|
+
+[]({'class':'table-bordered'})

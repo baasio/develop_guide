@@ -30,7 +30,7 @@ baas.io SDK는 baas.io에서 제공하는 서비스에 따라 아래와 같은 �
 
 
 ## Method Rule
-[]({'id':'method-rule'})
+[]({'id':'intro-method-rule', 'data-menu':'Method Rule'})
 
 baas.io는 모든 클래스의 메소드에 대해 **동기/비동기 방식**을 지원하며, 쌍으로 제공하고 있습니다.
 
@@ -73,7 +73,7 @@ Blocks에 대해서는  [Blocks Programming Topics](https://developer.apple.com/
 
 
 ## etc
-[]({'id':'intro-etc'})
+[]({'id':'intro-etc', 'data-menu':'etc'})
 
 #### Permission
 baas.io의 모든 Data관련 Method들은 Permission 설정이 필요합니다. 회원 가입시 자동으로 부여되는 회원의 role은 default입니다.
@@ -87,12 +87,12 @@ key가 name인 프로퍼티는 Unique한 속성을 가지고 있습니다. Entit
 
 
 # Users
-[]({'id':'users'})
+[]({'id':'users', 'data-menu':'Users'})
 User 기능은 **users Collection**을 통해 지원되며, 사용자의 회원가입, 로그인 및 정보의 관리 기능을 제공합니다.
 
 
 ##Sign Up
-[]({'id':'sign-up'})
+[]({'id':'users-sign-up', 'data-menu':'Sign Up'})
 회원을 가입하는 방법은 username(email)을 통한 가입과 Facebook을 통한 가입을 지원합니다.
 
 ####동기식 코드
@@ -167,7 +167,7 @@ if (!error) {
 
 
 ## Sign Up with Facebook
-[]({'id':'sign-up-via-Facebook'})
+[]({'id':'users-sign-up-via-Facebook', 'data-menu':'Sign Up With Facebook'})
 Facebook을 이용한 회원가입 방법입니다. 기본 셋팅과 테스트는 [Facebook SDK 이용가이드](http://blog.baas.io/archives/921)에서 확인하실 수 있습니다.
 
 #####동기식 코드
@@ -198,7 +198,7 @@ NSString *accessToken = @"......"	//facebook Token
 
 
 ## Sign In
-[]({'id':'sign-in'})
+[]({'id':'users-sign-in', 'data-menu':'Sign In'})
 로그인 방법은 username(email)을 통한 로그인과 Facebook을 통한 로그인을 지원합니다.
 
 #####동기식 코드
@@ -228,7 +228,7 @@ if (!error) {
 
 
 ## Sign In With Facebook
-[]({'id':'users-sign-in-via-facebook'})
+[]({'id':'users-sign-in-via-facebook', 'data-menu':'Sign In With Facebook'})
 
 #####동기식 코드
 ```objc
@@ -258,7 +258,7 @@ NSString *accessToken = @"......"	//facebook Token
 
 
 ## Update User
-[]({'id':'users-update'})
+[]({'id':'users-update', 'data-menu':'Update User'})
 회원의 정보를 수정할 수 있습니다.
 
 #####동기식 코드
@@ -284,7 +284,7 @@ user.username = @"cetauri";
 
 
 ## Change Password
-[]({'id':'change-password'})
+[]({'id':'users-change-password', 'data-menu':'Change Password'})
 현재 로그인되어 있는 User의 비밀번호를 변경합니다. 기존 비밀번호와 새로운 비밀번호를 이용하여 비밀번호를 변경합니다.
 
 #####동기식 코드
@@ -316,7 +316,7 @@ if (!error) {
 ##### 관련 에러코드
 
 Error Code|HTTP Status Code|설명
----------|----------------|--------------------------------------------
+:---------:|:----------------:|--------------------------------------------
 101|404|요청받은 리소스가 서버에 존재하지 않습니다.
 102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.
 103|400|해당 Request 를 처리하기 위한 위한 선행 작업이 이루어지지 않았습니다.
@@ -329,28 +329,10 @@ Error Code|HTTP Status Code|설명
 213|401|탈퇴된 사용자입니다.
 -100|500|알수 없는 에러입니다.
 
-
-
-
-
-Predefined Type|Predefined Collection 이름 및 위치|	용도
-------------|-------------------|-------------
-user|/users|	회원정보
-group|/groups|	회원그룹
-role|/roles|	역할
-activity|/activities|	Activity Stream
-device|/devices|	단말정보
-file|/files|	파일
-event|/events|	(예약)이벤트
-help|helps|	고객센터
-push|/pushes|	푸시정보
-location|/locations|	(예약)위치정보
-script|/scripts|	(예약)스크립트
-service|/services|	(예약)서비스
-
+[]({'class':'table-bordered'})
 
 ## Reset Password
-[]({'id':'reset-password'})
+[]({'id':'users-reset-password', 'data-menu':'Reset Password'})
 이메일을 이용하여 특정 User의 비밀번호를 초기화 합니다. **초기화를 위해서는 User의 가입 정보에 이메일 정보가 꼭 설정되어 있어야 합니다.**
 
 이를 호출하면 User의 Email로 초기화메일이 발송됩니다.
@@ -397,9 +379,11 @@ Error Code | HTTP Status Code | 설명
 213|401|탈퇴된 사용자입니다.
 -100|500|알수 없는 에러입니다.
 
+[]({'class':'table-bordered'})
+
 
 ## Unsubscribe User
-[]({'id':'unsubscribe'})
+[]({'id':'users-unsubscribe', 'data-menu':'Unsubscribe User'})
 회원탈퇴기능을 구현할 수 있습니다.
 
 #####동기식 코드
@@ -429,7 +413,7 @@ BaasioUser *user = [BaasioUser currentUser];
 
 
 ## etc.
-[]({'id':'users-etc'})
+[]({'id':'users-etc', 'data-menu':'etc'})
 
 ##### 로그인
 일단 로그인이 되면 SDK 내부에서 baas.io 서버에서 발급해준 token을 가지고 있습니다.
@@ -454,11 +438,11 @@ BOOL isLogin = [[Baasio sharedInstance]hasToken];
 
 
 # Data(Entity)
-[]({'id':'data'})
+[]({'id':'data', 'data-menu':'Data'})
 
 
 ## Entity
-[]({'id':'entity'})
+[]({'id':'data-entity', 'data-menu':'Entity'})
 baas.io의 Entity 객체는 기본적으로 key/value 형태의 Dictionary입니다.
 
 미리 정의된 값들은  @property 선언되어 바로 참조가 가능하지만 그 외 사용자가 원하는 값은 아래와 같은 방법으로 읽고, 쓰기가 가능합니다.
@@ -493,16 +477,18 @@ NSString *cheatMode = [entity objectForKey:@"cheatMode"];
 
 미리 정의된 @property는 다음과 같습니다.
 
-name|의미
-:----|:----
-uuid|키
-created|작성일
-modified|최종수정일
-type|entity 명
+|name|의미|
+|:----|:----|
+|uuid|키|
+|created|작성일|
+|modified|최종수정일|
+|type|entity 명|
+
+[]({'class':'table-bordered'})
 
 
 ## Create Entity
-[]({'id':'data-create'})
+[]({'id':'data-create', 'data-menu':'Create Entity'})
 데이터를 저장 후 error를 확인하여 성공 여부를 확인하여 작업하면 됩니다.
 
 ##### 동기식 코드
@@ -538,7 +524,7 @@ BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 
 
 ## Get Entity
-[]({'id':'data-get'})
+[]({'id':'data-get', 'data-menu':'Get Entity'})
 ```objc
 [BaasioEntity getInBackground:@"SomeBlog"
                          uuid:uuid
@@ -552,7 +538,7 @@ BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 
 
 ## Update Entity
-[]({'id':'data-update'})
+[]({'id':'data-update', 'data-menu':'Update Entity'})
 ```objc
 BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 entity.uuid = uuid;
@@ -568,7 +554,7 @@ entity.uuid = uuid;
 
 
 ## Delete Entity
-[]({'id':'data-delete'})
+[]({'id':'data-delete', 'data-menu':'Delete Entity'})
 ```objc
 BaasioEntity *entity = [BaasioEntity entitytWithName:@"SomeBlog"];
 entity.uuid = uuid;
@@ -582,7 +568,7 @@ entity.uuid = uuid;
 
 
 ## Entity Relationship
-[]({'id':'data-connect'})
+[]({'id':'data-connect', 'data-menu':'Entity Relationship'})
 Entity간의 relation이 필요할 때가 있습니다.
 
 예를 들면 블로그(blogEntity)와 댓글(commentEntity)처럼 1:N 관계를 설정한다고 한다면,
@@ -617,7 +603,7 @@ Connect와 같은 방법으로 하면 연결이 해제됩니다.
 
 
 # Query
-[]({'id':'query'})
+[]({'id':'query', 'data-menu':'Query'})
 Query를 이용하여 조건에 맞는 Entity를 검색하고, 페이징을 구현 할 수 있습니다.
 
 일반적인 쿼리의 사용법은 아래와 같습니다.
@@ -654,7 +640,7 @@ limit 10
 
 
 ## Paging
-[]({'id':'paging'})
+[]({'id':'query-paging', 'data-menu':'Paging'})
 baas.io는 게시판의 페이징을 구현 할 수는 없지만, 타임라인과 같이 전/후 페이지 조회는 할 수 있습니다.
 
 내부적으로 cursor을 이용하기 때문에 query(queryInBackground)를 한번 한 후,  
@@ -662,7 +648,7 @@ next(nextInBackground), prev(prevInBackground)를 이용하여 다음 Array를 �
 
 
 ## Search Users In Group
-[]({'id':'search-users-in-group'})
+[]({'id':'guery-search-users-in-group', 'data-menu':'Search Users In Group'})
 BaasioQuery.queryWithGroup를 이용하여 Group에 속한 회원을 조회하는 쿼리 할 수 있습니다.
 
 아래 예제는  `students` Group에 속한 회원을 조회하는 쿼리
@@ -678,7 +664,7 @@ BaasioQuery *query = [BaasioQuery queryWithGroup:@"students"];
 
 
 ## Search Entity With Relationship
-[]({'id':'search-entities-with-relationship'})
+[]({'id':'query-search-entities-with-relationship', 'data-menu':'Search Entity With Relationship'})
 
 BaasioQuery.queryWithRelationship를 이용하여 연결 된 Entities를 쿼리 할 수 있습니다.
 
@@ -701,12 +687,12 @@ BaasioQuery *query = [BaasioQuery queryWithRelationship:@"blogEntity"
 
 
 # Group
-[]({'id':'group'})
+[]({'id':'group', 'data-menu':'Group'})
 Group 기능은 **Group** Collection을 통해 지원되며, 그룹을 만들어 회원을 그룹 지을 수 있습니다.
 
 
 ## Create Group
-[]({'id':'group-create'})
+[]({'id':'group-create', 'data-menu':'Create Group'})
 **vip**라는 group 생성
 
 #####동기식 코드
@@ -737,12 +723,12 @@ BaasioGroup *group = [[BaasioGroup alloc] init];
 
 
 ## Get Group
-[]({'id':'group-get'})
+[]({'id':'group-get', 'data-menu':'Get Group'})
 query를 이용하여 Group정보를 얻을 수 있습니다.
 
 
 ## Update Group
-[]({'id':'group-update'})
+[]({'id':'group-update', 'data-menu':'Update Group'})
 그룹 정보를 수정할 수 있습니다.
 
 ##### 동기식 코드
@@ -779,7 +765,7 @@ group.uuid = uuid;
 
 
 ## Delete Group
-[]({'id':'group-delete'})
+[]({'id':'group-delete', 'data-menu':'Delete Group'})
 group의 uuid로 group 삭제할 수 있습니다.
 
 #####동기식 코드
@@ -811,7 +797,7 @@ group.uuid = uuid
 
 
 ## Add User To Group
-[]({'id':'add-user'})
+[]({'id':'group-add-user', 'data-menu':'Add User To Group'})
 그룹에 회원을 추가합니다.
 
 #####동기식 코드
@@ -846,7 +832,7 @@ BaasioGroup *group = [[BaasioGroup alloc] init];
 
 
 ## Delete User To Group
-[]({'id':'delete-user-to-group'})
+[]({'id':'group-delete-user-to-group', 'data-menu':'Delete User To Group'})
 그룹에 있는 회원을 삭제합니다.
 
 #####동기식 코드
@@ -883,12 +869,12 @@ BaasioGroup *group = [[BaasioGroup alloc] init];
 
 
 # File
-[]({'id':'file'})
+[]({'id':'file', 'data-menu':'File'})
 File 기능은 **file** Collection을 통해 지원되며, 파일들을 업/다운로드 및 수정/삭제를 할 수 있다.
 
 
 ## Upload File
-[]({'id':'upload'})
+[]({'id':'file-upload', 'data-menu':'Upload File'})
 ```objc
 NSData *data = [@"Baas.io 조쿰 좋음! 15/800" dataUsingEncoding:NSUTF8StringEncoding];
 
@@ -912,7 +898,7 @@ file.contentType = @"application/json";
 
 
 ## Download File
-[]({'id':'download'})
+[]({'id':'file-download', 'data-menu':'Download File'})
 ```objc
 NSString *uuid = @"......";
 
@@ -935,7 +921,7 @@ file.uuid = uuid;
 
 
 ## Update File (Blob)
-[]({'id':'update-blob'})
+[]({'id':'file-update-blob', 'data-menu':'Update File - Blob'})
 수정하고자 하는 File Entity의 UUID를 기반으로 새로운 파일을 업로드할 수 있습니다.
 ```objc
 NSString *uuid = @"......";
@@ -958,7 +944,7 @@ file.filename = @"A.txt";
 
 
 ## Update File Entity
-[]({'id':'update-entity'})
+[]({'id':'file-update-entity', 'data-menu':'Update File Entity'})
 파일의 정보가 들어있는 Entity를 수정합니다.
 ```objc
 NSString *uuid = @"......";
@@ -977,7 +963,7 @@ file.uuid = uuid;
 
 
 ## Get File Entity
-[]({'id':'get-entity'})
+[]({'id':'file-get-entity', 'data-menu':'Get File Entity'})
 File의 정보를 얻을 수 있습니다.
 ```objc
 NSString *uuid = @"......";
@@ -994,7 +980,7 @@ file.uuid = uuid;
 
 
 ## Delete File
-[]({'id':'file-delete'})
+[]({'id':'file-delete', 'data-menu':'Delete File'})
 파일을 삭제합니다.
 ```objc
 NSString *uuid = @"......";
@@ -1013,7 +999,7 @@ file.uuid = uuid;
 
 
 # Push
-[]({'id':'push'})
+[]({'id':'push', 'data-menu':'Push'})
 Push 기능은 **devices** Collection을 통해 지원되며, bass.io 포털에서 인증서 정보를 설정한 후에 사용이 가능합니다.
 
 baas.io Blog에 준비되어있는 [Push Notification구현하기](http://blog.baas.io/archives/782) 를 참고하세요!
@@ -1026,7 +1012,7 @@ APNS 관련 정보는 다음 링크를 참조하여 주시고, 푸시서비스�
 
 
 ## Device Register
-[]({'id':'register'})
+[]({'id':'push-register', 'data-menu':'Device Register'})
 푸쉬를 사용할 시점에 아래 코드를 실행해줍니다.
 로그인이 되어 있다면 등록 시점에 로그인 정보가 같이 전송 되기 때문에  로그인이 성공한 후에 아래 코드를 실행해주면 됩니다.
 
@@ -1062,7 +1048,7 @@ tag를 사용하면 tag별로 사용자에게 Push를 보낼 수 있는데,  tag
 
 
 ## Device Unregister
-[]({'id':'unregister'})
+[]({'id':'push-unregister', 'data-menu':'Device Unregister'})
 로그 아웃 시에 호출해주면 됩니다.
 ```objc
 - (void)unregisterForRemoteNotifications:(void (^)(void))successBlock
@@ -1079,7 +1065,7 @@ BaasioPush *push = [[BaasioPush alloc] init];
 
 
 ## 발송
-[]({'id':'send'})
+[]({'id':'push-send', 'data-menu':'발송'})
 Push 발송은 **sendPushInBackground** 와 **sendPush** method에 `BaasioMessage` 객체를 넘기면 됩니다.
 
 `BaasioMessage`를 이용하여 예약발송, 테그별 및 플랫폼별 또는 사용자에게 직접 Push를 보낼 수 있는 기능을 구현 할 수 있습니다.
@@ -1122,7 +1108,7 @@ BaasioMessage *message = [[BaasioMessage alloc]init];
 
 
 ## 예약 발송
-[]({'id':'reservation'})
+[]({'id':'push-reservation', 'data-menu':'예약 발송'})
 BaasioMessage.reserve에  NSDateComponents를 넘겨주면 그 시각에 맞추어 예약 발송이 됩니다.
 
 아래 예제는 `2013/5/8`일에 User.uuid가 `f5df22f9-547e-11e2-b5a4-06ebb80000ba` 인 회원에게, `2`개의 badge표시가 된 push를 보내는 예제
@@ -1155,7 +1141,7 @@ message.to = [NSMutableArray arrayWithObject:@"f5df22f9-547e-11e2-b5a4-06ebb8000
 
 
 ## 태그별 발송
-[]({'id':'push-tag'})
+[]({'id':'push-tag', 'data-menu':'태그별 발송'})
 BaasioMessage.to에 tag 이름을 입력하면 됩니다.
 
 ```objc
@@ -1176,7 +1162,7 @@ message.to = [NSMutableArray arrayWithObject:@"man"];
 
 
 ## 개별 발송
-[]({'id':'individual'})
+[]({'id':'individual', 'data-menu':'개별 발송'})
 BaasioMessage.to에 사용자의 UUID를 입력하면 됩니다.
 1번 발송에 50개 제한이 있으니 유의하기 바랍니다.
 
@@ -1197,7 +1183,7 @@ message.to = @[@"f5df22f9-547e-11e2-b5a4-06ebb80000ba", @"a5df22f9-547e-11e2-b5a
 
 
 ## Push On/Off
-[]({'id':'onoff'})
+[]({'id':'push-onoff', 'data-menu':'Push On/Off'})
 
 ##### Push Off
 서버에 여전히 디바이스가 등록 되어 있지만, Push를 받지 않습니다.
@@ -1226,7 +1212,7 @@ BaasioPush *push = [[BaasioPush alloc] init];
 
 
 ## Tag 수정
-[]({'id':'update-tag'})
+[]({'id':'update-tag', 'data-menu':'Tag Update'})
 등록된 Tag를 수정합니다.
 
 ```objc
@@ -1244,7 +1230,7 @@ BaasioPush *push = [[BaasioPush alloc] init];
 
 
 # Help
-[]({'id':'helpcenter'})
+[]({'id':'helpcenter', 'data-menu':'Help'})
 BaasioHelp 클래스를 이용하여 간편하게 고객센터 서비스를 구현할 수 있습니다.
 
 또한 모바일에서 고객센터를 쉽게 구현하실 수 있도록 [고객센터 UI 라이브러리](https://github.com/baasio/baas.io-helpcenter-ios)를 제공하고 있습니다.
@@ -1252,13 +1238,13 @@ BaasioHelp 클래스를 이용하여 간편하게 고객센터 서비스를 구�
 직접 UI를 구현하기 보다는 아래 링크에서 UI 템플릿을 받아 수정하기를 권합니다.
 
 -----
-**유의하기** 고객센터는 비동기 API만 제공됩니다.
+`유의하기` 고객센터는 비동기 API만 제공됩니다.
 > 고객선터는 비동기 API만 제공됩니다. 혹시 동기식 API가 필요하다고 생각되면, 먼저 진짜 필요한지 아키텍쳐에 대해서 고민해보기 바랍니다.
 
 -----
 
 ## 도움말(FAQ) 목록
-[]({'id':'helpcenter-get-faq'})
+[]({'id':'helpcenter-get-faq', 'data-menu':'도움말 목록'})
 
 ```objc
 BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
@@ -1272,7 +1258,7 @@ BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
 
 
 ## 도움말(FAQ) 검색
-[]({'id':'search-faq'})
+[]({'id':'helpcenter-search-faq', 'data-menu':'도움말 검색'})
 
 ```objc
 NSString *query = @"검색";
@@ -1288,7 +1274,7 @@ BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
 
 
 ## 도움말(FAQ) 상세내용 보기
-[]({'id':'get-faq-content'})
+[]({'id':'helpcenter-get-faq-content', 'data-menu':'도움말 상세내용 보기'})
 
 ```objc
 NSString *uuid = @"cf334051-2dee-47ef-b787-2d7f5a889db0"; // help entity uuid
@@ -1305,7 +1291,7 @@ BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
 
 
 ## 문의하기
-[]({'id':'helpcenter-create'})
+[]({'id':'helpcenter-create', 'data-menu':'문의하기'})
 
 ```objc
 BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
@@ -1328,7 +1314,7 @@ BaasioHelp *helpdesk = [[BaasioHelp alloc]init];
 
 
 ## Debug 모드 (개발용)
-[]({'id':'debug'})
+[]({'id':'debug', 'data-menu':'Debug 모드 - 개발용'})
 didFinishLaunchingWithOptions(권장) 에 아래와 같이 설정하면 디버그 모드로 동작합니다.
 
 기본은 릴리즈 모드입니다. 릴리즈 시 끄는 것을 잊지 마세요!
@@ -1352,10 +1338,10 @@ SDK에서 최신 기능이 추가되거나 버그에 대한  hotfix 등등으로
 
 
 ## Error
-[]({'id':'error'})
+[]({'id':'error', 'data-menu':'Error'})
 
 -----
-**유의하기** Error handling에 대한 고민은 계속되고 있습니다.
+`유의하기` Error handling에 대한 고민은 계속되고 있습니다.
 
 > Error handling에 대해서는 계속 고민중이지만, 좋은 아이디어 있으면 Pull Requests를 부탁드립니다. 우리는 항상 열려있습니다.
 
@@ -1371,13 +1357,13 @@ failureBlock:^(NSError *error) {
 
 
 ## Rest Network API
-[]({'id':'restapi'})
+[]({'id':'restapi', 'data-menu':'Rest Network API'})
 SimpleNetworkManager 클래스를 이용하면 추가적인 네트워크 라이브러리 없이 간편하게 외부 리소스 접근이 가능합니다.
 
 또한 SDK에서 제공하지 못하는 Rest API도 이 클래스를 이용하면 확장하여 사용이 가능합니다.
 
 -----
-**알고가기** AFNetworking을 기본 네트워크 라이브러리로 사용합니다.
+`알고가기` AFNetworking을 기본 네트워크 라이브러리로 사용합니다.
 > iOS SDK는 [AFNetworking](https://github.com/AFNetworking/AFNetworking)를 기본 네트워크 라이브러리로 사용합니다. 그렇기 때문에 한 프로젝트에 AFNetworking와 baas.io iOS SDK를 동시에 사용하면 "duplicate symbol" 에러가 발생합니다.그 경우, AFNetworking에 관련된 *.m파일을 지우면 해결 할 수 있습니다.
 
 -----
@@ -1443,7 +1429,7 @@ NSDictionary *headerFields = @{@"Authorization" : @"인증토큰입력"};
 
 
 ## UIImageView 지원
-[]({'id':'imageview'})
+[]({'id':'imageview', 'data-menu':'UIImageView 지원'})
 AFNetworking에서는 UIImageView 클래스에 외부의 이미지를 비동기로 로딩하는 기능이 있습니다.
 
 `UIImageView+AFNetworking.h`라는 이름의 category로 되어 있는데, baas.io SDK에서도 이것을 이용하여 구현하였습니다.
