@@ -15,41 +15,33 @@ username은 영문과 숫자, 특수기호를 사용할 수 있으며, 유일한
 또한, 비밀번호 변경 또는 초기화를 위해서 가급적 이메일 주소를 받는 것이 좋습니다.
 
 ```javascript
-$(document).ready(function(){
-	// 필수 요소
-	var appInfo = {
-		orgName: //baas.io ID
-		appName: //Application ID
-	}
 
-	var io = new Baas.IO(appInfo);
+// 필수 요소
+var appInfo = {
+    orgName: //baas.io ID
+    appName: //Application ID
+}
+var io = new Baas.IO(appInfo);
 
-	var username = 'baasID'; //ID(username)
+var username = 'baasID'; //ID(username)
+var password = 'baas1234'; //user password
+var email = 'baas@baas.io'; //user email address
+var name = 'baas'; //user name
 
-	var password = 'baas1234'; //user password
+// errorFlag가 true이면 error가 발생
+// errorFlag가 false이면 error 없이 가입 완료
+var callback = function(errorFlag, entity) {
 
-	var email = 'baas@baas.io'; //user email address
+    if(errorFlag){
+        console.log('entity :', entity);
+    } else {
+        console.log('entity :', entity);
+    }
 
-	var name = 'baas'; //user name
+}
 
-    // errorFlag가 true이면 error가 발생
-    // errorFlag가 false이면 error 없이 가입 완료
-	var callback = function(errorFlag, entity) {
+io.signup(username, password, email, name, callback)
 
-		if(errorFlag){
-
-			console.log('entity :', entity);
-
-		} else {
-
-			console.log('entity :', entity);
-
-		}
-
-	}
-
-	io.signup(username, password, email, name, callback)
-})
 ```
 
 ### Error Code
