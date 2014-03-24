@@ -15,19 +15,22 @@ username은 영문과 숫자, 특수기호를 사용할 수 있으며, 유일한
 또한, 비밀번호 변경 또는 초기화를 위해서 가급적 이메일 주소를 받는 것이 좋습니다.
 
 ```javascript
-// 필수 요소
-var io = new Baas.IO(
-    orgName,		// baaas.io ID
-    appName		// Application ID
-);
 
-io.signup(
-    username, 	// @String ID(username)
-    password, 	// @String user password
-    email, 		// @String user email address
-    name, 		// @String user name
-    callback	// @Fuction callback Function
-)
+/*
+ * 필수 요소
+ * @params {string} orgName (baaas.io ID) 
+ * @params {string} appName (appName ID)
+ */
+var io = new Baas.IO( orgName, appName);
+
+/*
+ * @params {string} username 
+ * @params {string} password
+ * @params {string} email
+ * @params {string} name
+ * @params {function} callback Function
+ */
+io.signup( username, password, email, name, callback);
 ```
 
 ### Error Code
