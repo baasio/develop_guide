@@ -11,7 +11,7 @@ module.exports = function(grunt){
 					files: {
 					'javascript/guide.md': [
 					'javascript/overview.md',
-					'javascript/io.md'
+					'javascript/user.md'
 					]
 				},
 			}
