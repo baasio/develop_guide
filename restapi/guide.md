@@ -1,5 +1,5 @@
 # Intro
-[]({'id':'intro'})
+[]({'id':'intro', 'data-menu':'Intro'})
 
 baas.io API는 baas.io가 제공하는 Entity,Collection과 다른 데이타에 접근하기 위한 REST 기반의 구조를 제공하고 있습니다. 각 자원들은 URL 경로로 표현되며, 작성하신 앱은 이 URL에 기반하여 다양한 관리 작업들을 요청할수 있게 됩니다.
 
@@ -16,7 +16,7 @@ baas.io API는 baas.io가 제공하는 Entity,Collection과 다른 데이타에 
 |File|/files|파일 Entity|
 |Device|/devices|디바이스 Entity - 지원예정|
 |Events and counters|/events|이벤트 와 카운터 Entity - 지원예정|
-|일반용도|Collection|/|사용자 Entity|
+|일반용도|Collection|/|
 
 []({'class':'table-bordered'})
 
@@ -27,7 +27,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 일반 용도 Collection은 자신만의 Collection을 만드는 것 부터 시작합니다. 특정한 Entity 를 위한 Collection이 아니며 필요한 Entity 를 정의하고 그 Entity 를 저장할 Collection을 자유롭게 생성할 수 있습니다.
 
 ## Endpoints
-[]({'id':'intro-endpoint'})
+[]({'id':'intro-endpoint', 'data-menu':'Endpoints'})
 
 - [Application](#intro-endpoints-application)
 - [Authorization](#intro-endpoints-authorization)
@@ -39,7 +39,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 - [Help](#intro-endpoints-help)
 - [Collection](#intro-endpoints-collection)
 
-##### Application|intro-endpoints-application
+##### Application
+[]({'id':'intro-endpoints-application'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -47,7 +48,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### Authorization|intro-endpoints-authorization
+##### Authorization
+[]({'id':'intro-endpoints-authorization'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -56,7 +58,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### User|intro-endpoints-user
+##### User
+[]({'id':'intro-endpoints-user'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -83,7 +86,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### Group|intro-endpoints-group
+##### Group
+[]({'id':'intro-endpoints-group'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -101,7 +105,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### Role|intro-endpoints-role
+##### Role
+[]({'id':'intro-endpoints-role'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -117,7 +122,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### Push|intro-endpoints-push
+##### Push
+[]({'id':'intro-endpoints-push'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -132,7 +138,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### File|intro-endpoints-file
+##### File
+[]({'id':'intro-endpoints-file'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -160,7 +167,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### Help|intro-endpoints-help
+##### Help
+[]({'id':'intro-endpoints-help'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -175,7 +183,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 []({'class':'table-bordered'})
 
-##### Collection|intro-endpoints-collection
+##### Collection
+[]({'id':'intro-endpoints-collection'})
 
 |메소드|uri|Content Type|설명|
 |:---|:---|:---|:---|
@@ -193,14 +202,15 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 
 ## Error Handling
-[]({'id':'intro-error-handling'})
+[]({'id':'intro-error-handling', 'data-menu':'Error Handling'})
 
 baas.io 의 REST API 들은 일반적인 HTTP 요청과 마찬가지로 모든 요청은 status code를 가지며, 예외 상황에 대해서 좀 더 구체적인 정보를 제공하기 위해 error code 역시 제공합니다.
 
 - [HTTP Status Codes](#intro-error-handling-statuscode)
 - [Error Codes](#intro-error-handling-errorcode)
 
-##### HTTP Status Codes|intro-error-handling-statuscode
+##### HTTP Status Codes
+[]({'id':'intro-error-handling-statuscode'})
 
 HTTP/1.1 Status Code 표준에는 수 많은 코드가 존재하지만, baas.io 에서는 좀 더 단순화 하여 아래의 5개의 코드를 를 주로 사용합니다.
 
@@ -243,7 +253,8 @@ HTTP Status code 가 4xx 대 이거나 500 인 경우 에러 상황에 대한 �
 
 각 상세 에러코드의 의미는 다음과 같습니다.
 
-##### 상세 Error code|intro-error-handling-errorcode
+##### 상세 Error code
+[]({'id':'intro-error-handling-errorcode'})
 
 |이름|status code|error code|	의미|
 |:---|:---------|:---------|:---|
@@ -270,7 +281,7 @@ HTTP Status code 가 4xx 대 이거나 500 인 경우 에러 상황에 대한 �
 
 
 # Application
-[]({'id':'application'})
+[]({'id':'application', 'data-menu':'Application'})
 
 Application Entity는 baas.io 포털의 백엔드 앱 생성 기능을 통해서 생성되는 Entity입니다. Application Entity는 아래와 같은 주소를 통해서 접근이 가능합니다.
 
@@ -315,12 +326,12 @@ https://api.baas.io/{baasio-id}/{app-id}
 
 
 # Users
-[]({'id':'users'})
+[]({'id':'users', 'data-menu':'Users'})
 
 사용자의 정보(아이디, 이메일, 이름, 주소 등 )를 앱에서 관리하길 원한다면, 아래의 API 를 사용하면 쉽게 적용할 수 있습니다.
 
 ## 사용자 등록하기
-[]({'id':'postUsers'})
+[]({'id':'postUsers', 'data-menu':'사용자 등록하기'})
 
 ##### Request URI
 
@@ -425,7 +436,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",
 ```
 
 ## 사용자 조회하기
-[]({'id':'getUsers'})
+[]({'id':'getUsers', 'data-menu':'사용자 조회하기'})
 
 ##### Request URI
 
@@ -528,7 +539,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ```
 
 ## 사용자를 쿼리로 조회하기
-[]({'id':'getUsersByQuery'})
+[]({'id':'getUsersByQuery', 'data-menu':'사용자를 쿼리로 조회하기'})
 
 [사용자 조회하기](users.html#getUsers) API 에서 확인한 것처럼 등록된 사용자를 조회할 수 있습니다. 특정한 사용자를 조회하고 싶을 때, 데이터 질의 방법을 사용하여 사용자를 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
 
@@ -650,7 +661,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
  
 
 ## 사용자 UUID, username, email 으로 조회하기
-[]({'id':'getUser'})
+[]({'id':'getUser', 'data-menu':'사용자 UUID, username, email로 조회하기'})
 
 ##### Request URI
 
@@ -730,7 +741,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
  
 
 ## 사용자의 정보를 수정하기
-[]({'id':'putUser'})
+[]({'id':'putUser', 'data-menu':'사용자 정보 수정하기'})
 
 ##### Request URI
 
@@ -763,7 +774,7 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [Use
 - 성공
 	- Code: 200 
 	- Contents:
-	
+
 ```json
 {
 	"action": "put",
@@ -817,10 +828,9 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [Use
 curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }' "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
 ```
 
- 
 
 ## 사용자의 정보를 삭제하기
-[]({'id':'deleteUser'})
+[]({'id':'deleteUser', 'data-menu':'사용자 정보 삭제하기'})
 
 ##### Request URI
 
@@ -841,11 +851,11 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 ##### Response
 
 - 성공
-	
+
 	- Code: 200 
 	- Contents:
 
-```json   
+```json
 {
 	"action": "delete",
 	"application": "81c5c8b8-136a-11e2-8ed5-4061867ca222",
@@ -890,9 +900,9 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 - 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/users/{user_uuid or username}"
 ```
@@ -900,7 +910,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
  
 
 ## 사용자의 비밀번호를 변경하기
-[]({'id':'putPassword'})
+[]({'id':'putPassword', 'data-menu':'사용자의 비밀번호 변경하기'})
 
 [사용자 등록](#postUsers) 시 등록한 사용자의 비밀번호를 변경하려면 해당 API를 이용하면 됩니다. 해당 API는 기존 비밀번호를 알고 있는 경우를 전제로 합니다. 만약, 사용자의 기존 비밀번호를 모른다면 [사용자의 비밀번호를 재설정하기](#resetpassword) 방법으로 비밀번호를 설정하셔야 합니다.
 
