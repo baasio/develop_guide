@@ -30,14 +30,14 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 []({'id':'intro-endpoint', 'data-menu':'Endpoints'})
 
 - [Application](#restapi/intro/intro-endpoints-application)
-- [Authorization](#restapi//into/intro-endpoints-authorization)
-- [User](#intro-endpoints-user)
-- [Group](#intro-endpoints-group)
-- [Role](#intro-endpoints-role)
-- [Push](#intro-endpoints-push)
-- [File](#intro-endpoints-file)
-- [Help](#intro-endpoints-help)
-- [Collection](#intro-endpoints-collection)
+- [Authorization](#restapi/intro/intro-endpoints-authorization)
+- [User](#restapi/intro/intro-endpoints-user)
+- [Group](#restapi/intro/intro-endpoints-group)
+- [Role](#restapi/intro/intro-endpoints-role)
+- [Push](#restapi/intro/intro-endpoints-push)
+- [File](#restapi/intro/intro-endpoints-file)
+- [Help](#restapi/intro/intro-endpoints-help)
+- [Collection](#restapi/intro/intro-endpoints-collection)
 
 ##### Application
 []({'id':'intro-endpoints-application'})
@@ -206,8 +206,8 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 
 baas.io 의 REST API 들은 일반적인 HTTP 요청과 마찬가지로 모든 요청은 status code를 가지며, 예외 상황에 대해서 좀 더 구체적인 정보를 제공하기 위해 error code 역시 제공합니다.
 
-- [HTTP Status Codes](#intro-error-handling-statuscode)
-- [Error Codes](#intro-error-handling-errorcode)
+- [HTTP Status Codes](#restapi/intro/intro-error-handling-statuscode)
+- [Error Codes](#restapi/into/intro-error-handling-errorcode)
 
 ##### HTTP Status Codes
 []({'id':'intro-error-handling-statuscode'})
@@ -350,7 +350,7 @@ https://api.baas.io/{baasio-id}/{app-id}
 
 ##### Request Body
 
-User Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [User Entity](#userEntity)에서 살펴보시기 바랍니다. 사용자를 등록하기 위해서는 최소한의 정보가 필요하며 반드시 포함되어야 할 정보는 username 입니다. User 를 등록할 때 password 를 등록하지 않으면 user token 을 발급 받을 수 없습니다. 주의하실 점은 처음에 password 가 설정되지 않으면 다시는 password 를 설정할 수 없습니다.
+User Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [User Entity](#restapi/users/users-userEntity)에서 살펴보시기 바랍니다. 사용자를 등록하기 위해서는 최소한의 정보가 필요하며 반드시 포함되어야 할 정보는 username 입니다. User 를 등록할 때 password 를 등록하지 않으면 user token 을 발급 받을 수 없습니다. 주의하실 점은 처음에 password 가 설정되지 않으면 다시는 password 를 설정할 수 없습니다.
 
 
 ```json
@@ -427,7 +427,7 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [User
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro/intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -530,7 +530,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -541,7 +541,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ## 사용자를 쿼리로 조회하기
 []({'id':'users-getUsersByQuery', 'data-menu':'사용자를 쿼리로 조회하기'})
 
-[사용자 조회하기](users.html#getUsers) API 에서 확인한 것처럼 등록된 사용자를 조회할 수 있습니다. 특정한 사용자를 조회하고 싶을 때, 데이터 질의 방법을 사용하여 사용자를 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
+[사용자 조회하기](#restapi/users/users-getUsers) API 에서 확인한 것처럼 등록된 사용자를 조회할 수 있습니다. 특정한 사용자를 조회하고 싶을 때, 데이터 질의 방법을 사용하여 사용자를 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
 
 ##### Request URI
 
@@ -650,7 +650,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -730,7 +730,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -761,7 +761,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 ##### Request Body
 
-User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [User Entity](#userEntity)에서 살펴보시면 됩니다. 예시는 사용자를 활성화, 비활성화 정보를 담당하는 프로퍼티(Property)를 변경해보겠습니다.
+User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [User Entity](#restapi/users/users-userEntity)에서 살펴보시면 됩니다. 예시는 사용자를 활성화, 비활성화 정보를 담당하는 프로퍼티(Property)를 변경해보겠습니다.
 
 ```json
 {
@@ -820,7 +820,7 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는  [Use
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -899,7 +899,7 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -911,7 +911,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 ## 사용자의 비밀번호를 변경하기
 []({'id':'users-putPassword', 'data-menu':'사용자의 비밀번호 변경하기'})
 
-[사용자 등록](#postUsers) 시 등록한 사용자의 비밀번호를 변경하려면 해당 API를 이용하면 됩니다. 해당 API는 기존 비밀번호를 알고 있는 경우를 전제로 합니다. 만약, 사용자의 기존 비밀번호를 모른다면 [사용자의 비밀번호를 재설정하기](#resetpassword) 방법으로 비밀번호를 설정하셔야 합니다.
+[사용자 등록](#restapi/users/users-postUsers) 시 등록한 사용자의 비밀번호를 변경하려면 해당 API를 이용하면 됩니다. 해당 API는 기존 비밀번호를 알고 있는 경우를 전제로 합니다. 만약, 사용자의 기존 비밀번호를 모른다면 [사용자의 비밀번호를 재설정하기](#restapi/users/users-resetPassword) 방법으로 비밀번호를 설정하셔야 합니다.
 
 ##### Request URI
 
@@ -954,7 +954,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -968,7 +968,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my
 ## 사용자의 비밀번호를 재설정하기
 []({'id':'users-resetPassword', 'data-menu':'사용자의 비밀번호 재설정하기'})
 
-[사용자 등록](#postUsers) 시에 *이메일 정보를 받지 않은 사용자는 비밀번호를 재설정할 수 없습니다.* 따라서, [사용자 수정 하기](#putUser) 방법으로 이메일 정보를 수정 이용하면 됩니다.
+[사용자 등록](#restapi/users/users-postUsers) 시에 *이메일 정보를 받지 않은 사용자는 비밀번호를 재설정할 수 없습니다.* 따라서, [사용자 수정 하기](#restapi/users/users-putUser) 방법으로 이메일 정보를 수정 이용하면 됩니다.
 
 ##### 사용자 비밀번호 재설정 단계
 1. 사용자의 비밀번호 초기화 API 호출
@@ -1014,7 +1014,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1025,7 +1025,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applicat
 ## 사용자의 인증 토큰 발급하기
 []({'id':'users-token', 'data-menu':'사용자의 인증 토큰 발급하기'})
 
-baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 인증 토큰을 발급받을 수 있습니다. 더 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
+baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](#basic_concept/authentication) 기반 하에서 인증 토큰을 발급받을 수 있습니다. 더 자세한 설명은 [인증 시스템](#basic_concept/authentication)에서 확인하세요.
 
 ##### Request URI
 
@@ -1076,7 +1076,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1089,7 +1089,7 @@ curl -X POST -i -d '{\"grant_type\":\"password\",\"username\":\"bob@company.com\
 ## 사용자가 발급한 인증 토큰을 만료 시키기
 []({'id':'users-revokekoken', 'data-menu':'사용자가 발급한 인증 토큰을 만료시키기'})
 
-baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에 발급받은 개별 인증 토큰을 만료시킬 수 있습니다. 인증 토큰 만료는 로그아웃 처리라고 생각하시면 편할듯 합니다. 만약 사용자가 발급받은 모든 인증 토큰을 만료하려면 [사용자가 발급한 인증 토큰 모두 만료 시키기](#revoketokens) API 를 사용하세요. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
+baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](#basic_concept/authentication) 기반 하에 발급받은 개별 인증 토큰을 만료시킬 수 있습니다. 인증 토큰 만료는 로그아웃 처리라고 생각하시면 편할듯 합니다. 만약 사용자가 발급받은 모든 인증 토큰을 만료하려면 [사용자가 발급한 인증 토큰 모두 만료 시키기](#restapi/uesrs/users-revoketokens) API 를 사용하세요. 인증시스템의 자세한 설명은 [인증 시스템](#basic_concept/authentication)에서 확인하세요.
 
 ##### Request URI
 
@@ -1130,7 +1130,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1141,7 +1141,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"token\":\"{token}\"
 ## 사용자가 발급한 인증 토큰 모두 만료 시키기
 []({'id':'users-revoketokens', 'data-menu':'사용자가 발급한 인증 토큰 모두 만료시키기'})
 
-baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](../concept/authentication.html) 기반 하에서 발급 받은 인증 토큰을 모두 만료시킬 수 있습니다. 만약 1개의 인증 토큰을 만료하려면 [사용자 발급한 토큰을 만료 시키기](#revoketoken) API 를 사용하면 됩니다. 인증시스템의 자세한 설명은 [인증 시스템](../concept/authentication.html)에서 확인하세요.
+baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](basic_concept/authentication) 기반 하에서 발급 받은 인증 토큰을 모두 만료시킬 수 있습니다. 만약 1개의 인증 토큰을 만료하려면 [사용자 발급한 토큰을 만료 시키기](#restapi/users/users-revoketoken) API 를 사용하면 됩니다. 인증시스템의 자세한 설명은 [인증 시스템](#basic_concept/authentication)에서 확인하세요.
 
 ##### Request URI
 
@@ -1175,7 +1175,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1253,7 +1253,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1265,7 +1265,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 ## 그룹에 사용자를 추가하기
 []({'id':'users-postGroups', 'data-menu':'그룹에 사용자를 추가하기'})
 
-해당기능은 Group API [그룹에 사용자를 추가하기](groups.html#postGroupUser) 에서 확인하세요.
+해당기능은 Group API [그룹에 사용자를 추가하기](#restapi/groups/postGroupUser) 에서 확인하세요.
 
 
 ## 사용자의 롤 조회하기
@@ -1331,7 +1331,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1343,7 +1343,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ## 사용자의 롤 추가하기
 []({'id':'users-postRoleUser', 'data-menu':'사용자의 롤 추가하기'})
 
-롤과 사용자와의 관계를 설정할 수 있습니다. 특정 사용자에서 롤을 등록하는 경우는 Role API [롤에 사용자 추가하기](roles.html#) 에서 확인하세요.
+롤과 사용자와의 관계를 설정할 수 있습니다. 특정 사용자에서 롤을 등록하는 경우는 Role API [롤에 사용자 추가하기](#restapi/role/postRoleUser) 에서 확인하세요.
 
 
 ## 사용자와 특정 Entity 관계(Connection) 설정하기
@@ -1351,7 +1351,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 Collections 들은 서로간의 관계(Connection)를 만들 수 있습니다. 예를들어, 사용자 로그인 기반의 음악앱을 만든다고 하였을 때, Collection(collection)은 users, musics 2개의 Collection을 생각할 수 있겠죠.
 
-Users는 기본 Collection이기 때문에 생성할 필요는 없으며, musics는 새로운 Collection이기 때문에 Collection 생성 API로 새로운 Collection을 생성(참고. [Collection 가이드 페이지](collection.html))하고, 새로운 음악 정보를 만들 것입니다.
+Users는 기본 Collection이기 때문에 생성할 필요는 없으며, musics는 새로운 Collection이기 때문에 Collection 생성 API로 새로운 Collection을 생성(참고. [Collection 가이드 페이지](#restapi/collection))하고, 새로운 음악 정보를 만들 것입니다.
 
 ##### Request URI
 
@@ -1459,7 +1459,7 @@ Users는 기본 Collection이기 때문에 생성할 필요는 없으며, musics
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1526,7 +1526,7 @@ Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니�
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1563,7 +1563,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 |Set|형식|설명|
 |:-----------:|:-----------:|:----------|
 |connections|string|관계리스트|
-|rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](roles.html)|
+|rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](#restapi/role)|
 |permissions|string|퍼미션 리스트|
 |credentials|string|credentials 리스트|
 
@@ -1572,7 +1572,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 ##### User 기본 Collection
 
 User Entity 에서는 기본으로 제공하는 Collection과의 관계 설정을 위해서 아래의 값들을 미리 가지고 있습니다.
-참고.[사용자와 특정 Entity(Collection) 관계(Connection) 설정하기](#postConnection)
+참고.[사용자와 특정 Entity(Collection) 관계(Connection) 설정하기](#restapi/users/users-postConnection)
 
 |Collection|형식|설명|
 |:----------:|:----------:|:------------|
@@ -1673,7 +1673,7 @@ Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1758,7 +1758,7 @@ $.ajax({
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](../rest/errors.html)를 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](#restapi/intro/intro-error-handling)를 살펴보세요.
 
 ##### Example
 
@@ -1836,7 +1836,7 @@ Query의 조건에 맞는 Entity 목록을 리턴한다.
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](../rest/errors.html)를 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 예외사항 처리](#restapi/intro/intro-error-handling)를 살펴보세요.
 
 ##### Example
 
@@ -1911,7 +1911,7 @@ UUID나 name 속성으로 찾은 Entity를 리턴한다.
 ```
 
 - 에러
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -1999,7 +1999,7 @@ Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -2090,7 +2090,7 @@ Query의 조건에 맞는 Collection의 Entity를 수정한다. 새로운 속성
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -2169,7 +2169,7 @@ UUID나 name 속성으로 찾은 Entity를 삭제한다. 삭제된 Entity의 내
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -2253,7 +2253,7 @@ Query 기준에 맞는 Entity들을 리턴하거나 Query나 필터가 없다면
  
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
  
 
 ##### Example
@@ -2331,7 +2331,7 @@ Collection의 특정 Entity에 Connection을 생성하고 다른 Entity를 커�
  
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -2416,7 +2416,7 @@ Collection의 특정 Entity의 relation 에서 다른 Entity 와의 Relation 을
  
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -2454,10 +2454,10 @@ $.ajax({
 ## 파일 엔티티 생성&업로드
 []({'id':'file-create', 'data-menu':'파일 엔티티 생성&업로드'})
 
-- [파일 엔티티 생성 및 업로드](#createFileEntityAndUploadBLOB)
-- [파일 엔티티 생성](#createFileEntity)
-- [파일 업로드](#uploadBLOB)
-- [파일 업로드(DATA 커맨드 이용)](#uploadBLOBwithDataCMD)
+- [파일 엔티티 생성 및 업로드](#restapi/file/createFileEntityAndUploadBLOB)
+- [파일 엔티티 생성](#restapi/file/createFileEntity)
+- [파일 업로드](#restapi/file/uploadBLOB)
+- [파일 업로드(DATA 커맨드 이용)](#restapi/file/uploadBLOBwithDataCMD)
 
 ##### 파일 엔티티 생성 및 업로드
 []({'id':'createFileEntityAndUploadBLOB'})
@@ -2812,7 +2812,7 @@ Transfer-Encoding: chunked
 ##### 파일 업로드
 []({'id':'uploadBLOB'})
 
-[파일 엔티티 생성](#createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#createFileEntity) 또는 [파일 엔티티 수정](#updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
+[파일 엔티티 생성](#restapi/file/createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#restapi/file/createFileEntity) 또는 [파일 엔티티 수정](#restapi/file/updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
 
 ###### Request URI
 
@@ -2890,7 +2890,7 @@ Transfer-Encoding: chunked
 ##### 파일 업로드(DATA 커맨드 이용)
 []({'id':'uploadBLOBwithDataCMD'})
 
-[파일 엔티티 생성](#createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#createFileEntity) 또는 [파일 엔티티 수정](#updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
+[파일 엔티티 생성](#restapi/file/createFileEntity) 을 통해 만들어진 엔티티에 대한 BLOB 를 업로드 합니다. 파일명, 파일의 Content-type 등의 BLOB 에 대한 메타 정보는 [파일 엔티티 생성](#restapi/file/createFileEntity) 또는 [파일 엔티티 수정](#restapi/file/updateFileEntity) 를 통해 등록 또는 수정되어야 합니다.
 
 ###### Request URI
 
@@ -2967,10 +2967,10 @@ Transfer-Encoding: chunked
 ## 파일 엔티티 조회
 []({'id':'file-get', 'data-menu':'파일 엔티티 조회'})
 
-- [파일 엔티티 조회(전체)](#getEntireFileEntities)
-- [필터를 이용한 파일 엔티티 조회](#getFilteredFileEntities)
-- [질의를 이용한 파일 엔티티 조회](#getFileEntitiesWithQuery)
-- [파일 엔티티 조회(단일)](#getFileEntity)
+- [파일 엔티티 조회(전체)](#restapi/file/getEntireFileEntities)
+- [필터를 이용한 파일 엔티티 조회](#restapi/file/getFilteredFileEntities)
+- [질의를 이용한 파일 엔티티 조회](#restapi/file/getFileEntitiesWithQuery)
+- [파일 엔티티 조회(단일)](#restapi/file/getFileEntity)
 
 ##### 파일 엔티티 조회
 []({'id':'getEntireFileEntities'})
@@ -3096,7 +3096,7 @@ Transfer-Encoding: chunked
 
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+| ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
 []({'class':'table-bordered'})
 
@@ -3209,7 +3209,7 @@ Transfer-Encoding: chunked
 
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+| ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
 []({'class':'table-bordered'})
 
@@ -3385,8 +3385,8 @@ Transfer-Encoding: chunked
 ## 파일 다운로드
 []({'id':'file-download', 'data-menu':'파일 다운로드'})
 
-- [파일 다운로드](#downloadFile)
-- [파일 다운로드(DATA 커맨드 이용)](#downloadFilewithDataCMD)
+- [파일 다운로드](#restapi/file/downloadFile)
+- [파일 다운로드(DATA 커맨드 이용)](#restapi/file/downloadFilewithDataCMD)
 
 ##### 파일 다운로드
 []({'id':'downloadFile'})
@@ -3553,10 +3553,10 @@ Connection: close
 ## 파일 엔티티 수정 및 교체
 []({'id':'file-update', 'data-menu':'파일 엔티티 수정 및 교체'})
 
-- [파일 엔티티 수정 및 교체](#updateFileEntityAndReplaceBLOB)
-- [파일 엔티티 수정](#updateFileEntity)
-- [필터를 이용한 일괄 파일 엔티티 수정](#updateFilteredFileEntities)
-- [질의를 이용한 일괄 파일 엔티티 수정](#updateFileEntitiesWithQuery)
+- [파일 엔티티 수정 및 교체](#restapi/file/updateFileEntityAndReplaceBLOB)
+- [파일 엔티티 수정](#restapi/file/updateFileEntity)
+- [필터를 이용한 일괄 파일 엔티티 수정](#restapi/file/updateFilteredFileEntities)
+- [질의를 이용한 일괄 파일 엔티티 수정](#restapi/file/updateFileEntitiesWithQuery)
 
 ##### 파일 엔티티 수정 및 교체
 []({'id':'updateFileEntityAndReplaceBLOB'})
@@ -3935,7 +3935,7 @@ Transfer-Encoding: chunked
 
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
-| filter | filter 절 (자세한 내용은 <a href="../devguide/query.html#filterClause">여기서</a> 확인)  |
+| filter | filter 절 (자세한 내용은 [여기서]("../devguide/query.html#filterClause") 확인)  |
 
 []({'class':'table-bordered'})
 
@@ -4061,7 +4061,7 @@ Transfer-Encoding: chunked
 
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+| ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
 []({'class':'table-bordered'})
 
@@ -4153,9 +4153,9 @@ Transfer-Encoding: chunked
 ## 파일 삭제
 []({'id':'file-delete', 'data-menu':'파일 삭제'})
 
-- [파일 삭제(단일)](#deleteFileEntityAndBLOB)
-- [필터를 이용한 파일 삭제](#deleteFilteredFileEntitiesAndBLOB)
-- [질의를 이용한 파일 삭제](#deleteFileEntitiesWithQueryAndBLOB)
+- [파일 삭제(단일)](#restapi/file/deleteFileEntityAndBLOB)
+- [필터를 이용한 파일 삭제](#restapi/file/deleteFilteredFileEntitiesAndBLOB)
+- [질의를 이용한 파일 삭제](#restapi/file/deleteFileEntitiesWithQueryAndBLOB)
 
 ##### 파일 삭제(단일)
 []({'id':'deleteFileEntityAndBLOB'})
@@ -4282,7 +4282,7 @@ Transfer-Encoding: chunked
 
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
-| filter | filter 절 (자세한 내용은 <a href="../devguide/query.html#filterClause">여기서</a> 확인)  |
+| filter | filter 절 (자세한 내용은 [여기서]("../devguide/query.html#filterClause") 확인)  |
 
 []({'class':'table-bordered'})
 
@@ -4389,7 +4389,7 @@ Transfer-Encoding: chunked
 
 | Query Parameter 명 | 설명 |
 |:------------------:|------|
-| ql | ql 절 (자세한 내용은 <a href="../devguide/query.html#queryClause">여기서</a> 확인) |
+| ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
 []({'class':'table-bordered'})
 
@@ -4483,9 +4483,9 @@ Transfer-Encoding: chunked
 # Group
 []({'id':'group', 'data-menu':'Group'})
 
-그룹의 경우는 [User](user.html)를 좀 더 잘 활용하기 위해서 사용합니다. 예를 들어, 이벤트(생일, 결혼 등) 같이 특정 사용자들의 모임을 만들고자 합니다. 사용자를 그룹화 할 수 있는 그룹API를 사용하면 편리하게 해당 그룹 사용자들만 조회 가능합니다.
+그룹의 경우는 [User](#restapi/users)를 좀 더 잘 활용하기 위해서 사용합니다. 예를 들어, 이벤트(생일, 결혼 등) 같이 특정 사용자들의 모임을 만들고자 합니다. 사용자를 그룹화 할 수 있는 그룹API를 사용하면 편리하게 해당 그룹 사용자들만 조회 가능합니다.
 
-또한, 해당 그룹의 사용자들만 볼 수 있는 [롤(Role)](role.html)을 만들고 특정 Collection을 조회할 수 있도록도 할 수 있습니다. 사용에 따라서 다양한 활용이 가능합니다.
+또한, 해당 그룹의 사용자들만 볼 수 있는 [롤(Role)](#restapi/role)을 만들고 특정 Collection을 조회할 수 있도록도 할 수 있습니다. 사용에 따라서 다양한 활용이 가능합니다.
 
 ## 그룹 생성하기
 []({'id':'group-postGroups', 'data-menu':'그룹 생성하기'})
@@ -4507,7 +4507,7 @@ Transfer-Encoding: chunked
 
 ##### Request Body
 
-Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Group Entity](#groupEntity)에서 살펴보시면 됩니다. 그룹을 등록하기 위해서는 최소한의 정보가 필요하며 반드시 포함되어야 할 정보는 path 입니다.
+Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Group Entity](#restapi/group/groupEntity)에서 살펴보시면 됩니다. 그룹을 등록하기 위해서는 최소한의 정보가 필요하며 반드시 포함되어야 할 정보는 path 입니다.
 
 ```
 {
@@ -4569,7 +4569,7 @@ Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Gro
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 
 ##### Example
@@ -4667,7 +4667,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\"
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 
 ##### Example
@@ -4679,7 +4679,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 ## 그룹을 쿼리로 조회하기
 []({'id':'getGroupsByQuery', 'data-menu':'그룹을 쿼리로 조회하기'})
 
-[그룹 조회하기](#getGroups) API 에서 확인한 것처럼 등록된 그룹을 조회할 수 있습니다. 특정한 그룹을 조회하고 싶을 때, 데이터 질의 방법을 사용하여 그룹을 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
+[그룹 조회하기](#restapi/group/group-getGroups) API 에서 확인한 것처럼 등록된 그룹을 조회할 수 있습니다. 특정한 그룹을 조회하고 싶을 때, 데이터 질의 방법을 사용하여 그룹을 조회할 수 있습니다. 데이터 질의 방법은 [데이터 질의하기](../devguide/query.html)에서 자세한 사항을 확인하세요.
 
 ##### Request URI
 
@@ -4762,7 +4762,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 
 ##### Example
@@ -4847,7 +4847,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 
 ##### Example
@@ -4877,7 +4877,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 ##### Request Body
 
-Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Group Entity](#groupEntity)에서 살펴보시면 됩니다.
+Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Group Entity](#restapi/group/groupEntity)에서 살펴보시면 됩니다.
 
 ```	
 {
@@ -4940,7 +4940,7 @@ Group Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [Gro
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 
 ##### Example
@@ -5102,7 +5102,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -5182,7 +5182,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -5262,7 +5262,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -5291,7 +5291,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |Set|타입|설명|
 |:-----:|:-----:|:--------|
 |connections|string|관계리스트|
-|rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](roles.html)|
+|rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](#restapi/role)|
 |credentials|string|credentials 리스트|
 
 []({'class':'table-bordered'})
@@ -5345,7 +5345,7 @@ APNS 인증서와 Google APIKey 를 baas.io에 등록합니다.
 
  - MyPage > 설정 > push인증서 설정 
 
-Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#postDevice) API를 통해 등록하여야 합니다.
+Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#restapi/push/postDevice) API를 통해 등록하여야 합니다.
 
 ## Push 전송하기
 []({'id':'postPush', 'data-menu':'Push 전송하기'})
@@ -6112,7 +6112,7 @@ classification_id는 "고객센터 코드 조회"에서 조회한 classification
 
 * 에러
 
-다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -6633,7 +6633,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps?keyword=baa&pa
 	
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -6660,7 +6660,6 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"name\" : \"newrole
 []({'class':'table-bordered'})
 
 
-	
 ##### Response
 
 * 성공
@@ -6745,7 +6744,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"name\" : \"newrole
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -6817,7 +6816,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -6889,7 +6888,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -6968,7 +6967,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -7045,7 +7044,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -7091,7 +7090,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
  
@@ -7135,7 +7134,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
  
@@ -7181,7 +7180,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -7225,7 +7224,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -7287,7 +7286,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapi/intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
  
