@@ -1,4 +1,4 @@
-#User'
+#User
 []({'id':'user','data-menu':'User'})
 
 baas.io는 가입/로그인/로그아웃/탈퇴 등의 회원관리 기능을 제공하고 있습니다.
