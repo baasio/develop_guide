@@ -424,10 +424,10 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [User
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
@@ -2184,7 +2184,7 @@ $.ajax({
 	  console.log(r);
 	}
 });
-```         
+```
 
 
 ----------
@@ -3385,7 +3385,7 @@ Transfer-Encoding: chunked
 ## 파일 다운로드
 []({'id':'file-download', 'data-menu':'파일 다운로드'})
 
-- [파일 다운로드](/#restapi/file/file-download/#downloadFile)
+- [파일 다운로드](#downloadFile)
 - [파일 다운로드(DATA 커맨드 이용)](#downloadFilewithDataCMD)
 
 ##### 파일 다운로드
@@ -6742,13 +6742,13 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"name\" : \"newrole
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
-	
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
+
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles"
 ```
@@ -6772,7 +6772,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 
 []({'class':'table-bordered'})
 
-	
+
 ##### Response
 
 * 성공
@@ -6814,13 +6814,13 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 * 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}"
 ```
@@ -6886,13 +6886,13 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 * 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
- 
+
 ```
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}"
 ```
@@ -6904,7 +6904,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 ```
 'POST' /{baasio-id}/{app-id}/roles/{role_uuid or role_name}
-	
+
 {
 	"permission" : "get,put,post,delete:/users/me/groups"
 }
@@ -6921,7 +6921,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 []({'class':'table-bordered'})
 
-	
+
 ##### Response
 
 * 성공
@@ -6965,13 +6965,13 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 	"applicationName": "my-app-id"
 }
 ```
-	
+
 * 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
-	
+
 ```
 curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/manager -d '{"permission":"get,put,post,delete:/users/me/groups" }'
 ```
@@ -6996,13 +6996,13 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 
 []({'class':'table-bordered'})
 
-	
+
 ##### Response
 
 * 성공
 	* Code: 200 
 	* Contents:
-	
+
 ```json
 {
   "action" : "delete",
@@ -7042,13 +7042,13 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
    "applicationName": "my-app-id"
 }
 ```
-	
+
 * 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
-	
+
 ```
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/manager/permission?permission=delete"
 ```
@@ -7091,7 +7091,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
 ##### Example
  
@@ -7132,11 +7132,11 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 	"duration":0
 }
 ```
-	
+
 * 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
-	
+
 ##### Example
  
 ```
@@ -7165,7 +7165,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 
 []({'class':'table-bordered'})
 
-	
+
 ##### Response
 
 * 성공
@@ -7178,13 +7178,13 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 	"duration":0
 }
 ```
-	
+
 * 에러
 
 	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
 
 ##### Example
- 
+
 ```
 curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}/groups/{group_uuid or group_path}"
 ```
@@ -7209,7 +7209,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 
 []({'class':'table-bordered'})
 
-	
+
 ##### Response
 
 * 성공
@@ -7222,13 +7222,13 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 	"duration":0
 }
 ```
-	
+
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
 ##### Example
- 
+
 ```
 curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baasio-id/my-app-id/roles/{role_uuid or role_name}/groups/{group_uuid or group_path}"
 ```
@@ -7284,10 +7284,10 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 	"duration":0
 }
 ```
-	
+
 * 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.	
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro.html#intro-error-handling)을 살펴보세요.
 
 ##### Example
  
