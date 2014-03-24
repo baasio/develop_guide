@@ -427,7 +427,7 @@ User Entity는 미리 정의한 스키마가 있으니 자세한 정보는 [User
 
 - 에러
 
-	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](intro/intro-error-handling)을 살펴보세요.
+	다양한 상황에 따라서 에러는 발생할 수 있습니다. baas.io 에서 예외사항 처리는 [개발가이드의 Error Handling](#restapiintro/intro-error-handling)을 살펴보세요.
 
 ##### Example
 
