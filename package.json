@@ -1,0 +1,30 @@
+{
+  "name": "develop_guide",
+  "version": "0.1.0",
+  "description": "개발 가이드를 보다 편리하게 개발 하기 위해 개발 된 페이지",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/baasio/develop_guide.git"
+  },
+  "keywords": [
+    "baas.io",
+    "baas.io",
+    "develop",
+    "baas.io",
+    "guide"
+  ],
+  "author": "baas.io",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/baasio/develop_guide/issues"
+  },
+  "homepage": "https://github.com/baasio/develop_guide",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-concat": "~0.3.0"
+  }
+}
