@@ -1194,8 +1194,8 @@ baas.io는 BaasioQuery클래스를 이용하여 아래의 세 가지 조회 방�
 
 **최초 조회할 때는 query() 또는 queryInBackground()로 먼저 요청해야하는 것에 유의**바랍니다.
 
-### Query Entities from Collection
-[]({'id':'query-collection'})
+## Query Entities from Collection
+[]({'id':'query-collection', 'data-menu':'Query Entities from Collection'})
 Collection으로부터 데이터를 조회할때는 **setType() 메소드를 이용하여 조회할 Entity의 Type을 설정**합니다.
 
 아래의 예는 "friends" Collection으로부터 "friend" Entity를 조회해 오는 예입니다.
@@ -1267,7 +1267,7 @@ mQuery.prevInBackground(    // 조회 요청
 ```
 
 ### setLimit()
-[]({'id':'setlimit'})
+[]({'id':'guery-setlimit'})
 한 번에 조회해 올 수 있는 데이터의 갯수는 **기본 10개**이며, 이 갯수는 **setLimit()를 호출하여 원하는 값으로 설정**할 수 있습니다.
 
 -----
@@ -1279,11 +1279,11 @@ mQuery.prevInBackground(    // 조회 요청
 -----
 
 ### setOrderBy()
-[]({'id':'setOrderBy'})
+[]({'id':'guery-setOrderBy'})
 **조회할 데이터의 순서를 설정**합니다. 특정 Property에 대해, **오름차순(ORDER_BY.ASCENDING) 또는 내림차순(ORDER_BY.DESCENDING)의 순서로 데이터를 조회**할 수 있습니다.
 
 ### setWheres()
-[]({'id':'setWheres'})
+[]({'id':'guery-setWheres'})
 **조회할 조건을 설정**합니다. Entity의 Property 값이 어떤 조건에 부합하는 Entity만 조회할 수 있습니다.
 
 아래의 예는 회원 중에 나이가 20살 이상인 회원을 "users" Collection에서 조회하는 예입니다.
@@ -1359,7 +1359,7 @@ contents contains '&#x0204e;남&#x0204e;'|잘못된 사용법으로 검색결과
 []({'class':'table-bordered'})
 
 ### setProjectionIn()
-[]({'id':'setProjectionIn'})
+[]({'id':'guery-setProjectionIn'})
 **조회할 Entity중에 필요한 Property만 요청**합니다.
 
 아래의 예는 "friend" Collection으로부터 "friend" Entity를 조회하는데, "age" Property와 "gender" Property만 조회하는 예입니다.
