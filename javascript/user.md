@@ -16,30 +16,18 @@ username은 영문과 숫자, 특수기호를 사용할 수 있으며, 유일한
 
 ```javascript
 // 필수 요소
-var appInfo = {
-    orgName: //baas.io ID
-    appName: //Application ID
-}
-var io = new Baas.IO(appInfo);
+var io = new Baas.IO(
+    orgName,		// baaas.io ID
+    appName		// Application ID
+);
 
-var username = 'baasID'; //ID(username)
-var password = 'baas1234'; //user password
-var email = 'baas@baas.io'; //user email address
-var name = 'baas'; //user name
-
-// errorFlag가 true이면 error가 발생
-// errorFlag가 false이면 error 없이 가입 완료
-var callback = function(errorFlag, entity) {
-
-    if(errorFlag){
-        console.log('entity :', entity);
-    } else {
-        console.log('entity :', entity);
-    }
-
-}
-
-io.signup(username, password, email, name, callback)
+io.signup(
+    username, 	// @String ID(username)
+    password, 	// @String user password
+    email, 		// @String user email address
+    name, 		// @String user name
+    callback	// @Fuction callback Function
+)
 ```
 
 ### Error Code
