@@ -612,7 +612,7 @@ keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.k
 실행시키면 비밀번호를 묻는데, 'android'라고 입력하면 30글자로 된 Hash 값이 결과로 나옵니다.
 **이 Key Hash 값은 앱 생성을 위해 사용되니 잘 적어놓습니다.**
 
-![facebook key hash](/images/develop/android/users-facebook-keyhash.png)
+![facebook key hash](../../images/develop/android/users-facebook-keyhash.png)
 
 -----
 `Warning` 개발용과 배포용
