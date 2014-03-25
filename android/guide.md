@@ -2284,7 +2284,7 @@ Google 계정을 만듭니다. 이미 있으시다면 있는 것을 사용하실
 
 생성된 API Project가 없다면 아래의 화면이 보일 것입니다.
 
-![push-gcm-create-apis-project](../../../images/develop/android/push-gcm-create-apis-project.png)
+![push-gcm-create-apis-project](/images/develop/android/push-gcm-create-apis-project.png)
 
 -----
 `Note` 이미 생성이 되어 있나요?
@@ -2304,11 +2304,11 @@ https://code.google.com/apis/console/#project:4815162342
 
 [Google APIs Console Page 페이지](https://code.google.com/apis/console)에서 Services를 선택합니다.
 
-![push-gcm-console-services.png](../../../images/develop/android/push-gcm-console-services.png)
+![push-gcm-console-services.png](/images/develop/android/push-gcm-console-services.png)
 
 Google Cloud Messaging for Android를 ON으로 설정하여 활성화시킵니다.
 
-<div class="center"><img src="../../../images/develop/android/push-gcm-console-services-gcm-on.png" class="img-polaroid"/></div>
+![push-gcm-console-services-gcm-on](/images/develop/android/push-gcm-console-services-gcm-on.png)
 
 활성화를 시키면 약관을 확인하기 위한 화면이 나옵니다. **약관을 확인하여, 승인을 합니다.**
 
@@ -2316,15 +2316,15 @@ Google Cloud Messaging for Android를 ON으로 설정하여 활성화시킵니�
 
 [Google APIs Console Page 페이지](https://code.google.com/apis/console)에서 API Access를 선택합니다. 그러면 아래와 같은 화면이 보여집니다.
 
-<div class="center"><img src="../../../images/develop/android/push-gcm-console-api-access.png" class="img-polaroid"/></div>
+![push-gcm-console-api-access](/images/develop/android/push-gcm-console-api-access.png)
 
 Create new Server key 버튼을 클릭하면 아래와 같은 화면이 나타납니다. 특별히 입력하지 않으셔도 됩니다.
 
-<div class="center"><img src="../../../images/develop/android/push-gcm-console-config-server-key.png" class="img-polaroid"/></div>
+![push-gcm-console-config-server-key](/images/develop/android/push-gcm-console-config-server-key.png)
 
 Create 버튼을 클릭하면 아래와 같이 Api key가 생성되어 보여집니다. 아래 화면에서는 **YourKeyWillBeShownHere라는 글자 위치**에 표시됩니다.
 
-<div class="center"><img src="../../../images/develop/android/push-gcm-console-api-key.png" class="img-polaroid"/></div>
+![push-gcm-console-api-key](/images/develop/android/push-gcm-console-api-key.png)
 
 -----
 `Note` API Key 변경하기
@@ -2348,6 +2348,7 @@ baas.io의 Push 기능을 이용하기 위해서는 ["Google API Key 와 Sender 
 
 **baas.io 로그인 > My page > 백엔드앱 선택 > 설정 > 푸쉬인증서 관리**에 Google API Key를 등록합니다.
 
+![push-register-google-api-key](/images/develop/android/push-register-google-api-key.png)
 <div class="center"><img src="../../../images/develop/android/push-register-google-api-key.png" class="img-polaroid"/></div>
 
 ###### Step2. BaasioConfig.java 수정
