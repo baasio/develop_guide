@@ -210,7 +210,7 @@ BaasioUser.signUpInBackground(
 []({'id':'users-signup-via-facebook', 'data-menu':'Sign Up with Facebook'})
 Facebook 계정을 통해 회원 가입을 할 수 있습니다. 이 기능을 이용하기 위해서는 먼저 **Facebook Api Key를 발급받으셔야 하며, Facebook Api Key와 Facebook SDK를 이용하여 인증 과정을 통해 Facebook Access Token을 발급** 받아야 합니다.
 
-관련 내용은 [Facebook 가이드](/develop/android/guide/users.html#users-facebook)에 자세하게 설명되어 있습니다.
+관련 내용은 [Facebook 가이드](#android/users/users-facebook)에 자세하게 설명되어 있습니다.
 
 Facebook Access Token을 발급 받은 후에는 아래와 같이 가입을 진행할 수 있습니다.
 
@@ -248,7 +248,7 @@ BaasioUser.signUpViaFacebookInBackground(
 
 ## Sign In
 []({'id':'users-sign-in', 'data-menu':'Sign In'})
-회원가입이 되어 있으면 로그인을 하여 인증을 받을 수 있습니다. 로그인이 성공하면, 결과로 회원의 인증 토큰(Access Token)이 단말에 저장되어 SDK를 통해 관리되며, 이 인증 토큰(Access Token)은 로그인된 회원의 [역할(Role)](/develop/android/concept/security.html#security-role) 및 [권한(Permission)](/develop/android/concept/security.html#security-permission)을 체크하는 용도로 사용됩니다.
+회원가입이 되어 있으면 로그인을 하여 인증을 받을 수 있습니다. 로그인이 성공하면, 결과로 회원의 인증 토큰(Access Token)이 단말에 저장되어 SDK를 통해 관리되며, 이 인증 토큰(Access Token)은 로그인된 회원의 [역할(Role)](#basic_concept/security/security-role) 및 [권한(Permission)](#basic_concept/security/security-permission)을 체크하는 용도로 사용됩니다.
 
 또한, **로그인이 성공되면 현재 로그인한 회원의 정보가 단말에 저장되며, SDK에서 로그인 상태에 따라 관리됩니다.**
 
@@ -316,7 +316,7 @@ BaasioUser.signInInBackground(
 
 Facebook 계정을 통해 가입된 회원을 로그인합니다. 마찬가지로 Facebook Api Key가 필요하며, Facebook Api Key와 Facebook SDK를 이용하여 인증 과정을 통해 Facebook Access Token을 발급 받아 로그인을 진행합니다.
 
-관련 내용은 [Facebook 가이드](/develop/android/guide/users.html#users-facebook)에 자세하게 설명되어 있습니다.
+관련 내용은 [Facebook 가이드](#android/users/users-facebook)에 자세하게 설명되어 있습니다.
 
 Facebook Access Token을 발급 받은 후에는 아래와 같이 로그인을 진행할 수 있습니다.
 
@@ -530,7 +530,7 @@ Error Code | HTTP Status Code | 설명
 []({'id':'users-unsubscribe', 'data-menu':'Unsubscribe User'})
 가입되어 있는 회원을 탈퇴 시킵니다. 이 함수를 호출하면 "users" Collection으로부터 해당 회원의 "user" Entity를 삭제합니다.
 
-[역할(Role)](/develop/android/concept/security.html#security-role)과 [권한(Permission)](/develop/android/concept/security.html#security-permission)의 설정상태와 앱의 구현방법에 따라 현재 로그인된 회원이 아닌 다른 회원을 탈퇴시킬 수도 있습니다.
+[역할(Role)](#basic_concept/security/security-role)과 [권한(Permission)](#basic_concept/security/security-permission)의 설정상태와 앱의 구현방법에 따라 현재 로그인된 회원이 아닌 다른 회원을 탈퇴시킬 수도 있습니다.
 
 ```java
 BaasioUser user = Baas.io().getSignedInUser();
@@ -553,9 +553,9 @@ user.unsubscribeInBackground(
 
 -----
 `Warning` 회원 탈퇴
-> 현재 로그인한 회원이 임의의 다른 회원을 탈퇴시킬 수 없도록, [역할(Role)](/develop/android/concept/security.html#security-role)과 [권한(Permission)](/develop/android/concept/security.html#security-permission) 설정을 올바르게 해야 합니다.
+> 현재 로그인한 회원이 임의의 다른 회원을 탈퇴시킬 수 없도록, [역할(Role)](#basic_concept/security/security-role)과 [권한(Permission)](#basic_concept/security/security-permission) 설정을 올바르게 해야 합니다.
 
-> 관련 가이드는 Basic Concepts의 [Security(보안)](/develop/common/concept/security.html)를 참고바랍니다.
+> 관련 가이드는 Basic Concepts의 [Security(보안)](#basic_concept/security/security)를 참고바랍니다.
 
 -----
 
@@ -788,7 +788,7 @@ Relationship(관계)에 대한 자세한 내용은 Basic Concepts의 Relationshi
 
 BaasioUser 클래스가 "users" Collection의 "user" Entity를 관리하기위해 제공되는 것과 비교하면, BaasioEntity 클래스는 사용자가 정의한 Type의 Entity를 관리하기위해 제공됩니다.
 
-Entity와 Collection의 관계는 [Basic Concepts의 Entity 페이지](/develop/android/concept/entity.html#entity-title), [Basic Concepts의 Collection 페이지](/develop/android/concept/collection.html#collection-title)을 참고하시기 바랍니다.
+Entity와 Collection의 관계는 [Basic Concepts의 Entity 페이지](#basic_concept/entity), [Basic Concepts의 Collection 페이지](#basic_concept/collection)을 참고하시기 바랍니다.
 
 
 ## Create Entity
@@ -804,7 +804,7 @@ Entity를 생성하기 위해서는, **Type이 꼭 정의 되어야 하며, Type
 
 **Predefined Property 중에 "name" Property는, 같은 Collection내에서 유일하게 식별될 수 있는 값**으로 저장되어야 합니다. 특히, "name" Property는 최초 저장된 Value를 수정할 수 없으니 유의하시기 바랍니다. 즉, 해당 Entity를 삭제하고 새로운 "name" Property로 생성해야 합니다.
 
-관련 자세한 내용은 [Basic Concepts의 Entity 페이지](/develop/android/concept/entity.html#entity-title)를 참고하시기 바랍니다.
+관련 자세한 내용은 [Basic Concepts의 Entity 페이지](#basic_concept/entity)를 참고하시기 바랍니다.
 
 **Entity 생성이 성공되면, baas.io로 부터 유일한 uuid를 부여받게되고, 이 uuid는 모든 데이터를 통틀어 유일하게 식별하기 위한 용도로 사용됩니다.** uuid는 BaasioEntity.getUuid() 메소드를 통해 알 수 있습니다.
 
@@ -919,7 +919,7 @@ baas.io에 **저장되어 있는 Entity를 얻어 옵니다.** 어떤 Entity를 
 
 동기식은 BaasioEntity.get() 메소드, 비동기식은 BaasioEntity.getInBackground() 메소드를 제공합니다.
 
-참고로, 여러 Entity를 특정 조건으로 조회하는 방법은 [Query 가이드 페이지](/develop/android/guide/query.html#query-title)를 참고하시기 바랍니다.
+참고로, 여러 Entity를 특정 조건으로 조회하는 방법은 [Query 가이드 페이지](#android/query)를 참고하시기 바랍니다.
 
 아래의 코드는, "friends" Collection으로부터, 특정 uuid를 가지고 있는 "friend" Type의 Entity를 읽어오는 예입니다.
 
@@ -1058,7 +1058,7 @@ Error Code | HTTP Status Code | 설명
 
 Relationship은 BaasioConnectableEntity를 상속받은 객체라면 서로 연결을 할 수 있습니다. 예를 들어, BaasioConnectableEntity를 상속받은 BaasioUser, BaasioEntity, BaasioFile, BaasioGroup 등은 서로 Relationship으로 연결할 수 있습니다. 연결할 때, 서로의 클래스가 같지 않아도 연결할 수 있습니다.
 
-Relationship과 관련된 자세한 설명은 [Basic Concepts의 Relationship 가이드 페이지](/develop/android/concept/relation.html#relation-title)를 참고하시기 바랍니다.
+Relationship과 관련된 자세한 설명은 [Basic Concepts의 Relationship 가이드 페이지](#basic_concept/relation)를 참고하시기 바랍니다.
 
 ### Connect
 **Entity와 Entity를 Relationship으로 연결**합니다.
@@ -1267,7 +1267,7 @@ mQuery.prevInBackground(    // 조회 요청
 ```
 
 ### setLimit()
-[]({'id':'guery-setlimit'})
+[]({'id':'query-setLimit'})
 한 번에 조회해 올 수 있는 데이터의 갯수는 **기본 10개**이며, 이 갯수는 **setLimit()를 호출하여 원하는 값으로 설정**할 수 있습니다.
 
 -----
@@ -1279,11 +1279,11 @@ mQuery.prevInBackground(    // 조회 요청
 -----
 
 ### setOrderBy()
-[]({'id':'guery-setOrderBy'})
+[]({'id':'query-setOrderBy'})
 **조회할 데이터의 순서를 설정**합니다. 특정 Property에 대해, **오름차순(ORDER_BY.ASCENDING) 또는 내림차순(ORDER_BY.DESCENDING)의 순서로 데이터를 조회**할 수 있습니다.
 
 ### setWheres()
-[]({'id':'guery-setWheres'})
+[]({'id':'query-setWheres'})
 **조회할 조건을 설정**합니다. Entity의 Property 값이 어떤 조건에 부합하는 Entity만 조회할 수 있습니다.
 
 아래의 예는 회원 중에 나이가 20살 이상인 회원을 "users" Collection에서 조회하는 예입니다.
@@ -1359,7 +1359,7 @@ contents contains '&#x0204e;남&#x0204e;'|잘못된 사용법으로 검색결과
 []({'class':'table-bordered'})
 
 ### setProjectionIn()
-[]({'id':'guery-setProjectionIn'})
+[]({'id':'query-setProjectionIn'})
 **조회할 Entity중에 필요한 Property만 요청**합니다.
 
 아래의 예는 "friend" Collection으로부터 "friend" Entity를 조회하는데, "age" Property와 "gender" Property만 조회하는 예입니다.
@@ -1401,7 +1401,7 @@ query.queryInBackground(    // 조회 요청
 
 BaasioGroup 인스턴스를 생성하고, setPath() 메소드를 이용하여 조회할 Group의 Path를 설정한 후, BaasioQuery의 setGroup() 메소드를 이용하여 앞서 생성한 BaasioGroup 인스턴스를 설정합니다.
 
-**다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.**
+**다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#android/query/query-setWheres), [setLimit()](#android/query/query-setLimit), [setOrderBy()](#android/query/query-setOrderBy), [setProjectionIn()](#android/query/query-setProjectionIn)도 동일하게 적용됩니다.**
 
 아래의 예는 family라는 그룹에 속한 "user" Entity를 "username" Property의 오름차순으로 10개 조회하는 예입니다.
 
@@ -1434,7 +1434,7 @@ query.queryInBackground(
 
 **어떤 Entity와 Entity가 서로 Relationship으로 연결되어 있을 때, 연결된 Entity들을 조회할 수 있습니다.**
 
-**다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#query-setwheres), [setLimit()](#query-setlimit), [setOrderBy()](#query-setorderby), [setProjectionIn()](#query-setprojectin)도 동일하게 적용됩니다.**
+**다음 또는 이전 데이터를 조회하는 방법, 즉, nextInBackground(), prevInBackground()를 이용하는 방법은, Collection 조회와 동일합니다. 또한 [setWheres()](#android/query/query-setWheres), [setLimit()](#android/query/query-setLimit), [setOrderBy()](#android/query/query-setOrderBy), [setProjectionIn()](#android/query/query-setProjectinIn)도 동일하게 적용됩니다.**
 
 조회할 Entity는 Entity를 유일하게 식별할 수 있는 Property인 "uuid" Property 또는 "name" Property가 설정되어 있어야 합니다.
 
@@ -1542,7 +1542,7 @@ baas.io는 **회원 그룹관리 기능을 제공**하고 있습니다.
 
 BaasioGroup 클래스를 이용하여 그룹을 생성/수정/삭제할 수 있으며, 생성된 그룹에 회원을 추가하거나 제거할 수 있습니다.
 
-어떤 그룹에 속한 User를 조회하기 위해서는 BaasioQuery를 이용합니다. 관련 내용은 [Query > Query User Entities from Group 가이드](/develop/android/guide/query.html#query-group)를 참고바랍니다.
+어떤 그룹에 속한 User를 조회하기 위해서는 BaasioQuery를 이용합니다. 관련 내용은 [Query > Query User Entities from Group 가이드](#android/query/query-groupp)를 참고바랍니다.
 
 
 ## BaasioGroup 클래스
@@ -2284,7 +2284,7 @@ Google 계정을 만듭니다. 이미 있으시다면 있는 것을 사용하실
 
 생성된 API Project가 없다면 아래의 화면이 보일 것입니다.
 
-<div class="center"><img src="../../../images/develop/android/push-gcm-create-apis-project.png" class="img-polaroid"/></div>
+![]("../../../images/develop/android/push-gcm-create-apis-project.png")
 
 -----
 `Note` 이미 생성이 되어 있나요?
@@ -2304,7 +2304,7 @@ https://code.google.com/apis/console/#project:4815162342
 
 [Google APIs Console Page 페이지](https://code.google.com/apis/console)에서 Services를 선택합니다.
 
-<div class="center"><img src="../../../images/develop/android/push-gcm-console-services.png" class="img-polaroid"/></div>
+![push-gcm-console-services.png]("../../../images/develop/android/push-gcm-console-services.png")
 
 Google Cloud Messaging for Android를 ON으로 설정하여 활성화시킵니다.
 

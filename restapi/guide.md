@@ -1087,7 +1087,7 @@ curl -X POST -i -d '{\"grant_type\":\"password\",\"username\":\"bob@company.com\
 
 
 ## 사용자가 발급한 인증 토큰을 만료 시키기
-[]({'id':'users-revokekoken', 'data-menu':'사용자가 발급한 인증 토큰을 만료시키기'})
+[]({'id':'users-revoketoken', 'data-menu':'사용자가 발급한 인증 토큰을 만료시키기'})
 
 baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 API는 [인증 시스템](#basic_concept/authentication) 기반 하에 발급받은 개별 인증 토큰을 만료시킬 수 있습니다. 인증 토큰 만료는 로그아웃 처리라고 생각하시면 편할듯 합니다. 만약 사용자가 발급받은 모든 인증 토큰을 만료하려면 [사용자가 발급한 인증 토큰 모두 만료 시키기](#restapi/uesrs/users-revoketokens) API 를 사용하세요. 인증시스템의 자세한 설명은 [인증 시스템](#basic_concept/authentication)에서 확인하세요.
 
