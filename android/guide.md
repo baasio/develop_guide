@@ -612,7 +612,7 @@ keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.k
 실행시키면 비밀번호를 묻는데, 'android'라고 입력하면 30글자로 된 Hash 값이 결과로 나옵니다.
 **이 Key Hash 값은 앱 생성을 위해 사용되니 잘 적어놓습니다.**
 
-![facebook key hash](../../images/develop/android/users-facebook-keyhash.png)
+![](../../images/develop/android/users-facebook-keyhash.png)
 
 -----
 `Warning` 개발용과 배포용
@@ -625,7 +625,7 @@ keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.k
 
 Facebook에 로그인을 하면 오른쪽 상단에 Dropdown 메뉴가 있습니다.(Profile 이름 옆에)
 
-![facebook profile menu](/images/develop/android/users-facebook-profile-menu.png)
+![](/images/develop/android/users-facebook-profile-menu.png)
 
 Settings 메뉴를 선택하고, 왼쪽 세션에 Developer Settings를 선택하면 Developer 등록창이 나타납니다. 등록을 마칩니다.
 
