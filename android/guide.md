@@ -2284,7 +2284,7 @@ Google 계정을 만듭니다. 이미 있으시다면 있는 것을 사용하실
 
 생성된 API Project가 없다면 아래의 화면이 보일 것입니다.
 
-![push-gcm-create-apis-project](/images/develop/android/push-gcm-create-apis-project.png)
+![push-gcm-create-apis-project](../../images/develop/android/push-gcm-create-apis-project.png)
 
 -----
 `Note` 이미 생성이 되어 있나요?
