@@ -3211,7 +3211,7 @@ git clone https://github.com/baasio/baas.io-helpcenter-android.git
 </div> -->
 Eclipse의 **File > Import 메뉴**를 선택합니다.
 
-![](/images/develop/android/quickstart-eclipse-import.png)
+![quickstart eclipse import](/images/develop/android/quickstart-eclipse-import.png)
 
 Import 다이얼로그에서 **"General-Existing Projects into Workspace"**를 선택하고 **"Next"버튼**을 선택합니다.
 
