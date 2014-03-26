@@ -21,11 +21,25 @@ baas.io는 가입/로그인/로그아웃/탈퇴 등의 회원관리 기능을 �
 
 ```javascript
 var username = 'my name';
+
 var password = 'my password';
+
 var email = 'my@baas.io';
 
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
-io.signup( username, password, email, callback);
+io.signup( username, password, email, function(errorFlag, entity){
+
+	if(errorFlag){
+
+		// 회원가입이 되고 성공이 되었을 때
+
+	} else {
+
+		// 회원 가입 되지 않고 실패를 했을때
+
+	}
+
+});
 ```
 
 ### Error Code
