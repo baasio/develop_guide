@@ -3185,7 +3185,7 @@ BaasioHelp 클래스를 통해 고객센터의 FAQ를 조회하고 문의사항�
 
 -----
 `Warning` Quick Start를 하셨나요?
-> 이 가이드를 보시기 전에 [Quick Start](/develop/android/quickstart.html)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다. 
+> 이 가이드를 보시기 전에 [Quick Start](/develop/android/quickstart.html)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다.
 
 -----
 
@@ -3209,41 +3209,33 @@ git clone https://github.com/baasio/baas.io-helpcenter-android.git
     	<button type="button" class="btn btn-android-guide" href="#quickstart-intellij"><i class="icon-ok hidden"> </i>Android Studio 또는 IntelliJ</button>
     </div>
 </div> -->
-<div class="tab-content">
-	<div class="tab-pane active" id="quickstart-eclipse">
+Eclipse의 **File > Import 메뉴**를 선택합니다.
 
-		<p>Eclipse의 **File > Import 메뉴**를 선택합니다.</p>
+![](/images/develop/android/quickstart-eclipse-import.png)
 
-		<div class="center"><img src="/images/develop/android/quickstart-eclipse-import.png" width="500px" class="img-polaroid"/></div>
+Import 다이얼로그에서 **"General-Existing Projects into Workspace"**를 선택하고 **"Next"버튼**을 선택합니다.
 
-		<p>Import 다이얼로그에서 **"General-Existing Projects into Workspace"**를 선택하고 **"Next"버튼**을 선택합니다.</p>
+![](/images/develop/android/quickstart-eclipse-import-exist.png)
 
-		<div class="center"><img src="/images/develop/android/quickstart-eclipse-import-exist.png" width="500px" class="img-polaroid"/></div>
+다음 Import 다이얼로그 화면에서 **"Select root directory"의 "Browse"버튼**을 눌러 다운로드 받은 폴더를 선택하고, **"Projects:"에서 ActionBarSherlock, BaasioHelpCenter, BaasioHelpCenterSampleProject 프로젝트를 선택**하고 **"Finish"**를 선택합니다.
 
-		<p>다음 Import 다이얼로그 화면에서 **"Select root directory"의 "Browse"버튼**을 눌러 다운로드 받은 폴더를 선택하고, **"Projects:"에서 ActionBarSherlock, BaasioHelpCenter, BaasioHelpCenterSampleProject 프로젝트를 선택**하고 **"Finish"**를 선택합니다.</p>
+![](/images/develop/android/select_BaasioHelpCenter.png)
 
-		<div class="center"><img src="/images/develop/android/select_BaasioHelpCenter.png" width="500px" class="img-polaroid"/></div>
+BaasioHelpCenterSampleProject 프로젝트는 샘플 앱으로, 고객 센터를 실행하기 위한 샘플이 이미 구현되어 있으니 참고 바랍니다.
 
-		<p>BaasioHelpCenterSampleProject 프로젝트는 샘플 앱으로, 고객 센터를 실행하기 위한 샘플이 이미 구현되어 있으니 참고 바랍니다.</p>
+##### Step3. UI 라이브러리 연동하기</h5>
 
-		<h5>Step3. UI 라이브러리 연동하기</h5>
+Eclipse의 **Package Exploror 화면**에서 생성하신 프로젝트에서 오른쪽 마우스를 클릭하여 **Properties**를 선택합니다.
 
-		<p>Eclipse의 **Package Exploror 화면**에서 생성하신 프로젝트에서 오른쪽 마우스를 클릭하여 **Properties**를 선택합니다.</p>
+![](/images/develop/android/Project-Properties.png)
 
-		<div class="center"><img src="/images/develop/android/Project-Properties.png" width="500px" class="img-polaroid"/></div>
+Properties 다이얼로그에서 **Android**를 선택하고 아래에 있는 **Library에서 Add버튼**을 선택합니다.
 
-		<p>Properties 다이얼로그에서 **Android**를 선택하고 아래에 있는 **Library에서 Add버튼**을 선택합니다.</p>
+![](/images/develop/android/Project-Properties-Dialog.png)
 
-		<div class="center"><img src="/images/develop/android/Project-Properties-Dialog.png" width="500px" class="img-polaroid"/></div>
+Projection Selection 다이얼로그에서 **BaasioHelpCenter프로젝트를 선택**하고, **"OK"**를 선택합니다.
 
-		<p>Projection Selection 다이얼로그에서 **BaasioHelpCenter프로젝트를 선택**하고, **"OK"**를 선택합니다.</p>
-
-		<div class="center"><img src="/images/develop/android/Project_HelpCenter_Selection.png" width="500px" class="img-polaroid"/></div>
-	</div>
-	<div class="tab-pane" id="quickstart-intellij">
-
-	</div>
-</div>
+![](/images/develop/android/Project_HelpCenter_Selection.png)
 
 
 
