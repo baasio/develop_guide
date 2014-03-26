@@ -8,28 +8,24 @@ baas.io는 가입/로그인/로그아웃/탈퇴 등의 회원관리 기능을 �
 ##Sign up
 []({'id':'user-signup','data-menu':'Sign up'})
 
-회원을 가입하기 위해서는, **username과 비밀번호**가 꼭 필요합니다.
+회원을 가입하기 위해서는, `username`과 `password`가 꼭 필요합니다.  
+이 외에 `email`, `name`을 추가로 넣을 수 있고, 더 추가 하고 싶은 property는 형식에 맞게 추가 하시면 됩니다.  
+`username`은 영문과 숫자, 특수기호를 사용할 수 있으며, 유일한 값이어야 합니다.  
+`email`은 `password` 변경 또는 초기화를 위해 필수가 아니지만 가입 시 받는 것이 좋습니다.
 
-이 외에, 이메일 주소, 이름을 추가로 넣을 수 있습니다.
-username은 영문과 숫자, 특수기호를 사용할 수 있으며, 유일한 값이어야 합니다.
-또한, 비밀번호 변경 또는 초기화를 위해서 가급적 이메일 주소를 받는 것이 좋습니다.
+**Not use property name**
+
+`uuid`,`type`,`created`,`modified`,`metadata`;
+
+다음 코드는 전형적인 가입 코드 보여줍니다.
 
 ```javascript
-/*
- * 필수 요소
- * @params {string} orgName (baaas.io ID) 
- * @params {string} appName (appName ID)
- */
-var io = new Baas.IO( orgName, appName);
+var username = 'my name';
+var password = 'my password';
+var email = 'my@baas.io';
 
-/*
- * @params {string} username 
- * @params {string} password
- * @params {string} email
- * @params {string} name
- * @params {function} callback Function
- */
-io.signup( username, password, email, name, callback);
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+io.signup( username, password, email, callback);
 ```
 
 ### Error Code
@@ -44,3 +40,48 @@ io.signup( username, password, email, name, callback);
 |913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
 
 []({'class':'table table-striped'})
+
+##Sign in
+[]({'id':'user-signin','data-menu':'Sign in'})
+
+회원가입이 되어 있으면 로그인을 하여 인증을 받을 수 있습니다.
+
+로그인이 성공하면, 결과로 회원의 인증 토큰(Access Token)이 LocalStorage에 저장 되어, 로그인된 회원의 역활 및 권한을 체크하는 용도로 사용됩니다.
+
+아래와 같이 하시면 로그인을 진행할 수 있습니다.
+
+```javascript
+/*
+ * @params {string} orgName (baaas.io ID)
+ * @params {string} appName (appName ID)
+ */
+var io = new Baas.IO( orgName, appName);
+
+/*
+ * @params {string} username
+ * @params {string} password
+ * @params {function} callback
+ */
+io.login(username, password, callback)
+```
+
+### Error Code
+
+Error Code | HTTP Status Code | 설명
+:---------:|:----------------:|:----
+102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.
+200|401|인증 또는 권한과 관련된 문제가 발생했습니다.
+201|401|잘못된 username이거나 password 입니다.
+202|401|접근 권한(Permission)이 없습니다.
+212|401|차단된 사용자입니다.
+213|401|탈퇴된 사용자입니다.
+911|400|이미 존재하는 리소스입니다.
+
+[]({'class':'table-bordered'})
+
+
+
+https://api.baas.io/ed38f569-2fc2-11e2-a2c1-02003a570010/9e4f9c9e-4013-11e2-a05c-02003a570010/user/4498a52b-b3df-11e3-827d-06f4fe0000b5?access_token=YWMtXyMdj7SvEeOLAwb9AAAAwgAAAUUCNqGumxcb0rU7SMESNhKhy0KnU7rg4sI
+
+
+https://api.baas.io/ed38f569-2fc2-11e2-a2c1-02003a570010/9e4f9c9e-4013-11e2-a05c-02003a570010/users?access_token=YWMtXyMdj7SvEeOLAwb9AAAAwgAAAUUCNqGumxcb0rU7SMESNhKhy0KnU7rg4sI
