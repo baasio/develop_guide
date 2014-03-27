@@ -105,3 +105,15 @@ entity.save(function(errorFlag, responseData, userEntity){
 });
 ```
 
+## Log out
+
+로그인 된 사용자를 로그아웃합니다.  
+로그아웃이 되면 `localstorage`에 저장된 `token`은 삭제 됩니다.
+
+```javascript
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+io.logout();
+```
+
+
+
