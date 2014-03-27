@@ -68,7 +68,7 @@ io.login(username, password, function(errorFlag, responseData, userEntity){
 ```
 
 ## Update User
-[]({'id':'user-update-user','data-menu':'Update User'})
+[]({'id':'user-updateuser','data-menu':'Update User'})
 
 가입되어 있는 회원의 `property`를 추가하거나 수정합니다.  
 추가하는 `property`가 기존의 회원정보에 존재하면 덮어쓰기를 하며, 없을 경우 추가합니다.  
@@ -106,6 +106,7 @@ entity.save(function(errorFlag, responseData, userEntity){
 ```
 
 ## Log out
+[]({'id':'user-logout','data-menu':'Logout'})
 
 로그인 된 사용자를 로그아웃합니다.  
 로그아웃이 되면 `localstorage`에 저장된 `token`은 삭제 됩니다.
