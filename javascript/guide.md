@@ -119,14 +119,11 @@ baas.io는 가입/로그인/로그아웃/탈퇴 등의 회원관리 기능을 �
 
 ```javascript
 var username = 'my name';
-
 var password = 'my password';
-
 var email = 'my@baas.io';
 
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 io.signup( username, password, email, function(errorFlag, entity){
-
 	if(errorFlag){
 
 		// 회원가입이 되고 성공이 되었을 때
@@ -136,7 +133,6 @@ io.signup( username, password, email, function(errorFlag, entity){
 		// 회원 가입 되지 않고 실패를 했을때
 
 	}
-
 });
 ```
 
@@ -153,11 +149,10 @@ io.signup( username, password, email, function(errorFlag, entity){
 
 ```javascript
 var username = 'my name';
-
 var password = 'my password'
 
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 io.login(username, password, function(errorFlag, responseData, userEntity){
-
 	if(errorFlag){
 
 		// 로그인이 성공하였을 경우
@@ -167,19 +162,21 @@ io.login(username, password, function(errorFlag, responseData, userEntity){
 		// 로그인이 실패하였을 경우
 
 	}
-
 })
 ```
 
 ## Update User
 []({'id':'user-update-user','data-menu':'Update User'})
 
-가입되어 있는 회원의 정보를 추가하거나 수정합니다.  
-정보는 Entity의 Property의 Key와 Value 형태로 저장됩니다.
+가입되어 있는 회원의 `property`를 추가하거나 수정합니다.  
+추가하는 `property`가 기존의 회원정보에 존재하면 덮어쓰기를 하며, 없을 경우 추가합니다.  
+정보는 Entity의 `Property`의 Key와 Value 형태로 저장됩니다.
 
 아래는 성별 정보와 주소를 추가로 등록하는 예제입니다.
 
 ```javascript
+
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var basic ={
 	'client' : io,
 	'data' : {
@@ -190,12 +187,10 @@ var basic ={
 
 var entity = new Baas.Entity(basic)
 
-//
-entity.set({'nickname':'r2fresh'});
-entity.set({'age':'30'});
+// Property를 추가하는 방법
+entity.set({'nickname':'r2fresh','age':'30'});
 
 entity.save(function(errorFlag, responseData, userEntity){
-
 	if(errorFlag){
 
 		//
@@ -205,6 +200,6 @@ entity.save(function(errorFlag, responseData, userEntity){
 		//
 
 	}
-
 });
 ```
+
