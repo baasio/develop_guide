@@ -131,20 +131,20 @@ entity.destroy(function(errorFlag, entityData){
 
 
 ## Relationship Entity
-[]({'id':'overivew-relationship-entity-connect','data-menu':'Relationship Entity'})
+[]({'id':'overivew-relationship-entity','data-menu':'Relationship Entity'})
 
 Entity와 Entity 사이에 Relationship(관계)을 만들 수 있습니다.  
-이렇게 만들어진 관계를 이용하여, Twitter의 following/follower 또는 Facebook의 like를 구현할 수 있습니다.
+이렇게 만들어진 Relationship(관계)를 이용하여, Twitter의 `following/follower` 또는 Facebook의 `like`를 구현할 수 있습니다.
 
-Relationship에 대한 자세한 내용은 [Basic Concepts/Relationship](./develop_guide/#basic_concept/relation)을 참고하시기 바랍니다.
+Relationship(관계)에 대한 자세한 내용은 [Basic Concepts/Relationship](./develop_guide/#basic_concept/relation)을 참고하시기 바랍니다.
 
 ### Connect
 
-connect을 맺기 위해서는 entity 권한은 수정과 읽기 권한 두개 다 있는 것이 좋습니다.
+Relationship(관계)를 connect 위해서는 entity 권한은 수정과 읽기 권한 두개 다 있는 것이 좋습니다.
 
-접근을 강화 하기 위해서는 connector가 될 entity는 수정 권한을 connectee가 될 entity는 읽기 권한을 주시면 됩니다.
+접근을 강화 하기 위해서는 `connector`가 될 entity는 수정 권한을 `connectee`가 될 entity는 읽기 권한을 주시면 됩니다.
 
-다음 코드는 cat(connector)가 ball(connectee)를 love(connection)하는 소스 코드입니다.
+다음 코드는 cat(connector)에 `love`라는 Relationship(관계)에 ball(connectee)추가하는 소스 코드 입니다.
 
 ```javascript
 //cat entity 정보 (connector)
@@ -156,7 +156,7 @@ var connector_options = {
 	}
 }
 
-// ball entity 정보 (connectee
+// ball entity 정보 (connectee)
 var ball_options = {
 	'client':io,
 	'data':{
@@ -170,7 +170,7 @@ var cat = new Baas.Entity(cat_options);
 // ball Entity 생성
 var ball = new Baas.Entity(ball_options);
 
-var catCallback = function(errorFlag, data, entity){
+var catCallback = function(errorFlag, responseData, entity){
 	if(errorFlag){
     	// cat fetch 실패한 경우
 	} else {
@@ -181,7 +181,7 @@ var catCallback = function(errorFlag, data, entity){
 	}
 }
 
-var ballCallback = function(errorFlag, data, entity){
+var ballCallback = function(errorFlag, responseData, entity){
 	if(errorFlag){
     	// ball fetch 실패한 경우
 	} else {
@@ -192,7 +192,7 @@ var ballCallback = function(errorFlag, data, entity){
 	}
 }
 
-var connectCallback = function(errorFlag, data){
+var connectCallback = function(errorFlag, entity){
 	if(errorFlag){
 
 	 	// connection이 실패한 경우
@@ -201,6 +201,112 @@ var connectCallback = function(errorFlag, data){
 
         // connection이 성공한 경우
 
+	}
+}
+
+// connector property 정보 fetch
+cat.fetch(catCallback);
+```
+
+### Disconnect
+
+Relationship(관계)를 disconnect 위해서는 Entity 권한은 삭제와 읽기 권한 두개 다 있는 것이 좋습니다.
+
+접근을 강화 하기 위해서는 `connector`가 될 Entity는 삭제 권한을 `connectee`가 될 Entity는 읽기 권한을 주시면 됩니다.
+
+다음 코드는 cat(connector)에 `love`라는 Relationship(관계)에 ball(connectee) 삭제하는 소스 코드 입니다.
+
+```javascript
+//cat entity 정보 (connector)
+var connector_options = {
+	'client':io,
+	'data':{
+		'type':'animals',
+		'name':'cat'
+	}
+}
+
+// ball entity 정보 (connectee)
+var ball_options = {
+	'client':io,
+	'data':{
+		'type':'toylands',
+		'name':'ball'
+	}
+}
+
+// cat Entity 생성
+var cat = new Baas.Entity(cat_options);
+// ball Entity 생성
+var ball = new Baas.Entity(ball_options);
+
+var catCallback = function(errorFlag, responseData, entity){
+	if(errorFlag){
+    	// cat fetch 실패한 경우
+	} else {
+    	// cat fetch 성공한 경우
+
+        // ball property 정보 fetch
+		ball.fetch(ballCallback);
+	}
+}
+
+var ballCallback = function(errorFlag, responseData, entity){
+	if(errorFlag){
+    	// ball fetch 실패한 경우
+	} else {
+    	// ball fetch 성공한 경우
+
+        // cat entity와 ball entity connect 실행
+		cat.disconnect('love',ball,disConnectCallback)
+	}
+}
+
+var disConnectCallback = function(errorFlag, data){
+	if(errorFlag){
+
+	 	// connection이 삭제가 실패한 경우
+
+	} else {
+
+        // connection이 삭제가 성공한 경우
+
+	}
+}
+
+// connector property 정보 fetch
+cat.fetch(catCallback);
+```
+
+### GetConnection
+
+Entity에 Relationship(관계)을 맺은 Entity의 리스트 정보를 읽을 수 있습니다.
+
+다음 코드는 cat(connector)에 Relationship(관계) 맺은 Entity 리스트를 호출하는 소스 코드입니다.
+
+```javascript
+var cat_options = {
+	'client':io,
+	'data':{
+		'type':'animals',
+		'name':'cat'
+	}
+}
+
+var cat = new Baas.Entity(cat_options);
+
+var catCallback = function(errorFlag, responseData, entity){
+	if(errorFlag){
+
+	} else {
+    	// cat의 connection된 entity 리스트 읽기
+		cat.getConnections('love',function(errorFlag, data, entitys){
+			if(errorFlag){
+				// 읽기 실패한 경우
+			} else {
+				// 성공한 경우
+			}
+		})
 	}
 }
 
