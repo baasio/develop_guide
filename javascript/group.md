@@ -70,12 +70,12 @@ var options ={
 	}
 }
 
-var entity = new Baas.Entity(options)
+var group = new Baas.Group(options)
 
 // property nickname과 age를 추가하는 방법
-entity.set({'name':'web designer','address':'seoul'});
+group.set({'name':'web designer','address':'seoul'});
 
-entity.save(function(errorFlag, responseData, entity){
+group.save(function(errorFlag, responseData, entity){
 	if(errorFlag){
 		// 'designer' Group Entity 정보 추가 및 수정을 실패한 경우
 	} else {
@@ -101,9 +101,9 @@ var basic ={
 	}
 }
 
-var entity = new Baas.Entity(basic)
+var group = new Baas.Group(basic)
 
-entity.destroy(function(errorFlag, entity){
+group.destroy(function(errorFlag, entity){
 	if(errorFlag){
 		// 'designer' Group Entity 삭제를 실패한 경우
 
