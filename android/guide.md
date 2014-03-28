@@ -2874,7 +2874,7 @@ BaasioPush.sendPushInBackground(
 
 안드로이드만 푸시를 보내기 위해서는 **BaasioMessage.PLATFORM_FLAG_TYPE_GCM**, iOS만 보내기위해서는 **BaasioMessage.PLATFORM_FLAG_TYPE_IOS**를 설정합니다.
 
-두 플랫폼을 모두 보내려면 **BaasioMessage.PLATFORM_FLAG_TYPE_GCM|BaasioMessage.PLATFORM_FLAG_TYPE_IOS**로 설정합니다.
+두 플랫폼을 모두 보내려면 **BaasioMessage.PLATFORM_FLAG_TYPE_GCM | BaasioMessage.PLATFORM_FLAG_TYPE_IOS**로 설정합니다.
 
 ```java
 // setMessage를 이용한 방법
