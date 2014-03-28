@@ -2,7 +2,10 @@
 []({'id':'entity','data-menu':'Entity '})
 
 baas.io는 data를 `save` `get`, `remove`하는 기능을 제공합니다.  
-또한, Entity와 Entity를 Connect통하여 Relationship(관계)를 만들 수 있습니다.  
+
+또한, Entity와 Entity 사이에 Relationship(관계)을 만들 수 있습니다.  
+이렇게 만들어진 Relationship(관계)를 이용하여, Twitter의 `following/follower` 또는 Facebook의 `like`를 구현할 수 있습니다.
+
 Relationship에 대한 자세한 내용은 [Basic Concepts/Relationship](./develop_guide/#basic_concept/relation)을 참고하시기 바랍니다.
 
 ## Create Entity
@@ -129,16 +132,8 @@ entity.destroy(function(errorFlag, entityData){
 });
 ```
 
-
-## Relationship Entity
-[]({'id':'overivew-relationship-entity','data-menu':'Relationship Entity'})
-
-Entity와 Entity 사이에 Relationship(관계)을 만들 수 있습니다.  
-이렇게 만들어진 Relationship(관계)를 이용하여, Twitter의 `following/follower` 또는 Facebook의 `like`를 구현할 수 있습니다.
-
-Relationship(관계)에 대한 자세한 내용은 [Basic Concepts/Relationship](./develop_guide/#basic_concept/relation)을 참고하시기 바랍니다.
-
-### Connect
+## Relationship Entity Connect
+[]({'id':'overivew-relationship-entity-connect','data-menu':'Relationship Entity Connect'})
 
 Relationship(관계)를 connect 위해서는 entity 권한은 수정과 읽기 권한 두개 다 있는 것이 좋습니다.
 
@@ -208,7 +203,8 @@ var connectCallback = function(errorFlag, entity){
 cat.fetch(catCallback);
 ```
 
-### Disconnect
+## Relationship Entity Disconnect
+[]({'id':'overivew-relationship-entity-disconnect','data-menu':'Relationship Entity Disconnect'})
 
 Relationship(관계)를 disconnect 위해서는 Entity 권한은 삭제와 읽기 권한 두개 다 있는 것이 좋습니다.
 
@@ -278,7 +274,8 @@ var disConnectCallback = function(errorFlag, data){
 cat.fetch(catCallback);
 ```
 
-### GetConnection
+## Relationship Entity GetConnection
+[]({'id':'overivew-relationship-entity-getconnection','data-menu':'Relationship Entity GetConnection'})
 
 Entity에 Relationship(관계)을 맺은 Entity의 리스트 정보를 읽을 수 있습니다.
 
