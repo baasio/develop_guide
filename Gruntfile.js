@@ -12,7 +12,8 @@ module.exports = function(grunt){
 					'javascript/guide.md': [
 					'javascript/overview.md',
 					'javascript/user.md',
-					'javascript/entity.md'
+					'javascript/entity.md',
+					'javascript/group.md'
 					]
 				},
 			}
