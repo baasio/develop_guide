@@ -242,7 +242,7 @@ baas_group.fetch(fetchCallback);
 
 Group에 포함된 member들을 가지고 옵니다.
 
-다음 코드는 "baas_group"에 포함된 'member'<!--dfdssdf-->들을 가지고 오는 소스 코드 입니다.
+다음 코드는 "baas_group"에 포함된 `member`[]({'style':'background-color:#FFFF00'})들을 가지고 오는 소스 코드 입니다.
 
 ### Of least permission
 
