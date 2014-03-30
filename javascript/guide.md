@@ -636,10 +636,8 @@ var baas_group = new Baas.Group(basic)
 baas_group.destroy(function(errorFlag, entity){
 	if(errorFlag){
 		// 'baas_group' 삭제 실패한 경우
-
 	} else {
 		// 'baas_group' 삭제 성공한 경우
-
 	}
 });
 ```
