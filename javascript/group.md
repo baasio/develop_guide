@@ -119,7 +119,7 @@ group.destroy(function(errorFlag, entity){
 
 Group Entity에 `uuid`와 `username`에 해당하는 user를 추가합니다.
 
-다음 코드는 "baas_group"에 'baas_user'를 추가하는 소스 코드입니다.
+다음 코드는 "baas_group"에 "baas_user"를 추가하는 소스 코드입니다.
 
 ### Of least permission
 
@@ -179,9 +179,9 @@ baas_group.fetch(fetchCallback);
 ## Remove User from Group
 []({'id':'group-remove-user-from-group','data-menu':'Remove User from Group'})
 
-Group Entity에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
+Group에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
 
-다음 코드는 "baas_group"에 'baas_user'를 삭제하는 소스 코드입니다.
+다음 코드는 "baas_group"에 "baas_user"를 삭제하는 소스 코드입니다.
 
 ### Of least permission
 
@@ -240,9 +240,9 @@ baas_group.fetch(fetchCallback);
 ## Get Member of Group
 []({'id':'group-get-member-of-group','data-menu':'Get Member of Group'})
 
-Group Entity에 포함된 member list를 가지고 옵니다.
+Group에 포함된 member들을 가지고 옵니다.
 
-다음 코드는 "baas_group"에 포함된 member list를 가지고 오는 소스 코드 입니다.
+다음 코드는 "baas_group"에 포함된 ``member``들을 가지고 오는 소스 코드 입니다.
 
 ### Of least permission
 
@@ -269,16 +269,16 @@ var fetchCallback = function(errorFlag, groupData){
 	} else {
 		// baas_group fetch 성공한 경우
 
-		// baas_group에 포함한 member리스트 정보 읽기
+		// baas_group에 포함한 member들 정보 읽기
 		baas_group.members(memberCallback)
 	}
 }
 
 var memberCallback = function(errorFlag, memberList){
 	if(errorFlag){
-		// baas_group에 포함한 member리스트 정보 읽기를 실패한 경우
+		// baas_group에 포함한 member들 정보 읽기를 실패한 경우
 	} else {
-		// baas_group에 포함한 member리스트 정보 읽기를 성공한 경우
+		// baas_group에 포함한 member들 정보 읽기를 성공한 경우
 	}
 }
 
