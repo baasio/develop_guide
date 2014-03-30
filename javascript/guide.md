@@ -649,7 +649,15 @@ group.destroy(function(errorFlag, entity){
 
 Group Entity에 `uuid`와 `username`에 해당하는 user를 추가합니다.
 
-다음 코드는 "designer" Group Entit에 'baas_user' user entity를 추가하는 소스 코드입니다.
+다음 코드는 "baas_group"에 'baas_user'를 추가하는 소스 코드입니다.
+
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | O | X | X |
+| /users/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
 
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
@@ -658,39 +666,44 @@ var options ={
 	'data' : {
 		'type' : 'groups'
 	},
-	'path' : 'designer'
+	'path' : 'baas_group'
 }
 
-var group = new Baas.Group(options);
+var baas_group = new Baas.Group(options);
 
 var fetchCallback = function(errorFlag, groupData){
 	if(errorFlag){
-		// designer group entity fetch 실패한 경우
+		// baas_group fetch 실패한 경우
 	} else {
-		// designer group entity fetch 성공한 경우
+		// baas_group fetch 성공한 경우
 
-		// designer group에 추가할 user entity 읽기
-		io.getEntity({'type':'users','username':'baas_user'},function(errorFlag, entity){
-			if(errorFlag){
-				// user entity 정보 읽기 실패한 경우
-			} else {
-				// user entity 정보 읽기 성공한 경우
-
-				// designer group entity에 user entity 추가
-				group.add({'user':entity},function(errorFlag, data, entityList){
-					if(errorFlag){
-						// designer group entity에 user entity 추가를 실패한 경우
-					} else {
-						// designer group entity에 user entity 추가를 성공한 경우
-					}
-
-				})
-			}
-		})
+		// baas_group에 추가할 baas_user 정보 읽기
+		io.getEntity({'type':'users','username':'baas_user'}, getEntityCallback)
 	}
 }
 
-group.fetch(fetchCallback);
+var getEntityCallback = function(errorFlag, entity){
+	if(errorFlag){
+		// baas_user 정보 읽기 실패한 경우
+	} else {
+		// baas_user 정보 읽기 성공한 경우
+
+		// baas_group에 baas_user 추가
+		baas_group.add({'user':entity}, addCallback)
+	}
+}
+
+var addCallback = function(errorFlag, data, entityList){
+	if(errorFlag){
+		// baas_group에 baas_user 추가를 실패한 경우
+	} else {
+		// baas_group에 baas_user 추가를 성공한 경우
+	}
+
+}
+
+baas_group.fetch(fetchCallback);
+
 ```
 
 ## Remove User from Group
@@ -698,9 +711,9 @@ group.fetch(fetchCallback);
 
 Group Entity에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
 
-다음 코드는 "designer" Group Entit에 'baas_user' user entity를 삭제하는 소스 코드입니다.
+다음 코드는 "baas_group"에 'baas_user'를 삭제하는 소스 코드입니다.
 
-### permission
+### Of least permission
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
@@ -715,40 +728,92 @@ var options ={
 	'data' : {
 		'type' : 'groups'
 	},
-	'path' : 'designer'
+	'path' : 'baas_group'
 }
 
-var group = new Baas.Group(options);
+var baas_group = new Baas.Group(options);
 
 var fetchCallback = function(errorFlag, groupData){
 	if(errorFlag){
-		// designer group entity fetch 실패한 경우
+		// baas_group fetch 실패한 경우
 	} else {
-		// designer group entity fetch 성공한 경우
+		// baas_group fetch 성공한 경우
 
-		// designer group에 추가할 user entity 읽기
-		io.getEntity({'type':'users','username':'baas_user'},function(errorFlag, entity){
-			if(errorFlag){
-				// user entity 정보 읽기 실패한 경우
-			} else {
-				// user entity 정보 읽기 성공한 경우
-
-				// designer group entity에 user entity 추가
-				group.remove({'user':entity},function(errorFlag, data, entityList){
-					if(errorFlag){
-						// designer group entity에 user entity 추가를 실패한 경우
-					} else {
-						// designer group entity에 user entity 추가를 성공한 경우
-					}
-
-				})
-			}
-		})
+		// baas_group에 추가할 baas_user 정보 읽기
+		io.getEntity({'type':'users','username':'baas_user'}, getEntityCallback)
 	}
 }
-group.fetch(fetchCallback);
+
+var getEntityCallback = function(errorFlag, entity){
+	if(errorFlag){
+		// baas_user 정보 읽기 실패한 경우
+	} else {
+		// baas_user 정보 읽기 성공한 경우
+
+		// baas_group에 baas_user 삭제
+		baas_group.add({'user':entity}, removeCallback)
+	}
+}
+
+var removeCallback = function(errorFlag, data, entityList){
+	if(errorFlag){
+		// baas_group에 baas_user 삭제를 실패한 경우
+	} else {
+		// baas_group에 baas_user 삭제를 성공한 경우
+	}
+
+}
+
+baas_group.fetch(fetchCallback);
 ```
 
+## Get Member of Group
+[]({'id':'group-remove-user-from-group','data-menu':'Remove User from Group'})
+
+Group Entity에 포함된 member list를 가지고 옵니다.
+
+다음 코드는 "baas_group"에 포함된 member list를 가지고 오는 소스 코드 입니다.
+
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
+
+```javascript
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+var options ={
+	'client' : io,
+	'data' : {
+		'type' : 'groups'
+	},
+	'path' : 'baas_group'
+}
+
+var baas_group = new Baas.Group(options);
+
+var fetchCallback = function(errorFlag, groupData){
+	if(errorFlag){
+		// baas_group fetch 실패한 경우
+	} else {
+		// baas_group fetch 성공한 경우
+
+		// baas_group에 포함한 member리스트 정보 읽기
+		baas_group.members(memberCallback)
+	}
+}
+
+var memberCallback = function(errorFlag, memberList){
+	if(errorFlag){
+		// baas_group에 포함한 member리스트 정보 읽기를 실패한 경우
+	} else {
+		// baas_group에 포함한 member리스트 정보 읽기를 성공한 경우
+	}
+}
+
+baas_group.fetch(fetchCallback);
+```
 
 
 
