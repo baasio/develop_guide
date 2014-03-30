@@ -174,8 +174,8 @@ Group Entity에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/** | O | | | O |
-| /users/** | O | | | |
+| /groups/\*\* | O | X | X | O |
+| /users/\*\* | O | X | X | X |
 []({'class':'table-bordered'})
 
 ```javascript
