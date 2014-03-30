@@ -706,6 +706,7 @@ Group Entity에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | /groups/** | O | | | O |
 | /users/** | O | | | |
+[]({'class':'table-bordered'})
 
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
