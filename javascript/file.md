@@ -10,12 +10,15 @@ File Collection 에 File을 업로드 합니다.
 
 다음 코드는 File Collection 에 "baas.jpg" 파일을 업로드하는  소스 코드입니다.
 
+**html code**
 ```html
 <div class='container'>
     <input type="file" name="file" class="_file_upload"/>
     <button class="_upload_start">upload start</button>
 </div>
 ```
+
+**javascript code**
 ```javascript
 // 업로드를 시작 버튼 Click
 $('._upload_start').bind('click',function(e){
