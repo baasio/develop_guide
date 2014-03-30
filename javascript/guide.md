@@ -850,7 +850,7 @@ File Collection 에 File을 업로드 합니다.
 </div>
 ```
 
-### javascript code**
+### javascript code
 ```javascript
 // 업로드를 시작 버튼 Click
 $('._upload_start').bind('click',function(e){
