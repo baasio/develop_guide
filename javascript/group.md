@@ -33,7 +33,7 @@ io.createEntity({'type':'groups','path':'baas_group'},function(errorFlag, entity
 ## Get Group
 []({'id':'group-get-entity','data-menu':'Get Group'})
 
-Group 에서 `uuid` 또는 `path`에 해당하는 Group 정보를 가지고 옵니다.
+Group 에 `uuid` 또는 `path`에 해당하는 Group 정보를 가지고 옵니다.
 
 다음 코드는 "baas_group"의 정보를 가지고 옵니다.
 
@@ -56,7 +56,7 @@ io.getEntity(options,function(errorFlag, entity){
 ## Update Group
 []({'id':'group-update-entity','data-menu':'Update Group'})
 
-Group 에서 `uuid` 또는 `path`에 해당하는 group 에 정보를 추가 또는 수정 합니다.
+Group 에 `uuid` 또는 `path`에 해당하는 group 에 정보를 추가 또는 수정 합니다.
 
 다음 코드는 "baas_group" 에 `name`, `address` 정보를 추가하는 소스 코드입니다.
 
@@ -87,7 +87,7 @@ baas_group.save(function(errorFlag, responseData, entity){
 ## Remove Group
 []({'id':'group-remove-entity','data-menu':'Remove Group'})
 
-Group 에서 `uuid` 또는 `path`에 해당하는 group 을 삭제 합니다.
+Group 에 `uuid` 또는 `path`에 해당하는 group 을 삭제 합니다.
 
 다음 코드는 "baas_group" 을 삭제하는 소스 코드입니다.
 
@@ -115,7 +115,7 @@ baas_group.destroy(function(errorFlag, entity){
 ## Add User to Group
 []({'id':'group-add-user-to-group','data-menu':'Add User to Group'})
 
-Group Entity에 `uuid`와 `username`에 해당하는 user를 추가합니다.
+Group 에 `uuid`와 `username`에 해당하는 user를 추가합니다.
 
 다음 코드는 "baas_group"에 "baas_user"를 추가하는 소스 코드입니다.
 
