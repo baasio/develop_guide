@@ -238,7 +238,7 @@ baas_group.fetch(fetchCallback);
 ```
 
 ## Get Member of Group
-[]({'id':'group-remove-user-from-group','data-menu':'Remove User from Group'})
+[]({'id':'group-get-member-of-group','data-menu':'Get Member of Group'})
 
 Group Entity에 포함된 member list를 가지고 옵니다.
 
