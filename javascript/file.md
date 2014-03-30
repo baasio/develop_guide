@@ -1,10 +1,10 @@
 # File
-[]({'id':'file','data-menu':'File '})
+[]({'id':'file','data-menu':'File'})
 
 Group 기능은 File Collection을 통해 지원되며, 파일들을 업/다운로드 및 수정/삭제를 할 수 있습니다.
 
 ## Upload File
-[]({'id':'group-upload-file','data-menu':'Upload File'})
+[]({'id':'file-upload-file','data-menu':'Upload File'})
 
 File Collection 에 File을 업로드 합니다.
 
@@ -39,14 +39,14 @@ $('._upload_start').bind('click',function(e){
 
 
 ## Download File
-[]({'id':'group-download-file','data-menu':'Download File'})
+[]({'id':'file-download-file','data-menu':'Download File'})
 
 ## Get File Entity
-[]({'id':'group-get-file-entity','data-menu':'Get File Entity'})
+[]({'id':'file-get-file-entity','data-menu':'Get File Entity'})
 
 ## Update File Entity
-[]({'id':'group-update-file-entity','data-menu':'Update File Entity'})
+[]({'id':'file-update-file-entity','data-menu':'Update File Entity'})
 
 ## Remove File
-[]({'id':'group-remove-file','data-menu':'Remove File'})
+[]({'id':'file-remove-file','data-menu':'Remove File'})
 
