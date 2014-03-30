@@ -113,3 +113,126 @@ group.destroy(function(errorFlag, entity){
 	}
 });
 ```
+
+## Add User to Group
+[]({'id':'group-add-user-to-group','data-menu':'Add User to Group'})
+
+Group Entity에 `uuid`와 `username`에 해당하는 user를 추가합니다.
+
+다음 코드는 "designer" Group Entit에 'baas_user' user entity를 추가하는 소스 코드입니다.
+
+```javascript
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+var options ={
+	'client' : io,
+	'data' : {
+		'type' : 'groups'
+	},
+	'path' : 'designer'
+}
+
+var group = new Baas.Group(options);
+
+var fetchCallback = function(errorFlag, groupData){
+	if(errorFlag){
+		// designer group entity fetch 실패한 경우
+	} else {
+		// designer group entity fetch 성공한 경우
+
+		// designer group에 추가할 user entity 읽기
+		io.getEntity({'type':'users','username':'baas_user'},function(errorFlag, entity){
+			if(errorFlag){
+				// user entity 정보 읽기 실패한 경우
+			} else {
+				// user entity 정보 읽기 성공한 경우
+
+				// designer group entity에 user entity 추가
+				group.add({'user':entity},function(errorFlag, data, entityList){
+					if(errorFlag){
+						// designer group entity에 user entity 추가를 실패한 경우
+					} else {
+						// designer group entity에 user entity 추가를 성공한 경우
+					}
+
+				})
+			}
+		})
+	}
+}
+
+group.fetch(fetchCallback);
+```
+
+## Remove User from Group
+[]({'id':'group-remove-user-from-group','data-menu':'Remove User from Group'})
+
+Group Entity에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
+
+다음 코드는 "designer" Group Entit에 'baas_user' user entity를 삭제하는 소스 코드입니다.
+
+### permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/** | O | | | O |
+| /users/** | O | | | |
+
+```javascript
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+var options ={
+	'client' : io,
+	'data' : {
+		'type' : 'groups'
+	},
+	'path' : 'designer'
+}
+
+var group = new Baas.Group(options);
+
+var fetchCallback = function(errorFlag, groupData){
+	if(errorFlag){
+		// designer group entity fetch 실패한 경우
+	} else {
+		// designer group entity fetch 성공한 경우
+
+		// designer group에 추가할 user entity 읽기
+		io.getEntity({'type':'users','username':'baas_user'},function(errorFlag, entity){
+			if(errorFlag){
+				// user entity 정보 읽기 실패한 경우
+			} else {
+				// user entity 정보 읽기 성공한 경우
+
+				// designer group entity에 user entity 추가
+				group.remove({'user':entity},function(errorFlag, data, entityList){
+					if(errorFlag){
+						// designer group entity에 user entity 추가를 실패한 경우
+					} else {
+						// designer group entity에 user entity 추가를 성공한 경우
+					}
+
+				})
+			}
+		})
+	}
+}
+group.fetch(fetchCallback);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
