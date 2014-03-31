@@ -14,20 +14,18 @@ Group 에서 `uuid`와 `path`는 유일한 Key가 됩니다.
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options = {
-	'client':io,
-	'data':{
-		'type':'groups',
-		'path':'baas_group'
-	}
+	'path':'baas_group'
 }
 
-io.createEntity({'type':'groups','path':'baas_group'},function(errorFlag, entity){
+var createCallback = function(errorFlag, entity){
 	if(errorFlag){
 		// 'baas_group' 생성 실패한 경우
 	} else {
 		// 'baas_group' 생성 성공한 경우
 	}
-})
+}
+
+io.createGroup(options, createCallback)
 ```
 
 ## Get Group

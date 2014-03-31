@@ -528,6 +528,19 @@ var catCallback = function(errorFlag, responseData, entity){
 // connector property 정보 fetch
 cat.fetch(catCallback);
 ```
+# Query
+[]({'id':'guery','data-menu':'Query'})
+
+Group 기능은 Group Collection을 통해 지원되며, 그룹을 만들어 회원을 관리 할 수 있습니다.
+
+## Query Entities from Collection
+[]({'id':'guery-entities-from-collection','data-menu':'Query Entities from Collection'})
+
+## Query User Entities from Group
+[]({'id':'guery-user-entities-from-group','data-menu':'Query User Entities from Group'})
+
+## Query Entities with Relationship
+[]({'id':'guery-entities-with-relationship','data-menu':'Query Entities with Relationship'})
 # Group
 []({'id':'group','data-menu':'Group '})
 
@@ -544,20 +557,18 @@ Group 에서 `uuid`와 `path`는 유일한 Key가 됩니다.
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options = {
-	'client':io,
-	'data':{
-		'type':'groups',
-		'path':'baas_group'
-	}
+	'path':'baas_group'
 }
 
-io.createEntity({'type':'groups','path':'baas_group'},function(errorFlag, entity){
+var createCallback = function(errorFlag, entity){
 	if(errorFlag){
 		// 'baas_group' 생성 실패한 경우
 	} else {
 		// 'baas_group' 생성 성공한 경우
 	}
-})
+}
+
+io.createGroup(options, createCallback)
 ```
 
 ## Get Group

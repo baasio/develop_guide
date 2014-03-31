@@ -17,7 +17,7 @@ module.exports = function(grunt){
 					'javascript/group.md',
 					'javascript/file.md',
 					'javascript/push.md',
-					'javascript/helpcenter/md'
+					'javascript/helpcenter.md'
 					]
 				},
 			}
