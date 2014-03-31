@@ -939,9 +939,6 @@ io.getEntity(options,getCallback)
 File enitty 정보(property)를 추가하거나 기존의 정보(property)를 수정 할 수 있습니다.  
 다음 코드는 `nickname`과 `count` 정보(property)를 추가하거나 수정하는 소스 코드입니다.
 
-> 업로드 한 파일을 다른 파일로 교체 하거나,  
-> 업로드 된 파일이 없는 빈 File Entity에 파일을 추가 하는 것은 아직 지원되지 않습니다.
-
 **Javascript**
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
@@ -966,12 +963,16 @@ baas_file.save(function(errorFlag, responseData, entity){
     }
 });
 ```
-
 **- Of least permission -**
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | X | X | O | X |
+
+**Update 되지 않는 정보**
+* 업로드 한 파일을 다른 파일로 교체
+* 업로드 된 파일이 없는 빈 File Entity에 파일을 추가
+
 ## Remove File
 []({'id':'file-remove-file','data-menu':'Remove File'})
 
