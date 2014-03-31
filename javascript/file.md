@@ -132,7 +132,6 @@ File enitty 정보(property)를 추가하거나 기존의 정보(property)를 �
 var options ={
     'client' : io,
     'data' : {
-        'type' : 'files',
         'uuid' : 'ca3bf5a4-b823-11e3-827d-06f4fe0000b5'
     }
 }
@@ -171,7 +170,6 @@ baas_file.save(saveCallback);
 var options ={
 	'client' : io,
 	    'data' : {
-	        'type' : 'files',
 	        'uuid' : 'ca3bf5a4-b823-11e3-827d-06f4fe0000b5'
 	    }
 }
