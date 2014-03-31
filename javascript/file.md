@@ -9,12 +9,6 @@ Group 기능은 File Collection을 통해 지원되며, 파일들을 업/다운�
 File Collection 에 File을 업로드 합니다.  
 다음 코드는 File Collection 에 "baas.jpg" 파일을 업로드하는  소스 코드입니다.
 
-**- Of least permission -**
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| **/files/\*\*** | X | O | X | X |
-
 **- HTML -**
 ```html
 <input type="file" name="file" class="_file_upload"/>
@@ -40,6 +34,12 @@ $('._upload_start').bind('click',function(e){
 	})
 })
 ```
+**- Of least permission -**
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| **/files/\*\*** | X | O | X | X |
+[]({'class':'table-bordered'})
 
 
 ## Download File
@@ -47,12 +47,6 @@ $('._upload_start').bind('click',function(e){
 
 File을 다운로드르 하기 위해서는 `uusd`가 필요합니다.  
 다음 코드는 `uuid` 사용하여 "baas.jpg" 파일을 다운로드하는  소스 코드입니다.
-
-**- Of least permission -**
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| **/files/\*\*** | O | X | X | X |
 
 **- HTML -**
 ```html
@@ -75,6 +69,12 @@ $('.download_start').click(function(e){
     })
 })
 ```
+**- Of least permission -**
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| **/files/\*\*** | O | X | X | X |
+[]({'class':'table-bordered'})
 
 ## Get File Entity
 []({'id':'file-get-file-entity','data-menu':'Get File Entity'})
@@ -100,12 +100,12 @@ var getCallback = function(errorFlag, entity){
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 io.getEntity(options,getCallback)
 ```
-
 **- Of least permission -**
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | O | X | X | X |
+[]({'class':'table-bordered'})
 
 ## Update File Entity
 []({'id':'file-update-file-entity','data-menu':'Update File Entity'})
@@ -142,6 +142,7 @@ baas_file.save(function(errorFlag, responseData, entity){
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | X | X | O | X |
+[]({'class':'table-bordered'})
 
 **Update 되지 않는 정보**
 * 업로드 한 파일을 다른 파일로 교체
