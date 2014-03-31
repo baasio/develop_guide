@@ -118,15 +118,6 @@ baas_group.destroy(function(errorFlag, entity){
 Group 에 `uuid`와 `username`에 해당하는 user를 추가합니다.
 
 다음 코드는 "baas_group"에 "baas_user"를 추가하는 소스 코드입니다.
-
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | O | X | X |
-| /users/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
-
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options ={
@@ -171,8 +162,14 @@ var addCallback = function(errorFlag, data, entityList){
 }
 
 baas_group.fetch(fetchCallback);
-
 ```
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | O | X | X |
+| /users/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
 
 ## Remove User from Group
 []({'id':'group-remove-user-from-group','data-menu':'Remove User from Group'})
@@ -180,15 +177,6 @@ baas_group.fetch(fetchCallback);
 Group에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
 
 다음 코드는 "baas_group"에 "baas_user"를 삭제하는 소스 코드입니다.
-
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | X | X | O |
-| /users/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
-
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options ={
@@ -234,6 +222,13 @@ var removeCallback = function(errorFlag, data, entityList){
 
 baas_group.fetch(fetchCallback);
 ```
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | O |
+| /users/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
 
 ## Get Member of Group
 []({'id':'group-get-member-of-group','data-menu':'Get Member of Group'})
@@ -241,14 +236,6 @@ baas_group.fetch(fetchCallback);
 Group에 포함된 member들을 가지고 옵니다.
 
 다음 코드는 "baas_group"에 포함된 "member"들을 가지고 오는 소스 코드 입니다.
-
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
-
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options ={
@@ -282,6 +269,12 @@ var memberCallback = function(errorFlag, memberList){
 
 baas_group.fetch(fetchCallback);
 ```
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
 
 
 

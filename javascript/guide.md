@@ -648,15 +648,6 @@ baas_group.destroy(function(errorFlag, entity){
 Group 에 `uuid`와 `username`에 해당하는 user를 추가합니다.
 
 다음 코드는 "baas_group"에 "baas_user"를 추가하는 소스 코드입니다.
-
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | O | X | X |
-| /users/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
-
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options ={
@@ -701,8 +692,14 @@ var addCallback = function(errorFlag, data, entityList){
 }
 
 baas_group.fetch(fetchCallback);
-
 ```
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | O | X | X |
+| /users/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
 
 ## Remove User from Group
 []({'id':'group-remove-user-from-group','data-menu':'Remove User from Group'})
@@ -710,15 +707,6 @@ baas_group.fetch(fetchCallback);
 Group에 `uuid`와 `username`에 해당하는 user를 삭제합니다.
 
 다음 코드는 "baas_group"에 "baas_user"를 삭제하는 소스 코드입니다.
-
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | X | X | O |
-| /users/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
-
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options ={
@@ -764,6 +752,13 @@ var removeCallback = function(errorFlag, data, entityList){
 
 baas_group.fetch(fetchCallback);
 ```
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | O |
+| /users/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
 
 ## Get Member of Group
 []({'id':'group-get-member-of-group','data-menu':'Get Member of Group'})
@@ -771,14 +766,6 @@ baas_group.fetch(fetchCallback);
 Group에 포함된 member들을 가지고 옵니다.
 
 다음 코드는 "baas_group"에 포함된 "member"들을 가지고 오는 소스 코드 입니다.
-
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
-
 ```javascript
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 var options ={
@@ -812,6 +799,12 @@ var memberCallback = function(errorFlag, memberList){
 
 baas_group.fetch(fetchCallback);
 ```
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
 
 
 
@@ -830,6 +823,8 @@ baas_group.fetch(fetchCallback);
 
 
 
+
+[TOC]
 
 # File
 []({'id':'file','data-menu':'File'})
@@ -842,16 +837,22 @@ Group 기능은 File Collection을 통해 지원되며, 파일들을 업/다운�
 File Collection 에 File을 업로드 합니다.  
 다음 코드는 File Collection 에 "baas.jpg" 파일을 업로드하는  소스 코드입니다.
 
-#### - HTML -
+### Of least permission
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | X | O | X | X |
+
+### - HTML -
 ```html
 <input type="file" name="file" class="_file_upload"/>
 <button class="_upload_start">upload start</button>
 ```
 
-#### - javascript code -
+### - Javascript -
 ```javascript
 // 업로드를 시작 버튼 Click
 $('._upload_start').bind('click',function(e){
+	e.preventDefault();
 
 	// file input element 객체
 	var fileInput = document.getElementsByClassName('_file_upload');
@@ -871,8 +872,65 @@ $('._upload_start').bind('click',function(e){
 ## Download File
 []({'id':'file-download-file','data-menu':'Download File'})
 
+File을 다운로드르 하기 위해서는 `uusd`가 필요합니다.  
+다음 코드는 `uuid` 사용하여 "baas.jpg" 파일을 다운로드하는  소스 코드입니다.
+
+### Of least permission
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | X |
+
+### -HTML-
+```html
+<button class='download_start'>fileDownload</button>
+```
+
+### -Javascript-
+```javascript
+$('.download_start').click(function(e){
+    e.preventDefault();
+
+    var file  = new Baas.File({'client':io, 'data':{'uuid':'ca3bf5a4-b823-11e3-827d-06f4fe0000b5'} });
+
+    file.download(function(errorFlag, entity){
+     	if(errorFlag){
+			// file download가 실패한 경우
+		} else {
+			// file download가 성공한 경우
+		}
+    })
+})
+```
+
 ## Get File Entity
 []({'id':'file-get-file-entity','data-menu':'Get File Entity'})
+
+File enitty의 정보는 `uusd`를 사용하여 가지고 올수 있습니다..  
+다음 코드는 `uuid` 사용하여 file entity 정보를 가지고 오는 소스 코드입니다.
+
+```javascript
+var options = {
+	'type':'files',
+	'uuid':'ca3bf5a4-b823-11e3-827d-06f4fe0000b5'
+}
+
+var getCallback = function(errorFlag, entity){
+	if(errorFlag){
+		// file entity 정보 가져오기 실패한 경우
+	} else {
+		// file entity 정보 가져오기 성공한 경우
+	}
+})
+
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+io.getEntity(options,getCallback)
+```
+
+### Of least permission
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | X |
+
 
 ## Update File Entity
 []({'id':'file-update-file-entity','data-menu':'Update File Entity'})
