@@ -228,51 +228,7 @@ baas_group.fetch(fetchCallback);
 | /users/\*\* | O | X | X | X |
 []({'class':'table-bordered'})
 
-## Get Member of Group
-[]({'id':'group-get-member-of-group','data-menu':'Get Member of Group'})
 
-Group에 포함된 member들을 가지고 옵니다.
-
-다음 코드는 "baas_group"에 포함된 "member"들을 가지고 오는 소스 코드 입니다.
-```javascript
-// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
-var options ={
-	'client' : io,
-	'data' : {
-		'type' : 'groups'
-	},
-	'path' : 'baas_group'
-}
-
-var baas_group = new Baas.Group(options);
-
-var fetchCallback = function(errorFlag, groupData){
-	if(errorFlag){
-		// baas_group fetch 실패한 경우
-	} else {
-		// baas_group fetch 성공한 경우
-
-		// baas_group에 포함한 member들 정보 읽기
-		baas_group.members(memberCallback)
-	}
-}
-
-var memberCallback = function(errorFlag, memberList){
-	if(errorFlag){
-		// baas_group에 포함한 member들 정보 읽기를 실패한 경우
-	} else {
-		// baas_group에 포함한 member들 정보 읽기를 성공한 경우
-	}
-}
-
-baas_group.fetch(fetchCallback);
-```
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
 
 
 

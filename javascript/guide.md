@@ -492,8 +492,98 @@ var disConnectCallback = function(errorFlag, data){
 cat.fetch(catCallback);
 ```
 
-## Relationship Entity GetConnection
-[]({'id':'overivew-relationship-entity-getconnection','data-menu':'Relationship Entity GetConnection'})
+
+# Query
+[]({'id':'guery','data-menu':'Query'})
+
+baas.io에 저장된 데이터를 특정 조건으로 조회하는 기능을 제공합니다. SQL 구문과 비슷한 형태로 조회할 수 있습니다.
+
+지정된 데이터를 특정 조건으로 조회하는 기능을 제공합니다.
+
+SQL 구문과 비슷한 형태로 조회를 할 수 있습니다.
+
+## Query Entities from Collection
+[]({'id':'guery-entities-from-collection','data-menu':'Query Entities from Collection'})
+
+Collection에서 특정 조건에 맞는 Entity의 리스트를 조회 합니다.
+
+아래는 animals Collection의 리스트를 내림차순으로 조회해 오라는 Query입니다.
+
+```javascript
+var options = {
+	'client':io,
+	'type':'animals',
+	'qs':{
+		'qs':'order by created DESC'
+	}
+}
+
+var callback = function(errorFlag, collectionData){
+	if(errorFlag){
+		// animals entity list 조회 실패한 경우
+	} else {
+		// animals entity list 조회 성공한 경우
+	}
+}
+
+var animals = new Baas.Collection( options, callback})
+```
+
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| **/animals/\*** | O | X | X | X |
+[]({'class':'table-bordered'})
+
+## Query User Entities from Group
+[]({'id':'guery-user-entities-from-group','data-menu':'Query User Entities from Group'})
+
+Group에 포함된 member들을 가지고 옵니다.
+
+다음 코드는 "baas_group"에 포함된 "member"들을 가지고 오는 소스 코드 입니다.
+```javascript
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+var options ={
+	'client' : io,
+	'data' : {
+		'type' : 'groups'
+	},
+	'path' : 'baas_group'
+}
+
+var baas_group = new Baas.Group(options);
+
+var fetchCallback = function(errorFlag, groupData){
+	if(errorFlag){
+		// baas_group fetch 실패한 경우
+	} else {
+		// baas_group fetch 성공한 경우
+
+		// baas_group에 포함한 member들 정보 읽기
+		baas_group.members(memberCallback)
+	}
+}
+
+var memberCallback = function(errorFlag, memberList){
+	if(errorFlag){
+		// baas_group에 포함한 member들 정보 읽기를 실패한 경우
+	} else {
+		// baas_group에 포함한 member들 정보 읽기를 성공한 경우
+	}
+}
+
+baas_group.fetch(fetchCallback);
+```
+### Of least permission
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| /groups/\*\* | O | X | X | X |
+[]({'class':'table-bordered'})
+
+## Query Entities with Relationship
+[]({'id':'guery-entities-with-relationship','data-menu':'Query Entities with Relationship'})
 
 Entity에 Relationship(관계)을 맺은 Entity의 리스트 정보를 읽을 수 있습니다.
 
@@ -515,7 +605,7 @@ var catCallback = function(errorFlag, responseData, entity){
 
 	} else {
     	// cat의 connection된 entity 리스트 읽기
-		cat.getConnections('love',function(errorFlag, data, entitys){
+		cat.getConnections('love',function(errorFlag, data, entityList){
 			if(errorFlag){
 				// 읽기 실패한 경우
 			} else {
@@ -528,27 +618,6 @@ var catCallback = function(errorFlag, responseData, entity){
 // connector property 정보 fetch
 cat.fetch(catCallback);
 ```
-# Query
-[]({'id':'guery','data-menu':'Query'})
-
-Group 기능은 Group Collection을 통해 지원되며, 그룹을 만들어 회원을 관리 할 수 있습니다.
-
-## Query Entities from Collection
-[]({'id':'guery-entities-from-collection','data-menu':'Query Entities from Collection'})
-
-Collection으로부터 데이터를 조회할때는 setType() 메소드를 이용하여 조회할 Entity의 Type을 설정합니다.
-
-아래의 예는 "friends" Collection으로부터 "friend" Entity를 조회해 오는 예입니다.
-
-setType() 메소드를 설정하여 Entity의 Type으로 "friend"를 지정해주고 있으며, setOrderBy()를 이용하여 수정시간을 기준으로 내림차순 정렬하도록 합니다. 또한 setLimit()를 설정하여 10개씩 받도록 합니다.
-
-
-
-## Query User Entities from Group
-[]({'id':'guery-user-entities-from-group','data-menu':'Query User Entities from Group'})
-
-## Query Entities with Relationship
-[]({'id':'guery-entities-with-relationship','data-menu':'Query Entities with Relationship'})
 # Group
 []({'id':'group','data-menu':'Group '})
 
@@ -779,51 +848,7 @@ baas_group.fetch(fetchCallback);
 | /users/\*\* | O | X | X | X |
 []({'class':'table-bordered'})
 
-## Get Member of Group
-[]({'id':'group-get-member-of-group','data-menu':'Get Member of Group'})
 
-Group에 포함된 member들을 가지고 옵니다.
-
-다음 코드는 "baas_group"에 포함된 "member"들을 가지고 오는 소스 코드 입니다.
-```javascript
-// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
-var options ={
-	'client' : io,
-	'data' : {
-		'type' : 'groups'
-	},
-	'path' : 'baas_group'
-}
-
-var baas_group = new Baas.Group(options);
-
-var fetchCallback = function(errorFlag, groupData){
-	if(errorFlag){
-		// baas_group fetch 실패한 경우
-	} else {
-		// baas_group fetch 성공한 경우
-
-		// baas_group에 포함한 member들 정보 읽기
-		baas_group.members(memberCallback)
-	}
-}
-
-var memberCallback = function(errorFlag, memberList){
-	if(errorFlag){
-		// baas_group에 포함한 member들 정보 읽기를 실패한 경우
-	} else {
-		// baas_group에 포함한 member들 정보 읽기를 성공한 경우
-	}
-}
-
-baas_group.fetch(fetchCallback);
-```
-### Of least permission
-
-| | read | create | update | delete |
-|:--------:|:--------:|:--------:|:--------:|:--------:|
-| /groups/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
 
 
 

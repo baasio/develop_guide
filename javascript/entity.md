@@ -274,39 +274,3 @@ var disConnectCallback = function(errorFlag, data){
 cat.fetch(catCallback);
 ```
 
-## Relationship Entity GetConnection
-[]({'id':'overivew-relationship-entity-getconnection','data-menu':'Relationship Entity GetConnection'})
-
-Entity에 Relationship(관계)을 맺은 Entity의 리스트 정보를 읽을 수 있습니다.
-
-다음 코드는 cat(connector)에 Relationship(관계) 맺은 Entity 리스트를 호출하는 소스 코드입니다.
-
-```javascript
-var cat_options = {
-	'client':io,
-	'data':{
-		'type':'animals',
-		'name':'cat'
-	}
-}
-
-var cat = new Baas.Entity(cat_options);
-
-var catCallback = function(errorFlag, responseData, entity){
-	if(errorFlag){
-
-	} else {
-    	// cat의 connection된 entity 리스트 읽기
-		cat.getConnections('love',function(errorFlag, data, entitys){
-			if(errorFlag){
-				// 읽기 실패한 경우
-			} else {
-				// 성공한 경우
-			}
-		})
-	}
-}
-
-// connector property 정보 fetch
-cat.fetch(catCallback);
-```
