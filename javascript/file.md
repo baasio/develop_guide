@@ -39,7 +39,7 @@ $('._upload_start').click(function(e){
     file.upload({'file':fileInput}, uploadCallback)
 })
 ```
-**Of least permission**
+### Of least permission
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
@@ -82,7 +82,7 @@ $('.download_start').click(function(e){
     file.download(downloadCallback)
 })
 ```
-**Of least permission**
+### Of least permission
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
@@ -113,7 +113,7 @@ var getCallback = function(errorFlag, entity){
 // io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
 io.getEntity(options,getCallback)
 ```
-**Of least permission**
+### Of least permission
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
@@ -151,7 +151,7 @@ var saveCallback = function(errorFlag, responseData, entity){
 baas_file.set({'nickname':'share file','count':'30'});
 baas_file.save(saveCallback);
 ```
-**Of least permission**
+### Of least permission
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
@@ -188,7 +188,7 @@ var destroyCallback = function(errorFlag, entity){
 
 baas_file.destroy(destroyCallback);
 ```
-**Of least permission**
+### Of least permission
 
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
