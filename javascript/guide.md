@@ -843,21 +843,26 @@ File Collection 에 File을 업로드 합니다.
 
 **Javascript**
 ```javascript
-// 업로드를 시작 버튼 Click
-$('._upload_start').bind('click',function(e){
-	e.preventDefault();
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+var options = {
+	'client':io
+}
 
-	// file input element 객체
-	var fileInput = document.getElementsByClassName('_file_upload');
-	var file = new Baas.File({'client':io});
+var uploadCallback = function(errorFlag, response, entity){
+    if(errorFlag){
+        // file upload가 실패한 경우
+    } else {
+        // file upload가 성공한 경우
+    }
+}
 
-	file.upload({'file':fileInput},function(errorFlag, response, entity){
-		if(errorFlag){
-			// file 업로드가 실패한 경우
-		} else {
-			// file 업로드가 성공한 경우
-		}
-	})
+$('._upload_start').click(function(e){
+    e.preventDefault();
+
+    var fileInput = document.getElementsByClassName('_file_upload');
+    var file  = new Baas.File(options);
+
+    file.upload({'file':fileInput}, uploadCallback)
 })
 ```
 **Of least permission**
@@ -881,18 +886,26 @@ File을 다운로드르 하기 위해서는 `uusd`가 필요합니다.
 
 **Javascript**
 ```javascript
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+var options = {
+	'client':io,
+    'data':{'uuid':'ca3bf5a4-b823-11e3-827d-06f4fe0000b5'}
+}
+
+var downloadCallback = function(errorFlag, entity){
+    if(errorFlag){
+        // file download가 실패한 경우
+    } else {
+        // file download가 성공한 경우
+    }
+}
+
 $('.download_start').click(function(e){
     e.preventDefault();
 
-    var file  = new Baas.File({'client':io, 'data':{'uuid':'ca3bf5a4-b823-11e3-827d-06f4fe0000b5'} });
+    var file  = new Baas.File(options);
 
-    file.download(function(errorFlag, entity){
-     	if(errorFlag){
-			// file download가 실패한 경우
-		} else {
-			// file download가 성공한 경우
-		}
-    })
+    file.download(downloadCallback)
 })
 ```
 **Of least permission**
@@ -952,16 +965,17 @@ var options ={
 
 var baas_file = new Baas.File(options)
 
+var saveCallback = function(errorFlag, responseData, entity){
+	if(errorFlag){
+		// file entity 정보 추가 및 수정이 실패한 경우
+	} else {
+		// file entity 정보 추가 및 수정이 성공한 경우
+	}
+}
+
 // property nickname과 count를 추가
 baas_file.set({'nickname':'share file','count':'30'});
-
-baas_file.save(function(errorFlag, responseData, entity){
-    if(errorFlag){
-        // file entity 정보 추가 및 수정이 실패한 경우
-    } else {
-        // file entity 정보 추가 및 수정이 성공한 경우
-    }
-});
+baas_file.save(saveCallback);
 ```
 **Of least permission**
 
@@ -977,3 +991,32 @@ baas_file.save(function(errorFlag, responseData, entity){
 ## Remove File
 []({'id':'file-remove-file','data-menu':'Remove File'})
 
+**Javascript**
+```javascript
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+var options ={
+	'client' : io,
+	    'data' : {
+	        'type' : 'files',
+	        'uuid' : 'ca3bf5a4-b823-11e3-827d-06f4fe0000b5'
+	    }
+}
+
+var baas_file = new Baas.File(options)
+
+var destroyCallback = function(errorFlag, entity){
+	if(errorFlag){
+		// file entity 삭제 실패한 경우
+	} else {
+		// file entity 삭제 성공한 경우
+	}
+}
+
+baas_file.destroy(destroyCallback);
+```
+**Of least permission**
+
+| | read | create | update | delete |
+|:--------:|:--------:|:--------:|:--------:|:--------:|
+| **/files/\*\*** | X | X | X | O |
+[]({'class':'table-bordered'})
