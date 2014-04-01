@@ -19,7 +19,7 @@ var options = {
 	'client':io,
 	'type':'animals',
 	'qs':{
-		'qs':'order by created DESC'
+		'ql':'order by created DESC'
 	}
 }
 
