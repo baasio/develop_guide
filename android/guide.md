@@ -35,7 +35,7 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 ## Version History
 []({'id':'intro-version-history', 'data-menu':'Version History'})
 
-- v0.8.5 `최신` [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.5.zip)
+- v0.8.5 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.5.zip)
 	- 푸시 단말 등록 과정 개선
 - v0.8.4 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.4.zip)
 	- Connection Timeout 및 Read Timeout을 설정할 수 있도록 setTimeout() 추가
