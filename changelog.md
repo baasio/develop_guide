@@ -1,5 +1,12 @@
 #Change log
 
+## 1.0.1
+
+***Date : 2014/04/03***
+
+* Android Download, Version History 추가
+* 기타 링크 수정
+
 ## 1.0.0
 
 **Date : 2014/04/02**

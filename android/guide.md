@@ -4,7 +4,7 @@
 ## Specification
 []({'id':'intro-specification', 'data-menu':'Specification'})
 
-baas.io는 Android App을 개발하기 위한 SDK를 제공합니다. SDK는 **Static Library형태의 jar파일과 Open Source로 제공**되며, Download 페이지를 통해 다운받으실 수 있습니다.
+baas.io는 Android App을 개발하기 위한 SDK를 제공합니다. SDK는 **Static Library형태의 jar파일과 Open Source로 제공**되며, [Download](#android/intro/intro-download)를 통해 다운받으실 수 있습니다.
 
 baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 
@@ -23,6 +23,51 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
     - jackson-mapper-asl-1.9.1.jar
 - [slf4j](http://www.slf4j.org/)
     - slf4j-android-1.6.1-RC1.jar
+
+## Download
+[]({'id':'intro-download', 'data-menu':'Download'})
+
+- [SDK Library(v0.8.5)](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.5.zip)
+- [Sample Project](https://github.com/baasio/baas.io-sample-android/archive/master.zip)
+- [Startup Project](https://github.com/baasio/baas.io-startup-android/archive/master.zip)
+- [HelpCenter Sample Project](https://github.com/baasio/baas.io-helpcenter-android/archive/master.zip)
+
+## Version History
+[]({'id':'intro-version-history', 'data-menu':'Version History'})
+
+- v0.8.5 `최신` [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.5.zip)
+	- 푸시 단말 등록 과정 개선
+- v0.8.4 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.4.zip)
+	- Connection Timeout 및 Read Timeout을 설정할 수 있도록 setTimeout() 추가
+    - sender id 변경시 단말 등록이 다시 진행되도록 수정
+    - AggregateCounterSet, AggregateCounter 클래스 수정
+- v0.8.3 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.3.zip)
+	- 로그인된 사용자 업데이트시 기능 개선
+    - connect/disconnect 기능 개선
+    - 비밀번호 리셋 기능 추가
+    - Push 메시지의 custom 필드 지원
+    - Entity Bulk 생성 기능 추가
+    - Push 단말 등록시 Tag의 길이 제한 변경(12자 => 36자)
+    - Spring for android 버전 교체(v1.0.0 => v1.0.1)
+    - HTTP 401 오류의 예외처리 개선
+    - BaasioLocation의 위도, 경도의 타입을 Double로 변경
+- v0.8.2 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.2.zip)
+    - 비밀번호 변경 및 초기화 제공
+    - Push 단말 등록 개선
+    - 파일 다운로드 기능 개선
+    - [Hotfix]로그인시 단말등록 관련 버그 수정
+- v0.8.1 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.1.zip)
+    - 엔터티별 disconnect 기능 제공
+    - 회원 탈퇴시 자동 로그아웃 처리
+    - Push 단말 등록시 Tag 길이 제한(12자) 및 문자 제한 적용
+- v0.8.0 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.0.zip)
+    - 간단한 설정으로 프로젝트 구성 지원
+    - 고객센터 등의 새로운 기능 제공
+    - 파일 사용성 강화
+    - 비동기 처리 기능 개선
+    - 클라이언트 SDK간의 구성과 사용법 표준화
+- v0.1.0 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baasio_android_client_SDK_V0.1.0.zip)
+	- 최초 배포
 
 ## Class Structure
 []({'id':'intro-class-structure', 'data-menu':'Class Structure'})
@@ -289,7 +334,8 @@ BaasioUser.signInInBackground(
 
 `Warning` Access Token의 유효기간
 > Access Token은 1일 간 유효합니다.
-**Access Token을 앱이 실행될때 마다 발급받아 처리하는 것은 좋은 방법이 아닙니다.**
+
+> **Access Token을 앱이 실행될때 마다 발급받아 처리하는 것은 좋은 방법이 아닙니다.**
 
 > Twitter나 Facebook과 같은 앱들도 OAuth정책에 따라 유효시간이 존재하며, 이 유효시간이 지나면 회원으로부터 Username과 Password를 입력받아 직접 로그인하도록 처리하는 것이 좋습니다.
 
