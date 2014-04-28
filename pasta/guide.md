@@ -160,21 +160,21 @@ baasio는 SDK를 new한 객체이다.
 1) MyPage 에서 앱 선택 후 대시보드로 이동
 2) 파스타(Pasta) 아이콘 클릭
 
-![pasta.quickstart.1](../images/devguide/pasta/quickstart1.png)
+![pasta.quickstart.1](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart1.png)
 
 ### <a id="step1.2"></a> 2. 새로운 API 만들기
 
 1) 파스타(Pasta) 에디터에서 상단 프로젝트 선택 후 오른쪽 마우스 버튼 클릭
 
-![pasta.quickstart.2](../images/devguide/pasta/quickstart2.png)
+![pasta.quickstart.2](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart2.png)
 
 2) 새파일 선택
 
-![pasta.quickstart.3](../images/devguide/pasta/quickstart3.png)
+![pasta.quickstart.3](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart3.png)
 
 3) "hello.js" 파일이름을 넣고 [Create] 버튼 클릭
 
-![pasta.quickstart.4](../images/devguide/pasta/quickstart4.png)
+![pasta.quickstart.4](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart4.png)
 
 ### <a id="step1.3"></a> 3. 코드 작성 후 저장
 
@@ -186,13 +186,13 @@ baasio는 SDK를 new한 객체이다.
 	};
 	runnable.function = sample;
 
-![pasta.quickstart.5](../images/devguide/pasta/quickstart5.png)
+![pasta.quickstart.5](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart5.png)
 
 ### <a id="step1.4"></a> 4. API 실행하기
 
 파스타(Pasta) 에디터에서 배포를 하려면 오른쪽 메뉴에서 Deploy or Deploy All 버튼을 클릭하여 배포를 진행하면 됩니다.
 
-![pasta.quickstart.6](../images/devguide/pasta/quickstart6.png)
+![pasta.quickstart.6](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart6.png)
 
 실제 테스트를 하려면 다음과 같은 REST API 혹은 아래에서 다양한 앱 플랫폼에서 사용하는 방법이 있습니다.
 
