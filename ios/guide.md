@@ -329,7 +329,7 @@ Error Code|HTTP Status Code|설명
 213|401|탈퇴된 사용자입니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Reset Password
 []({'id':'users-reset-password', 'data-menu':'Reset Password'})
@@ -379,7 +379,7 @@ Error Code | HTTP Status Code | 설명
 213|401|탈퇴된 사용자입니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Unsubscribe User
@@ -484,7 +484,7 @@ NSString *cheatMode = [entity objectForKey:@"cheatMode"];
 |modified|최종수정일|
 |type|entity 명|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Create Entity
