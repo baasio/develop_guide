@@ -2,9 +2,7 @@
 []({'id':'backend-app','data-menu':'Backend App'})
 
 baas.io에서 생성한 Backend Application을 지칭합니다.
-
 가입하면 기본 Backend App인 "sandbox"가 생성이 되어 있으며, 필요에 따라 여러개의 Backend App을 생성할 수 있습니다. "sandbox" Backend App은 보안이 처리되어 있지 않은 Backend App으로 개발 용도로 기본 생성됩니다.
-
 각각의 Backend App은 독립적으로 관리되어, 서로 공유할 수 없습니다.
 
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/backend-app.png)
@@ -12,9 +10,7 @@ baas.io에서 생성한 Backend Application을 지칭합니다.
 `caution` "sandbox" Backend App
 
 "sandbox" 앱은 개발시에 사용하는 앱으로, 모든 권한이 열려있어 자유롭게 작업할 수 있습니다.
-
 다만, 모든 권한이 열려있어 그대로 배포할 경우, 심각한 보안문제가 있을 수 있습니다
-
 따라서, 배포할 때는 새로운 Backend App을 생성하고 Role과 Permission을 설정하여 보안에 문제가 없도록 유의하시기 바랍니다.
 
 # Entity
@@ -57,23 +53,20 @@ Property는 baas.io에서 이미 정의하여 사용하고 있는 Predefined Pro
 []({'id':'entity-predefined-property','data-menu':'Predefined vs. Custom Property'})
 
 Entity가 가질 수 있는 Custom Property의 갯수는 이론적으로 제한이 없습니다.
-
 다만, Custom Property의 Key의 이름을 정할 때, Predefined Property의 Key와 동일하게 사용하지 않도록 주의해야 합니다.
 
 Custom Property의 Value는 JSON에서 Value가 될 수 있는 String, Number, Object, Array, Boolean, null로 설정할 수 있습니다. JSON은 다양한 데이터 형태를 저장하는데 넓게 쓰이고 있어, 사용에 제약은 거의 없습니다.
 
 Predefined Property는 아래와 같은 종류가 있습니다.
 
-
-Property | Type | Description
-----------|----------|-------------
-uuid|uuid|Entity의 고유한 ID이며 baas.io로부터 부여됩니다.
-type|string|Entity의 타입이며 꼭 정의되어야 합니다. (e.g. "user")
-created|long|Entity의 생성 시간이며 baas.io로부터 생성됩니다.(UNIX timestamp - milisec 포함)
-modified|long|Entity의 최종 수정 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)
-name|string|Entity의 고유한 이름.
-
-[]({'class':'table-bordered'})
+|Property | Type | Description
+|:-----------:|:------------:|:----------:|
+|uuid|uuid|Entity의 고유한 ID이며 baas.io로부터 부여됩니다.
+|type|string|Entity의 타입이며 꼭 정의되어야 합니다. (e.g. "user")
+|created|long|Entity의 생성 시간이며 baas.io로부터 생성됩니다.(UNIX timestamp - milisec 포함)
+|modified|long|Entity의 최종 수정 시간이며 baas.io로부터 생성됩니다. (UNIX timestamp - milisec 포함)
+|name|string|Entity의 고유한 이름
+[]({'class':'table table-striped table-bordered'})
 
 `Warning` "name" Property
 
@@ -96,28 +89,27 @@ name|string|Entity의 고유한 이름.
 []({'id':'entity-type','data-menu':'Predefined vs. Custom Type'})
 
 앞서 말한 바와 같이, Entity는 Type이라는 필수 Property를 가지고 있어야합니다.
-
 이 Type은 Collection의 이름을 결정하며, Type의 복수형으로 결정됩니다. 즉, 'user'라는 Type을 가진 Entity는 'users' 라는 Collection에 속하게 됩니다.
 
 Type도 Property와 비슷하게 baas.io에서 이미 정의하여 사용하고 있는 Predefined Type(기본 타입)과 사용자가 정의하여 사용할 수 있는 Custom Type(사용자 정의 타입)으로 구분됩니다. Custom Type을 정의할 때는 Predefined Type과 동일하게 정의하지 않도록 주의해야 합니다.
 
 Predefined Type의 종류는 아래와 같습니다.
 
-Predefined Type |Predefined Collection 이름 및 위치 |	용도
-------------|-------------------|-------------
-user |/users|	회원정보
-group |/groups|	회원그룹
-role |/roles|	역할
-activity |/activities|	Activity Stream
-device |/devices|	단말정보
-file |/files|	파일
-event|/events|	(예약)이벤트
-help|helps|	고객센터
-push|/pushes|	푸시정보
-location|/locations|	(예약)위치정보
-script|/scripts|	(예약)스크립트
-service|/services|	(예약)서비스
-[]({'class':'table-bordered'})
+|Predefined Type |Predefined Collection 이름 및 위치 |	용도
+|:-----------:|:------------:|:----------:|
+|user |/users|	회원정보
+|group |/groups|	회원그룹
+|role |/roles|	역할
+|activity |/activities|	Activity Stream
+|device |/devices|	단말정보
+|file |/files|	파일
+|event|/events|	(예약)이벤트
+|help|helps|	고객센터
+|push|/pushes|	푸시정보
+|location|/locations|	(예약)위치정보
+|script|/scripts|	(예약)스크립트
+|service|/services|	(예약)서비스
+[]({'class':'table table-striped table-bordered'})
 
 `Note` (예약)된 컬렉션
 
@@ -143,11 +135,7 @@ service|/services|	(예약)서비스
 # Collection
 []({'id':'collection','data-menu':'Collection'})
 
-Collection은 같은 Type의 Entity들을 모아놓은 것을 지칭합니다.
-
-Collection의 이름은 Entity Type의 복수형으로 정해집니다. 예를들어 'person'이라는 Type의 Collection 이름은 'people'이 됩니다.
-
-만들려는 이름의 Collection이 없더라도 Entity를 생성하면, 생성하려는 Entity Type의 복수형으로 Collection이 생성됩니다.
+Collection은 같은 Type의 Entity들을 모아놓은 것을 지칭합니다. Collection의 이름은 Entity Type의 복수형으로 정해집니다. 예를들어 'person'이라는 Type의 Collection 이름은 'people'이 됩니다. 만들려는 이름의 Collection이 없더라도 Entity를 생성하면, 생성하려는 Entity Type의 복수형으로 Collection이 생성됩니다.
 
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/collection-entity.png)
 
@@ -159,7 +147,7 @@ Collection은, Entity Type의 복수형이 Collection의 이름이므로, baas.i
 Predefined Collection의 종류는 아래와 같습니다
 
 |Predefined Type|Predefined Collection 이름 및 위치|용도|
-|-------------------|----------|----------|
+|:-----------:|:------------:|:----------:|
 |user|	/users|	회원정보|
 |group|	/groups|	회원그룹|
 |role|	/roles|	역할|
@@ -172,7 +160,7 @@ Predefined Collection의 종류는 아래와 같습니다
 |location|	/locations|	(예약)위치정보|
 |script|	/scripts|	(예약)스크립트|
 |service|	/services|	(예약)서비스|
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 `note` (예약)된 컬렉션
@@ -201,11 +189,8 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 []({'id':'relationship-custom','data-menu':'Custom Relationship'})
 
 직접 관계를 정의하여, Custom Relationship을 만들 수도 있습니다.
-
 이 Custom Relationship은 "following/followers"와는 다르게, "user" Entity가 아닌 다른 Custom Type을 Entity끼리도 관계를 만들 수 있습니다. 다만, "followers" 같은, 반대 방향의 가상 관계를 만들어 주지는 않습니다.
-
 다시말하면, Following/Followers Relationship의 그림에서 보았듯이 following 관계가 만들어지면, followers라는 반대 방향의 가상관계가 만들어 지지만, "like"라는 Custom Relationship은 그렇지 않은 것을 알 수 있습니다.
-
 즉, 아래의 그림과 같이 Relationship이 만들어집니다.
 
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/custom-relationship.png)
@@ -249,7 +234,7 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X
 이때, 프로퍼티 속성이 어떤지에 따라서 데이터를 조회할 수 있을지 없을지가 결정됩니다.
 
 |조회 가능여부|요청|비고
-|-----|-----|-----|
+|:-----------:|:------------:|:----------:|
 |가능|/{baasid}/{app}/items?ql=select * where id = 10|&nbsp;
 |가능|/{baasid}/{app}/items?ql=select * where id = '10adf'|&nbsp;
 |불가능|/{baasid}/{app}/items?ql=select * where id contains %10|전문검색이 비활성화라 안됨
@@ -257,7 +242,7 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X
 |불가능|/{baasid}/{app}/items?ql=select * where price > 30|검색여부가 비활성화라 안됨
 |가능|/{baasid}/{app}/items?ql=select * where item_type = '100'|&nbsp;
 |가능|/{baasid}/{app}/items?ql=select * where item_type = '100%'|&nbsp;
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Relationship 속성이란
 []({'id':'relationship-metadata', 'data-menu':'Relationship 속성이란'})
@@ -280,7 +265,7 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X, 연결검�
 1개의 게임 엔티티에 다수의 아이템이 연결될 수 있습니다. 이때, Relationship 속성이 어떤지에 따라서 데이터를 조회할 수 있을지 없을지가 결정됩니다.
 
 |조회 가능여부|요청|비고
-|-----|-----|-----|
+|:-----------:|:------------:|:----------:|
 |가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id = 10|연결검색이 활성화라 검색이 됨
 |가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id = '10adf'|연결검색이 활성화라 검색이 됨
 |불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id contains %10|연결전문검색이 비활성화라 안됨
@@ -288,7 +273,7 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X, 연결검�
 |불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where price > 30|연결검색이 비활성화라 안됨
 |가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100'|연결검색이 활성화라 검색이 됨
 |가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100%'|연결전문검색이 활성화라 검색이 됨
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 이 모든 과정은 포탈 > MyPage > Backend App > Data Browser > 컬렉션 생성, 수정란을 통해서 할 수 있습니다. 아래 이미지를 참고하세요.
@@ -317,10 +302,10 @@ baas.io는 OAuth 2.0의 표준을 따르며 데이터를 요청하는 작업에�
 기본적으로 2가지의 인증 타입이 있습니다.
 
 |인증 타입	|설명|
-|------|-----|
+|:-----------:|:------------:|
 |Application	|해당 Application의 모든 권한을 가지는 인증입니다.|
 |Application User	|Application을 사용하는 회원이 가지는 인증입니다. (Role 설정에 따른 접근 제한을 가지게 됩니다.)|
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 Application 인증 타입은 기본적으로 Application 내에서 거의 제약이 없는 슈퍼유저와 같은 권한을 가지고 있기 때문에 서버 기반의 Application을 위한 방법 입니다. OAuth 를 사용해서 로그인할 때, Application의 client ID 와 client secret을 인증 정보로 사용합니다.
 
@@ -332,26 +317,20 @@ Application 권한을 얻기위한 방법은 SDK로는 제공되지 않으며, R
 `Warning` Application의 Client ID 와 Client Secret
 
 Client ID와 Client Secret을 이용하여 얻게되는 Application 권한은 모든 정보를 접근할 수 있습니다.
-
 따라서, 이 Client ID, Client Secret이 유출되지 않도록 각별히 유의하시기 바라며, 유출될 경우 Dashboard를 통하여 재발급 받으시기 바랍니다.
-
 특히 유의하실 점은, Client ID, Client Secret을 단말에 설치되는 앱의 소스코드에 넣어서 전체권한을 갖도록 하지마시기 바랍니다.
 
 ## Policy
 []({'id':'authentication-policy','data-menu':'Policy'})
 
 Access Token은 유효시간이 있으며, 기본 설정은 24시간으로 설정되어 있습니다. 유효시간이 지난 Access Token을 사용하여 baas.io에 요청하면, HTTP 401을 수신하게 됩니다.
-
 HTTP 401은 Unauthorized(인증되지 않음)를 의미하며, 이 응답을 받게되면 사용하던 Access Token을 폐기하고 새로운 Token을 다시 발급 받아야합니다.
-
 유효시간은 Access Token 요청 시 원하는 유효시간으로 요청하여 받을 수 있습니다. 유효시간으로 설정되는 값은 msec(밀리세컨드)이며 최대 604800000msec, 즉, 7일 까지 설정할 수 있습니다.
 
 `note` 앱을 실행할 때마다 다시 로그인?
 
 Access Token을 앱이 실행될때 마다 발급받아 처리하는 것은 좋은 방법이 아닙니다.
-
 Twitter나 Facebook과 같은 앱들도 OAuth정책에 따라 유효시간이 존재하며, 이 유효시간이 지나면 사용자로부터 ID, Password를 입력받아 직접 로그인하도록 처리합니다.
-
 사용자의 ID, Password를 저장하여 자동으로 로그인하는 방법은 ID, Password가 유출될 수 있으므로 권장하지 않습니다.
 
 
@@ -359,9 +338,7 @@ Twitter나 Facebook과 같은 앱들도 OAuth정책에 따라 유효시간이 �
 []({'id':'security','data-menu':'Security'})
 
 baas.io는 Role(역할)과 Permission(권한)을 통하여 강력한 보안 시스템을 제공하고 있습니다.
-
 개발자가 baas.io API 를 호출할때, Client ID 와 Client Secret을 통하여 얻은, Application 권한의 Access Token으로 접근하지 않는다면, Role에 설정된 Permission에 따라 접근이 제한됩니다.
-
 Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터브라우저 > Role을 통하여 수정할 수 있습니다.
 
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/databrowser-role.png)
@@ -370,7 +347,6 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 []({'id':'security-role','data-menu':'Role'})
 
 백엔드앱을 생성하면, 세 가지의 기본 Role을 가지고 있습니다. 각각의 Role은 Permission을 가지고 있으며, Permission을 어떻게 설정하느냐에 따라 접근할 수 있는 범위가 제한됩니다.
-
 데이터브라우저의 Role에는 아래와 같이 세 가지 Role을 보여주고 있습니다.
 
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/databrowser-role-list.png)
@@ -378,11 +354,11 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 각 Role은 아래와 같은 용도로 사용됩니다.
 
 |기본 Role|	설명|	비고|
-|-----|------|-----|
+|:-----------:|:------------:|:----------:|
 |Guest|	인증받지 않은 회원|	가입, 푸시를 위한 단말 등록/해제 권한만 가지고 있습니다.|
 |Default|	인증받은 회원	자신의 회원| 정보 접근 및 푸시를 위한 단말 등록/해제 권한만 가지고 있습니다.|
 |Administrator|	Administrator로 지정된 회원 또는 그룹|	아무런 권한이 없으며, 필요한 권한만 지정하여 사용합니다.|
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 모든 Role은 새로운 Permission을 생성하거나, 수정 또는 삭제가 가능합니다. 즉, 로그인을 하지 않은 회원의 접근 범위와 로그인한 회원의 접근 범위를 각각 다르게 제한하여, 서비스를 만들 수 있습니다.
 
@@ -390,16 +366,12 @@ Role과 Permission을 설정하기 위해서는 해당 백앤드앱의 데이터
 
 가입과 동시에 이미 생성되어 있는 "sandbox" Backend App은 Default Role 뿐만 아니라, Guest Role에도 모든 데이터에 접근할 수 있는 Permission을 가지고 있습니다.
 
-따라서, 서비스를 개발하는 중에는 "sandbox" Backend App을 이용하여 개발하는 것이 편합니다.
-
-다만, 배포할때는 보안에 문제가 없도록, 새로 Backend App을 생성하고, Role과 Permission을 설정하여 "sandbox"로 배포하지 않도록 해야 합니다.
+따라서, 서비스를 개발하는 중에는 "sandbox" Backend App을 이용하여 개발하는 것이 편합니다. 다만, 배포할때는 보안에 문제가 없도록, 새로 Backend App을 생성하고, Role과 Permission을 설정하여 "sandbox"로 배포하지 않도록 해야 합니다.
 
 ## Permission
 []({'id':'security-permission','data-menu':'Permission'})
 
-Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성되어 있습니다.
-
-동작은 Read(읽기), Create(생성), Update(수정), Delete(삭제)를 중복하여 선택할 수 있으며, 접근 Path의 Pattern은 Apache Ant의 Pattern 매칭 규약을 따릅니다.
+Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성되어 있습니다. 동작은 Read(읽기), Create(생성), Update(수정), Delete(삭제)를 중복하여 선택할 수 있으며, 접근 Path의 Pattern은 Apache Ant의 Pattern 매칭 규약을 따릅니다.
 
 접근 Path를 만드는 방법을 이해하기 위해서는 URI(Uniform Resource Identifier)를 이해할 필요가 있는데, 어떤 컬렉션의 Entity의 uuid를 uuidA라고 할 때, 이 Entity의 URI는 "/{collection}/uuidA"가 되며, 이를 접근하기 위해서는 Permission의 Path가 Collection의 모든 Entity, 즉, "/{collection}/*"이 되어야 접근이됩니다.
 
@@ -418,7 +390,6 @@ Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성
 "/devices" 위치는 "devices" Collection을 가리키며, 푸시서비스를 위해 단말의 정보를 저장하기 위해 사용합니다. 즉, "/devices"에 Create만 되어 있는 Permission은 로그인하지 않은 회원들도 공지사항 또는 프로모션용도의 푸시 메시지를 받을 수 있도록, 단말을 등록할 수 있는 권한을 준 것입니다.
 
 "/devices/*"의 의미는, 이미 등록된 단말 정보를 접근하기 위한 것이며, Update와 Delete Operation을 통해, 단말 정보를 갱신하거나 삭제하기위한 용도로 사용됩니다.
-
 몇 가지 Permission의 예는 다음과 같습니다.
 
 
@@ -432,10 +403,8 @@ Permission은 접근 위치의 Pattern(패턴)과 Operation(동작)으로 구성
 |특정 Collection의 Entity를 조회할 수 있는 Permission|	/{collection}/*|		|O|  |  |
 |특정 Collection의 Entity를 수정/삭제할 수 있는 Permission|	/{collection}/*|   |  |O|O|
 |특정 Collection과 연결되어 Relationship을 가진 Entity를 조회/수정/삭제할 수 있는 Permission|	/{collection}/**|   |O|	O|	O|
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 `Warning` 푸시 서비스와 Role
 
-Backend App을 생성하면 Guest와 Default Role에 기본 설정되어 있는 Permission이 있습니다.
-
-그 중, "/devices"의 Create Operation, "/devices/*"의 Update, Delete Operation은 푸시를 위한 Permission으로 baas.io의 푸시서비스를 이용하기 위해서는 반드시 선언되어있어야 하는 Permission이니 삭제하지 않도록 유의 바랍니다.
+Backend App을 생성하면 Guest와 Default Role에 기본 설정되어 있는 Permission이 있습니다. 그 중, "/devices"의 Create Operation, "/devices/*"의 Update, Delete Operation은 푸시를 위한 Permission으로 baas.io의 푸시서비스를 이용하기 위해서는 반드시 선언되어있어야 하는 Permission이니 삭제하지 않도록 유의 바랍니다.
