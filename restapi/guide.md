@@ -18,7 +18,7 @@ baas.io API는 baas.io가 제공하는 Entity,Collection과 다른 데이타에 
 |Events and counters|/events|이벤트 와 카운터 Entity - 지원예정|
 |일반용도|Collection|/|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 baas.io 의 데이터 구조는 계층형 입니다. 모든 Entity의 타입에 대해서, 그 타입의 모든 Entity를 가지고 있는 Collection이 있습니다. Collection들은 앱에 속해 있고, 앱은 각 사용자에 속해 있습니다.
 
@@ -46,7 +46,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |:---|:---|:---|:---|
 |PUT|{baasio-id}/{app-id}|application/json|Application 정보 수정|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Authorization
 []({'id':'intro-endpoints-authorization'})
@@ -56,7 +56,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |<del>GET</del>|<del>{baasio-id}/{app-id}/token</del>|<del>application/json</del>|<del>Application,Application 사용자 인증하기</del> (Deprecated)|
 |POST|{baasio-id}/{app-id}/token|application/json|Application,Application 사용자 인증하기|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### User
 []({'id':'intro-endpoints-user'})
@@ -84,7 +84,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |POST|users/{uuid or username or email_address}/{collection_name}/{collection_uuid}|application/json|사용자와 특정 Entity 관계(Connection) 설정하기|
 |DELETE|users/{uuid or username or email_address}/{collection_name}/{collection_uuid}|application/json|사용자와 특정 Entity 관계(Connection) 해제하기|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Group
 []({'id':'intro-endpoints-group'})
@@ -103,7 +103,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |DELETE|groups/{uuid or groupname}/users/{uuid or username}|application/json|그룹에서 사용자를 제외하기|
 |GET|groups/{uuid or groupname}/feed|application/json|그룹 피드(feed) 조회하기|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Role
 []({'id':'intro-endpoints-role'})
@@ -120,7 +120,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |GET|roles/{role_id}/users|application/json|롤에 추가된 사용자 조회하기|
 |DELETE|roles/{role_id}/users/{uuid or username or email_address}|application/json|롤에 사용자 삭제하기|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Push
 []({'id':'intro-endpoints-push'})
@@ -136,7 +136,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |PUT|pushes/devices/{uuid}|application/json|Device 변경하기|
 |DELETE|pushes/devices/{uuid}|application/json|Device 삭제하기|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### File
 []({'id':'intro-endpoints-file'})
@@ -165,7 +165,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |DELETE|files?ql={query clause}|N/A|질의를 이용한 파일 삭제|
 |DELETE|{collectionName}/{entityID}/files/{entityID}|N/A|다른 컬렉션의 엔티티와 파일 엔티티 관계 끊기|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Help
 []({'id':'intro-endpoints-help'})
@@ -181,7 +181,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |DELETE|help/helps/{uuid}|application/json|도움말 삭제
 |GET|help/helps?keyword={keyword}&page={page}|application/json|도움말 검색
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Collection
 []({'id':'intro-endpoints-collection'})
@@ -198,7 +198,7 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |POST|{collection}/{first_entity_id}/{relationship}/{second_entity_id}|application/json|Entity의 Relation 을 생성하고 다른 Entity를 등록하기|
 |DELETE|{collection}/{first_entity_id}/{relationship}/{second_entity_id}|application/json|Entity의 Relation에서 Entity를 삭제하기|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Error Handling
@@ -222,7 +222,7 @@ HTTP/1.1 Status Code 표준에는 수 많은 코드가 존재하지만, baas.io 
 |404|(Not Found)|해당 리소스가 존재하지 않습니다.|
 |500|(Internal Server Error)|서버 에러|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 baas.io REST API 사용하는 대부분의 경우, 위의 status code 만으로도 성공/실패 여부를 확인할 수 있으며, 사용중이신 클라이언트에서 성공과 실패 callback 을 활용하실 수 있습니다.
 Error Codes
@@ -247,7 +247,7 @@ HTTP Status code 가 4xx 대 이거나 500 인 경우 에러 상황에 대한 �
 |error_uuid|고유 에러에 대한 event UUID로 각각의 에러 상황을 식별하기 위한 값|
 |error_code|각 에러별 baas.io 고유 코드|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 대부분의 에러는 error_description 속성을 통해 자세한 설명을 얻을 수 있으며, error_uuid 를 통해 baas.io 개발팀의 도움을 받으실 수 도 있습니다.
 
@@ -276,7 +276,7 @@ HTTP Status code 가 4xx 대 이거나 500 인 경우 에러 상황에 대한 �
 |QUERY_PARSE_ERROR|400|915|잘못된 쿼리입니다.|
 |UNKNOWN_ERROR|500|-100|알수 없는 에러입니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -311,7 +311,7 @@ https://api.baas.io/{baasio-id}/{app-id}
 |registrationRequiresAdminApproval|boolean|사용자 등록시 관리자 승인 필요 여부|
 |accesstokenttl|long|Application 억세스 토큰의 TTL값|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 #### Application의 기본 Collection
 
@@ -321,7 +321,7 @@ https://api.baas.io/{baasio-id}/{app-id}
 |groups|group|앱내 그룹 Collection|
 |devices|device|서비스내 등록된 기기들에 대한 Collection|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -346,7 +346,7 @@ https://api.baas.io/{baasio-id}/{app-id}
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -451,7 +451,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{\"username\":\"bob\",
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -556,7 +556,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |baasio-id	| 회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Query Parmeters
 
@@ -567,7 +567,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |cursor|문자열 (String)||no|페이징을 위한 질의 결과셋의 엔코딩된 값|
 |limit|정수형 (Integer)|10|no|조회 결과의 데이터 개수 제한|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -677,7 +677,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 혹은 email|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -757,7 +757,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 혹은 email|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -846,7 +846,7 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{\"activated\":false }'
 |app-id|앱 ID|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -936,7 +936,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |oldpassword|변경 전 비밀번호|
 |newpassword|변경 할 비밀번호|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -990,7 +990,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -H "https://api.baas.io/my
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -1050,7 +1050,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 |password|사용자의 비밀번호|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -1112,7 +1112,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 |token|만료시킬 token|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -1157,7 +1157,7 @@ baas.io 의 Authentication 은 OAuth 2.0 에 기반하고 있습니다. 해당 A
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -1200,7 +1200,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -1285,7 +1285,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 |app-id|앱 ID|
 |uuid or username or email_address|사용자 등록 후 반환 받은 UUID 혹은 username 또는 email|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -1421,7 +1421,7 @@ Users는 기본 Collection이기 때문에 생성할 필요는 없으며, musics
 |collection_name|Users와 관계를 맺을 Collection 이름|
 |collection_uuid|Users와 관계를 맺을 Collection 에 저장된 Entity UUID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -1487,7 +1487,7 @@ Collections 들은 서로간의 관계(Connection)를 해제 할 수 있습니�
 |collection_name|Users와 관계를 맺을 Collection 이름|
 |collection_uuid|Users와 관계를 맺을 Collection 에 저장된 Entity UUID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -1556,7 +1556,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 |lastname|string|사용자 last 이름|
 |picture|string|사용자 사진 ( 이메일 입력시 gravatar.com 연동 후 사진을 자동으로 연결함 )|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### User 기본 Set
 
@@ -1567,7 +1567,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" -H "Content-Type: applic
 |permissions|string|퍼미션 리스트|
 |credentials|string|credentials 리스트|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### User 기본 Collection
 
@@ -1582,7 +1582,7 @@ User Entity 에서는 기본으로 제공하는 Collection과의 관계 설정�
 |feed|activity|개인적인 알림들|
 |roles|role|롤(Role) 리스트|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -1620,7 +1620,7 @@ Entity 는 특정 Collection에 존재하고 각 Entity는 Relation이 형성될
 |app-id|앱 ID|
 |collection|Collection name|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -1716,7 +1716,7 @@ $.ajax({
 |app-id|앱 ID|
 |collection|Collection name|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -1794,7 +1794,7 @@ Query의 조건에 맞는 Entity 목록을 리턴한다.
 |app-id|앱 ID|
 |collection|Collection name|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -1872,7 +1872,7 @@ UUID나 name 속성으로 찾은 Entity를 리턴한다.
 |collection|Collection name|
 |entity_id|조회할 Entity uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -1947,7 +1947,7 @@ Collection의 Entity를 수정한다. 새로운 속성은 Entity에 저장된다
 |collection|Collection name|
 |entity_id|조회할 Entity uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Request Body
@@ -2038,7 +2038,7 @@ Query의 조건에 맞는 Collection의 Entity를 수정한다. 새로운 속성
 |collection|Collection name|
 |entity_id|수정할 Entity uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Request Body
@@ -2127,7 +2127,7 @@ UUID나 name 속성으로 찾은 Entity를 삭제한다. 삭제된 Entity의 내
 |collection|Collection name|
 |entity_id|삭제할 Entity uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -2209,7 +2209,7 @@ Query 기준에 맞는 Entity들을 리턴하거나 Query나 필터가 없다면
 |first_entity_id|조회할 Entity uuid|
 |relationship|조회할 relation 이름|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -2290,7 +2290,7 @@ Collection의 특정 Entity에 Connection을 생성하고 다른 Entity를 커�
 |relationship|조회할 relation 이름|
 |second_entity_id|relation 관계에 있는 entity 의 uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -2372,7 +2372,7 @@ Collection의 특정 Entity의 relation 에서 다른 Entity 와의 Relation 을
 |relationship|relation 이름|
 |second_entity_id|relation 관계에 있는 entity 의 uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -2475,7 +2475,7 @@ POST 메소드를 사용하여 새로운 파일 엔티티와 그와 연결된 BL
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Request Entity Type
 
@@ -2514,7 +2514,7 @@ Content-Disposition: form-data; name="entity";
 | entity | Entity 정보 | application/json | X |
 | file | 파일 정보 와 Binary | <파일의 Content Type> | O (1개의 파일만 허용) | Content-Disposition 헤더가 있어야 하며 filename 가 포함되어 있어야 함 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ####### File 파트
 
@@ -2529,7 +2529,7 @@ Content-Type: image/jpeg; name="file"
 | content-type | 문자열 (String)	| <파일의 content type> | O | 파일의 Content Type |
 | name | 문자열 (String)	| file | O | 파트명 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 - Disposition 헤더
@@ -2543,7 +2543,7 @@ Content-Disposition: form-data; name="file"; filename="test.jpg"
 | filename    	| 문자열 (String)	|		| O 	| 파일명
 | name		| 문자열 (String)	| file		| O	| 파트명
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ####### Entity 파트 (application/json, optional)
@@ -2575,7 +2575,7 @@ Content-Type: application/json; name="entity"
 |:------------:|:------------|:-----:|:----:|:----|
 | <원하는 Property명> | <원하는 자료형> |  | X	| 이용자가 정의한 Property |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -2592,7 +2592,7 @@ Content-Type: application/json; name="entity"
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -2694,7 +2694,7 @@ POST 메소드를 사용하여 새로운 파일 엔티티를 생성합니다. �
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Request Entity Type
 
@@ -2721,7 +2721,7 @@ application/json
 | content-type | 문자열 (String)	| 나중에 올릴 BLOB 의 Content-type (다운로드시 활용) |
 | <원하는 Property명> | <원하는 자료형>	| <없음> | X | 이용자가 정의한 Property |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Response
@@ -2736,7 +2736,7 @@ application/json
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -2826,7 +2826,7 @@ Transfer-Encoding: chunked
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Request Entity Type
 
@@ -2853,7 +2853,7 @@ application/octet-stream
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -2904,7 +2904,7 @@ Transfer-Encoding: chunked
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Request Entity Type
 
@@ -2930,7 +2930,7 @@ application/octet-stream
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -2986,7 +2986,7 @@ Transfer-Encoding: chunked
 | baasio-id | 회원 ID |
 | app-id | 앱 ID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Request Entity Type
 
@@ -3009,7 +3009,7 @@ Transfer-Encoding: chunked
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -3098,7 +3098,7 @@ Transfer-Encoding: chunked
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Request Entity Type
 
@@ -3121,7 +3121,7 @@ Transfer-Encoding: chunked
 |404|101|입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음|
 |500|920|시스템 장애|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -3211,7 +3211,7 @@ Transfer-Encoding: chunked
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Request Entity Type
 
@@ -3234,7 +3234,7 @@ Transfer-Encoding: chunked
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -3296,7 +3296,7 @@ Transfer-Encoding: chunked
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -3320,7 +3320,7 @@ Transfer-Encoding: chunked
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -3409,7 +3409,7 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 |:------------------:|------|
 | fileName | 파일명 (없을 경우 서버에 올려진 파일명으로 다운로드 하지만 별도로 파일명을 지정하고 싶을때) |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -3435,7 +3435,7 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 | 404 | N/A | 파일 BLOB 가 없음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Example
 
@@ -3490,7 +3490,7 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 |:------------------:|------|
 | fileName | 파일명 (없을 경우 서버에 올려진 파일명으로 다운로드 하지만 별도로 파일명을 지정하고 싶을때) |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -3516,7 +3516,7 @@ GET 메소드를 이용하여 서버에 저장된 파일을 다운로드 할 수
 | 404 | N/A | 파일 BLOB 가 없음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Example
 
@@ -3575,7 +3575,7 @@ PUT 메소드를 사용하여 이미 올려진 파일 엔티티와 그와 연결
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -3614,7 +3614,7 @@ Content-Disposition: form-data; name="entity";
 | entity | Entity 정보 | application/json | X |
 | file | 파일 정보 와 Binary | <파일의 Content Type> | O (1개의 파일만 허용) | Content-Disposition 헤더가 있어야 하며 filename 가 포함되어 있어야 함 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -3631,7 +3631,7 @@ Content-Type: image/jpeg; name="file"
 | content-type | 문자열 (String)	| <파일의 content type> | O | 파일의 Content Type |
 | name | 문자열 (String)	| file | O | 파트명 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 - Disposition 헤더
@@ -3645,7 +3645,7 @@ Content-Disposition: form-data; name="file"; filename="test.jpg"
 | filename    	| 문자열 (String)	|		| O 	| 파일명
 | name		| 문자열 (String)	| file		| O	| 파트명
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ####### Entity 파트 (application/json, optional)
@@ -3661,7 +3661,7 @@ Content-Type: application/json; name="entity"
 | content-type | 문자열 (String)	| application/json	| O	| 엔티티의 Content Type
 | name | 문자열 (String)	| entity		| O	| 파트명
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 - Body 구성 (application/json)
@@ -3679,7 +3679,7 @@ Content-Type: application/json; name="entity"
 |:------------:|:------------|:-----:|:----:|:----|
 | <원하는 Property명> | <원하는 자료형> |  | X	| 이용자가 정의한 Property |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Response
@@ -3695,7 +3695,7 @@ Content-Type: application/json; name="entity"
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 일시적 장애(클라우드 파일 시스템 장애), 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Example
 
@@ -3797,7 +3797,7 @@ PUT 메소드를 사용하여 이미 올려진 파일 엔티티를 수정합니�
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -3825,7 +3825,7 @@ application/json
 | content-type | 문자열 (String)	| BLOB 의 Content-type (다운로드시 활용) |
 | <원하는 Property명> | <원하는 자료형>	| <없음> | X | 이용자가 정의한 Property |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Response
@@ -3841,7 +3841,7 @@ application/json
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -3937,7 +3937,7 @@ Transfer-Encoding: chunked
 |:------------------:|------|
 | filter | filter 절 (자세한 내용은 [여기서]("../devguide/query.html#filterClause") 확인)  |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -3974,7 +3974,7 @@ content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Con
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Example
 
@@ -4063,7 +4063,7 @@ Transfer-Encoding: chunked
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -4086,7 +4086,7 @@ filename		| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 파일
 content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Content-type (다운로드시 활용)
 <원하는 Property명> | <원하는 자료형>	| <없음>	| X	| 이용자가 정의한 Property
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Response
@@ -4102,7 +4102,7 @@ content-type	| 문자열 (String)	| <없음>	| O	| 나중에 올릴 BLOB 의 Con
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Example
 
@@ -4174,7 +4174,7 @@ Delete 메소드를 이용해서 파일 엔티티와 그와 함께 저장된 파
 | app-id | 앱 ID |
 | entity-id | 파일 엔티티의 UUID |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -4199,7 +4199,7 @@ Delete 메소드를 이용해서 파일 엔티티와 그와 함께 저장된 파
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Example
@@ -4284,7 +4284,7 @@ Transfer-Encoding: chunked
 |:------------------:|------|
 | filter | filter 절 (자세한 내용은 [여기서]("../devguide/query.html#filterClause") 확인)  |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -4308,7 +4308,7 @@ Transfer-Encoding: chunked
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Example
 
@@ -4391,7 +4391,7 @@ Transfer-Encoding: chunked
 |:------------------:|------|
 | ql | ql 절 (자세한 내용은 [여기서]("../devguide/query.html#queryClause") 확인) |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ###### Request Entity Type
@@ -4415,7 +4415,7 @@ Transfer-Encoding: chunked
 | 404 | 101 | 입력한 baas-id 가 존재하지 않음 또는 app-id 이 실제로 존재하지 않음 |
 | 500 | 920 | 시스템 장애 |
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ###### Example
 
@@ -4503,7 +4503,7 @@ Transfer-Encoding: chunked
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -4594,7 +4594,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"path\":\"mygroup\"
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request
 
@@ -4695,7 +4695,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Query Parmeters
 
@@ -4706,7 +4706,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |cursor|문자열 (String)||no|페이징을 위한 질의 결과셋의 엔코딩된 값|
 |limit|정수형 (Integer)|10|no|조회 결과의 데이터 개수 제한|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request
 
@@ -4788,7 +4788,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request
 
@@ -4873,7 +4873,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -4966,7 +4966,7 @@ curl -X PUT -i -H "Authorization: Bearer {auth_key}" -d '{ \"update\":\"somethin
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request
 
@@ -5048,7 +5048,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -5127,7 +5127,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |app-id|앱 ID|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -5208,7 +5208,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" -d "https://api.baas.io/my-
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -5284,7 +5284,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |path|string|그룹 Path( 필수 )|
 |title|string|화면에 표시할 이름|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Group 기본 Set
 
@@ -5294,7 +5294,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |rolenames|string|롤(Role) 리스트 - 참고.[롤(Roles)](#restapi/role)|
 |credentials|string|credentials 리스트|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Group 기본 Collection
 
@@ -5305,7 +5305,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |feed|activity|개인적인 알림들|
 |roles|role|롤(Role) 리스트|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -5363,7 +5363,7 @@ Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#restapi/push
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -5391,7 +5391,7 @@ Push 를 수신할 Device 는 실제 Device 에서 [Device 등록](#restapi/push
 |Tag 발송|tag|device entity의 tags property|
 |전체 발송|all|null|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 reserve 에 설정된 일자는 KST 기준입니다. 만약 2012년 10월 2일 15시 00분에 전송하기 를 원한다면 "201210021500" 을 설정하세요.
 
@@ -5497,7 +5497,7 @@ plarform 에 설정되는 I,G 는 ios 와 google android 를 의미합니다. io
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -5582,7 +5582,7 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/pushes/devices { \
 |app-id|앱 ID|
 |device_id|Device 의 uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -5667,7 +5667,7 @@ curl -X PUT https://api.baas.io/my-baasio-id/my-app-id/pushes/devices/2db6d191-f
 |app-id|앱 ID|
 |device_id|Device 의 uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -5735,7 +5735,7 @@ Device 를 삭제한다. 응답으로 삭제된 Device 의 정보를 전송한�
 |app-id|앱 ID|
 |device_id|Device 의 uuid|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Response
 
@@ -6148,7 +6148,7 @@ curl -X POST https://api.baas.io/my-baasio-id/my-app-id/help/questions \
 |content|string||*|도움말 내용|
 |classification_id|integer||*|도움말 분류|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -6271,7 +6271,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps/3ee8a6fe-41d3-
 |content|string||*|도움말 내용|
 |classification_id|integer||*|도움말 분류|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -6381,7 +6381,7 @@ curl -X DELETE https://api.baas.io/my-baasio-id/my-app-id/help/helps/14389952-2b
 |page|integer||페이지 번호|
 |keyword|string||검색어|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -6578,7 +6578,7 @@ curl -X GET https://api.baas.io/my-baasio-id/my-app-id/help/helps?keyword=baa&pa
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -6657,7 +6657,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"name\" : \"newrole
 |baasio-id|회원 ID|
 |app-id|앱 ID|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -6769,7 +6769,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -6841,7 +6841,7 @@ curl -X GET -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-baa
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -6918,7 +6918,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |permission|URL 패턴과 Operation을 조합하여 만든 규칙 - 참고. [Apache Ant pattern matching](http://ant.apache.org/manual/dirtasks.html#patterns)|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -6993,7 +6993,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |grant_url_pattern|URL 패턴과 Operation을 조합하여 만든 규칙 - 참고. [Apache Ant pattern matching](http://ant.apache.org/manual/dirtasks.html#patterns)|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -7072,7 +7072,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -7116,7 +7116,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |user_uuid or username|사용자 등록 후 반환 받은 UUID 혹은 username|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -7162,7 +7162,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -7206,7 +7206,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-ba
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 |group_uuid or group_path|그룹 생성시 만들어진 Group UUID 혹은 Group path|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ##### Response
@@ -7257,7 +7257,7 @@ curl -X DELETE -i -H "Authorization: Bearer {auth_key}" "https://api.baas.io/my-
 |app-id|앱 ID|
 |role_uuid or role_name|롤 생성시 만들어진 Role UUID 혹은 name|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Request Body
 
@@ -7310,7 +7310,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"permission\" : \"g
 |name|string|이름|
 |title|string|출력되는 이름명|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Role 기본 Set
 
@@ -7318,7 +7318,7 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"permission\" : \"g
 |:-------:|:----------:|:-----------|
 |permissions|string|퍼미션 리스트|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ##### Role 기본 Collection
 
@@ -7327,4 +7327,4 @@ curl -X POST -i -H "Authorization: Bearer {auth_key}" -d '{ \"permission\" : \"g
 |users|users|시용자와의 관계들|
 |groups|group|그룹과의 관계들|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
