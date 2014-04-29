@@ -182,7 +182,7 @@ entity.saveInBackground(
 |915|400|잘못된 쿼리입니다.|
 |-100|500|알수 없는 에러입니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -248,7 +248,7 @@ BaasioUser.signUpInBackground(
 |911|400|이미 존재하는 리소스입니다.|
 |913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Sign Up with Facebook
@@ -289,7 +289,7 @@ BaasioUser.signUpViaFacebookInBackground(
 |911|400|이미 존재하는 리소스입니다.|
 |913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Sign In
 []({'id':'users-sign-in', 'data-menu':'Sign In'})
@@ -354,7 +354,7 @@ BaasioUser.signInInBackground(
 |213|401|탈퇴된 사용자입니다.|
 |911|400|이미 존재하는 리소스입니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Sign In with Facebook
@@ -398,7 +398,7 @@ Error Code | HTTP Status Code | 설명
 213|401|탈퇴된 사용자입니다.
 911|400|이미 존재하는 리소스입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Update User
@@ -467,7 +467,7 @@ Error Code | HTTP Status Code | 설명
 912|400|예약된 리소스 이름입니다.
 913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Change Password
@@ -509,7 +509,7 @@ Error Code | HTTP Status Code | 설명
 213|401|탈퇴된 사용자입니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Reset Password
@@ -569,7 +569,7 @@ Error Code | HTTP Status Code | 설명
 213|401|탈퇴된 사용자입니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Unsubscribe User
@@ -616,7 +616,7 @@ Error Code | HTTP Status Code | 설명
 210|401|인증 토큰에 문제가 있습니다.
 211|401|만료된 인증 토큰입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Facebook
@@ -900,7 +900,7 @@ Error Code | HTTP Status Code | 설명
 913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Create Bulk Entities
@@ -955,7 +955,7 @@ Error Code | HTTP Status Code | 설명
 913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Get Entity
@@ -1004,7 +1004,7 @@ Error Code | HTTP Status Code | 설명
 913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Update Entity
@@ -1050,7 +1050,7 @@ Error Code | HTTP Status Code | 설명
 913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Remove Entity
@@ -1094,7 +1094,7 @@ Error Code | HTTP Status Code | 설명
 913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Connection between Entities(Relationship)
@@ -1159,7 +1159,7 @@ Error Code | HTTP Status Code | 설명
 912|400|예약된 리소스 이름입니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ### Disconnect
 **Entity와 Entity의 Relationship을 해제**합니다.
@@ -1214,7 +1214,7 @@ Error Code | HTTP Status Code | 설명
 211|401|만료된 인증 토큰입니다.
 -100|500|알수 없는 에러입니다.
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
@@ -1368,7 +1368,7 @@ query.queryInBackground(    // 조회 요청
 정수형 (Integer)|365 , -1360
 실수형 (Float)|3.14156 , -3.14159 , 10e10, 10E-10
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 아래는 조건에 사용되는 연산자의 종류 입니다.
@@ -1388,7 +1388,7 @@ query.queryInBackground(    // 조회 요청
 |결과의 합집합|or
 |결과의 차집합|not
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 연산자 중에 **"contains" 연산자는 문자열에 어떤 문자가 포함되어 있는지 검색하는 용도**로 사용됩니다.
 
@@ -1402,7 +1402,7 @@ contents contains '강남&#x0204e;'|검색됨
 contents contains '강남구&#x0204e;'|검색됨
 contents contains '&#x0204e;남&#x0204e;'|잘못된 사용법으로 검색결과 없음 (*를 앞에는 붙일 수 없음)
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ### setProjectionIn()
 []({'id':'query-setProjectionIn'})
@@ -1544,7 +1544,7 @@ SQL구문과 다른 점은, "ql"이라는 URL Parameter에 Query String을 설�
 |select * from cities where name like '강남%'|cities?ql=select * where name contains '강남&#x0204e;'|cities에서 name이 '강남'으로 시작되는 데이터 조회|
 |select name, age, gender from users order by age desc|users?ql=select name, age, gender order by age desc|users에서 age의 내림차순으로, 데이터의 name, age, gender만 조회|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 조건문을 설정하는 방법은 **setWheres()에서 설명한 내용과 동일**합니다. 즉, setWheres()에서 설정된 값과 Raw Query String의 "where"절에 들어가는 방법이 같습니다.
 
@@ -1866,7 +1866,7 @@ BaasioUploadAsyncTask uploadFileAsyncTask = uploadFile.fileUploadInBackground(
 |915|400|잘못된 쿼리입니다.|
 |-100|500|알수 없는 에러입니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Create File Without Content
@@ -1924,7 +1924,7 @@ uploadFile.saveInBackground(
 |915|400|잘못된 쿼리입니다.|
 |-100|500|알수 없는 에러입니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Download File
@@ -2020,7 +2020,7 @@ BaasioDownloadAsyncTask downloadFileAsyncTask = downloadFile.fileDownloadInBackg
 |915|400|잘못된 쿼리입니다.|
 |-100|500|알수 없는 에러입니다.|
 
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Get File
