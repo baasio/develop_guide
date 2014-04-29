@@ -44,7 +44,7 @@ $('._upload_start').click(function(e){
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | X | O | X | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 ## Download File
@@ -87,7 +87,7 @@ $('.download_start').click(function(e){
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | O | X | X | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Get File Entity
 []({'id':'file-get-file-entity','data-menu':'Get File Entity'})
@@ -118,7 +118,7 @@ io.getEntity(options,getCallback)
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | O | X | X | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Update File Entity
 []({'id':'file-update-file-entity','data-menu':'Update File Entity'})
@@ -155,7 +155,7 @@ baas_file.save(saveCallback);
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | X | X | O | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 **Update 되지 않는 정보**
 * 업로드 한 파일을 다른 파일로 교체
@@ -191,4 +191,4 @@ baas_file.destroy(destroyCallback);
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/files/\*\*** | X | X | X | O |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})

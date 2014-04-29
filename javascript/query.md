@@ -39,7 +39,7 @@ var animals = new Baas.Collection( options, callback})
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | **/animals/\*** | O | X | X | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Query User Entities from Group
 []({'id':'guery-user-entities-from-group','data-menu':'Query User Entities from Group'})
@@ -85,7 +85,7 @@ baas_group.fetch(fetchCallback);
 | | read | create | update | delete |
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | /groups/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Query Entities with Relationship
 []({'id':'guery-entities-with-relationship','data-menu':'Query Entities with Relationship'})

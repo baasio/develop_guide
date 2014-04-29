@@ -167,7 +167,7 @@ baas_group.fetch(fetchCallback);
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | /groups/\*\* | O | O | X | X |
 | /users/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 ## Remove User from Group
 []({'id':'group-remove-user-from-group','data-menu':'Remove User from Group'})
@@ -226,7 +226,7 @@ baas_group.fetch(fetchCallback);
 |:--------:|:--------:|:--------:|:--------:|:--------:|
 | /groups/\*\* | O | X | X | O |
 | /users/\*\* | O | X | X | X |
-[]({'class':'table-bordered'})
+[]({'class':'table table-striped table-bordered'})
 
 
 
