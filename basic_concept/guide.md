@@ -271,13 +271,13 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X
 
 |조회 가능여부|요청|비고
 |:-----------:|:------------:|:----------:|
-|가능|/{baasid}/{app}/items?ql=select * where **id = 10|&nbsp;**
-|가능|/{baasid}/{app}/items?ql=select * where **id = '10adf'|&nbsp;**
-|불가능|/{baasid}/{app}/items?ql=select * where **id contains %10**|전문검색이 비활성화라 안됨
-|불가능|/{baasid}/{app}/items?ql=select * where **price = 30**|검색여부가 비활성화라 안됨
-|불가능|/{baasid}/{app}/items?ql=select * where **price > 30**|검색여부가 비활성화라 안됨
-|가능|/{baasid}/{app}/items?ql=select * where **item_type = '100'**|&nbsp;
-|가능|/{baasid}/{app}/items?ql=select * where **item_type = '100%'**|&nbsp;
+|가능|/{baasid}/{app}/items?ql=select * where id = 10|&nbsp;
+|가능|/{baasid}/{app}/items?ql=select * where id = '10adf'|&nbsp;
+|불가능|/{baasid}/{app}/items?ql=select * where id contains %10|전문검색이 비활성화라 안됨
+|불가능|/{baasid}/{app}/items?ql=select * where price = 30|검색여부가 비활성화라 안됨
+|불가능|/{baasid}/{app}/items?ql=select * where price > 30|검색여부가 비활성화라 안됨
+|가능|/{baasid}/{app}/items?ql=select * where item_type = '100'|&nbsp;
+|가능|/{baasid}/{app}/items?ql=select * where item_type = '100%'|&nbsp;
 []({'class':'table table-striped table-bordered'})
 
 
@@ -304,13 +304,13 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X, 연결검�
 
 |조회 가능여부|요청|비고
 |:-----------:|:------------:|:----------:|
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **id = 10**|연결검색이 활성화라 검색이 됨
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **id = '10adf'**|연결검색이 활성화라 검색이 됨
-|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **id contains %10**|연결전문검색이 비활성화라 안됨
-|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **price = 30**|연결검색이 비활성화라 안됨
-|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **price > 30**|연결검색이 비활성화라 안됨
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **item_type = '100'**|연결검색이 활성화라 검색이 됨
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **item_type = '100%'**|연결전문검색이 활성화라 검색이 됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id = 10|연결검색이 활성화라 검색이 됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id = '10adf'|연결검색이 활성화라 검색이 됨
+|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id contains %10|연결전문검색이 비활성화라 안됨
+|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where price = 30|연결검색이 비활성화라 안됨
+|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where price > 30|연결검색이 비활성화라 안됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100'|연결검색이 활성화라 검색이 됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100%'|연결전문검색이 활성화라 검색이 됨
 []({'class':'table table-striped table-bordered'})
 
 
