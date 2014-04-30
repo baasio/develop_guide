@@ -159,7 +159,7 @@ baasio는 SDK를 new한 객체이다.
 파스타는(Pasta) 모바일 앱/웹 개발자가 서버 필요없이 쉽게 자신만의 API를 만들 수 있도록 도와줍니다. Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분들의 API를 만들 수 있습니다.
 
 ## <a id="step1"></a> 파스타(Pasta) 에디터에서 API 만들기
-[]({'id':'quickstart-apicreate','data-menu':'파스타(Pasta) 에디터에서 API 만들기'})
+[]({'id':'quickstart-apicreate','data-menu':'파스타 에디터에서 API 만들기'})
 
 ### <a id="step1.1"></a> 1. 에티터로 이동하기
 
@@ -271,7 +271,7 @@ baasio는 SDK를 new한 객체이다.
 	CustomResponse response = Baas.io().customApiRequest(HttpMethod.GET, CustomResponse.class, null, null);
 
 ##<a id="step3"></a>참고. 고급사용자를 위한 파스타 이용방법 (git)
-[]({'id':'quickstart-git','data-menu':'참고. 고급사용자를 위한 파스타 이용방법 (git)'})
+[]({'id':'quickstart-git','data-menu':'참고. 고급사용자를 위한 파스타 이용방법 - git'})
 
 파스타(Pasta)는 고급 사용자를 위해서 git 을 활용한 배포방법을 제공하고 있습니다.
 
