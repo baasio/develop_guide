@@ -143,6 +143,7 @@ baasio는 SDK를 new한 객체이다.
 ```
 
 # 빠르게 시작하기
+[]({'id':'quickstart','data-menu':'빠르게 시작하기'})
 
 * [파스타(Pasta) 에디터에서 API 만들기](#step1)
 	* [1. 에티터로 이동하기](#step1.1)
@@ -158,6 +159,7 @@ baasio는 SDK를 new한 객체이다.
 파스타는(Pasta) 모바일 앱/웹 개발자가 서버 필요없이 쉽게 자신만의 API를 만들 수 있도록 도와줍니다. Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분들의 API를 만들 수 있습니다.
 
 ## <a id="step1"></a> 파스타(Pasta) 에디터에서 API 만들기
+[]({'id':'quickstart-apicreate','data-menu':'파스타(Pasta) 에디터에서 API 만들기'})
 
 ### <a id="step1.1"></a> 1. 에티터로 이동하기
 
@@ -225,6 +227,7 @@ baasio는 SDK를 new한 객체이다.
 	}
 
 ## <a id="step2"></a> 다양한 앱 플랫폼에서 사용하기
+[]({'id':'quickstart-appplatform','data-menu':'다양한 앱 플랫폼에서 사용하기'})
 
 ### <a id="step2.1"></a> 안드로이드 플랫폼에서 API 사용하기
 	
@@ -268,6 +271,7 @@ baasio는 SDK를 new한 객체이다.
 	CustomResponse response = Baas.io().customApiRequest(HttpMethod.GET, CustomResponse.class, null, null);
 
 ##<a id="step3"></a>참고. 고급사용자를 위한 파스타 이용방법 (git)
+[]({'id':'quickstart-git','data-menu':'참고. 고급사용자를 위한 파스타 이용방법 (git)'})
 
 파스타(Pasta)는 고급 사용자를 위해서 git 을 활용한 배포방법을 제공하고 있습니다.
 
@@ -294,6 +298,7 @@ git은 소스 코드 관리를 위한 분산 버전 시스템입니다. 여기�
 
 
 # 모듈
+[]({'id':'module','data-menu':'모듈'})
 
 Pasta는 편리하고 빠른 개발을 위해, 다양한 Third-Party Module을 제공한다. 
 
