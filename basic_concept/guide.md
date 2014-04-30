@@ -196,6 +196,32 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/custom-relationship.png)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Data Model
 []({'id':'data-model', 'data-menu':'Data Model'})
 
@@ -203,27 +229,37 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/datamodel.png)
 
+
+
+
+
+
+
+
+
 ## 데이터 모델링 시 알아두어야 할 점
 []({'id':'you-should-know', 'data-menu':'데이터 모델링 시 알아두어야 할 점'})
 
-- Collection 을 미리 정의 해야 함
-- Property 을 미리 정의 해야 함
-	* Property 속성(검색여부, 전문검색여부, 유일값여부)을 정의해야 함
-	* Property 속성이 정의되어있지 않을 시 기본값(검색안함, 전문검색안함, 유일값아님)으로 설정됨
-- Relationship 을 미리 정의 해야 함
-	* Relationship 속성(연결검색여부, 전문검색여부)을 정의해야 함
-	* Relationship 속성이 정의되어있지 않을 시 기본값(검색안함, 전문검색안함)으로 설정됨
-- Property, Relationship 변경에는 제약사항이 있음
+- Collection, Property, Relationship 을 미리 정의 해야 함
+	* Property, Relationship 속성(연결검색여부, 전문검색여부)을 정의해야 함
+	* Property, Relationship 속성이 정의되어있지 않을 시 기본값(검색안함, 전문검색안함)으로 설정됨
+- Property, Relationship 속성 변경에는 제약사항이 있음
 	* 소량의 데이터는 즉시 반영 (시스템이 판단 - 엔티티 수가 1000건 이하이고, 프로퍼티 수가 많지 않을 때)
 	* 대량의 데이터가 있을 시 기존 데이터까지 변경해야하므로 전체 시스템에 부하를 발생시키지 않도록 점진적인 변경 진행
 	* 대량의 데이터 수정작업은 전체 시스템의 부하를 고려하여 내부에서 조절 됨, 변경작업을 할 수 없을 때 사용자에게 메세지를 노출 함
 
+
+
+
+
+
+
 ## Property 속성이란
 []({'id':'property-metadata', 'data-menu':'Property 속성이란'})
 
-프로퍼티는 name, value 구성된 간단한 구조입니다. 프로퍼티 속성은 검색여부, 전문검색여부, 유일값여부로 구성되는데, 데이터를 조회할 시 영향을 받습니다.
+Property는 name, value 구성된 간단한 구조입니다. Property 속성은 검색여부, 전문검색여부, 유일값여부로 구성되는데, 데이터를 조회할 시 영향을 받습니다.
 
-샘플어플리케이션에 id, price, item_type 3가지 프로퍼티를 가진 items 컬렉션이 있다고 가정해봅시다. 그리고 3가지 프로퍼티의 속성을 아래와 같이 설정했다고 생각해보죠.
+어플리케이션에 id, price, item_type 3가지 Property를 가진 items 컬렉션이 있다고 가정해봅시다. 그리고 3가지 프로퍼티의 속성을 아래와 같이 설정했다고 가정합니다.
 
 ```
 id = 검색여부 O, 전문검색여부 X, 유일값여부 O
@@ -235,21 +271,23 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X
 
 |조회 가능여부|요청|비고
 |:-----------:|:------------:|:----------:|
-|가능|/{baasid}/{app}/items?ql=select * where id = 10|&nbsp;
-|가능|/{baasid}/{app}/items?ql=select * where id = '10adf'|&nbsp;
-|불가능|/{baasid}/{app}/items?ql=select * where id contains %10|전문검색이 비활성화라 안됨
-|불가능|/{baasid}/{app}/items?ql=select * where price = 30|검색여부가 비활성화라 안됨
-|불가능|/{baasid}/{app}/items?ql=select * where price > 30|검색여부가 비활성화라 안됨
-|가능|/{baasid}/{app}/items?ql=select * where item_type = '100'|&nbsp;
-|가능|/{baasid}/{app}/items?ql=select * where item_type = '100%'|&nbsp;
+|가능|/{baasid}/{app}/items?ql=select * where **id = 10|&nbsp;**
+|가능|/{baasid}/{app}/items?ql=select * where **id = '10adf'|&nbsp;**
+|불가능|/{baasid}/{app}/items?ql=select * where **id contains %10**|전문검색이 비활성화라 안됨
+|불가능|/{baasid}/{app}/items?ql=select * where **price = 30**|검색여부가 비활성화라 안됨
+|불가능|/{baasid}/{app}/items?ql=select * where **price > 30**|검색여부가 비활성화라 안됨
+|가능|/{baasid}/{app}/items?ql=select * where **item_type = '100'**|&nbsp;
+|가능|/{baasid}/{app}/items?ql=select * where **item_type = '100%'**|&nbsp;
 []({'class':'table table-striped table-bordered'})
+
+
 
 ## Relationship 속성이란
 []({'id':'relationship-metadata', 'data-menu':'Relationship 속성이란'})
 
-엔티티와 엔티티를 연결하는 것을 Relationship 이라고 칭합니다. Relationship 속성은 두 엔티티가 연결된 상태에서 데이터를 조회 시 영향을 끼칩니다. 속성은 검색여부, 전문검색여부입니다.
+엔티티와 엔티티를 연결하는 것을 Relationship 이라고 합니다. Relationship 속성은 두 엔티티가 연결된 상태에서 데이터를 조회 시 영향을 끼칩니다. 속성은 검색여부, 전문검색여부입니다.
 
-샘플어플리케이션에 title, description 2가지 프로퍼티를 가진 games 컬렉션과 id, price, item_type 3가지 프로퍼티를 가진 items 컬렉션이 컬렉션이 있다고 가정해봅시다. 그리고 2개의 컬렉션의 프로퍼티와 Relationship 속성을 아래와 같이 설정했다고 생각해보죠.
+어플리케이션에 title, description 2가지 프로퍼티를 가진 games 컬렉션과 id, price, item_type 3가지 프로퍼티를 가진 items 컬렉션이 컬렉션이 있다고 가정해봅시다. 그리고 2개의 컬렉션의 프로퍼티와 Relationship 속성을 아래와 같이 설정했다고 가정합니다.
 
 ```
 Collection : games
@@ -266,13 +304,13 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X, 연결검�
 
 |조회 가능여부|요청|비고
 |:-----------:|:------------:|:----------:|
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id = 10|연결검색이 활성화라 검색이 됨
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id = '10adf'|연결검색이 활성화라 검색이 됨
-|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where id contains %10|연결전문검색이 비활성화라 안됨
-|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where price = 30|연결검색이 비활성화라 안됨
-|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where price > 30|연결검색이 비활성화라 안됨
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100'|연결검색이 활성화라 검색이 됨
-|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100%'|연결전문검색이 활성화라 검색이 됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **id = 10**|연결검색이 활성화라 검색이 됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **id = '10adf'**|연결검색이 활성화라 검색이 됨
+|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **id contains %10**|연결전문검색이 비활성화라 안됨
+|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **price = 30**|연결검색이 비활성화라 안됨
+|불가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **price > 30**|연결검색이 비활성화라 안됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **item_type = '100'**|연결검색이 활성화라 검색이 됨
+|가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where **item_type = '100%'**|연결전문검색이 활성화라 검색이 됨
 []({'class':'table table-striped table-bordered'})
 
 
