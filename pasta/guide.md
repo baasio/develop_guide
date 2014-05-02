@@ -6,8 +6,8 @@
 
 
 파스타는(Pasta) 모바일 앱/웹 개발자가 서버 필요 없이 자신만의 API를 쉽게 만들 수 있도록 도와줍니다. 
-Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분들의 API를 만들 수 있습니다.
-모바일 앱/웹 개발자가 작성된 코드를 파스타(Pasta)로 옮겨 사용할 수 있습니다.
+Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분들의 API를 작성할 수 있습니다.
+모바일 앱/웹 개발자가 작성된 코드를 파스타(Pasta)로 옮겨 사용하면 됩니다.
 
 자, 빠르게 시작해볼까요?!
 
@@ -33,14 +33,16 @@ Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분�
 	```
     runnable.function = sample;
     ```
-- 파일명이 API Endpoint 이다. `수정되어야 함`
-    - sample.js라고 저장하면 `https://api.baas.io/~~~/sample` 로 생성된다
+- 파일명이 API Endpoint가 된다.
+    - sample.js라고 저장하면 `https://api.baas.io/${org_name}/${app_name}/pasta/sample` 로 접근 할 수 있다.
 
 - 'use strict' 모드로 작성해야 한다.
-    - 아래 링크를 통해 자세히 알 수 있다.
+	- [MSDN - Strict 모드(JavaScript)](http://msdn.microsoft.com/ko-kr/library/ie/br230269.aspx)
+	- [Mozilla Developer Network - Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FFunctions_and_function_scope%2FStrict_mode)
 
-        - [MSDN - Strict 모드(JavaScript)](http://msdn.microsoft.com/ko-kr/library/ie/br230269.aspx)
-        - [Mozilla Developer Network - Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FFunctions_and_function_scope%2FStrict_mode)
+- 사용자가 만든 파일을 `require`하려면 __HOME이라는 예약어를 사용해야 한다.
+	
+	`TBW`
 
 ## 기본 객체
 []({'id':'basic-object','data-menu':'기본 객체'})
@@ -88,14 +90,14 @@ method, headers, body, params, url, path, host 등의 정보가 담겨있다.
 ### response
 response 객체를 이용하여 화면에 데이터를 출력 할 수 있다.
 
-주의 할 점은 response로 객체를 전송하면 해당 request가 끝나기 때문에 제일 마지막에 사용해야 한다.
+**주의 할 점은 response로 객체를 전송하면 해당 request가 끝나기 때문에 제일 마지막에 사용해야 한다.**
 
-method는 finish와 error가 있으며 샘플은 아래와 같다.
+method는 `finish`와 `error`가 있으며 샘플은 아래와 같다.
 
 * sample code
 ```javascript
     var sample = function (request, response) {
-        if (error) {
+        if (request == null) {
             response.error(error);	//HTTP Status Code : 400
         } else {
             var resp = {
@@ -110,9 +112,7 @@ method는 finish와 error가 있으며 샘플은 아래와 같다.
 
 ### logger
 logger 객체를 이용하여 로그를 출력 할 수 있다.
-
-`로그는 쌓이고 있지만, 현재 배타 상태로는 로그를 볼 수 있는 곳이 없다!!
-조금만 기다리시라..`
+로그는 Pasta IDE에서 확인 가능하다.
 
 * sample code
 
@@ -127,23 +127,66 @@ logger 객체를 이용하여 로그를 출력 할 수 있다.
 
     runnable.function = sample;
     ```
-
-### baasio
+![pasta.quickstart.7](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart7.png)
+	
+### io
 `수정되어야 함`
 
-baasio는 SDK를 new한 객체이다.
+io는 `baas.io Pasta SDK`가 인스턴스 된 객체이다.
 
-즉 request에 포함 되어 있는 authorization 정보와 앱의 아이디등이 셋팅 되어 있다.
+그래서 request에 포함 되어 있는 authorization 정보와 앱의 아이디등이 셋팅 되어 있다.
 
+`baas.io Pasta SDK`는 `baas.io javascript SDK`와 사용법이 같다.
+
+자세한 사항은 아래 링크를 참고하면 된다.
 그래서 SDK를 사용할 때 아래와 같이 쓰면 된다.
 
+
+- [baas.io Pasta & javascript SDK](/develop_guide/#javascript)
+
+#### 회원 정보를 가져오는 샘플
+
 ```javascript
-    collection = new Baas.Collection({'client':baasio, 'type':'cats'},function(err, data){
-        console.log(err);
-        console.log(data);
+var sample = function (request, response) {
+
+    var options = {
+        method: 'GET',
+        endpoint: 'user'
+    };
+
+    io.request(options, function (err, data) {
+        if (err) {
+            response.error(data);
+        } else {
+            response.finish(data);
+        }
     });
-    console.log(collection);
+};
+
+runnable.function = sample;
 ```
+혹은 
+
+```javascript
+var sample = function (request, response) {
+
+    var options = {
+        'client':io,
+        'type':'user'
+    }
+    
+    var users = new Baas.Collection(options, function(errorFlag, entity){
+        if(errorFlag){
+            response.error(errorFlag);
+        } else {
+            response.finish(entity);
+        }
+    });
+};
+
+runnable.function = sample;
+```
+
 
 # 빠르게 시작하기
 []({'id':'quickstart','data-menu':'빠르게 시작하기'})
@@ -156,7 +199,7 @@ baasio는 SDK를 new한 객체이다.
 
 * [다양한 앱 플랫폼에서 사용하기](#step2)
 	* [안드로이드 플랫폼에서 API 사용하기](#step2.1)
-	* [iOS 플랫폼에서 API 사용하기](#step2.1)
+	* [iOS 플랫폼에서 API 사용하기](#step2.2)
 * [참고. 고급사용자를 위한 파스타 이용방법 (git)](#step3)
 
 파스타는(Pasta) 모바일 앱/웹 개발자가 서버 필요없이 쉽게 자신만의 API를 만들 수 있도록 도와줍니다. Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분들의 API를 만들 수 있습니다.
@@ -229,6 +272,11 @@ baasio는 SDK를 new한 객체이다.
 	  "error_code" : 0
 	}
 
+### <a id="step1.5"></a> 5. API 실행하기 & 로그 보기
+
+	TBW
+
+
 ## <a id="step2"></a> 다양한 앱 플랫폼에서 사용하기
 []({'id':'quickstart-appplatform','data-menu':'다양한 앱 플랫폼에서 사용하기'})
 
@@ -272,6 +320,17 @@ baasio는 SDK를 new한 객체이다.
 실제 위의 예제에서 살펴보았던 서버API를 안드로이드 API에서 사용하면 다음과 같습니다.
 
 	CustomResponse response = Baas.io().customApiRequest(HttpMethod.GET, CustomResponse.class, null, null);
+
+### <a id="step2.2"></a> iOS 플랫폼에서 API 사용하기
+
+iOS SDK에서는 외부의 RESTFul API를 쉽고 빠르게 쓸 수 있는 `SimpleNetworkManager`를 제공한다.
+
+SDK를 사용한 앱이 로그인 상태이면, 해당 사용자의 token 정보가 자동으로 실려서 호출 된다.
+
+자세한 사항은 아래 링크를 참고하면 된다.
+- [Baas.io iOS SDK - Rest Network API](/develop_guide/#ios/etc/restapi)
+
+
 
 ##<a id="step3"></a>참고. 고급사용자를 위한 파스타 이용방법 (git)
 []({'id':'quickstart-git','data-menu':'참고. 고급사용자를 위한 파스타 이용방법 - git'})
