@@ -367,20 +367,20 @@ Pasta는 편리하고 빠른 개발을 위해, 다양한 Third-Party Module을 �
 
 - [Underscore](#pasta/module/module-underscore)
 - [Class](#pasta/module/module-Class)
-- [q](#pasta/module/module-q)
-- [lodash](#pasta/module/module-lodash)
+- [Q](#pasta/module/module-q)
+- [Lo-Dash](#pasta/module/module-lodash)
 - [Async](#pasta/module/module-async)
-- [base64](#pasta/module/module-base64)
-- [hashish](#pasta/module/module-hashish)
+- [Base64](#pasta/module/module-base64)
+- [Hashish](#pasta/module/module-hashish)
 - [Nodemailer](#pasta/module/module-nodemailer)
 - [Mailgun](#pasta/module/module-mailgun)
-- [Mandrill](#pasta/module/module-Mandrill)
-- [SendGrid](#pasta/module/module-SendGrid)
-- [minimatch](#pasta/module/module-minimatch)
-- [moment](#pasta/module/module-moment)
-- [qs](#pasta/module/module-qs)
-- [traverse](#pasta/module/module-traverse)
-- [uuid](#pasta/module/module-uuid)
+- [Mandrill](#pasta/module/module-mandrill)
+- [SendGrid](#pasta/module/module-sendGrid)
+- [Minimatch](#pasta/module/module-minimatch)
+- [Moment](#pasta/module/module-moment)
+- [Qs](#pasta/module/module-qs)
+- [Traverse](#pasta/module/module-traverse)
+- [UUID](#pasta/module/module-uuid)
  
 `일반적인 npm 모듈 중에서 node.js에 깊은 의존성이 있는 것은 사용이 불가능하다.
 추가를 원하는 모듈이 있다면 고객센터를 통해서 문의 하시라..`
@@ -395,20 +395,20 @@ JavaScript's functional programming helper library.
 Port of Prototype.js inheritance implementation for Node.js.
 
 
-## [q](https://npmjs.org/package/q)
-[]({'id':'module-q','data-menu':'q'})
+## [Q](https://npmjs.org/package/q)
+[]({'id':'module-q','data-menu':'Q'})
 A library for promises (CommonJS/Promises/A,B,D)
 
 ## [Lo-Dash (lodash)](https://npmjs.org/package/lodash)
-[]({'id':'module-lodash','data-menu':'lodash'})
+[]({'id':'module-lodash','data-menu':'Lo-Dash'})
 A utility library delivering consistency, customization, performance, & extras.
 
 ## [Async](https://npmjs.org/package/async)
-[]({'id':'module-async','data-menu':'async'})
+[]({'id':'module-async','data-menu':'Async'})
 Higher-order functions and common patterns for asynchronous code
 
-## [base64](https://npmjs.org/package/base64)
-[]({'id':'module-base64','data-menu':'base64'})
+## [Base64](https://npmjs.org/package/base64)
+[]({'id':'module-base64','data-menu':'Base64'})
 A C++ module for node-js that does base64 encoding and decoding.
 
 ```javascript
@@ -444,8 +444,8 @@ runnable.function = sample;
 }
 ```
 
-## [hashish](https://npmjs.org/package/hashish)
-[]({'id':'module-hashish','data-menu':'hashish'})
+## [Hashish](https://npmjs.org/package/hashish)
+[]({'id':'module-hashish','data-menu':'Hashish'})
 Hash data structure manipulation functions
 
 ```javascript
@@ -473,7 +473,7 @@ runnable.function = sample;
 ```
 
 ## [Nodemailer](https://npmjs.org/package/nodemailer)
-[]({'id':'module-nodemailer','data-menu':'nodemailer'})
+[]({'id':'module-nodemailer','data-menu':'Nodemailer'})
 Easy to use module to send e-mails, supports unicode and SSL/TLS
 
 ```javascript
@@ -515,7 +515,7 @@ runnable.function = sample;
 ```
 
 ## [Mailgun](https://npmjs.org/package/mailgun)
-[]({'id':'module-mailgun','data-menu':'mailgun'})
+[]({'id':'module-mailgun','data-menu':'Mailgun'})
 Mailgun is a set of powerful APIs that allow you to send, receive and track email effortlessly.
 ```javascript
 var sample = function (request, response) {
@@ -541,7 +541,7 @@ runnable.function = sample;
 
 
 ## [Mandrill](https://npmjs.org/package/mandrill)
-[]({'id':'module-mandrill','data-menu':'mandrill'})
+[]({'id':'module-mandrill','data-menu':'Mailgun'})
 Mandrill is a transactional email platform from MailChimp.
 ```javascript
 var sample = function (request, response) {
@@ -572,12 +572,12 @@ runnable.function = sample;
 ```
 
 ## [SendGrid](https://npmjs.org/package/sendgrid)
-[]({'id':'module-sendgrid','data-menu':'sendgrid'})
+[]({'id':'module-sendgrid','data-menu':'SendGrid'})
 Learn why more developers choose SendGrid for their email deliverability service to send transactional emails triggered by web apps. Get started for free.
 
 
-## [minimatch](https://npmjs.org/package/minimatch)
-[]({'id':'module-minimatch','data-menu':'minimatch'})
+## [Minimatch](https://npmjs.org/package/minimatch)
+[]({'id':'module-minimatch','data-menu':'Minimatch'})
 ```javascript
 var sample = function (request, response) {
     var minimatch = require("minimatch");
@@ -603,8 +603,8 @@ runnable.function = sample;
 }
 ```
 
-## [moment](https://npmjs.org/package/moment)
-[]({'id':'module-moment','data-menu':'moment'})
+## [Moment](https://npmjs.org/package/moment)
+[]({'id':'module-moment','data-menu':'Moment'})
 Parse, manipulate, and display dates.
 ```javascript
 var sample = function (request, response) {
@@ -632,8 +632,8 @@ runnable.function = sample;
 }
 ```
 
-## [qs](https://npmjs.org/package/qs)
-[]({'id':'module-qs','data-menu':'qs'})
+## [Qs](https://npmjs.org/package/qs)
+[]({'id':'module-qs','data-menu':'Qs'})
 querystring parser
 ```javascript
 var sample = function (request, response) {
@@ -671,8 +671,8 @@ runnable.function = sample;
 }
 ```
 
-## [traverse](https://npmjs.org/package/traverse)
-[]({'id':'module-traverse','data-menu':'traverse'})
+## [Traverse](https://npmjs.org/package/traverse)
+[]({'id':'module-traverse','data-menu':'Traverse'})
 traverse and transform objects by visiting every node on a recursive walk
 ```javascript
 var sample = function (request, response) {
@@ -713,8 +713,8 @@ runnable.function = sample;
 }
 ```
 
-## [uuid](https://npmjs.org/package/uuid)
-[]({'id':'module-uuid','data-menu':'uuid'})
+## [UUID](https://npmjs.org/package/uuid)
+[]({'id':'module-uuid','data-menu':'UUID'})
 Rigorous implementation of RFC4122 (v1 and v4) UUIDs.
 ```javascript
 var sample = function (request, response) {
