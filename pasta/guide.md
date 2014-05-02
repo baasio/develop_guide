@@ -372,10 +372,10 @@ Pasta는 편리하고 빠른 개발을 위해, 다양한 Third-Party Module을 �
 - [Async](#pasta/module/module-async)
 - [Base64](#pasta/module/module-base64)
 - [Hashish](#pasta/module/module-hashish)
-- [Nodemailer](#pasta/module/module-nodemailer)
+- [Node Mailer](#pasta/module/module-nodemailer)
 - [Mailgun](#pasta/module/module-mailgun)
 - [Mandrill](#pasta/module/module-mandrill)
-- [SendGrid](#pasta/module/module-sendGrid)
+- [SendGrid](#pasta/module/module-sendgrid)
 - [Minimatch](#pasta/module/module-minimatch)
 - [Moment](#pasta/module/module-moment)
 - [Qs](#pasta/module/module-qs)
@@ -472,8 +472,8 @@ runnable.function = sample;
 ]
 ```
 
-## [Nodemailer](https://npmjs.org/package/nodemailer)
-[]({'id':'module-nodemailer','data-menu':'Nodemailer'})
+## [Node Mailer](https://npmjs.org/package/nodemailer)
+[]({'id':'module-nodemailer','data-menu':'Node Mailer'})
 Easy to use module to send e-mails, supports unicode and SSL/TLS
 
 ```javascript
