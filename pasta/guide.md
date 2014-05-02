@@ -48,6 +48,7 @@ Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분�
 []({'id':'basic-object','data-menu':'기본 객체'})
 
 ### request
+[]({'id':'basic-object','data-menu':'request'})
 현재 요청에 대한 정보가 담겨있는 JSON 객제이다.
 
 method, headers, body, params, url, path, host 등의 정보가 담겨있다.
