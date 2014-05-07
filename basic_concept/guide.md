@@ -241,8 +241,9 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 []({'id':'you-should-know', 'data-menu':'데이터 모델링 시 알아두어야 할 점'})
 
 - Collection, Property, Relationship 을 미리 정의 해야 함
-	* Property, Relationship 속성(연결검색여부, 전문검색여부)을 정의해야 함
-	* Property, Relationship 속성이 정의되어있지 않을 시 기본값(검색안함, 전문검색안함)으로 설정됨
+	* Property 속성(연결검색여부, 전문검색여부)을 정의해야 함
+	* Property 속성이 정의되어있지 않을 시 기본값(검색안함, 전문검색안함)으로 설정됨
+	* Relationship 속성은 Property 속성과 동일함
 - Property, Relationship 속성 변경에는 제약사항이 있음
 	* 소량의 데이터는 즉시 반영 (시스템이 판단 - 엔티티 수가 1000건 이하이고, 프로퍼티 수가 많지 않을 때)
 	* 대량의 데이터가 있을 시 기존 데이터까지 변경해야하므로 전체 시스템에 부하를 발생시키지 않도록 점진적인 변경 진행
@@ -262,10 +263,12 @@ Property는 name, value 구성된 간단한 구조입니다. Property 속성은 
 어플리케이션에 id, price, item_type 3가지 Property를 가진 items 컬렉션이 있다고 가정해봅시다. 그리고 3가지 프로퍼티의 속성을 아래와 같이 설정했다고 가정합니다.
 
 ```
-id = 검색여부 O, 전문검색여부 X, 유일값여부 O
-price = 검색여부 X, 전문검색여부 X, 유일값여부 X
-item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X
+id = 검색 O, 전문검색 X, 유일값 O
+price = 검색 X, 전문검색 X, 유일값 X
+item_type = 검색 O, 전문검색 O, 유일값 X
 ```
+
+`note` 전문검색여부(Full Text Search) : Property의 모든 text에 대해 단어 또는 구문의 검색 기능을 지원
 
 이때, 프로퍼티 속성이 어떤지에 따라서 데이터를 조회할 수 있을지 없을지가 결정됩니다.
 
@@ -273,15 +276,19 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X
 |:-----------:|:------------:|:----------:|
 |가능|/{baasid}/{app}/items?ql=select * where id = 10|&nbsp;
 |가능|/{baasid}/{app}/items?ql=select * where id = '10adf'|&nbsp;
-|불가능|/{baasid}/{app}/items?ql=select * where id contains %10|전문검색이 비활성화라 안됨
-|불가능|/{baasid}/{app}/items?ql=select * where price = 30|검색여부가 비활성화라 안됨
-|불가능|/{baasid}/{app}/items?ql=select * where price > 30|검색여부가 비활성화라 안됨
+|<font color='red'>불가능</font>|/{baasid}/{app}/items?ql=select * where id contains %10|전문검색이 비활성화라 안됨
+|<font color='red'>불가능</font>|/{baasid}/{app}/items?ql=select * where price = 30|검색여부가 비활성화라 안됨
+|<font color='red'>불가능</font>|/{baasid}/{app}/items?ql=select * where price > 30|검색여부가 비활성화라 안됨
 |가능|/{baasid}/{app}/items?ql=select * where item_type = '100'|&nbsp;
 |가능|/{baasid}/{app}/items?ql=select * where item_type = '100%'|&nbsp;
 []({'class':'table table-striped table-bordered'})
 
+이 모든 과정은 포탈 > MyPage > Backend App > Data Browser > 컬렉션 생성, 수정란을 통해서 할 수 있습니다. 아래 이미지를 참고하세요.
+
+![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/databrowser-role-list.png)
 
 
+<!--
 ## Relationship 속성이란
 []({'id':'relationship-metadata', 'data-menu':'Relationship 속성이란'})
 
@@ -312,11 +319,8 @@ item_type = 검색여부 O, 전문검색여부 O, 유일값여부 X, 연결검�
 |가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100'|연결검색이 활성화라 검색이 됨
 |가능|/{baasid}/{app}/games/{game_item}/have/items?ql=select * where item_type = '100%'|연결전문검색이 활성화라 검색이 됨
 []({'class':'table table-striped table-bordered'})
+ -->
 
-
-이 모든 과정은 포탈 > MyPage > Backend App > Data Browser > 컬렉션 생성, 수정란을 통해서 할 수 있습니다. 아래 이미지를 참고하세요.
-
-![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/databrowser-role-list.png)
 
 
 
