@@ -225,7 +225,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 # Data Model
 []({'id':'data-model', 'data-menu':'Data Model'})
 
-앞서 살펴본 Backend App, Entity, Collection 섹션을 읽어보았다면, 데이터 모델이 Backend App > Collection > Entity > Property 순서로 구조화 되어있다는 것을 알 수 있습니다. 바스아이오에서는 MySQL, Oracle, PostgreSQL 같은 일반적인 관계형 데이터베이스(RDBMS)의 기능을 모두 제공하지 않습니다. 즉, 바스아이오에서 제공하는 데이터 서비스는 제약사항이 있고 이를 이해하고 데이터 모델링을 해야합니다.
+앞서 살펴본 Backend App, Entity, Collection 섹션을 읽어보았다면, 데이터 모델이 Backend App > Collection > Entity > Property 순서로 구조화 되어있다는 것을 알 수 있습니다. 바스아이오에서는 MySQL, Oracle, PostgreSQL과 같은 일반적인 관계형 데이터베이스(RDBMS)의 기능을 모두 제공하지 않습니다. 즉, 바스아이오에서 제공하는 데이터 서비스는 제약사항이 있기 때문에 이를 이해하고 데이터 모델링을 하는 것이 중요합니다.
 
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/datamodel.png)
 
@@ -240,7 +240,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 ## 데이터 모델링 시 알아두어야 할 점
 []({'id':'you-should-know', 'data-menu':'데이터 모델링 시 알아두어야 할 점'})
 
-- Collection, Property, Relationship 을 미리 정의 해야 함
+- Collection, Property 속성을 미리 정의 해야 함
 	* Property 속성(연결검색여부, 전문검색여부)을 정의해야 함
 	* Property 속성이 정의되어있지 않을 시 기본값(검색안함, 전문검색안함)으로 설정됨
 	* Relationship 속성은 Property 속성과 동일함
@@ -249,6 +249,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 	* 대량의 데이터가 있을 시 기존 데이터까지 변경해야하므로 전체 시스템에 부하를 발생시키지 않도록 점진적인 변경 진행
 	* 대량의 데이터 수정작업은 전체 시스템의 부하를 고려하여 내부에서 조절 됨, 변경작업을 할 수 없을 때 사용자에게 메세지를 노출 함
 
+`note` 전문검색여부(Full Text Search) : Property의 모든 text에 대해 단어 또는 구문의 검색 기능을 지원
 
 
 
@@ -258,7 +259,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 ## Property 속성이란
 []({'id':'property-metadata', 'data-menu':'Property 속성이란'})
 
-Property는 name, value 구성된 간단한 구조입니다. Property 속성은 검색여부, 전문검색여부, 유일값여부로 구성되는데, 데이터를 조회할 시 영향을 받습니다.
+Property는 name, value로 구성된 간단한 구조입니다. Property 속성은 검색여부, 전문검색여부, 유일값여부로 구성되는데, 이는 데이터를 조회할 시 영향을 받습니다.
 
 어플리케이션에 id, price, item_type 3가지 Property를 가진 items 컬렉션이 있다고 가정해봅시다. 그리고 3가지 프로퍼티의 속성을 아래와 같이 설정했다고 가정합니다.
 
@@ -268,9 +269,7 @@ price = 검색 X, 전문검색 X, 유일값 X
 item_type = 검색 O, 전문검색 O, 유일값 X
 ```
 
-`note` 전문검색여부(Full Text Search) : Property의 모든 text에 대해 단어 또는 구문의 검색 기능을 지원
-
-이때, 프로퍼티 속성이 어떤지에 따라서 데이터를 조회할 수 있을지 없을지가 결정됩니다.
+이때, Property 속성에 따라서 데이터를 조회할 수 있을지 없을지가 결정됩니다.
 
 |조회 가능여부|요청|비고
 |:-----------:|:------------:|:----------:|
