@@ -293,6 +293,24 @@ item_type = 검색 O, 전문검색 O, 유일값 X
 ![](https://raw.githubusercontent.com/baasio/develop_guide/develop/basic_concept/images/databrowser-role-list.png)
 
 
+
+## Predefined Collection Property 속성
+[]({'id':'predefined-property-metadata', 'data-menu':'Predefined Collection Property 속성'})
+
+### Users
+|Property|유일값여부|필수정보|검색여부|전문검색여부
+|:-----------:|:------------:|:----------:|:-----------:|:------------:|
+|username|O|O|O|O
+|email|O|X|O|X
+|activated|X|X|O|X
+|deactivated|X|X|O|X
+|confirmed|X|X|O|X
+|disabled|X|X|O|X
+|picture|X|X|X|X
+[]({'class':'table table-striped table-bordered'})
+
+
+
 <!--
 ## Relationship 속성이란
 []({'id':'relationship-metadata', 'data-menu':'Relationship 속성이란'})
