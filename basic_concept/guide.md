@@ -249,7 +249,7 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 	* 대량의 데이터가 있을 시 기존 데이터까지 변경해야하므로 전체 시스템에 부하를 발생시키지 않도록 점진적인 변경 진행
 	* 대량의 데이터 수정작업은 전체 시스템의 부하를 고려하여 내부에서 조절 됨, 변경작업을 할 수 없을 때 사용자에게 메세지를 노출 함
 
-`note` 전문검색여부(Full Text Search) : Property의 모든 text에 대해 단어 또는 구문의 검색 기능을 지원
+`note` 전문검색여부(Full Text Search) : Property의 모든 text에 대해 단어 또는 구문의 검색 기능을 지원합니다. 내용에 대해서 구분자(Space) 단위로 처리합니다.
 
 
 
