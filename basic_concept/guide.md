@@ -243,6 +243,12 @@ baas.io는 "user" Entity 간에 "following"이라는 특별한 Relationship을 �
 - Collection, Property 속성을 미리 정의 해야 함
 	* Property 속성(연결검색여부, 전문검색여부)을 정의해야 함
 	* Property 속성이 정의되어있지 않을 시 기본값(검색안함, 전문검색안함)으로 설정됨
+	* Property 속성은 Predefined 마다 다르게 정의되어 있음
+	    * Custom Collection 의 기본 Property 속성
+		* uuid = 검색 X, 전문검색 X, 유일값 O
+		* name = 검색 O, 전문검색 O, 유일값 O
+		* created = 검색 O, 전문검색 X, 유일값 X
+		* modified = 검색 O, 전문검색 X, 유일값 X
 	* Relationship 속성은 Property 속성과 동일함
 - Property, Relationship 속성 변경에는 제약사항이 있음
 	* 소량의 데이터는 즉시 반영 (시스템이 판단 - 엔티티 수가 1000건 이하이고, 프로퍼티 수가 많지 않을 때)
