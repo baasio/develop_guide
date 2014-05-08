@@ -309,7 +309,28 @@ item_type = 검색 O, 전문검색 O, 유일값 X
 |picture|X|X|X|X
 []({'class':'table table-striped table-bordered'})
 
+### Groups
+|Property|유일값여부|필수정보|검색여부|전문검색여부
+|:-----------:|:------------:|:----------:|:-----------:|:------------:|
+|path|O|O|O|O
+[]({'class':'table table-striped table-bordered'})
 
+### Devices
+|Property|유일값여부|필수정보|검색여부|전문검색여부
+|:-----------:|:------------:|:----------:|:-----------:|:------------:|
+|name|O|X|O|X
+|token|O|X|O|X
+[]({'class':'table table-striped table-bordered'})
+
+### Files
+|Property|유일값여부|필수정보|검색여부|전문검색여부
+|:-----------:|:------------:|:----------:|:-----------:|:------------:|
+|owner|X|O|O|X
+|dir|X|X|O|X
+|filename|X|O|X|X
+|size|X|O|O|X
+|path|X|O|O|X
+[]({'class':'table table-striped table-bordered'})
 
 <!--
 ## Relationship 속성이란
