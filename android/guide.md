@@ -25,10 +25,11 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 ## Download
 []({'id':'intro-download', 'data-menu':'Download'})
 
-- [SDK Library(v0.8.6)](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.6.zip)
-- [Sample Project](https://github.com/baasio/baas.io-sample-android/archive/master.zip)
-- [Startup Project](https://github.com/baasio/baas.io-startup-android/archive/master.zip)
-- [HelpCenter Sample Project](https://github.com/baasio/baas.io-helpcenter-android/archive/master.zip)
+- SDK Library Binary(v0.8.6) [`Download`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.6.zip)
+- SDK Source code [`Github`](http://github.com/baasio/baas.io-sdk-android) [`Download`](http://github.com/baasio/baas.io-sdk-android/archive/master.zip)
+- Sample Project [`GitHub`](https://github.com/baasio/baas.io-sample-android) [`Download`](https://github.com/baasio/baas.io-sample-android/archive/master.zip)
+- Startup Project [`GitHub`](https://github.com/baasio/baas.io-startup-android) [`Download`](https://github.com/baasio/baas.io-startup-android/archive/master.zip)
+- HelpCenter Sample Project [`GitHub`](https://github.com/baasio/baas.io-helpcenter-android) [`Download`](https://github.com/baasio/baas.io-helpcenter-android/archive/master.zip)
 
 ## Version History
 []({'id':'intro-version-history', 'data-menu':'Version History'})
