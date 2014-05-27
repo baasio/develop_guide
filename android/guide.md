@@ -21,13 +21,11 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 - [Jackson Java JSON-processor](http://jackson.codehaus.org/)
     - jackson-core-asl-1.9.1.jar
     - jackson-mapper-asl-1.9.1.jar
-- [slf4j](http://www.slf4j.org/)
-    - slf4j-android-1.6.1-RC1.jar
 
 ## Download
 []({'id':'intro-download', 'data-menu':'Download'})
 
-- [SDK Library(v0.8.5)](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.5.zip)
+- [SDK Library(v0.8.6)](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.6.zip)
 - [Sample Project](https://github.com/baasio/baas.io-sample-android/archive/master.zip)
 - [Startup Project](https://github.com/baasio/baas.io-startup-android/archive/master.zip)
 - [HelpCenter Sample Project](https://github.com/baasio/baas.io-helpcenter-android/archive/master.zip)
@@ -35,6 +33,8 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 ## Version History
 []({'id':'intro-version-history', 'data-menu':'Version History'})
 
+- v0.8.6 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.6.zip)
+	- 카카오톡을 통한 인증 기능 추가
 - v0.8.5 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.5.zip)
 	- 푸시 단말 등록 과정 개선
 - v0.8.4 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.4.zip)
@@ -198,8 +198,8 @@ baas.io는 가입/로그인/로그아웃/탈퇴 등의 **회원관리 기능을 
 BaasioUser클래스는 "users" Collection으로 관리되며, **"users" Collection으로 "user" entity를 생성/삭제하여 회원을 가입/탈퇴** 할 수 있습니다. 회원을 가입하는 방법은 username으로 가입하는 방법과 Facebook 계정으로 가입하는 방법을 지원합니다.
 
 -----
-`Note` Facebook 가입
-> Facebook 계정을 통해 회원 가입하면 Facebook에 저장된 프로필 정보들이 함께 저장됩니다.
+`Note` Facebook, 카카오톡 가입
+> Facebook 또는 카카오톡 계정을 통해 회원 가입하면 해당 서비스에 저장된 프로필 정보들이 함께 저장됩니다.
 
 -----
 
@@ -257,12 +257,56 @@ Facebook 계정을 통해 회원 가입을 할 수 있습니다. 이 기능을 �
 
 관련 내용은 [Facebook 가이드](#android/users/users-facebook)에 자세하게 설명되어 있습니다.
 
+관련 샘플도 [Sample Project](https://github.com/baasio/baas.io-sample-android/archive/master.zip)에 구현되어 있으니, 참고하셔도 좋습니다.
+
 Facebook Access Token을 발급 받은 후에는 아래와 같이 가입을 진행할 수 있습니다.
 
 ```java
 BaasioUser.signUpViaFacebookInBackground(
     context			// Context
     , fb_access_token	// Facebook access token
+    , new BaasioSignInCallback() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if(response != null) {
+                    // 성공
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+#### 관련 에러코드
+|Error Code | HTTP Status Code | 설명 |
+|:---------:|:----------------:|:----|
+|102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.|
+|200|401|인증 또는 권한과 관련된 문제가 발생했습니다.|
+|201|401|잘못된 username이거나 password 입니다.|
+|202|401|접근 권한(Permission)이 없습니다.|
+|911|400|이미 존재하는 리소스입니다.|
+|913|400|유일해야하는 속성을 중복해서 가질 수 없습니다.|
+
+[]({'class':'table table-striped table-bordered'})
+
+## Sign Up with Kakaotalk
+[]({'id':'users-signup-via-kakaotalk', 'data-menu':'Sign Up with Kakaotalk'})
+카카오톡 계정을 통해 회원 가입을 할 수 있습니다. 이 기능을 이용하기 위해서는 먼저 **Kakaotalk Api Key를 발급받으셔야 하며, Kakaotalk Api Key와 Kakaotalk SDK를 이용하여 인증 과정을 통해 Kakaotalk Access Token을 발급** 받아야 합니다.
+
+관련 내용은 [Kakaotalk 개발가이드](https://developers.kakao.com/docs/android)에 자세하게 설명되어 있습니다.
+
+관련 샘플도 [Sample Project](https://github.com/baasio/baas.io-sample-android/archive/master.zip)에 구현되어 있으니, 참고하셔도 좋습니다.
+
+Kakaotalk Access Token을 발급 받은 후에는 아래와 같이 가입을 진행할 수 있습니다.
+
+```java
+BaasioUser.signUpViaKakaotalkInBackground(
+    context			// Context
+    , kkt_access_token	// Kakaotalk access token
     , new BaasioSignInCallback() {
 
             @Override
@@ -364,6 +408,8 @@ Facebook 계정을 통해 가입된 회원을 로그인합니다. 마찬가지�
 
 관련 내용은 [Facebook 가이드](#android/users/users-facebook)에 자세하게 설명되어 있습니다.
 
+관련 샘플도 [Sample Project](https://github.com/baasio/baas.io-sample-android/archive/master.zip)에 구현되어 있으니, 참고하셔도 좋습니다.
+
 Facebook Access Token을 발급 받은 후에는 아래와 같이 로그인을 진행할 수 있습니다.
 
 ```java
@@ -400,6 +446,50 @@ Error Code | HTTP Status Code | 설명
 
 []({'class':'table table-striped table-bordered'})
 
+## Sign In with Kakaotalk
+[]({'id':'users-signin-via-kakaotalk', 'data-menu':'Sign In With Kakaotalk'})
+
+카카오톡 계정을 통해 가입된 회원을 로그인합니다. 마찬가지로 Kakaotalk Api Key가 필요하며, Kakaotalk Api Key와 Kakaotalk SDK를 이용하여 인증 과정을 통해 Kakaotalk Access Token을 발급 받아 로그인을 진행합니다.
+
+관련 내용은 [Kakaotalk 가이드](https://developers.kakao.com/docs/android)에 자세하게 설명되어 있습니다.
+
+관련 샘플도 [Sample Project](https://github.com/baasio/baas.io-sample-android/archive/master.zip)에 구현되어 있으니, 참고하셔도 좋습니다.
+
+Kakaotalk Access Token을 발급 받은 후에는 아래와 같이 로그인을 진행할 수 있습니다.
+
+```java
+BaasioUser.signInViaKakaotalkInBackground(
+    context
+    , kkt_access_token   //Kakaotalk access token
+    , new BaasioSignInCallback() {
+
+            @Override
+            public void onException(BaasioException e) {
+                // 실패
+            }
+
+            @Override
+            public void onResponse(BaasioUser response) {
+                if(response != null) {
+                    // 성공
+                    String name = response.getUsername(); // ID(Username)
+                }
+            }
+        });
+```
+
+#### 관련 에러코드
+Error Code | HTTP Status Code | 설명
+:---------:|:----------------:|:----
+102|400|전송된 데이터(entity)에 반드시 필요한 속성이 누락되었습니다. 요청 형식을 다시 확인해주세요.
+200|401|인증 또는 권한과 관련된 문제가 발생했습니다.
+201|401|잘못된 username이거나 password 입니다.
+202|401|접근 권한(Permission)이 없습니다.
+212|401|차단된 사용자입니다.
+213|401|탈퇴된 사용자입니다.
+911|400|이미 존재하는 리소스입니다.
+
+[]({'class':'table table-striped table-bordered'})
 
 ## Update User
 []({'id':'users-update', 'data-menu':'Update User'})
