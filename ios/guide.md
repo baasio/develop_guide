@@ -86,6 +86,9 @@ key가 name인 프로퍼티는 Unique한 속성을 가지고 있습니다. Entit
 
 
 
+
+
+
 # Users
 []({'id':'users', 'data-menu':'Users'})
 User 기능은 **users Collection**을 통해 지원되며, 사용자의 회원가입, 로그인 및 정보의 관리 기능을 제공합니다.
@@ -165,7 +168,6 @@ if (!error) {
                       }];
 ```
 
-
 ## Sign Up with Facebook
 []({'id':'users-sign-up-via-Facebook', 'data-menu':'Sign Up With Facebook'})
 Facebook을 이용한 회원가입 방법입니다. 기본 셋팅과 테스트는 [Facebook SDK 이용가이드](http://blog.baas.io/archives/921)에서 확인하실 수 있습니다.
@@ -196,6 +198,35 @@ NSString *accessToken = @"......"	//facebook Token
                              }];
 ```
 
+## Sign Up With Kakao
+[]({'id':'users-sign-up-via-Kakao', 'data-menu':'Sign Up With Kakao'})
+Kakao를 이용한 회원가입 방법입니다. Kakao에서 Access Token을 얻어오는 방법은 [Kakao SDK 개발가이드](https://developers.kakao.com/docs/ios)에서 확인하실 수 있습니다.
+
+#####동기식 코드
+```objc
+NSString *accessToken = [KOSession sharedSession].accessToken	//Kakao Token
+[BaasioUser signInViaKakaotalk:accessToken error:&error];
+
+if (!error) {
+	//성공
+    NSLog(@"Success");
+} else {
+	//실패
+    NSLog(@"Error: %@", error.localizedDescription);
+}
+```
+
+#####비동기식 코드
+```objc
+NSString *accessToken = [KOSession sharedSession].accessToken	//Kakao Token
+[BaasioUser signInViaKakaotalkInBackground:accessToken
+							 successBlock:^(void){
+                                 NSLog(@"success : %@", file.uuid);
+                             }
+                             failureBlock:^(NSError *error) {
+                                 NSLog(@"error : %@", error.localizedDescription);
+                             }];
+```
 
 ## Sign In
 []({'id':'users-sign-in', 'data-menu':'Sign In'})
@@ -248,6 +279,35 @@ if (!error) {
 ```objc
 NSString *accessToken = @"......"	//facebook Token
 [BaasioUser signUpViaFacebookInBackground:accessToken
+                             successBlock:^(void){
+                                NSLog(@"success : %@", file.uuid);
+                             }
+                             failureBlock:^(NSError *error) {
+                                NSLog(@"error : %@", error.localizedDescription);
+                             }
+```
+
+## Sign In With Kakao
+[]({'id':'users-sign-in-via-kakao', 'data-menu':'Sign In With Kakao'})
+
+#####동기식 코드
+```objc
+NSString *accessToken = [KOSession sharedSession].accessToken	// Kakao Token
+[BaasioUser signUpViaKakaotalk:accessToken error:&error];
+
+if (!error) {
+    //성공
+    NSLog(@"Success");
+} else {
+    //실패
+    NSLog(@"Error: %@", error.localizedDescription);
+}
+```
+
+#####비동기식 코드
+```objc
+NSString *accessToken = [KOSession sharedSession].accessToken	// Kakao Token
+[BaasioUser signUpViaKakaotalkInBackground:accessToken
                              successBlock:^(void){
                                 NSLog(@"success : %@", file.uuid);
                              }
