@@ -86,6 +86,97 @@ key가 name인 프로퍼티는 Unique한 속성을 가지고 있습니다. Entit
 
 
 
+# Getting Started
+[]({'id':'getting-started', 'data-menu':'Getting Started'})
+
+## Download
+[]({'id':'getting-started-download', 'data-menu':'Download'})
+
+
+### Clone
+baas.io SDK는 [AFNetworking](https://github.com/AFNetworking/AFNetworking)을 사용하였고, git의 submodule 로 연결되어 있다.
+
+그래서 아래와 같이 clone 후에 해당 폴더로 들어가 **submodule_setup.sh** 파일을 실행하여 submodule을 설치해 준다.
+```
+# git clone git://github.com/baasio/baas.io-sdk-ios.git
+# cd baas.io-sdk-ios
+# ./submodule_setup.sh
+```
+
+
+## Install
+[]({'id':'getting-started-install', 'data-menu':'Install'})
+### Step 1 : Build
+일단 다운 받으면 프로젝트 루트에  **baas.io.framework**가 존재하기 때문에 바로 사용하면 된다.
+
+하지만 SDK를 직접 수정하여 사용하기를 원하면 아래 방법을 이용하여 빌드하면 된다.
+#### XCode 에서
+XCode에서 target을 baas.io로 빌드하면, 설정된 Build Output Directory 에서 **baas.io.framework**을 얻을 수 있다.
+
+
+
+
+#### Terminal 에서 
+
+터미널에서 아래 명령어를 입력하면 **baas.io.framework**가 새로 빌드 된다.
+```
+# ./submodule_setup.sh
+```
+
+### Step 2 : Add to Your Project
+#### add Framework
+프로젝트를 만들고 "Build Pharses - Link Binary With Libraries - Add Item ('+' 버튼)"을 누른다.
+
+![<Build Pharses>](https://raw.github.com/wiki/baasio/baas.io-sdk-ios/images/add-Framework1.png)
+
+"Add Other.."을 눌러 `baas.io.framework`를 추가하고, 검색을 통하여  `MobileCoreServices.framework`와 `SystemConfiguration.framework`를 추가한다.
+([AFNetworking](https://github.com/AFNetworking/AFNetworking)이 이 Framework을 필요로 한다.)
+
+![<Add Framework>](https://raw.github.com/wiki/baasio/baas.io-sdk-ios/images/add-Framework2.png)
+
+
+
+
+#### add Configuration
+"Build Settings - Other Link"에 아래와 같이  `-ObjC`, `-all_load`를 추가한다.
+
+
+![<Add Configuration>](https://raw.github.com/wiki/baasio/baas.io-sdk-ios/images/add-Framework3.png)
+
+
+### Step 3 : Check That Everything Is Well.
+"Project > Build" 또는 단축키 `⌘B` 를 눌러 이상이 없는지 확인한다.
+
+
+
+
+
+
+### Step 4 : Dive In!
+아래와 같이 header 파일을 import 하고, 사용자 정보를 입력한 후 프로젝트를 샐행해 본다.
+
+```objc
+#import < baas.io/Baas.h>
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // 여기!!
+    [Baasio setApplicationInfo:@"${Your baas.io ID}" applicationName:@"${Your Application ID}"];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+```
+
+
+## Next Steps
+[]({'id':'getting-started-next', 'data-menu':'Next Steps'})
+이제 SDK를 활용하여, 멋진 iOS App을 만들 수 있습니다.
+
 
 
 
