@@ -187,7 +187,7 @@ User 기능은 **users Collection**을 통해 지원되며, 사용자의 회원�
 
 ##Sign Up
 []({'id':'users-sign-up', 'data-menu':'Sign Up'})
-회원을 가입하는 방법은 username(email)을 통한 가입과 Facebook을 통한 가입을 지원합니다.
+회원을 가입하는 방법은 username(email)을 통한 가입과 Facebook, Kakao를 통한 가입을 지원합니다.
 
 ####동기식 코드
 ```objc
@@ -266,7 +266,7 @@ Facebook을 이용한 회원가입 방법입니다. 기본 셋팅과 테스트�
 #####동기식 코드
 ```objc
 NSString *accessToken = @"......"	//facebook Token
-[BaasioUser signInViaFacebook:accessToken error:&error];
+[BaasioUser signUpViaFacebook:accessToken error:&error];
 
 if (!error) {
 	//성공
@@ -280,7 +280,7 @@ if (!error) {
 #####비동기식 코드
 ```objc
 NSString *accessToken = @"......"	//facebook Token
-[BaasioUser signInViaFacebookInBackground:accessToken
+[BaasioUser signUpViaFacebookInBackground:accessToken
 							 successBlock:^(void){
                                  NSLog(@"success : %@", file.uuid);
                              }
@@ -296,7 +296,7 @@ Kakao를 이용한 회원가입 방법입니다. Kakao에서 Access Token을 얻
 #####동기식 코드
 ```objc
 NSString *accessToken = [KOSession sharedSession].accessToken	//Kakao Token
-[BaasioUser signInViaKakaotalk:accessToken error:&error];
+[BaasioUser signUpViaKakao:accessToken error:&error];
 
 if (!error) {
 	//성공
@@ -310,7 +310,7 @@ if (!error) {
 #####비동기식 코드
 ```objc
 NSString *accessToken = [KOSession sharedSession].accessToken	//Kakao Token
-[BaasioUser signInViaKakaotalkInBackground:accessToken
+[BaasioUser signUpViaKakaoInBackground:accessToken
 							 successBlock:^(void){
                                  NSLog(@"success : %@", file.uuid);
                              }
@@ -321,7 +321,7 @@ NSString *accessToken = [KOSession sharedSession].accessToken	//Kakao Token
 
 ## Sign In
 []({'id':'users-sign-in', 'data-menu':'Sign In'})
-로그인 방법은 username(email)을 통한 로그인과 Facebook을 통한 로그인을 지원합니다.
+로그인 방법은 username(email)을 통한 로그인과 Facebook, Kakao를 통한 로그인을 지원합니다.
 
 #####동기식 코드
 ```objc
@@ -355,7 +355,7 @@ if (!error) {
 #####동기식 코드
 ```objc
 NSString *accessToken = @"......"	//facebook Token
-[BaasioUser signUpViaFacebook:accessToken error:&error];
+[BaasioUser signInViaFacebook:accessToken error:&error];
 
 if (!error) {
     //성공
@@ -369,7 +369,7 @@ if (!error) {
 #####비동기식 코드
 ```objc
 NSString *accessToken = @"......"	//facebook Token
-[BaasioUser signUpViaFacebookInBackground:accessToken
+[BaasioUser signInViaFacebookInBackground:accessToken
                              successBlock:^(void){
                                 NSLog(@"success : %@", file.uuid);
                              }
@@ -384,7 +384,7 @@ NSString *accessToken = @"......"	//facebook Token
 #####동기식 코드
 ```objc
 NSString *accessToken = [KOSession sharedSession].accessToken	// Kakao Token
-[BaasioUser signUpViaKakaotalk:accessToken error:&error];
+[BaasioUser signInViaKakao:accessToken error:&error];
 
 if (!error) {
     //성공
@@ -398,7 +398,7 @@ if (!error) {
 #####비동기식 코드
 ```objc
 NSString *accessToken = [KOSession sharedSession].accessToken	// Kakao Token
-[BaasioUser signUpViaKakaotalkInBackground:accessToken
+[BaasioUser signUpViaKakaoInBackground:accessToken
                              successBlock:^(void){
                                 NSLog(@"success : %@", file.uuid);
                              }
