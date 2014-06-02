@@ -22,6 +22,18 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
     - jackson-core-asl-1.9.1.jar
     - jackson-mapper-asl-1.9.1.jar
 
+##### UTF-8 설정
+이클립스 또는 ADT를 쓰실때에는 Workspace의 Encoding을 UTF-8로 설정하시기 바랍니다.
+
+- Mac
+ - ADT 또는 Eclipse의 Preferences > General > Workspace 이동
+ - Text file encoding이 UTF-8로 되어 있지 않다면 UTF-8로 변경
+- Windows
+ - Window > Prefernces > General > Workspace 이동
+ - Text file encoding이 UTF-8로 되어 있지 않다면 UTF-8로 변경
+
+![](/images/develop/android/eclipse-preferences-utf-8.png)
+
 ## Download
 []({'id':'intro-download', 'data-menu':'Download'})
 
