@@ -37,7 +37,7 @@ Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분�
     runnable.function = sample;
     ```
 - 파일명이 API Endpoint가 된다.
-    - sample.js라고 저장하면 `https://api.baas.io/${org_name}/${app_name}/pasta/sample` 로 접근 할 수 있다.
+    - sample.js라고 저장하면 `https://pasta-api.baas.io/${org_name}/${app_name}/pasta/sample` 로 접근 할 수 있다.
 
 - 'use strict' 모드로 작성해야 한다.
 	- [MSDN - Strict 모드(JavaScript)](http://msdn.microsoft.com/ko-kr/library/ie/br230269.aspx)
@@ -253,18 +253,18 @@ runnable.function = sample;
 실제 테스트를 하려면 다음과 같은 REST API 혹은 아래에서 다양한 앱 플랫폼에서 사용하는 방법이 있습니다.
 
 	# {endpoint} : API명
-	curl https://api.baas.io/my-baasio-id/my-app-id/pasta/{endpoint}
+	curl https://pasta-api.baas.io/my-baasio-id/my-app-id/pasta/{endpoint}
 
 에디터에서 저장한 코드를 실행시킨 결과는 다음과 같다.
 	
-	curl https://api.baas.io/baasio/sandbox/pastas/test
+	curl https://pasta-api.baas.io/baasio/sandbox/pastas/test
 
 	{
 	  "action" : "get",
 	  "application" : "2e11bd49-2ef0-11e3-bcbe-0200502e0005",
 	  "params" : { },
 	  "path" : "/pastas",
-	  "uri" : "https://api.baas.io/baasio/sandbox/pastas",
+	  "uri" : "https://pasta-api.baas.io/baasio/sandbox/pastas",
 	  "entities" : [ ],
 	  "response" : {
 	    "title" : "Hello Pasta!"
@@ -278,8 +278,11 @@ runnable.function = sample;
 
 ### <a id="step1.5"></a> 5. API 실행하기 & 로그 보기
 
-	TBW
+오른쪽 메뉴에서 APITest 메뉴를 클릭한 후 Request 버튼을 누르면 실행결과와 로그를 직접 볼 수 있다.
 
+![pasta.quickstart.8](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart8.png)
+
+![pasta.quickstart.9](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart9.png)
 
 ## <a id="step2"></a> 다양한 앱 플랫폼에서 사용하기
 []({'id':'quickstart-appplatform','data-menu':'다양한 앱 플랫폼에서 사용하기'})
@@ -360,7 +363,7 @@ git은 소스 코드 관리를 위한 분산 버전 시스템입니다. 여기�
 	코드 작성 후 커밋
 	$ git push origin {branch}
 	API 확인하기
-	$ curl https://api.baas.io/my-baasio-id/my-app-id/pasta/{endpoint}
+	$ curl https://pasta-api.baas.io/my-baasio-id/my-app-id/pasta/{endpoint}
 
 
 # 모듈
