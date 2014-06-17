@@ -45,7 +45,10 @@ Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분�
 
 - 사용자가 만든 파일을 `require`하려면 __HOME이라는 예약어를 사용해야 한다.
 	
-	`TBW`
+	```
+	// custom.js 파일을 require 하려면	
+	var custom = require(__HOME + 'custom');
+	```
 
 ## 기본 객체
 []({'id':'basic-object','data-menu':'기본 객체'})
@@ -134,11 +137,16 @@ logger 객체를 이용하여 로그를 출력 할 수 있다.
 ![pasta.quickstart.7](https://raw.githubusercontent.com/baasio/develop_guide/develop/pasta/images/quickstart7.png)
 	
 ### io
-`수정되어야 함`
 
-io는 `baas.io Pasta SDK`가 인스턴스 된 객체이다.
+io는 `baas.io Pasta SDK`가 아래와 같이 인스턴스 된 객체이다.
+```
+var io = new Baas.IO({
+	orgName:'yourorgname', // 물론 여러분의 정보를 이용하여 생성한다. 
+	appName:'sandbox'
+});
+```
 
-그래서 request에 포함 되어 있는 authorization 정보와 앱의 아이디등이 셋팅 되어 있다.
+즉 (생성 할 필요 없이) 그냥 쓰면 된다.
 
 `baas.io Pasta SDK`는 `baas.io javascript SDK`와 사용법이 같다.
 
