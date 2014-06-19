@@ -99,7 +99,7 @@ response 객체를 이용하여 화면에 데이터를 출력 할 수 있다.
 
 **주의 할 점은 response로 객체를 전송하면 해당 request가 끝나기 때문에 제일 마지막에 사용해야 한다.**
 
-method는 `finish`와 `error`가 있으며 샘플은 아래와 같다.
+~~method는 `finish`와 `error`가 있으며 샘플은 아래와 같다.~~
 
 * sample code
 ```javascript
