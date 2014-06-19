@@ -44,11 +44,14 @@ Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분�
 	- [Mozilla Developer Network - Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FFunctions_and_function_scope%2FStrict_mode)
 
 - 사용자가 만든 파일을 `require`하려면 __HOME이라는 예약어를 사용해야 한다.
+
 	
 	```
 	// custom.js 파일을 require 하려면	
 	var custom = require(__HOME + 'custom');
 	```
+	
+	**이 부분은 정식 버전 때 바뀔 수 있다. 하지만 비슷한 기능을 제공할 것이다**
 
 ## 기본 객체
 []({'id':'basic-object','data-menu':'기본 객체'})
@@ -99,7 +102,7 @@ response 객체를 이용하여 화면에 데이터를 출력 할 수 있다.
 
 **주의 할 점은 response로 객체를 전송하면 해당 request가 끝나기 때문에 제일 마지막에 사용해야 한다.**
 
-~~method는 `finish`와 `error`가 있으며 샘플은 아래와 같다.~~
+~~method는 `finish`와 `error`가 있으며 샘플은 아래와 같다.~~ (베타 버전에서는 지원하지 않음)
 
 * sample code
 ```javascript
