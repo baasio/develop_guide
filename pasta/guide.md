@@ -302,42 +302,32 @@ runnable.function = sample;
 	
 자신만의 API를 만든다는 것은 API 응답형식 또한 개발자가 정한다는 것입니다. 따라서, 안드로이드에서 해당 API 를 사용하려면 응답값에 대한 형식을 지정해줘야 합니다.
 	
-1) API 응답 클래스 작성
+##### API 사용하기
 
-응답 형식을 어떤식으로 지정해줘야한다는 것은 개발자가 원하는 대로 할 수 있지만 기본적인 정보는 다음과 같습니다.
+안드로이드 SDK 에서 제공하는 BaasioPasta 클래스를 사용하면 쉽게 할 수 있습니다. 세부적인 정보는 다음과 같습니다.
 
-	public class CustomResponse {
-    	private String action;
-		private UUID application;
-    	private String path;
-    	private String response; // 스크립트의 응답값
-    	private String uri;
-    	private String status;
-    	private long timestamp;
-    	private long duration;
-    }
+```java
+BaasioPasta.requestInBackground(
+	HttpMethod.GET, 				// HTTP Method
+    BaasioResponse.class, 			// 결과로 받을 Class
+    null, 							// url param
+    null,							// body로 보낼 내용
+    new BaasioCallback<BaasioResponse>() {
+            @Override
+            public void onResponse(BaasioResponse response) {
+                Log.e("baas.io", response.toString());
+                String result = response.getProperties().get("response");
+            }
 
-응답클래스를 어떻게 작성해야할지는 [BaasioResponse 클래스 소스](https://github.com/baasio/baas.io-sdk-android/blob/master/BaasioAndroid/src/com/kth/baasio/response/BaasioResponse.java) 살펴보면 도움이 될 것입니다.
+            @Override
+            public void onException(BaasioException e) {
+                Log.e("baas.io", e.toString());
+            }
+    }, 
+    "hello_world");					// Pasta API endpoint
+```
 
-2) API 사용하기
-
-안드로이드 SDK 에서 제공하는 customApiRequest API를 사용하면 쉽게 할 수 있습니다. 세부적인 정보는 다음과 같습니다.
-
-	/**
-     * Send baas.io custom API request
-     * 
-     * @param method HTTP method
-     * @param cls Result object class
-     * @param params URL parameters
-     * @param data HTTP entity
-     * @param segments URL segments(paths)
-     * @return Response for API request with class type
-     */
-    public <T> T customApiRequest(HttpMethod method, Class<T> cls, Map<String, Object> params, Object data, String... segments)
-
-실제 위의 예제에서 살펴보았던 서버API를 안드로이드 API에서 사용하면 다음과 같습니다.
-
-	CustomResponse response = Baas.io().customApiRequest(HttpMethod.GET, CustomResponse.class, null, null);
+즉, 결과는 onResponse()의 response로 전달되며, 결과는 result라는 String 값으로 받을 수 있습니다.
 
 ### <a id="step2.2"></a> iOS 플랫폼에서 API 사용하기
 
