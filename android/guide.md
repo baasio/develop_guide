@@ -48,6 +48,7 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
 
 - v0.8.6 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.6.zip)
 	- 카카오톡을 통한 인증 기능 추가
+	- Pasta API 호출을 위한 BaasioPasta 클래스 추가
 - v0.8.5 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.5.zip)
 	- 푸시 단말 등록 과정 개선
 - v0.8.4 [`다운로드`](http://baasio.github.com/baas.io-sdk-android/libraries/baas.io-sdk-android-v0.8.4.zip)
@@ -93,6 +94,7 @@ baas.io Android SDK는 baas.io에서 제공하는 서비스에 따라 아래와 
 - Group(그룹관리): BaasioGroup
 - File(파일관리): BaasioFile
 - Push(푸시메시지): BaasioPush
+- Pasta(서버사이드스크립트): BaasioPasta
 - Help Center(고객센터): BaasioHelp
 
 ## Method Rule
@@ -206,7 +208,7 @@ entity.saveInBackground(
 baas.io는 가입/로그인/로그아웃/탈퇴 등의 **회원관리 기능을 제공**하고 있습니다. 또한 **Facebook을 통한 가입/로그인 기능**도 제공이 되고 있으며, 이런 기능들은 모두 BaasioUser 클래스를 이용하여 구현하실 수 있습니다. 
 
 ## BaasioUser 클래스
-[]({'id':'users-class', 'data-menu':'Baasio User 클래스'})
+[]({'id':'users-class', 'data-menu':'BaasioUser 클래스'})
 
 BaasioUser클래스는 "users" Collection으로 관리되며, **"users" Collection으로 "user" entity를 생성/삭제하여 회원을 가입/탈퇴** 할 수 있습니다. 회원을 가입하는 방법은 username으로 가입하는 방법과 Facebook 계정으로 가입하는 방법을 지원합니다.
 
@@ -3305,8 +3307,44 @@ BaasioPush.sendPushInBackground(
 		});
 ```
 
+# Pasta
+[]({'id':'pasta', 'data-menu':'Pasta'})
 
+baas.io Pasta(파스타)는 모바일 앱/웹 개발자가 서버 필요 없이 자신만의 API를 쉽게 만들 수 있도록 도와줍니다.
+Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분들의 API를 작성할 수 있습니다.
+모바일 앱/웹 개발자가 작성된 코드를 파스타(Pasta)로 옮겨 사용하면 됩니다.
 
+이 가이드를 보시기 전에 [Pasta 개발가이드](#pasta/pasta_define)를 꼭 확인하시기 바랍니다.
+
+## BaasioPasta 클래스
+[]({'id':'pasta-class', 'data-menu':'BaasioPasta 클래스'})
+
+BaasioPasta 클래스를 통하여 Pasta API를 이용할 수 있는 기능을 제공합니다.
+
+## Pasta API 호출하기
+
+아래와 같이 Pasta API를 호출하면 onResponse로 결과가 전달됩니다.
+
+```java
+BaasioPasta.requestInBackground(
+	HttpMethod.GET, 				// HTTP Method
+    BaasioResponse.class, 			// 결과로 받을 Class
+    null, 							// url param
+    null,							// body로 보낼 내용
+    new BaasioCallback<BaasioResponse>() {
+            @Override
+            public void onResponse(BaasioResponse response) {
+                Log.e("baas.io", response.toString());
+                String result = response.getProperties().get("response");
+            }
+
+            @Override
+            public void onException(BaasioException e) {
+                Log.e("baas.io", e.toString());
+            }
+    }, 
+    "hello_world");					// Pasta API endpoint
+```
 
 # Help Center
 []({'id':'helpcenter', 'data-menu':'Help Center'})
