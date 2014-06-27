@@ -3322,6 +3322,7 @@ Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분�
 BaasioPasta 클래스를 통하여 Pasta API를 이용할 수 있는 기능을 제공합니다.
 
 ## Pasta API 호출하기
+[]({'id':'pasta-api-request', 'data-menu':'Sending Pasta API'})
 
 아래와 같이 Pasta API를 호출하면 onResponse로 결과가 전달됩니다.
 
