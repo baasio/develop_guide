@@ -300,11 +300,9 @@ runnable.function = sample;
 
 ### <a id="step2.1"></a> 안드로이드 플랫폼에서 API 사용하기
 	
-자신만의 API를 만든다는 것은 API 응답형식 또한 개발자가 정한다는 것입니다. 따라서, 안드로이드에서 해당 API 를 사용하려면 응답값에 대한 형식을 지정해줘야 합니다.
-	
-##### API 사용하기
+자신만의 API를 만든다는 것은 API 응답형식 또한 개발자가 정한다는 것입니다. 즉, 자신이 설계한 응답형식대로 String으로 전달되며, 원하는 방식으로 사용할 수 있습니다.
 
-안드로이드 SDK 에서 제공하는 BaasioPasta 클래스를 사용하면 쉽게 할 수 있습니다. 세부적인 정보는 다음과 같습니다.
+안드로이드 SDK 에서 제공하는 BaasioPasta 클래스를 사용하면 쉽게 이용할 수 있습니다. 아래 예제는 hello_world라는 API를 호출하여 onResponse()의 response로 결과 값을 받는 예제입니다.
 
 ```java
 BaasioPasta.requestInBackground(
@@ -326,8 +324,6 @@ BaasioPasta.requestInBackground(
     }, 
     "hello_world");					// Pasta API endpoint
 ```
-
-즉, 결과는 onResponse()의 response로 전달되며, 결과는 result라는 String 값으로 받을 수 있습니다.
 
 ### <a id="step2.2"></a> iOS 플랫폼에서 API 사용하기
 
