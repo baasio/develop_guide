@@ -74,6 +74,9 @@ method, headers, body, params, url, path, host 등의 정보가 담겨있다.
     runnable.function = sample;
     ```
 * 결과
+
+	위의 코드를 `request.js`로 저장하고, `https://pasta-api.baas.io/${org_name}/${app_name}/pasta/request?a=1&b=2` 라고 보내면 아래와 같은 결과를 얻을 수 있다.
+
     ```javascript
     {
       "method": "GET",
@@ -96,13 +99,62 @@ method, headers, body, params, url, path, host 등의 정보가 담겨있다.
     }
     ```
 
+#### body에 데이터 보내기
+HTTP Method가 POST/PUT 상태 일 때, 
+
+HTTP  Header에  Content-Type을 `application/json`으로 지정한 후 
+Body에 JSON형식의 데이터를 넣어 보내면 된다.
+
+아래 Curl 샘플을 참고하시라!!
+
+```
+# curl -X POST -H "Content-Type: application/json" -d '{"username":"xyz","password":"xyz"}' https://pasta-api.baas.io/cetauri/sandbox/pasta/demo
+{
+  "action" : "post",
+  "event_id" : "e550fde4-7dd7-401d-bb9a-372778ac8685",
+  "application" : "1443cd31-2ecc-11e2-87ec-0200554d0016",
+  "params" : { },
+  "path" : "/pastas",
+  "uri" : "http://localhost:8080/cetauri/sandbox/pastas",
+  "entities" : [ ],
+  "response" : {
+    "method" : "POST",
+    "headers" : {
+      "accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8, */*, application/json",
+      "content-type" : "application/json",
+      "connection" : "Keep-Alive",
+      "host" : "localhost:8080",
+      "x-forwarded-for" : "14.63.230.49",
+      "x-forwarded-host" : "pasta-api.baas.io",
+      "user-agent" : "curl/7.30.0",
+      "x-forwarded-server" : "api.baas.io",
+      "__private_baas" : "{\"applicationName\":\"sandbox\",\"baasName\":\"cetauri\",\"applicationUuid\":\"1443cd31-2ecc-11e2-87ec-0200554d0016\",\"baasUuid\":\"1433c792-2ecc-11e2-87ec-0200554d0016\",\"pastaVersion\":\"0.9\"}",
+      "content-length" : "46"
+    },
+    "body" : {
+      "username" : "xyz",
+      "password" : "xyz"
+    },
+    "params" : { },
+    "url" : "/demo",
+    "path" : "/demo",
+    "host" : "localhost"
+  },
+  "timestamp" : 1404118426667,
+  "duration" : 180,
+  "applicationName" : "sandbox",
+  "baasio_id" : "cetauri",
+  "error_code" : 0
+```
+
+
 
 ### response
 response 객체를 이용하여 화면에 데이터를 출력 할 수 있다.
 
 **주의 할 점은 response로 객체를 전송하면 해당 request가 끝나기 때문에 제일 마지막에 사용해야 한다.**
 
-~~method는 `finish`와 `error`가 있으며 샘플은 아래와 같다.~~ (베타 버전에서는 지원하지 않음)
+~~method는 `finish`와 `error`가 있으며 샘플은 아래와 같다.~~ (알파 버전에서는 차이가 없음)
 
 * sample code
 ```javascript
