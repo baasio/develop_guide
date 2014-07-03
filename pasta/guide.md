@@ -43,15 +43,16 @@ Javascript SDK를 사용하여 기존 어플리케이션을 만들듯 여러분�
 	- [MSDN - Strict 모드(JavaScript)](http://msdn.microsoft.com/ko-kr/library/ie/br230269.aspx)
 	- [Mozilla Developer Network - Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FFunctions_and_function_scope%2FStrict_mode)
 
-- 사용자가 만든 파일을 `require`하려면 __HOME이라는 예약어를 사용해야 한다.
-
-	
+- 사용자가 만든 파일을 `require`하려면 __HOME이라는 예약어를 사용해야 한다.	
 	```
 	// custom.js 파일을 require 하려면	
 	var custom = require(__HOME + 'custom');
 	```
-	
 	**이 부분은 정식 버전 때 바뀔 수 있다. 하지만 비슷한 기능을 제공할 것이다**
+
+- Timeout
+
+	Pasta를 Relay 서버로 사용하거나, 과도한 부하를 일으키는 사용자로 인하여 서비스에 장애를 줄 수 있기 때문에 `request timeout을 15초로 제한`합니다.
 
 ## 기본 객체
 []({'id':'basic-object','data-menu':'기본 객체'})
