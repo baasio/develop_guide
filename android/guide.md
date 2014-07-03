@@ -3336,7 +3336,7 @@ BaasioPasta.requestInBackground(
             @Override
             public void onResponse(BaasioResponse response) {
                 Log.e("baas.io", response.toString());
-                String result = response.getProperties().get("response");
+                String result = response.getProperties().get("response").asText();
             }
 
             @Override
