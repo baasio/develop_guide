@@ -861,7 +861,7 @@ Group 기능은 **Group** Collection을 통해 지원되며, 그룹을 만들어
 #####동기식 코드
 ```objc
 BaasioGroup *group = [[BaasioGroup alloc] init];
-[group setObject:groupName forKey:@"vip"];
+[group setObject:@"vip" forKey:@"path"];
 [group save:&error];
 if (!error) {
     //성공
@@ -875,7 +875,7 @@ if (!error) {
 #####비동기식 코드
 ```objc
 BaasioGroup *group = [[BaasioGroup alloc] init];
-[group setObject:groupName forKey:@"vip"];
+[group setObject:@"vip" forKey:@"path"];
 [group saveInBackground:^(BaasioGroup *group){
                NSLog(@"group : %@", group.description);
            }
