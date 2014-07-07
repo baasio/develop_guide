@@ -202,7 +202,7 @@ entity.saveInBackground(
 
 
 # Quick Start
-[]({'id':'quickstart', 'data-menu':'Quick Start'})
+[]({'id':'quick-start', 'data-menu':'Quick Start'})
 
 Startup Project를 다운로드 받아 데이터가 저장되는 것을 확인할 수 있는 가이드입니다.
 
@@ -2515,18 +2515,18 @@ BaasioPush 클래스는, **단말을 등록/해제/갱신 시켜주기 위한 �
 
 
 ## Quick Start For Push
-[]({'id':'quick-start', 'data-menu':'Quick Start For Push'})
+[]({'id':'push-quick-start', 'data-menu':'Quick Start For Push'})
 
-이 가이드를 통해 **Push 기능을 활성화** 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#quick-start-setup) 하셔도 됩니다.
+이 가이드를 통해 **Push 기능을 활성화** 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#android/push-quick-start/push-quick-start-setup) 하셔도 됩니다.
 
 -----
 `Warning` Quick Start를 하셨나요?
-> 이 가이드를 보시기 전에 [Quick Start](#quickstart)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다.
+> 이 가이드를 보시기 전에 [Quick Start](#android/quick-start)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다.
 
 -----
 
 ### Google API Key &amp; Sender ID
-[]({'id':'quick-start-key-and-senderid'})
+[]({'id':'push-quick-start-api-key-and-senderid'})
 
 GCM을 이용하기 위해서는 먼저 **Google API Key와 Sender ID**를 Google Console 페이지를 통해 발급 받아야합니다.
 
@@ -2591,9 +2591,9 @@ Create 버튼을 클릭하면 아래와 같이 Api key가 생성되어 보여집
 -----
 
 ### Setting Up Push
-[]({'id':'quick-start-setup', 'data-menu':'Setting Up Push'})
+[]({'id':'push-quick-start-setup', 'data-menu':'Setting Up Push'})
 
-baas.io의 Push 기능을 이용하기 위해서는 ["Google API Key 와 Sender ID 생성"](#push-quick-start-key-and-senderid) 과정을 통해 Google API Key와 Sender ID를 발급 받아야 합니다.
+baas.io의 Push 기능을 이용하기 위해서는 ["Google API Key 와 Sender ID 생성"](#push-quick-start-api-key-and-senderid) 과정을 통해 Google API Key와 Sender ID를 발급 받아야 합니다.
 
 아래의 입력창에, **적용하시려는 앱의 Package Name과 baas.io ID, Application ID, 발급받으신 Sender ID를 입력해주세요.**
 
@@ -3480,7 +3480,7 @@ BaasioHelp 클래스를 통해 고객센터의 FAQ를 조회하고 문의사항�
 
 -----
 `Warning` Quick Start를 하셨나요?
-> 이 가이드를 보시기 전에 [Quick Start](/develop/android/quickstart.html)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다.
+> 이 가이드를 보시기 전에 [Quick Start](#android/quick-start)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다.
 
 -----
 
