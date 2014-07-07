@@ -224,17 +224,17 @@ git clone https://github.com/baasio/baas.io-startup-android.git
 
 ### Step 2. 프로젝트 Import하기
 
-- "File > Import"를 선택합니다.
+- Eclipse에서 'File' > 'Import'를 선택합니다.
 
-![File > Import](/images/develop/android/quickstart-eclipse-import.png)
+![File > Import](https://raw.githubusercontent.com/baasio/develop_guide/develop/android/images/quickstart-eclipse-import.png)
 
-- Import 다이얼로그에서 "General-Existing Projects into Workspace"를 선택하고 "Next"버튼을 선택합니다.
+- Import 다이얼로그에서 'General-Existing Projects into Workspace'를 선택하고 'Next' 버튼을 선택합니다.
 
-![Existing Project](/images/develop/android/quickstart-eclipse-import-exist.png)
+![Existing Project](https://raw.githubusercontent.com/baasio/develop_guide/develop/android/images/quickstart-eclipse-import-exist.png)
 
-- 다음 Import 다이얼로그 화면에서 "Select root directory"의 "Browse"버튼을 눌러 다운로드 받은 폴더를 선택하고, "Projects:"에서 BaasioStartupProject를 프로젝트를 선택하고 "Finish"를 선택합니다.
+- 다음 Import 다이얼로그 화면에서 'Select root directory'의 'Browse'버튼을 눌러 다운로드 받은 폴더를 선택하고, 'Projects:'에서 BaasioStartupProject를 프로젝트를 선택하고 'Finish'를 선택합니다.
 
-![Select Startup Project](/images/develop/android/quickstart-eclipse-select-startup.png)
+![Select Startup Project](https://raw.githubusercontent.com/baasio/develop_guide/develop/android/images/quickstart-eclipse-select-startup.png)
 
 ### Step 3. BaasioConfig.java 수정
 
@@ -244,9 +244,9 @@ git clone https://github.com/baasio/baas.io-startup-android.git
 
 - '기본정보'를 선택하여 baas.io ID 와 Application ID를 확인합니다.
 
-![Basic Info](https://local.baas.io/images/develop/android/Portal-Ids.png)
+![Basic Info](https://raw.githubusercontent.com/baasio/develop_guide/develop/android/images/Portal-Ids.png)
 
-- Import된 프로젝트의 "src/com.kth.baasio.startup" 위치의 BaasioConfing.java파일을 열어 줍니다.
+- Import된 프로젝트의 'src/com.kth.baasio.startup' 위치의 BaasioConfig.java파일을 열어 줍니다.
 
 ```java
 package com.kth.baasio.startup;
@@ -275,27 +275,39 @@ public class BaasioConfig {
 
 - [baas.io](http://baas.io)사이트로 이동하여 로그인 합니다. (이미 로그인되어 있다면 건너뛰세요.)
 
-- MyPage > "sandbox" 백엔드 앱을 선택합니다. (이미 선택되어 있다면 건너뛰세요.)
+- MyPage > 'sandbox' 백엔드 앱을 선택합니다. (이미 선택되어 있다면 건너뛰세요.)
 
 - '데이터브라우저'를 선택합니다.
 
-- 'Add Collection' 버튼 선택
+- 'Add Collection' 버튼 선택합니다.
 
-- 'Collection Name'에 'greeting' 입력
+- 'Collection Name'에 'greeting' 입력합니다.
 
-- '+ Searchable Property' 버튼 선택
+- '+ Searchable Property' 버튼 선택하면 Searchable Property를 입력할 수 있는 입력창이 나타납니다.
 
-- 'Property Name'에 'greeting' 입력, 'Search' 체크박스 선택
+- 'Property Name'에 'greeting'이라는 Property를 이름을 입력합니다.
 
-- '생성' 버튼 선택
+- 'greeting' Property에 'Search' 체크박스 선택하여 검색가능하도록 설정합니다.
+
+- '생성'버튼을 선택하여 'greetings'라는 Collection의 데이터 모델을 생성을 마무리합니다.
 
 ### Step 5. Startup Project 실행
 
 - 안드로이드 단말을 연결합니다. Emulator를 이용하셔도 됩니다.
+
 - Startup Project를 빌드합니다.
+
 - 실행하면 아래와 같은 화면이 나타납니다.
+
+![Startup Run](https://raw.githubusercontent.com/baasio/develop_guide/develop/android/images/quickstart-startup-1.png)
+
 - 'baas.io 시작하기' 버튼을 눌르면, 'greetings' Collection에 'greeting' Entity가 하나 생성됩니다.
+
+![Startup Start](https://raw.githubusercontent.com/baasio/develop_guide/develop/android/images/quickstart-startup-2.png)
+
 - '확인하기' 버튼을 누르시면, 'baas.io 시작하기' 버튼을 눌러 생성한 'greeting' Entity를 baas.io로 부터 얻어와 화면에 보여줍니다.
+
+![Startup Check](https://raw.githubusercontent.com/baasio/develop_guide/develop/android/images/quickstart-startup-3.png)
 
 # Users
 []({'id':'users', 'data-menu':'Users'})
