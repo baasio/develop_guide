@@ -22,7 +22,8 @@ baas.io Android SDK는 아래와 같은 개발 환경을 지원합니다.
     - jackson-core-asl-1.9.1.jar
     - jackson-mapper-asl-1.9.1.jar
 
-##### UTF-8 설정
+### UTF-8 설정
+
 이클립스 또는 ADT를 쓰실때에는 Workspace의 Encoding을 UTF-8로 설정하시기 바랍니다.
 
 - Mac
@@ -200,6 +201,24 @@ entity.saveInBackground(
 []({'class':'table table-striped table-bordered'})
 
 
+# Quick Start
+[]({'id':'quickstart', 'data-menu':'Quick Start'})
+
+Startup Project를 다운로드 받아 데이터가 저장되는 것을 확인할 수 있는 가이드입니다.
+
+## Step 1. 소스 다운로드 하기
+
+### git clone을 이용한 방법
+
+git으로부터 clone을 받으시거나 fork를 하셔서 자유롭게 이용하실 수 있습니다.
+
+```
+git clone https://github.com/baasio/baas.io-startup-android.git
+```
+
+### zip으로 다은로드하는 방법
+
+[다운로드](https://github.com/baasio/baas.io-startup-android/archive/master.zip)
 
 
 # Users
