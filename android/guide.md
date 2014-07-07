@@ -2517,11 +2517,11 @@ BaasioPush 클래스는, **단말을 등록/해제/갱신 시켜주기 위한 �
 ## Quick Start For Push
 []({'id':'quick-start', 'data-menu':'Quick Start For Push'})
 
-이 가이드를 통해 **Push 기능을 활성화** 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#push-quick-start-setup) 하셔도 됩니다.
+이 가이드를 통해 **Push 기능을 활성화** 시킬 수 있습니다. 이미 Google API Key와 Sender ID를 가지고 계시다면 [다음 과정으로 건너뛰기](#quick-start-setup) 하셔도 됩니다.
 
 -----
 `Warning` Quick Start를 하셨나요?
-> 이 가이드를 보시기 전에 [Quick Start](/develop/android/quickstart.html)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다.
+> 이 가이드를 보시기 전에 [Quick Start](#quickstart)를 먼저 수행하셔서 기본적인 설정이 되어 있어야 합니다.
 
 -----
 
