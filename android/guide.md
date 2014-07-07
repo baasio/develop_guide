@@ -216,7 +216,7 @@ git으로부터 clone을 받으시거나 fork를 하셔서 자유롭게 이용�
 git clone https://github.com/baasio/baas.io-startup-android.git
 ```
 
-#### - zip으로 다은로드하는 방법
+#### - zip으로 다운로드하는 방법
 
 아래의 링크를 클릭하여 소스코드를 다운로드합니다.
 
