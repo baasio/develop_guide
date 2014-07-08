@@ -145,20 +145,20 @@ Collection들은 자동으로 Entity 타입의 영어 복수형 명사로 이름
 |:---|:---|:---|:---|
 |POST|files|multipart/form-data|파일 엔티티 생성 및 업로드|
 |POST|files|application/json|파일 엔티티 생성|
-|POST|https://blob.v1.api.baas.io/../files/{entityID}|application/octet-stream|파일 업로드|
+|POST|https://blob.baas.io/../files/{entityID}|application/octet-stream|파일 업로드|
 |POST|files/{entityID}/data|application/octet-stream|파일 업로드(DATA 커맨드 이용)|
 |POST|{collectionName}/{entityID}/files/{entityID}|N/A|다른 컬렉션의 엔티티와 파일 엔티티 관계 맺기|
 |GET|files|N/A|파일 엔티티 조회(전체)|
 |GET|files?filter={filter clause}|N/A|필터를 이용한 파일 엔티티 조회|
 |GET|files?ql={query clause}|N/A|질의를 이용한 파일 엔티티 조회|
 |GET|files/{entityID}|N/A|파일 엔티티 조회(단일)|
-|GET|https://blob.v1.api.baas.io/../files/{entityID}|N/A|파일 다운로드|
+|GET|https://blob.baas.io/../files/{entityID}|N/A|파일 다운로드|
 |GET|files/{entityID}/data|N/A|파일 다운로드(DATA 커맨드 이용)|
 |GET|{collectionName}/{entityID}/files|N/A|다른 컬렉션의 엔티티와 관계된 파일 엔티티 조회|
 |PUT|files/{entityID}|application/json|파일 엔티티 수정|
 |PUT|files?filter={filter clause}|application/json|필터를 이용한 일괄 파일 엔티티 수정|
 |PUT|files?ql={query clause}|application/json|질의를 이용한 일괄 파일 엔티티 수정|
-|PUT|https://blob.v1.api.baas.io/../files/{entityID}|application/octet-stream|파일 교체|
+|PUT|https://blob.baas.io/../files/{entityID}|application/octet-stream|파일 교체|
 |PUT|files/{entityID}/data|application/octet-stream|파일 교체(DATA 커맨드 이용)|
 |DELETE|files/{entityID}|N/A|파일 삭제(단일)|
 |DELETE|files?filter={filter clause}|N/A|필터를 이용한 파일 삭제|
