@@ -1326,7 +1326,7 @@ message.to = [NSMutableArray arrayWithObject:@"man"];
 
 ## 개별 발송
 []({'id':'individual', 'data-menu':'개별 발송'})
-BaasioMessage.to에 사용자의 UUID를 입력하면 됩니다.
+BaasioMessage.to에 사용자의 UUID or Tag를 입력하면 됩니다. Target은 기본으로 all이 설정되어 있으며 user와 tag를 입력하여 사용가능합니다. 입력한 uuid 유저의 디바이스가 등록되어 있지 않으면 발송되지 않습니다.
 1번 발송에 50개 제한이 있으니 유의하기 바랍니다.
 
 ```objc
@@ -1334,6 +1334,7 @@ BaasioPush *push = [[BaasioPush alloc] init];
 BaasioMessage *message = [[BaasioMessage alloc]init];
 message.badge = 1;
 message.to = @[@"f5df22f9-547e-11e2-b5a4-06ebb80000ba", @"a5df22f9-547e-11e2-b5a4-06ebb80000b1", ...];
+message.target = @"all";
 
 [push sendPushInBackground:message
               successBlock:^(void) {
