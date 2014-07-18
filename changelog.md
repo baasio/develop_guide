@@ -1,5 +1,11 @@
 #Change log
 
+## 1.0.2
+
+**Date : 2014/07/19**
+
+* Javascript SDK에 Kakao API를 사용한 회원가입 및 로그인 가이드 추가
+
 ## 1.0.1
 
 **Date : 2014/04/03**

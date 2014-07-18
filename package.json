@@ -1,6 +1,6 @@
 {
   "name": "develop_guide",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "개발 가이드를 보다 편리하게 개발 하기 위해 개발 된 페이지",
   "main": "index.js",
   "scripts": {

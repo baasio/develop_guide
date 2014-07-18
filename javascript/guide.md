@@ -165,6 +165,57 @@ io.login(username, password, function(errorFlag, responseData, userEntity){
 })
 ```
 
+##Kakao Sign up
+[]({'id':'kakao-user-signup','data-menu':'Kakao Sign up'})
+
+회원 가입을 하기 위해 Kako `access-token`이 필요합니다.
+
+다음 코드는 카카오 토근을 사용한 회원가입 예제입니다.
+
+```javascript
+
+var kakao_token = 'kakao token'
+
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+io.kakao_signup( {'kkt_access_token':kakao_token}), function(errorFlag, data){
+	if(errorFlag){
+
+		// 회원가입이 실패한 경우
+
+	} else {
+
+		// 회원가입이 성공한 경우
+
+	}
+});
+```
+
+[]({'class':'table table-striped'})
+
+##Kakao Sign in(login)
+[]({'id':'kakao-user-signin','data-menu':'Kakao Sign in, Log in'})
+
+로그인을 하기 위해 Kako `access-token`이 필요합니다.
+
+다음 코드는 카카오 토근을 사용한 로그인 예제입니다.
+
+```javascript
+
+var kakao_token = 'kakao token'
+
+// io객체는 미리 선언 되어야 한다. quickstart를 참조 하시기 바랍니다.
+io.kakao_signin( {'kkt_access_token':kakao_token}), function(errorFlag, data){
+	if(errorFlag){
+
+		// 회원가입이 실패한 경우
+
+	} else {
+
+		// 회원가입이 성공한 경우
+
+	}
+});
+``````
 ## Update User
 []({'id':'user-updateuser','data-menu':'Update User'})
 
