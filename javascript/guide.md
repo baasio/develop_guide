@@ -215,7 +215,9 @@ io.kakao_signin( {'kkt_access_token':kakao_token}), function(errorFlag, data){
 
 	}
 });
-``````
+
+```
+
 ## Update User
 []({'id':'user-updateuser','data-menu':'Update User'})
 
