@@ -13,7 +13,8 @@ Relationship에 대한 자세한 내용은 [Basic Concepts/Relationship](./devel
 
 생성 권한이 있는 collection에 entity를 생성합니다.  
 entity 생성 시`type`과 `name`의 key는 필수 입니다.  
-collection내에 같은 `name`으로 entity를 생성하려고 하면 에러가 발생합니다.
+collection내에 같은 `name`으로 entity를 생성하면 기존의 존재하는 entity의 데이터를 가져옵니다.
+'name'에 존재하는 entity를 찾으실 경우 ql를 사용하여 체크 후 생성하시면 됩니다.
 
 다음 코드는 전형적인 entity 생성을 보여줍니다.
 
