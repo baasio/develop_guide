@@ -2952,9 +2952,9 @@ Push를 이용하기 위해 아래와 같이 AndroidManifest.xml에 관련 클�
 * 푸시 사용 설정이 사용함인지 확인
 * 데이터브라우저 > Role 선택 > guest 선택 > Permission 탭 선택
 * "/devices" Create 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices")
-* "/devices/*" Update, Delete 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices/*")
+* "/devices/\*" Update, Delete 체크됨 확인(v0.8.1 이전 버전은 "/pushes/devices/\*")
 * 데이터브라우저 > Role 선택 > default 선택 > Permission 탭 선택
-* 설정된 Role이 "/device" Create와 "/devices/*" Update, Delete를 포함하고 있는지 확인(v0.8.1 이전 버전은 "/pushes/devices", "/pushes/devices/*")
+* 설정된 Role이 "/device" Create와 "/devices/\*" Update, Delete를 포함하고 있는지 확인(v0.8.1 이전 버전은 "/pushes/devices", "/pushes/devices/\*")
 * 프로젝트의 AndroidMenifest.xml 파일을 열어 아래와 같이 package 명이 제대로 들어가 있는지 확인합니다.
 ```xml
 <permission
